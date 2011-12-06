@@ -1,2 +1,14 @@
 more to come later
 you'll need python and matplotlib installed...
+
+# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist
+## command line options:
+## ---------------------
+## -i    input file
+## -o    output file
+## -p    show plot?
+## -hsw  height of the shear web
+## -hrb  height of the root buildup
+## -hsc  height of the spar cap
+## -c    curved and/or twisted beam?
+## -k1   twist angle
