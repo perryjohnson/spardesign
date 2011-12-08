@@ -1,14 +1,19 @@
-more to come later
-you'll need python and matplotlib installed...
+run "makeAllVABSinputs.bat" in a Windows command window
 
-# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist
+Notes:
+------
+(1) this software requires that PYTHON and MATPLOTLIB are already installed on your system
+(2) the "license" file must be in the top directory (spardesign) in order for VABS to run correctly
+(3) the batch file runs "makeVABSinput.py" for a series of cross-sections ... this needs to be modified by hand for now
+
+# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist_rate
 ## command line options:
-## ---------------------
-## -i    input file
-## -o    output file
-## -p    show plot?
-## -hsw  height of the shear web
-## -hrb  height of the root buildup
-## -hsc  height of the spar cap
-## -c    curved and/or twisted beam?
-## -k1   twist angle
+## ------------------------------------------------------
+## -i    input file                        [filename]
+## -o    output file                       [filename]
+## -p    show plot?                        [True/False]
+## -hsw  height of the shear web           [#]
+## -hrb  height of the root buildup        [#]
+## -hsc  height of the spar cap            [#]
+## -c    curved and/or twisted beam?       [True/False]
+## -k1   twist rate (dimensions of rad/m)  [#]

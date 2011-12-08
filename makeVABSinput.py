@@ -1,6 +1,6 @@
 # script to translate VRML files from Gridgen into VABS input files
 # this is the windows version (produces output file with Windows-style line endings?)
-# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist
+# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist_rate
 ## command line options:
 ## ---------------------
 ## -i    input file
@@ -10,7 +10,7 @@
 ## -hrb  height of the root buildup
 ## -hsc  height of the spar cap
 ## -c    curved and/or twisted beam?
-## -k1   twist angle
+## -k1   twist rate (dimensions of rad/m)
 
 
 import numpy as np        # import the numpy module; rename it as np
