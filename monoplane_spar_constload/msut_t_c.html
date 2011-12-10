@@ -1,0 +1,1775 @@
+
+ <html>
+ <head>
+   <meta name='GENERATOR' content='Dymore HTML'>
+   <title>index file</title>
+ </head>
+ <body bgcolor='#E9E9E9'>
+
+ <p><center><a name='TOP_OF_FILE'>
+ <font color='#004000' size=+3>
+ Model Definition for analysis:
+ </font>
+ <font size=+3> { </font>
+ <font color='#ff0000' size=+3>
+ D:\Dropbox\ucla\research\perry\github\spardesign\monoplane_spar_constload\msut_t_c
+ </font>
+ <font size=+3>}</font>
+ </center></p>
+
+ <ul>
+ <li><a href='#Actuator_Elements'>Actuator_Elements</a>.
+ <li><a href='#Aerodynamic_Elements'>Aerodynamic_Elements</a>.
+ <li><a href='#Aerodynamic_Properties'>Aerodynamic_Properties</a>.
+ <li><a href='#Analysis_Control'>Analysis_Control</a>.
+ <li><a href='#Constraint_Elements'>Constraint_Elements</a>.
+ <li><a href='#Controller_Elements'>Controller_Elements</a>.
+ <li><a href='#External_Loading'>External_Loading</a>.
+ <li><a href='#Geometric_Objects'>Geometric_Objects</a>.
+ <li><a href='#Graphical_Objects'>Graphical_Objects</a>.
+ <li><a href='#Utility_Objects'>Utility_Objects</a>.
+ <li><a href='#Structural_Elements'>Structural_Elements</a>.
+ <li><a href='#Structural_Properties'>Structural_Properties</a>.
+ </ul>
+
+ <p><center><hr>
+ <a name='Actuator_Elements'></a>
+ <font color="#ff0000">Actuator_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Aerodynamic_Elements'></a>
+ <font color="#ff0000">Aerodynamic_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Aerodynamic_Properties'></a>
+ <font color="#ff0000">Aerodynamic_Properties</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Analysis_Control'></a>
+ <font color="#ff0000">Analysis_Control</font>
+ <hr></center></p>
+
+ <p> @FEM_CONTROL_PARAMETERS {
+ <a href='#AnalysisControlParameters'>AnalysisControlParameters</a>}
+ <br></p>
+
+ <p> @GRAPHICS_CONTROL_PARAMETERS {
+ <a href='#GraphicsControlParameters'>GraphicsControlParameters</a>}
+ <br></p>
+
+ <p> @PLOTTING_CONTROL_PARAMETERS {
+ <a href='#PlottingControlParameters'>PlottingControlParameters</a>}
+ <br></p>
+
+ <p> @POST_PROCESSING_CONTROL_PARAMETERS {
+ <a href='#PostProcessControlParameters'>PostProcessControlParameters</a>}
+ <br></p>
+
+ <p> @STEP_CONTROL_PARAMETERS {
+ <a href='#Step1'>Step1</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Constraint_Elements'></a>
+ <font color="#ff0000">Constraint_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Controller_Elements'></a>
+ <font color="#ff0000">Controller_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='External_Loading'></a>
+ <font color="#ff0000">External_Loading</font>
+ <hr></center></p>
+
+ <p> @EDGE_LOAD_DEFINITION {
+ <a href='#constloaddist'>constloaddist</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Geometric_Objects'></a>
+ <font color="#ff0000">Geometric_Objects</font>
+ <hr></center></p>
+
+ <p> @BOUNDARY_CONDITION_DEFINITION {
+ <a href='#clampRoot'>clampRoot</a>}
+ <br></p>
+
+ <p> @CURVE_DEFINITION {
+ <a href='#curveBlade'>curveBlade</a>}
+ <br></p>
+
+ <p> @EDGE_DEFINITION {
+ <a href='#edgeBlade'>edgeBlade</a>}
+ <br></p>
+
+ <p> @FIXED_FRAME_DEFINITION {
+ <a href='#FXDFRAME_INERTIAL'>FXDFRAME_INERTIAL</a>}
+ <br></p>
+
+ <p> @CURVE_MESH_PARAMETERS_DEFINITION {
+ <a href='#meshBlade'>meshBlade</a>}
+ <br></p>
+
+ <p> @ORIENTATION_DISTRIBUTION_DEFINITION {
+ <a href='#OriBlade'>OriBlade</a>}
+ <br></p>
+
+ <p> @POINT_DEFINITION {
+ <a href='#POINT_ORIGIN'>POINT_ORIGIN</a>, 
+ <a href='#root'>root</a>, 
+ <a href='#tip'>tip</a>}
+ <br></p>
+
+ <p> @REFERENCE_FRAME_DEFINITION {
+ <a href='#REFFRAME_INERTIAL'>REFFRAME_INERTIAL</a>}
+ <br></p>
+
+ <p> @TRIAD_DEFINITION {
+ <a href='#TRIAD_INERTIAL'>TRIAD_INERTIAL</a>}
+ <br></p>
+
+ <p> @VERTEX_DEFINITION {
+ <a href='#vertexA'>vertexA</a>, 
+ <a href='#vertexB'>vertexB</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Graphical_Objects'></a>
+ <font color="#ff0000">Graphical_Objects</font>
+ <hr></center></p>
+
+ <p> @VIEW_PARAMETERS_DEFINITION {
+ <a href='#ViewParamName'>ViewParamName</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Utility_Objects'></a>
+ <font color="#ff0000">Utility_Objects</font>
+ <hr></center></p>
+
+ <p> @INCLUDE_COMMAND {
+ <a href='#include1'>include1</a>}
+ <br></p>
+
+ <p> @SURVEY_DEFINITION {
+ <a href='#svy_disp_spar'>svy_disp_spar</a>, 
+ <a href='#svy_force_spar'>svy_force_spar</a>, 
+ <a href='#svy_strain_spar'>svy_strain_spar</a>}
+ <br></p>
+
+ <p> @TIME_FUNCTION_DEFINITION {
+ <a href='#scheduleload'>scheduleload</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Structural_Elements'></a>
+ <font color="#ff0000">Structural_Elements</font>
+ <hr></center></p>
+
+ <p> @BEAM_DEFINITION {
+ <a href='#mono_spar'>mono_spar</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Structural_Properties'></a>
+ <font color="#ff0000">Structural_Properties</font>
+ <hr></center></p>
+
+ <p> @BEAM_PROPERTY_DEFINITION {
+ <a href='#propBlade'>propBlade</a>}
+ <br></p>
+
+ <p> @DATA_TABLE_DEFINITION {
+ <a href='#constloaddistTable'>constloaddistTable</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='POINT_ORIGIN'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">POINT_ORIGIN</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='TRIAD_INERTIAL'></a>
+ <font color='#004000' SIZE=+1>
+ @TRIAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @TRIAD_NAME {
+ <font color="#ff0000">TRIAD_INERTIAL</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>VECTORS_E2_E3</font>}
+
+ <dd>
+ @ORIENTATION_E2 {  0.00000e+000,  1.00000e+000,  0.00000e+000}
+
+ <dd>
+ @ORIENTATION_E3 {  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='FXDFRAME_INERTIAL'></a>
+ <font color='#004000' SIZE=+1>
+ @FIXED_FRAME_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @FIXED_FRAME_NAME {
+ <font color="#ff0000">FXDFRAME_INERTIAL</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>VECTORS_E2_E3</font>}
+
+ <dd>
+ @ORIENTATION_E2 {  0.00000e+000,  1.00000e+000,  0.00000e+000}
+
+ <dd>
+ @ORIENTATION_E3 {  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='scheduleload'></a>
+ <font color='#004000' SIZE=+1>
+ @TIME_FUNCTION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @TIME_FUNCTION_NAME {
+ <font color="#ff0000">scheduleload</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @TIME_FUNCTION_TYPE {<font color='#808000'>USER_DEFINED</font>}
+
+ <dd>
+ @TIME {  0.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  2.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  3.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  4.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  6.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  7.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  8.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  9.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.00000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.10000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.20000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.30000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.40000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.50000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\scheduleload.png' border='5'></center>
+ <center>TIME FUNCTION</center>
+ <p>
+
+ <p><center><hr>
+ <a name='include1'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">include1</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>msut_t_c.dat</font>,<font color='#808000'>loadDist.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='AnalysisControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @FEM_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @FEM_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">AnalysisControlParameters</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_TIME_STEPS {    10}
+
+ <dd>
+ @SIMULATION_TIME_RANGE {  0.00000e+000,  1.50000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @TIME_STEP_SIZE_RANGE {  1.00000e-006,  5.00000e-002}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @REFERENCE_ENERGY_LEVEL {  6.00000e+005}
+ <font color='#975820'>[J]</font>
+ <dd> @TIME_INTEGRATION_SCHEME_TYPE {<font color='#808000'></font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='Step1'></a>
+ <font color='#004000' SIZE=+1>
+ @STEP_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @STEP_CONTROL_PARAMETER_NAME {
+ <font color="#ff0000">Step1</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @ARCHIVAL_FREQUENCY {     1}
+
+ <dd>
+ @REUSE_NUMBER {   100}
+
+ <dd>
+ @NUMBER_OF_EIGENVALUES {    10}
+
+ <dd>
+ @EIGENPROBLEM_PRINT_FLAG {     0}
+ <dd> @GYROSCOPIC_TERMS {<font color='#808000'>NO</font>}
+
+ <dd>
+ @EIGEN_SPECTRUM_SHIFT {  0.00000e+000}
+
+ <dd>
+ @TIME_STEP_SIZE {  1.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_ITERATIONS {    10}
+
+ <dd>
+ @FACTORIZATION_STRATEGY {     1}
+
+ <dd>
+ @CONVERGENCE_TOLERANCE {  1.00000e-006}
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_REJECT {     5}
+
+ <dd>
+ @AVERAGE_STIFFNESS_TERM {  1.00000e+006}
+
+ <dd>
+ @AVERAGE_MASS_TERM {  0.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='GraphicsControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICS_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICS_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">GraphicsControlParameters</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @TIME_STEP_SIZE {  0.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+
+ <dd>
+ @EIGENVECTORS_SCALING_FACTOR {  1.00000e-001}
+
+ <dd>
+ @MODAL_ANIMATION_CYCLES {     5}
+
+ <dd>
+ @MODAL_ANIMATION_FRAMES_PER_CYCLE {   100}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>VELOCITIES</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='PlottingControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @PLOTTING_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @PLOTTING_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">PlottingControlParameters</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @GRAPH_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @GRAPH_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>LARGE</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>MEDIUM</font>}
+ <dd> @SENSOR_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @SENSOR_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SENSOR_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @SENSOR_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+
+ <dd>
+ @MAP_MEMORY_SIZE {    10}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='ViewParamName'></a>
+ <font color='#004000' SIZE=+1>
+ @VIEW_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VIEW_PARAMETERS_NAME {
+ <font color="#ff0000">ViewParamName</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @VIEW_REFERENCE_POINT {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+
+ <dd>
+ @VIEW_SIZE {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+
+ <dd>
+ @PROJECTION_REFERENCE_POINT {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+
+ <dd>
+ @PROJECTION_EYE_VECTOR {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+
+ <dd>
+ @PROJECTION_UP_VECTOR {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+
+ <dd>
+ @PROJECTION_VIEWPORT {  0.00000e+000,  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='root'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">root</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='tip'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">tip</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  9.19000e+001,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexA'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexA</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#root'>root</a>}
+ <dd> @BODY_LIST {<a href='#clampRoot'>clampRoot</a>,<a href='#mono_spar'>mono_spar</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexB'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexB</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#tip'>tip</a>}
+ <dd> @BODY_LIST {<a href='#mono_spar'>mono_spar</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='edgeBlade'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeBlade</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexA'>vertexA</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexB'>vertexB</a>}
+ <dd> @CURVE_NAME {<a href='#curveBlade'>curveBlade</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='mono_spar'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">mono_spar</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeBlade'>edgeBlade</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexA'>vertexA</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexB'>vertexB</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propBlade'>propBlade</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='curveBlade'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveBlade</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     2}
+
+ <dd>
+ @DEGREE_OF_CURVE {     1}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>NO</font>}
+ <dd> @END_POINT_0 {<a href='#root'>root</a>}
+ <dd> @END_POINT_1 {<a href='#tip'>tip</a>}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriBlade'>OriBlade</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshBlade'>meshBlade</a>}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\curveBladeQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\curveBladeQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\curveBladeQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='OriBlade'></a>
+ <font color='#004000' SIZE=+1>
+ @ORIENTATION_DISTRIBUTION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @ORIENTATION_DISTRIBUTION_NAME {
+ <font color="#ff0000">OriBlade</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>TWIST_ANGLE</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.17627e-003}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.50272e-002}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.78781e-002}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.07290e-002}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.79325e-002}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.32753e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.33080e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.51251e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.31770e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.68662e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.30460e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.86072e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.29150e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.15452e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.21330e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.44831e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.13500e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.74211e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.05680e+001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.63439e-001}
+
+ <dd>
+ @TWIST_ANGLE {  9.16600e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.51578e-001}
+
+ <dd>
+ @TWIST_ANGLE {  7.68800e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.39717e-001}
+
+ <dd>
+ @TWIST_ANGLE {  6.18000e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.28945e-001}
+
+ <dd>
+ @TWIST_ANGLE {  4.74300e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.99674e-001}
+
+ <dd>
+ @TWIST_ANGLE {  3.63300e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.17084e-001}
+
+ <dd>
+ @TWIST_ANGLE {  3.38300e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.77040e-001}
+
+ <dd>
+ @TWIST_ANGLE {  2.73500e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.05223e-001}
+
+ <dd>
+ @TWIST_ANGLE {  2.34800e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.94450e-001}
+
+ <dd>
+ @TWIST_ANGLE {  1.38000e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.46681e-001}
+
+ <dd>
+ @TWIST_ANGLE {  7.99000e-001}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @TWIST_ANGLE {  2.80000e-001}
+ <font color='#975820'>[deg]</font>
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\OriBlade.png' border='5'></center>
+ <center>ORIENTATION</center>
+ <p>
+
+ <p><center><hr>
+ <a name='meshBlade'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshBlade</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {    20}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='clampRoot'></a>
+ <font color='#004000' SIZE=+1>
+ @BOUNDARY_CONDITION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BOUNDARY_CONDITION_NAME {
+ <font color="#ff0000">clampRoot</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ENTITY_NAME {<a href='#vertexA'>vertexA</a>}
+
+ <dd>
+ @DISPLACEMENT_BOUNDARY_CONDITIONS {     1,     1,     1}
+
+ <dd>
+ @ROTATION_BOUNDARY_CONDITIONS {     1,     1,     1}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propBlade'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propBlade</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  7.64433e+009, -3.54450e-004, -1.50924e-003,  3.35997e+006,  2.77100e-001,  4.16025e-002,  2.82847e+008, -2.88632e+001, -4.59308e-001, -3.35179e+005,  3.41621e-003,  3.56067e+008, -4.07499e-001,  3.60796e-002, -4.25775e+004,  8.87740e+008,  1.88974e-003,  8.38695e-004,  4.52829e+010, -5.76867e-002,  2.26253e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.12247e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  3.95694e+003,  3.69612e+003,  2.60820e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.68346e-017, -1.14725e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.17627e-003}
+
+ <dd>
+ @STIFFNESS_MATRIX {  7.11189e+009,  1.15500e-004, -5.92727e-003,  2.56459e+006,  1.63993e-001,  1.87391e-001,  2.58492e+008, -2.26612e+001,  3.05466e-001, -2.66045e+005,  2.26471e-003,  3.55693e+008,  6.81421e-001,  3.03222e-002, -3.40804e+004,  8.84485e+008,  2.21089e-003,  1.36925e-003,  4.13952e+010, -1.58592e-001,  2.15975e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.66940e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  3.61870e+003,  3.36678e+003,  2.51924e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.07370e-017,  9.08900e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.50272e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  6.90383e+009, -5.60255e-004,  6.49026e-003,  1.36513e+006,  3.99970e-002, -3.13446e-001,  2.62217e+008, -3.78994e+001,  2.69619e-001, -1.60026e+005,  1.93061e-003,  3.35808e+008,  6.45836e-001,  1.23972e-002, -1.90304e+004,  8.32250e+008, -3.00328e-003, -2.31861e-003,  3.62241e+010,  4.26050e-001,  2.07639e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.08749e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.95201e+003,  2.71774e+003,  2.34262e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.79346e-017,  2.65542e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.78781e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  7.06747e+009,  2.08405e-004, -4.21390e-004,  5.39961e+005, -1.66190e-001,  3.57712e-002,  2.71445e+008, -1.35985e+001,  1.92883e-001, -7.87827e+004,  3.84021e-004,  3.14608e+008,  4.11953e-001,  4.74393e-003, -8.56936e+003,  7.74708e+008, -1.09845e-005,  2.33553e-004,  3.34104e+010, -5.09765e-002,  2.06095e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  5.67198e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.45514e+003,  2.23570e+003,  2.19438e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.95391e-017,  3.16313e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.07290e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.92607e+009, -1.61491e-004,  4.50122e-004,  2.00028e+005, -1.57181e-002, -8.98224e-002,  3.46825e+008, -1.05696e+001, -2.93124e-001, -4.15804e+004,  2.04212e-004,  2.89001e+008, -3.61476e-001,  7.48969e-004, -4.26530e+003,  7.10384e+008, -6.04533e-004, -4.74003e-004,  3.80183e+010,  6.13303e-002,  2.35792e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.14729e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.42899e+003,  2.20857e+003,  2.20419e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.84686e-017,  1.19921e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.79325e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.02760e+010,  3.00176e-005, -6.48038e-004,  2.48442e+004,  3.11902e-002,  1.85193e-001,  3.82118e+008, -2.04495e+000,  4.28466e-002, -8.48291e+003,  4.04212e-005,  2.62703e+008,  4.01181e-002,  8.79151e-004, -1.38313e+003,  6.38722e+008,  1.26637e-003,  5.04228e-004,  3.78778e+010, -1.55513e-001,  2.55670e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.38259e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.22450e+003,  2.00803e+003,  2.16475e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  7.51009e-017,  1.44723e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.32753e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.30607e+010, -5.26682e-006, -1.96154e-004,  1.49147e+003, -9.89820e-004,  4.82590e-002,  5.03918e+008, -4.70240e+000, -1.61727e-001, -3.10736e+001,  2.96042e-005,  2.30699e+008, -8.68585e-002,  2.85891e-004, -7.45872e+002,  5.60281e+008,  3.55433e-004,  1.05235e-004,  3.93401e+010, -5.90164e-002,  3.01462e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.37805e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.18785e+003,  1.96265e+003,  2.25202e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.16686e-017,  1.92610e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.51251e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.51233e+010, -1.10505e-001,  2.23821e-004,  1.40961e+003, -2.01753e-001, -8.80337e-002,  6.21984e+008, -7.19882e+000, -1.29380e+000, -3.25548e+001,  2.03785e-002,  2.14909e+008, -3.27930e-002, -1.33881e-004, -6.97529e+002,  5.25998e+008, -2.82849e-004, -1.79328e-004,  4.07257e+010,  3.62966e-002,  3.37105e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.25053e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.23911e+003,  2.00227e+003,  2.36840e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  4.30604e-018,  1.72242e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.68662e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.60591e+010,  4.86120e-005, -1.09188e-004,  1.32979e+003, -1.97813e-001,  4.65919e-002,  6.89073e+008,  3.92351e+000, -8.39935e-002, -3.28255e+001, -2.06756e-005,  2.00380e+008, -1.11273e-001,  8.10151e-005, -6.51502e+002,  4.91935e+008,  6.31264e-006,  7.53197e-005,  3.84337e+010, -5.52712e-003,  3.51677e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.60728e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.11500e+003,  1.87608e+003,  2.38926e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.47654e-017,  4.95308e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.86072e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.81230e+010,  8.39791e-006, -8.33664e-005,  1.24953e+003,  3.00939e-002,  2.64268e-002,  8.14739e+008, -7.72285e+000, -1.26985e-001, -3.33113e+001,  2.14835e-005,  1.84812e+008, -8.33425e-002,  4.22084e-005, -6.03864e+002,  4.57701e+008,  1.82494e-004,  4.68078e-005,  3.80554e+010, -8.55534e-003,  3.87407e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  9.48189e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.09074e+003,  1.84004e+003,  2.50699e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.24810e-017,  4.49621e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.15452e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.80514e+010,  5.68786e-005, -2.20728e-004,  1.16473e+003,  1.42368e-002,  7.34605e-002,  8.34108e+008, -3.80398e+000, -2.45861e-002, -3.23313e+001,  6.86572e-006,  1.70354e+008, -1.26950e-002,  1.87429e-004, -5.56525e+002,  4.21535e+008,  2.70254e-004,  1.36578e-004,  3.28662e+010, -4.27120e-002,  3.82892e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  9.37144e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.82813e+003,  1.58438e+003,  2.43742e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.51640e-017,  1.06148e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.44831e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.79871e+010,  3.62430e-006,  2.46669e-005,  1.08849e+003, -4.75842e-002, -1.11381e-002,  8.50299e+008, -8.48893e+000,  2.46251e-002, -3.12691e+001,  2.91810e-005,  1.57387e+008,  3.23959e-003, -9.49579e-006, -5.14125e+002,  3.89127e+008, -5.14254e-005, -1.88378e-005,  2.85333e+010,  1.21746e-003,  3.78835e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  9.27219e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.60929e+003,  1.37180e+003,  2.37491e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  7.66316e-018,  7.66316e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.74211e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.69154e+010, -1.55019e-005,  2.36924e-005,  1.00725e+003,  2.17405e-002, -1.43098e-002,  8.13580e+008, -3.88152e+000, -1.55852e-002, -2.95904e+001,  1.46068e-005,  1.44456e+008, -1.09354e-002, -7.23377e-006, -4.70384e+002,  3.54723e+008,  3.73605e-006, -1.85589e-005,  2.30109e+010,  7.68166e-004,  3.55690e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.70573e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.32782e+003,  1.10563e+003,  2.22196e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.63236e-017,  4.89707e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.63439e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.56411e+010, -5.02120e-006,  7.29373e-005,  8.34132e+002,  4.08280e-004, -3.36322e-002,  7.81071e+008, -9.06774e+000, -4.66197e-002, -2.58492e+001,  2.97958e-005,  1.16203e+008, -1.89660e-002, -3.57381e-005, -3.76702e+002,  2.82141e+008, -6.03988e-005, -3.97455e-005,  1.45785e+010,  8.32107e-003,  3.25328e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.96269e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  8.95931e+002,  6.97605e+002,  1.98326e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.23085e-017,  6.24638e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.51578e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.44978e+010, -2.98185e-007,  7.38704e-005,  6.66625e+002, -4.81417e-003, -3.83142e-002,  7.45682e+008,  2.37412e+000, -5.76035e-003, -2.15071e+001, -7.81269e-006,  8.91808e+007, -5.71854e-003, -3.52866e-005, -2.87377e+002,  2.13398e+008, -5.42419e-005, -3.31117e-005,  8.62867e+009,  9.90497e-003,  2.97667e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.28578e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  5.87001e+002,  4.10927e+002,  1.76075e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  4.87623e-018,  2.92574e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.39717e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.32612e+010, -1.43350e-006,  1.18309e-005,  5.36206e+002,  1.09914e-002, -5.99975e-003,  6.93842e+008,  2.27114e+000, -5.26992e-003, -1.76123e+001, -7.01917e-006,  6.88741e+007, -7.68006e-004, -2.90238e-006, -2.19416e+002,  1.61603e+008, -1.58098e-006, -3.77451e-006,  5.14436e+009,  7.35929e-004,  2.69682e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.60090e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  4.00010e+002,  2.44142e+002,  1.55869e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.88376e-017,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.28945e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.10526e+010, -3.02149e-006,  1.14597e-005,  4.42133e+002, -1.67656e-002, -7.17799e-003,  5.82822e+008,  5.37882e+001, -1.72117e-003, -1.44959e+001, -1.66601e-004,  5.54248e+007,  1.03039e-005, -5.59527e-006, -1.71943e+002,  1.25404e+008, -7.52542e-006, -3.46023e-006,  3.00373e+009,  1.76818e-003,  2.24835e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  5.50324e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.72614e+002,  1.42566e+002,  1.30047e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  9.68352e-018,  2.58227e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.99674e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.85713e+009, -3.39680e-007, -3.29744e-006,  3.63041e+002,  7.43026e-003,  5.57439e-003,  4.69454e+008,  4.50162e+000, -2.06815e-003, -1.18702e+001, -1.32825e-005,  4.44641e+007, -4.47658e-004,  1.09100e-006, -1.31955e+002,  9.57030e+007,  1.66368e-006,  1.62523e-006,  1.70184e+009, -4.73864e-004,  1.80816e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.42585e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.86382e+002,  8.08786e+001,  1.05503e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  0.00000e+000,  2.00680e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.17084e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.34030e+009,  6.10421e-007, -9.98864e-007,  3.43956e+002,  2.83797e-003,  1.81203e-003,  4.42566e+008,  4.43256e+000,  6.36129e-004, -1.12509e+001, -1.28884e-005,  4.18286e+007, -7.88145e-005,  5.18163e-007, -1.22195e+002,  8.86655e+007,  6.23291e-007,  4.69866e-007,  1.46053e+009, -2.76155e-004,  1.70444e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.17198e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.69142e+002,  6.94371e+001,  9.97044e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.27735e-017,  2.12892e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.77040e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  6.18151e+009,  4.87032e-006, -8.13375e-008,  3.11172e+002, -4.68530e-003,  2.66406e-003,  3.27810e+008,  5.41846e+000, -5.57426e-004, -1.00484e+001, -1.52673e-005,  3.73793e+007, -1.22881e-004, -2.63181e-007, -1.04109e+002,  7.40232e+007, -7.79510e-007,  5.21664e-007,  9.25678e+008,  1.61363e-004,  1.28738e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.15116e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.23040e+002,  4.43169e+001,  7.87229e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  8.45574e-018,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.05223e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.53885e+009, -2.40008e-006,  5.80240e-006,  2.97861e+002, -4.42958e-003, -1.25607e-002,  2.39794e+008,  4.08001e+000,  2.62513e-005, -9.36614e+000, -1.09214e-005,  3.48820e+007,  4.62425e-006, -5.98102e-007, -9.39695e+001,  6.39593e+007, -1.53174e-006, -2.24495e-006,  6.33852e+008,  5.74075e-004,  9.73609e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  2.38315e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.41629e+001,  3.06899e+001,  6.34730e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.72692e-017,  3.72692e-018}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.94450e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  2.37625e+009,  4.80853e-006,  1.42529e-006,  2.66689e+002,  4.70609e-003, -1.80547e-003,  1.23734e+008,  1.93488e+000,  2.83640e-003, -7.62369e+000, -5.05490e-006,  2.68645e+007,  2.74951e-004, -1.68491e-007, -6.65273e+001,  3.97442e+007,  3.29722e-007, -1.96370e-007,  2.63962e+008, -8.93103e-005,  5.54151e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  1.35646e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  5.53504e+001,  1.32287e+001,  4.21217e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.61912e-017,  1.63695e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.46681e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.35367e+009, -5.38217e-006, -2.85077e-006,  2.50653e+002,  5.34708e-003,  5.33128e-003,  6.80384e+007,  4.04533e+000, -2.70665e-003, -6.09222e+000, -9.11846e-006,  1.98483e+007, -2.32211e-004,  6.99516e-008, -4.60333e+001,  2.33255e+007,  3.42797e-007,  3.60560e-007,  1.24240e+008, -4.05170e-004,  3.53679e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.65774e+001}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  3.81684e+001,  6.56881e+000,  3.15996e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.84704e-017,  7.69409e-018}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.02585e+008, -4.37834e-006,  3.38996e-007,  1.97203e+002,  5.05697e-005, -4.12904e-004,  3.90213e+007,  4.52324e+000,  9.45763e-005, -4.19238e+000, -7.23835e-006,  1.01103e+007, -1.40292e-006, -4.34740e-007, -1.69521e+001,  9.33952e+006, -7.08661e-009, -2.68591e-008,  4.34318e+007,  4.19077e-005,  2.28353e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  5.59069e+001}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.48782e+001,  2.40467e+000,  2.24735e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.38301e-017,  5.95753e-018}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\propBladeQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_disp_spar'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_spar</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#mono_spar'>mono_spar</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_disp_sparQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_disp_sparQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_spar'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_spar</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#mono_spar'>mono_spar</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_force_sparQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_force_sparQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_spar'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_spar</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#mono_spar'>mono_spar</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_strain_sparQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\svy_strain_sparQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='constloaddist'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">constloaddist</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeBlade'>edgeBlade</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  1.00000e+003}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='constloaddistTable'></a>
+ <font color='#004000' SIZE=+1>
+ @DATA_TABLE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @DATA_TABLE_NAME {
+ <font color="#ff0000">constloaddistTable</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+ <dd> @DATA_TYPE {<font color='#808000'>FORCE_ALONG_I3</font>}
+
+ <dd>
+ @X_ENTRY {  0.00000e+000}
+
+ <dd>
+ @Y_ENTRY { -1.00000e+000}
+ <font color='#975820'>[N/m]</font>
+
+ <dd>
+ @X_ENTRY {  1.00000e+000}
+
+ <dd>
+ @Y_ENTRY { -1.00000e+000}
+ <font color='#975820'>[N/m]</font>
+ <dd> @COMMENTS {<font color='#808000'>this defines the load on any edge (beam) to have a constant load distribution</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\constloaddistTable.png' border='5'></center>
+ <center>FORCE_ALONG_I3</center>
+ <p>
