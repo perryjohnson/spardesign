@@ -11,7 +11,11 @@
      ****************************************************
      ---  Version: Georgia Tech Dymore V.3
 
+<<<<<<< HEAD
      --- Run date: Fri Dec 09 18:20:58 2011
+=======
+     --- Run date: Fri Dec 09 17:32:09 2011
+>>>>>>> 77093ea64fa2779725deb0bc0a2ff246bb2c900f
 
 
 
@@ -54,6 +58,7 @@
  Time = ( 1.40000e+001).  Function value = ( 1.00000e+000).
  Time = ( 1.50000e+001).  Function value = ( 1.00000e+000).
 
+<<<<<<< HEAD
 
 
       ------------------------
@@ -1246,13 +1251,315 @@
  
  
 
+=======
+>>>>>>> 77093ea64fa2779725deb0bc0a2ff246bb2c900f
       ---  Destroying Iost  ---- 
 
 
       ---  List of Memory Items  ---- 
 
+<<<<<<< HEAD
  Number of Items = (    4).
  Item ID = (33000).  Pointer = (        005ED798).
  Item ID = (33001).  Pointer = (        005F5D60).
  Item ID = (33003).  Pointer = (        005F5D78).
  Item ID = (33004).  Pointer = (        005F5D90).
+=======
+ Number of Items = (  296).
+ Item ID = (33000).  Pointer = (        00502320).
+ Item ID = (33001).  Pointer = (        0051C590).
+ Item ID = (33003).  Pointer = (        0051C5A8).
+ Item ID = (33004).  Pointer = (        0051C5C0).
+ Item ID = (30600).  Pointer = (        00518528).
+ Item ID = (30601).  Pointer = (        023A8D48).
+ Item ID = (75000).  Pointer = (        0050C3D0).
+ Item ID = (76000).  Pointer = (        023AA818).
+ Item ID = (74000).  Pointer = (        005195C8).
+ Item ID = (31500).  Pointer = (        0051A6F8).
+ Item ID = (30603).  Pointer = (        0050F2C8).
+ Item ID = (90000).  Pointer = (        005244B0).
+ Item ID = (59000).  Pointer = (        00505B30).
+ Item ID = (59001).  Pointer = (        023A8DF0).
+ Item ID = (110100).  Pointer = (        005069D0).
+ Item ID = (110101).  Pointer = (        023A8ED0).
+ Item ID = (110110).  Pointer = (        004FFE40).
+ Item ID = (110110).  Pointer = (        0050F508).
+ Item ID = (110111).  Pointer = (        00524920).
+ Item ID = (110111).  Pointer = (        0050F4D8).
+ Item ID = (110111).  Pointer = (        0051A1D0).
+ Item ID = (110111).  Pointer = (        0050F2E0).
+ Item ID = (110111).  Pointer = (        0050F2F8).
+ Item ID = (110111).  Pointer = (        0050F340).
+ Item ID = (110111).  Pointer = (        005249F0).
+ Item ID = (110111).  Pointer = (        0050F250).
+ Item ID = (110111).  Pointer = (        0050F4C0).
+ Item ID = (110111).  Pointer = (        0050F358).
+ Item ID = (110111).  Pointer = (        0050F268).
+ Item ID = (110111).  Pointer = (        0050F3A0).
+ Item ID = (110111).  Pointer = (        00524AC0).
+ Item ID = (110111).  Pointer = (        0050F280).
+ Item ID = (110111).  Pointer = (        0050F3B8).
+ Item ID = (110111).  Pointer = (        00524B30).
+ Item ID = (110111).  Pointer = (        0050F1A8).
+ Item ID = (110111).  Pointer = (        0050F1C0).
+ Item ID = (110111).  Pointer = (        0050F310).
+ Item ID = (110111).  Pointer = (        00524BC0).
+ Item ID = (110120).  Pointer = (        0050F3E8).
+ Item ID = (110120).  Pointer = (        00513750).
+ Item ID = (110120).  Pointer = (        0051A1B0).
+ Item ID = (110120).  Pointer = (        004FFED0).
+ Item ID = (110120).  Pointer = (        0051A190).
+ Item ID = (110120).  Pointer = (        00524C90).
+ Item ID = (110120).  Pointer = (        004FFF00).
+ Item ID = (110120).  Pointer = (        00502550).
+ Item ID = (110120).  Pointer = (        00524D00).
+ Item ID = (110120).  Pointer = (        0051A430).
+ Item ID = (110120).  Pointer = (        00524D50).
+ Item ID = (110120).  Pointer = (        0050F1D8).
+ Item ID = (110120).  Pointer = (        00502578).
+ Item ID = (110120).  Pointer = (        004FFF30).
+ Item ID = (110120).  Pointer = (        005025A0).
+ Item ID = (110120).  Pointer = (        00524E00).
+ Item ID = (110120).  Pointer = (        005025C8).
+ Item ID = (110120).  Pointer = (        00524E50).
+ Item ID = (110120).  Pointer = (        0051A510).
+ Item ID = (110120).  Pointer = (        0051A4F0).
+ Item ID = (110120).  Pointer = (        004FFF60).
+ Item ID = (110120).  Pointer = (        0050F1F0).
+ Item ID = (110120).  Pointer = (        004FFF90).
+ Item ID = (110120).  Pointer = (        0050F208).
+ Item ID = (110120).  Pointer = (        004FFFC0).
+ Item ID = (110120).  Pointer = (        0051A4D0).
+ Item ID = (110120).  Pointer = (        00507CE0).
+ Item ID = (110120).  Pointer = (        004FFFF0).
+ Item ID = (110120).  Pointer = (        0050F3D0).
+ Item ID = (110120).  Pointer = (        00500020).
+ Item ID = (110120).  Pointer = (        005025F0).
+ Item ID = (110120).  Pointer = (        00500110).
+ Item ID = (110120).  Pointer = (        0051A170).
+ Item ID = (110120).  Pointer = (        00507C10).
+ Item ID = (110120).  Pointer = (        00507BC0).
+ Item ID = (110121).  Pointer = (        00507BB0).
+ Item ID = (110121).  Pointer = (        0051A2B0).
+ Item ID = (110121).  Pointer = (        0051A090).
+ Item ID = (110121).  Pointer = (        0051A0D0).
+ Item ID = (110121).  Pointer = (        0050F160).
+ Item ID = (110121).  Pointer = (        0050F490).
+ Item ID = (110121).  Pointer = (        0050F178).
+ Item ID = (110121).  Pointer = (        0050A2D0).
+ Item ID = (110121).  Pointer = (        0050A2E8).
+ Item ID = (110121).  Pointer = (        0050A300).
+ Item ID = (110121).  Pointer = (        0050A390).
+ Item ID = (110121).  Pointer = (        0050A3A8).
+ Item ID = (110121).  Pointer = (        00519F10).
+ Item ID = (110121).  Pointer = (        0050A3C0).
+ Item ID = (110121).  Pointer = (        0050A3D8).
+ Item ID = (110121).  Pointer = (        0050A3F0).
+ Item ID = (110121).  Pointer = (        0050A408).
+ Item ID = (110121).  Pointer = (        0050A420).
+ Item ID = (110121).  Pointer = (        0050A438).
+ Item ID = (110121).  Pointer = (        0050A450).
+ Item ID = (110121).  Pointer = (        0050A468).
+ Item ID = (110121).  Pointer = (        0050A480).
+ Item ID = (110121).  Pointer = (        0050A498).
+ Item ID = (110121).  Pointer = (        0050A4B0).
+ Item ID = (110121).  Pointer = (        00519F70).
+ Item ID = (110121).  Pointer = (        00507880).
+ Item ID = (110121).  Pointer = (        0050A4C8).
+ Item ID = (110121).  Pointer = (        0050A318).
+ Item ID = (110121).  Pointer = (        0050A330).
+ Item ID = (110121).  Pointer = (        0050A348).
+ Item ID = (110121).  Pointer = (        0050A4E0).
+ Item ID = (110121).  Pointer = (        0050A360).
+ Item ID = (110121).  Pointer = (        0050A378).
+ Item ID = (110121).  Pointer = (        0050A510).
+ Item ID = (110121).  Pointer = (        0051A390).
+ Item ID = (110121).  Pointer = (        0051A3B0).
+ Item ID = (110121).  Pointer = (        0051A4B0).
+ Item ID = (110121).  Pointer = (        0050A4F8).
+ Item ID = (110121).  Pointer = (        0051A150).
+ Item ID = (110121).  Pointer = (        0050A528).
+ Item ID = (110121).  Pointer = (        0050A540).
+ Item ID = (110121).  Pointer = (        0050A570).
+ Item ID = (110121).  Pointer = (        0050A558).
+ Item ID = (110121).  Pointer = (        0050A588).
+ Item ID = (110121).  Pointer = (        0051A130).
+ Item ID = (110121).  Pointer = (        0051A490).
+ Item ID = (110121).  Pointer = (        0051A350).
+ Item ID = (110121).  Pointer = (        0051A410).
+ Item ID = (110121).  Pointer = (        00508560).
+ Item ID = (110121).  Pointer = (        005084E0).
+ Item ID = (110121).  Pointer = (        0050A5A0).
+ Item ID = (110121).  Pointer = (        00501730).
+ Item ID = (110121).  Pointer = (        0051A070).
+ Item ID = (110121).  Pointer = (        00501748).
+ Item ID = (110121).  Pointer = (        00508370).
+ Item ID = (110121).  Pointer = (        00501760).
+ Item ID = (110121).  Pointer = (        00501778).
+ Item ID = (110121).  Pointer = (        00501790).
+ Item ID = (110121).  Pointer = (        00502618).
+ Item ID = (110121).  Pointer = (        005017A8).
+ Item ID = (110121).  Pointer = (        005017C0).
+ Item ID = (110121).  Pointer = (        00505748).
+ Item ID = (110121).  Pointer = (        00508050).
+ Item ID = (110130).  Pointer = (        023A8F08).
+ Item ID = (110130).  Pointer = (        00502640).
+ Item ID = (110130).  Pointer = (        00507F70).
+ Item ID = (110131).  Pointer = (        00507E30).
+ Item ID = (110131).  Pointer = (        00505760).
+ Item ID = (110131).  Pointer = (        00519FB0).
+ Item ID = (110131).  Pointer = (        00505778).
+ Item ID = (110131).  Pointer = (        00505790).
+ Item ID = (110131).  Pointer = (        005057A8).
+ Item ID = (110131).  Pointer = (        0051A470).
+ Item ID = (110131).  Pointer = (        005057C0).
+ Item ID = (110131).  Pointer = (        0051A450).
+ Item ID = (110131).  Pointer = (        005057D8).
+ Item ID = (110131).  Pointer = (        005084B0).
+ Item ID = (110131).  Pointer = (        005057F0).
+ Item ID = (110131).  Pointer = (        00505808).
+ Item ID = (110131).  Pointer = (        00508440).
+ Item ID = (110131).  Pointer = (        005083B0).
+ Item ID = (110131).  Pointer = (        00505820).
+ Item ID = (110131).  Pointer = (        00508330).
+ Item ID = (110132).  Pointer = (        00508280).
+ Item ID = (110132).  Pointer = (        00505838).
+ Item ID = (110132).  Pointer = (        0051A3F0).
+ Item ID = (110132).  Pointer = (        00508230).
+ Item ID = (110132).  Pointer = (        00505850).
+ Item ID = (110132).  Pointer = (        005081B0).
+ Item ID = (110132).  Pointer = (        00505868).
+ Item ID = (110132).  Pointer = (        0051A370).
+ Item ID = (110132).  Pointer = (        00508140).
+ Item ID = (110132).  Pointer = (        005080B0).
+ Item ID = (110132).  Pointer = (        00505880).
+ Item ID = (110132).  Pointer = (        00508030).
+ Item ID = (110132).  Pointer = (        00507F80).
+ Item ID = (110132).  Pointer = (        0051A330).
+ Item ID = (110132).  Pointer = (        00507F00).
+ Item ID = (110133).  Pointer = (        00507F20).
+ Item ID = (110133).  Pointer = (        00505898).
+ Item ID = (110133).  Pointer = (        0051A2F0).
+ Item ID = (110133).  Pointer = (        0051A270).
+ Item ID = (110133).  Pointer = (        0051A110).
+ Item ID = (110133).  Pointer = (        005058B0).
+ Item ID = (110133).  Pointer = (        0051A0B0).
+ Item ID = (110133).  Pointer = (        0051A050).
+ Item ID = (110133).  Pointer = (        005058C8).
+ Item ID = (110133).  Pointer = (        00519F90).
+ Item ID = (110133).  Pointer = (        00519F30).
+ Item ID = (110133).  Pointer = (        005058E0).
+ Item ID = (110133).  Pointer = (        00502668).
+ Item ID = (110133).  Pointer = (        00508AD0).
+ Item ID = (110133).  Pointer = (        005058F8).
+ Item ID = (110133).  Pointer = (        00508AF0).
+ Item ID = (110133).  Pointer = (        00505910).
+ Item ID = (110133).  Pointer = (        0051FD78).
+ Item ID = (110133).  Pointer = (        00505928).
+ Item ID = (110133).  Pointer = (        00508B10).
+ Item ID = (110133).  Pointer = (        00505940).
+ Item ID = (110133).  Pointer = (        00505958).
+ Item ID = (110133).  Pointer = (        00505970).
+ Item ID = (110133).  Pointer = (        00505988).
+ Item ID = (110133).  Pointer = (        0051FC88).
+ Item ID = (110133).  Pointer = (        0051FA08).
+ Item ID = (110133).  Pointer = (        00502690).
+ Item ID = (110133).  Pointer = (        005026B8).
+ Item ID = (110133).  Pointer = (        005026E0).
+ Item ID = (110133).  Pointer = (        00502708).
+ Item ID = (110133).  Pointer = (        005059A0).
+ Item ID = (110133).  Pointer = (        0051F988).
+ Item ID = (110133).  Pointer = (        0051F9E8).
+ Item ID = (110133).  Pointer = (        00502730).
+ Item ID = (110133).  Pointer = (        00502758).
+ Item ID = (110133).  Pointer = (        00502780).
+ Item ID = (110133).  Pointer = (        00508B30).
+ Item ID = (110133).  Pointer = (        005059B8).
+ Item ID = (110133).  Pointer = (        00508B50).
+ Item ID = (110133).  Pointer = (        00508B70).
+ Item ID = (110133).  Pointer = (        005027A8).
+ Item ID = (110133).  Pointer = (        005059D0).
+ Item ID = (110133).  Pointer = (        00508B90).
+ Item ID = (110133).  Pointer = (        00508BB0).
+ Item ID = (110133).  Pointer = (        00508BD0).
+ Item ID = (110133).  Pointer = (        00508BF0).
+ Item ID = (110133).  Pointer = (        005023E8).
+ Item ID = (110133).  Pointer = (        00502460).
+ Item ID = (110133).  Pointer = (        00502208).
+ Item ID = (110133).  Pointer = (        00502190).
+ Item ID = (110133).  Pointer = (        00502140).
+ Item ID = (110133).  Pointer = (        00502118).
+ Item ID = (110133).  Pointer = (        005020F0).
+ Item ID = (110133).  Pointer = (        005021E0).
+ Item ID = (110133).  Pointer = (        005022F8).
+ Item ID = (110133).  Pointer = (        005021B8).
+ Item ID = (110133).  Pointer = (        005020C8).
+ Item ID = (110133).  Pointer = (        0050AE78).
+ Item ID = (110133).  Pointer = (        0050AE50).
+ Item ID = (110133).  Pointer = (        0050AE28).
+ Item ID = (110133).  Pointer = (        0050AE00).
+ Item ID = (110133).  Pointer = (        0050ADD8).
+ Item ID = (110133).  Pointer = (        0050ADB0).
+ Item ID = (110133).  Pointer = (        0050AD88).
+ Item ID = (110133).  Pointer = (        0050AD60).
+ Item ID = (110133).  Pointer = (        0050AD38).
+ Item ID = (110133).  Pointer = (        0050AD10).
+ Item ID = (110133).  Pointer = (        00508C10).
+ Item ID = (110133).  Pointer = (        00508C30).
+ Item ID = (110133).  Pointer = (        00508C50).
+ Item ID = (110133).  Pointer = (        00508C70).
+ Item ID = (110133).  Pointer = (        00508C90).
+ Item ID = (110133).  Pointer = (        005059E8).
+ Item ID = (110133).  Pointer = (        0050ACE8).
+ Item ID = (110133).  Pointer = (        00505A00).
+ Item ID = (110133).  Pointer = (        00508CB0).
+ Item ID = (110133).  Pointer = (        00508CD0).
+ Item ID = (110133).  Pointer = (        0051F438).
+ Item ID = (110133).  Pointer = (        0050ACC0).
+ Item ID = (110133).  Pointer = (        0050AC98).
+ Item ID = (110133).  Pointer = (        0050AC70).
+ Item ID = (110133).  Pointer = (        00505A18).
+ Item ID = (110133).  Pointer = (        00505A30).
+ Item ID = (110133).  Pointer = (        00505A48).
+ Item ID = (110133).  Pointer = (        0050ABD0).
+ Item ID = (110133).  Pointer = (        0050AAB8).
+ Item ID = (110133).  Pointer = (        0050AAE0).
+ Item ID = (110133).  Pointer = (        0050A6D0).
+ Item ID = (110133).  Pointer = (        00505A60).
+ Item ID = (110133).  Pointer = (        00508CF0).
+ Item ID = (110133).  Pointer = (        00505A78).
+ Item ID = (110133).  Pointer = (        00505A90).
+ Item ID = (110133).  Pointer = (        00508D10).
+ Item ID = (110133).  Pointer = (        00505AA8).
+ Item ID = (110133).  Pointer = (        00508D30).
+ Item ID = (110133).  Pointer = (        00505AC0).
+ Item ID = (110133).  Pointer = (        00505AD8).
+ Item ID = (110133).  Pointer = (        00508D50).
+ Item ID = (110133).  Pointer = (        00505AF0).
+ Item ID = (110133).  Pointer = (        0050A6F8).
+ Item ID = (110133).  Pointer = (        00508D70).
+ Item ID = (110133).  Pointer = (        00508D90).
+ Item ID = (110133).  Pointer = (        00508DB0).
+ Item ID = (110133).  Pointer = (        00508DD0).
+ Item ID = (110133).  Pointer = (        00508DF0).
+ Item ID = (110133).  Pointer = (        00508E10).
+ Item ID = (110133).  Pointer = (        00505B08).
+ Item ID = (110133).  Pointer = (        0051EFD8).
+ Item ID = (110133).  Pointer = (        00511A90).
+ Item ID = (110133).  Pointer = (        0051F018).
+ Item ID = (110133).  Pointer = (        0051EFA8).
+ Item ID = (110133).  Pointer = (        00511AA8).
+ Item ID = (110133).  Pointer = (        00508E30).
+ Item ID = (110133).  Pointer = (        00508E50).
+ Item ID = (110133).  Pointer = (        00511AC0).
+ Item ID = (110133).  Pointer = (        00511AD8).
+ Item ID = (110133).  Pointer = (        0051FB98).
+ Item ID = (110133).  Pointer = (        0051FB88).
+ Item ID = (110133).  Pointer = (        00508E70).
+ Item ID = (110133).  Pointer = (        00508E90).
+ Item ID = (110133).  Pointer = (        0050A720).
+ Item ID = (110133).  Pointer = (        0050A770).
+ Item ID = (110133).  Pointer = (        0050A798).
+ Item ID = (110133).  Pointer = (        0050A748).
+ Item ID = (110133).  Pointer = (        0050BA30).
+>>>>>>> 77093ea64fa2779725deb0bc0a2ff246bb2c900f
