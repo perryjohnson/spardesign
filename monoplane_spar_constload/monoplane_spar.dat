@@ -19,20 +19,21 @@
 }
 
 @EDGE_DEFINITION {
-  @EDGE_NAME {edgeBlade} {
+  @EDGE_NAME {edgeSpar} {
     @CONNECTED_TO_VERTICES {vertexA, vertexB}
-    @CURVE_NAME {curveBlade}
+    @CURVE_NAME {curveSpar}
   }
 }
+
 @BEAM_DEFINITION {
   @BEAM_NAME {monoplane_spar} {
-    @EDGE_NAME {edgeBlade}
-    @BEAM_PROPERTY_NAME {propBlade}
+    @EDGE_NAME {edgeSpar}
+    @BEAM_PROPERTY_NAME {propSpar}
   }
 }
 
 @CURVE_DEFINITION {
-  @CURVE_NAME {curveBlade} {
+  @CURVE_NAME {curveSpar} {
     @IS_DEFINED_IN_FRAME {INERTIAL}
     @POINT_DEFINITION {
       @NUMBER_OF_CONTROL_POINTS {     2}
@@ -42,15 +43,15 @@
       @END_POINT_1 {tip}
     }
     @TRIAD_DEFINITION {
-      @ORIENTATION_DISTRIBUTION_NAME {OriBlade}
+      @ORIENTATION_DISTRIBUTION_NAME {orientationSpar}
       @INITIAL_COORDINATE{0}
     }
-    @CURVE_MESH_PARAMETERS_NAME {meshBlade}
+    @CURVE_MESH_PARAMETERS_NAME {meshSpar}
   }
 }
 
 @ORIENTATION_DISTRIBUTION_DEFINITION {
-  @ORIENTATION_DISTRIBUTION_NAME { OriBlade } {
+  @ORIENTATION_DISTRIBUTION_NAME { orientationSpar } {
     @ORIENTATION_DEFINITION_TYPE { TWIST_ANGLE }
     @COORDINATE_TYPE { ETA_COORDINATE }
     @ETA_COORDINATE {0.00000e+00} 
@@ -127,9 +128,34 @@
   }
 }
 @CURVE_MESH_PARAMETERS_DEFINITION {
-  @CURVE_MESH_PARAMETERS_NAME {meshBlade} {
-    @NUMBER_OF_ELEMENTS {     20}
-    @ORDER_OF_ELEMENTS {     3}    
+  @CURVE_MESH_PARAMETERS_NAME {meshSpar} {
+    @NUMBER_OF_ELEMENTS {     23}
+    @ORDER_OF_ELEMENTS {     3}
+    @ETA_VALUE {0.00000e+00}
+    @ETA_VALUE {2.17628e-03}
+    @ETA_VALUE {2.50272e-02}
+    @ETA_VALUE {4.78781e-02}
+    @ETA_VALUE {7.07291e-02}
+    @ETA_VALUE {9.79325e-02}
+    @ETA_VALUE {1.32753e-01}
+    @ETA_VALUE {1.51251e-01}
+    @ETA_VALUE {1.68662e-01}
+    @ETA_VALUE {1.86072e-01}
+    @ETA_VALUE {2.15452e-01}
+    @ETA_VALUE {2.44831e-01}
+    @ETA_VALUE {2.74211e-01}
+    @ETA_VALUE {3.63439e-01}
+    @ETA_VALUE {4.51578e-01}
+    @ETA_VALUE {5.39717e-01}
+    @ETA_VALUE {6.28945e-01}
+    @ETA_VALUE {6.99674e-01}
+    @ETA_VALUE {7.17084e-01}
+    @ETA_VALUE {7.70403e-01}
+    @ETA_VALUE {8.05223e-01}
+    @ETA_VALUE {8.94450e-01}
+    @ETA_VALUE {9.46681e-01}
+    @ETA_VALUE {1.00000e+00}
+    @COMMENTS {all elements begin and end at a blade (spar) station, elements are of unequal length}
   }
 }
 @BOUNDARY_CONDITION_DEFINITION {
@@ -141,7 +167,7 @@
 }
 
 @BEAM_PROPERTY_DEFINITION {
-  @BEAM_PROPERTY_NAME {propBlade} {
+  @BEAM_PROPERTY_NAME {propSpar} {
     @PROPERTY_DEFINITION_TYPE { 6X6_MATRICES }
     @COORDINATE_TYPE { ETA_COORDINATE }
     
