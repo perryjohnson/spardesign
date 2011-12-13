@@ -4,11 +4,7 @@
   @FINITE_ELEMENT_ANALYSIS {YES}
   @POST_PROCESSING_ANALYSIS {YES}
   @SIGNAL_PROCESSING_ANALYSIS {NO}
-<<<<<<< HEAD
   @FIGURES_PATH {.\FIGURES\}
-=======
-  @FIGURES_PATH {C:\Wind_Turbine_Research\realistic_blade\DYMORE\ms_ut_c\msut_t_c\FIGURES\}
->>>>>>> 77093ea64fa2779725deb0bc0a2ff246bb2c900f
 }
 @MODEL_DEFINITION {
   @TIME_FUNCTION_DEFINITION {
@@ -37,7 +33,7 @@
   @INCLUDE_COMMAND {
     @INCLUDE_COMMAND_NAME {include1} {
       @ACTIVE_COMMAND {YES}
-      @LIST_OF_FILE_NAMES {msut_t_c.dat, loadDist.dat}
+      @LIST_OF_FILE_NAMES {monoplane_spar.dat, loadDist.dat}
     }
   }
 }
