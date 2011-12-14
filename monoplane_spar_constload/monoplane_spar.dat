@@ -131,31 +131,31 @@
   @CURVE_MESH_PARAMETERS_NAME {meshSpar} {
     @NUMBER_OF_ELEMENTS {     23}
     @ORDER_OF_ELEMENTS {     3}
-    @ETA_VALUE {0.00000e+00}
-    @ETA_VALUE {2.17628e-03}
-    @ETA_VALUE {2.50272e-02}
-    @ETA_VALUE {4.78781e-02}
-    @ETA_VALUE {7.07291e-02}
-    @ETA_VALUE {9.79325e-02}
-    @ETA_VALUE {1.32753e-01}
-    @ETA_VALUE {1.51251e-01}
-    @ETA_VALUE {1.68662e-01}
-    @ETA_VALUE {1.86072e-01}
-    @ETA_VALUE {2.15452e-01}
-    @ETA_VALUE {2.44831e-01}
-    @ETA_VALUE {2.74211e-01}
-    @ETA_VALUE {3.63439e-01}
-    @ETA_VALUE {4.51578e-01}
-    @ETA_VALUE {5.39717e-01}
-    @ETA_VALUE {6.28945e-01}
-    @ETA_VALUE {6.99674e-01}
-    @ETA_VALUE {7.17084e-01}
-    @ETA_VALUE {7.70403e-01}
-    @ETA_VALUE {8.05223e-01}
-    @ETA_VALUE {8.94450e-01}
-    @ETA_VALUE {9.46681e-01}
-    @ETA_VALUE {1.00000e+00}
-    @COMMENTS {all elements begin and end at a blade (spar) station, elements are of unequal length}
+    @ETA_COORDINATE {0.00000e+00}
+    @ETA_COORDINATE {2.17628e-03}
+    @ETA_COORDINATE {2.50272e-02}
+    @ETA_COORDINATE {4.78781e-02}
+    @ETA_COORDINATE {7.07291e-02}
+    @ETA_COORDINATE {9.79325e-02}
+    @ETA_COORDINATE {1.32753e-01}
+    @ETA_COORDINATE {1.51251e-01}
+    @ETA_COORDINATE {1.68662e-01}
+    @ETA_COORDINATE {1.86072e-01}
+    @ETA_COORDINATE {2.15452e-01}
+    @ETA_COORDINATE {2.44831e-01}
+    @ETA_COORDINATE {2.74211e-01}
+    @ETA_COORDINATE {3.63439e-01}
+    @ETA_COORDINATE {4.51578e-01}
+    @ETA_COORDINATE {5.39717e-01}
+    @ETA_COORDINATE {6.28945e-01}
+    @ETA_COORDINATE {6.99674e-01}
+    @ETA_COORDINATE {7.17084e-01}
+    @ETA_COORDINATE {7.70403e-01}
+    @ETA_COORDINATE {8.05223e-01}
+    @ETA_COORDINATE {8.94450e-01}
+    @ETA_COORDINATE {9.46681e-01}
+    @ETA_COORDINATE {1.00000e+00}
+    @COMMENTS {use ETA_COORDINATE, not ETA_VALUE}
   }
 }
 @BOUNDARY_CONDITION_DEFINITION {
@@ -386,7 +386,7 @@
                                                7.4565751382E+08,    2.3715757058E+00,    3.8534409175E+02,    4.5829141777E+06,    8.3510418070E-02,
                                                                     8.9159159890E+07,    7.7533258276E+01,   -7.2758160865E-03,    7.8671676289E+06,
                                                                                          2.1342668611E+08,   -5.5322161435E+02,    4.9241513499E+03,
-                                                                                        -5.5322161435E+02,    8.6283005814E+09,    5.5316753536E-05,
+                                                                                                              8.6283005814E+09,    5.5316753536E-05,
                                                                                                                                    2.9763115493E+09}
       @MASS_PER_UNIT_SPAN {7.2857792000E+02}
       @MOMENTS_OF_INERTIA {5.8700130032E+02,
