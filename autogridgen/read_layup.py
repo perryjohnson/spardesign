@@ -24,7 +24,8 @@ plt.close('all')
 
 data_rows = np.shape(data)[0]
 
-v = np.arange(0, data_rows)
+v = range(1)
+# v = range(data_rows)
 for i in v:
 	n = v[i]
 	# n = 0  # for now, just focus on the root cross-section (we'll iterate thru the entire span later)
@@ -50,64 +51,79 @@ for i in v:
 	corners[2:4,1] = corners[0:2,1] * -1.0
 
 	### find and plot the corners of the root buildup ###
-	rtbldup = np.zeros((8,2))  # column 0 stores x-coords, column 1 stores y-coords
-	## upper root buildup ## (row entries 0-3)
-	# store the x-coords #
-	rtbldup[0:4,0] = corners[0:4,0]
-	# store the y-coords #
-	rtbldup[0:2,1] = corners[0:2,1]
-	rtbldup[2:4,1] = rtbldup[0:2,1] - rtbldup_ht[n]
-	## lower root buildup ## (row entries 4-8)
-	# store the x-coords #
-	rtbldup[4:8,0] = rtbldup[0:4,0]
-	# store the y-coords #
-	rtbldup[4:8,1] = rtbldup[0:4,1] * -1.0
+	if rtbldup_bse[n] * rtbldup_ht[n] > 0.0:  # only store corners of root buildup if its cross-sectional area is non-zero
+		rtbldup = np.zeros((2,4,2))  # slice 0 stores upper root buildup, slice 1 stores lower root buildup
+		                             # column 0 stores x-coords, column 1 stores y-coords
+		## upper root buildup ## (slice 0, rtbldup[0,:,:])
+		# store the x-coords #
+		rtbldup[0,0:4,0] = corners[0:4,0]
+		# store the y-coords #
+		rtbldup[0,0:2,1] = corners[0:2,1]
+		rtbldup[0,2:4,1] = rtbldup[0,0:2,1] - rtbldup_ht[n]
+		## lower root buildup ## (slice 1, rtbldup[1,:,:])
+		# store the x-coords #
+		rtbldup[1,0:4,0] = rtbldup[0,0:4,0]
+		# store the y-coords #
+		rtbldup[1,0:2,1] = rtbldup[0,2:4,1] * -1.0  # top row of lower root buildup = -1 * bottom row of upper root buildup
+		rtbldup[1,2:4,1] = rtbldup[0,0:2,1] * -1.0  # bottom row of lower root buildup = -1 * top row of upper root buildup
 
 	### find and plot the corners of the shear webs ###
-	shearwb = np.zeros((8,2))  # column 0 stores x-coords, column 1 stores y-coords
-	## left shear web ##
+	shearwb = np.zeros((2,4,2))  # slice 0 stores left shear web, slice 1 stores right shear web
+	                             # column 0 stores x-coords, column 1 stores y-coords
+	## left shear web ## (slice 0, shearwb[0,:,:])
 	# store coords shared with root buildup #
-	shearwb[0,:] = rtbldup[2,:] # top left corner of shear web, bottom left corner of upper root buildup
-	shearwb[2,:] = rtbldup[6,:] # bottom left corner of shear web, top left corner of lower root buildup
+	if rtbldup_bse[n] * rtbldup_ht[n] > 0.0:  # only base corners of shear web off of root buildup if cross-sectional area of root buildup is non-zero
+		shearwb[0,0,:] = rtbldup[0,2,:] # top left corner of left shear web, bottom left corner of upper root buildup
+		shearwb[0,2,:] = rtbldup[1,0,:] # bottom left corner of left shear web, top left corner of lower root buildup
+	else:
+		shearwb[0,0,:] = corners[0,:] # top left corner of left shear web, top left corner of cross-section
+		shearwb[0,2,:] = corners[2,:] # bottom left corner of left shear web, bottom left corner of cross-section
 	# store coords for right boundary of left shear web #
-	shearwb[1,0] = shearwb[0,0] + shearwb_bse[n]  # x-coord for upper right corner (add shear web thickness)
-	shearwb[1,1] = shearwb[0,1]                   # y-coord for upper right corner
-	shearwb[3,0] = shearwb[1,0]                   # x-coord for lower right corner
-	shearwb[3,1] = shearwb[2,1]                   # y-coord for lower right corner
-	## right shear web ##
+	shearwb[0,1,0] = shearwb[0,0,0] + shearwb_bse[n]  # x-coord for top right corner (add shear web thickness)
+	shearwb[0,1,1] = shearwb[0,0,1]                   # y-coord for top right corner
+	shearwb[0,3,0] = shearwb[0,1,0]                   # x-coord for bottom right corner
+	shearwb[0,3,1] = shearwb[0,2,1]                   # y-coord for bottom right corner
+	## right shear web ## (slice 1, shearwb[1,:,:])
 	# store the x-coords #
-	shearwb[4:8,0] = shearwb[0:4,0] * -1.0
+	shearwb[1,0,0] = shearwb[0,1,0] * -1.0  # top left corner of right shear web = -1 * top right corner of left shear web
+	shearwb[1,1,0] = shearwb[0,0,0] * -1.0  # top right corner of right shear web = -1 * top left corner of left shear web
+	shearwb[1,2,0] = shearwb[0,3,0] * -1.0  # bottom left corner of right shear web = -1 * bottom right corner of left shear web
+	shearwb[1,3,0] = shearwb[0,2,0] * -1.0  # bottom right corner of right shear web = -1 * bottom left corner of left shear web
 	# store the y-coords #
-	shearwb[4:8,1] = shearwb[0:4,1]
+	shearwb[1,0:4,1] = shearwb[0,0:4,1]
 
 	### find and plot the corners of the spar caps ###
-	sparcap = np.zeros((8,2))  # column 0 stores x-coords, column 1 stores y-coords
-	## upper spar cap ##
+	sparcap = np.zeros((2,4,2))  # slice 0 stores upper spar cap, slice 1 stores lower spar cap
+	                             # column 0 stores x-coords, column 1 stores y-coords
+	## upper spar cap ## (slice 0, sparcap[0,:,:])
 	# store coords shared with shear webs #
-	sparcap[0,:] = shearwb[1,:] # top left corner of upper spar cap, top right corner of left shear web
-	sparcap[1,:] = shearwb[5,:] # top right corner of upper spar cap, top left corner of right shear web
+	sparcap[0,0,:] = shearwb[0,1,:] # top left corner of upper spar cap, top right corner of left shear web
+	sparcap[0,1,:] = shearwb[1,0,:] # top right corner of upper spar cap, top left corner of right shear web
 	# store coords for lower boundary of upper spar cap #
-	sparcap[2,0] = sparcap[0,0]                  # x-coord for lower left corner
-	sparcap[2,1] = sparcap[0,1] - sparcap_ht[n]  # y-coord for lower left corner (subtract spar cap thickness)
-	sparcap[3,0] = sparcap[1,0]                  # x-coord for lower right corner
-	sparcap[3,1] = sparcap[2,1]                  # y-coord for lower right corner
-	## lower spar cap ##
+	sparcap[0,2,0] = sparcap[0,0,0]                  # x-coord for bottom left corner
+	sparcap[0,2,1] = sparcap[0,0,1] - sparcap_ht[n]  # y-coord for bottom left corner (subtract spar cap thickness)
+	sparcap[0,3,0] = sparcap[0,1,0]                  # x-coord for bottom right corner
+	sparcap[0,3,1] = sparcap[0,2,1]                  # y-coord for bottom right corner
+	## lower spar cap ## (slice 1, sparcap[1,:,:])
 	# store the x-coords #
-	sparcap[4:8,0] = sparcap[0:4,0]
+	sparcap[1,0:4,0] = sparcap[0,0:4,0]
 	# store the y-coords #
-	sparcap[4:8,1] = sparcap[0:4,1] * -1.0
+	sparcap[1,0:2,1] = sparcap[0,2:4,1] * -1.0  # top row of lower spar cap = -1 * bottom row of upper spar cap
+	sparcap[1,2:4,1] = sparcap[0,0:2,1] * -1.0  # bottom row of lower spar cap = -1 * top row of upper spar cap
 
-	### plot the results ###
-	plt.figure(n)
-	plt.axes().set_aspect('equal')
-	plt.axes().set_xlim(-2,2)
-	plt.axes().set_ylim(-3,3)
-	plt.plot(corners[:,0], corners[:,1], 'b+')
-	plt.plot(rtbldup[:,0], rtbldup[:,1], 'ro')
-	plt.plot(shearwb[:,0], shearwb[:,1], 'cs')
-	plt.plot(sparcap[:,0], sparcap[:,1], 'k*')
-	plt.xlabel('x [m]')
-	plt.ylabel('y [m]')
-	plt.title('Cross-section at eta = ' + str(eta[n]))
-	plt.show()
+	if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
+		### plot the results ###
+		plt.figure(n)
+		plt.axes().set_aspect('equal')
+		plt.axes().set_xlim(-2,2)
+		plt.axes().set_ylim(-3,3)
+		plt.plot(corners[:,0], corners[:,1], 'b+')
+		if rtbldup_bse[n] * rtbldup_ht[n] > 0.0:  # only plot corners of root buildup if its cross-sectional area is non-zero
+			plt.plot(rtbldup[:,:,0], rtbldup[:,:,1], 'ro')
+		plt.plot(shearwb[:,:,0], shearwb[:,:,1], 'cs')
+		plt.plot(sparcap[:,:,0], sparcap[:,:,1], 'k*')
+		plt.xlabel('x [m]')
+		plt.ylabel('y [m]')
+		plt.title('Cross-section at eta = ' + str(eta[n]))
+		plt.show()
 
