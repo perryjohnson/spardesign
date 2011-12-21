@@ -62,34 +62,48 @@ def plotGridPoints(gridpts, corners):
 
 ### determine the number of cells needed for a Cartesian grid with low aspect ratio cells ###
 ###		input:	dim1 <double>, 1st dimension of grid area (e.g. length)
-###				dim2 <double>, 2nd dimension of grid area (e.g. width)
-###				maxAR <double>, desired maximum aspect ratio for any cell in the grid
 ###				n1 <int>, desired number of cells to be distributed along dim1
-###		output:	n2 <int>, number of cells to be distributed along dim2
-def calcDims4LowAR(dim1,dim2,maxAR,n1):
-	flag = True
-	while (flag):
-		cell_dim1 = dim1/n1
-		cell_dim2 = cell_dim1 * maxAR
-		n2 = dim2/cell_dim2
-		n2 = int(n2) + 1
-		cell_dim2 = dim2/n2
-		AR = (dim1/n1)/(dim2/n2)
-		if AR < 1.0:
-			AR = 1.0/AR
-		if AR < maxAR:
-			flag = False
-		else:
-			n1 = n1 * 2
+###				maxAR <double>, desired maximum aspect ratio for any cell in the grid
+###				dim2 <double>, 2nd dimension of grid area (e.g. width)
+###		output:	n1 <int>, number of cells to be distributed along dim1 (may be updated from input n1)
+###				n2 <int>, number of cells to be distributed along dim2
+def calcDims4LowAR(dim1,n1,maxAR,dim2):
+	if type(n1) != type(1):                 # check if input value for n1 is an integer
+		print "ERROR: input value for n1 must be an INTEGER!"
+		n1 = 0
+		n2 = 0
+	else:
+		flag = True
+		while (flag):
+			# print 'n1        =', n1
+			cell_dim1 = dim1/float(n1)      # calculate the cell dimension in the dim1 direction
+			# print 'cell_dim1 =', cell_dim1
+			# print 'maxAR     =', maxAR
+			cell_dim2 = cell_dim1 * maxAR   # calculate the cell dimension in the dim2 direction
+			# print 'cell_dim2 =', cell_dim2
+			n2 = dim2/cell_dim2             # see how many cells of size cell_dim2 will fit in the dim2 direction
+			n2 = int(n2) + 1                # round the result up to the next integer
+			# print 'n2        =', n2
+			cell_dim2 = dim2/float(n2)      # recalculate the cell dimension in the dim2 direction
+			# print 'cell_dim2 =', cell_dim2
+			AR = cell_dim1/cell_dim2        # calculate the current cell aspect ratio
+			if AR < 1.0:                    # if aspect ratio is less than 1...
+				AR = 1.0/AR                 # ...take its reciprocal (aspect ratio is defined as > 1)
+			# print 'AR        =', AR
+			# print 'maxAR     =', maxAR
+			if AR < maxAR:					# if the aspect ratio is less than the specified max aspect ratio...
+				flag = False                # ...exit this loop
+			else:
+				n1 = n1 * 2                 # otherwise, double the number of cells in the dim1 direction and reiterate this loop
 	### optional print statements for debugging ###
-	print 'dim1      =', dim1
-	print 'dim2      =', dim2
-	print 'cell_dim1 =', cell_dim1
-	print 'cell_dim2 =', cell_dim2
-	print 'n1        =', n1
-	print 'n2        =', n2
-	print 'AR        =', AR
-	print 'maxAR     =', maxAR
+	# print 'dim1      =', dim1
+	# print 'dim2      =', dim2
+	# print 'cell_dim1 =', cell_dim1
+	# print 'cell_dim2 =', cell_dim2
+	# print 'n1        =', n1
+	# print 'n2        =', n2
+	# print 'AR        =', AR
+	# print 'maxAR     =', maxAR
 	return (n1,n2)
 
 if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
