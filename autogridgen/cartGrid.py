@@ -60,22 +60,37 @@ def plotGridPoints(gridpts, corners):
 	plt.title('Cartesian grid')
 	plt.show()
 
-### determine the number of rows and columns for a Cartesian grid, given a max aspect ratio ###
-###		input:	dim1 <int>, number of either rows or cols
+### determine the number of cells needed for a Cartesian grid with low aspect ratio cells ###
+###		input:	dim1 <double>, 1st dimension of grid area (e.g. length)
+###				dim2 <double>, 2nd dimension of grid area (e.g. width)
 ###				maxAR <double>, desired maximum aspect ratio for any cell in the grid
-###		output:	dim2 <int>, number of either rows or cols (if # rows was input, output will be # columns, and vice versa)
+###				n1 <int>, desired number of cells to be distributed along dim1
+###		output:	n2 <int>, number of cells to be distributed along dim2
 def calcDims4LowAR(dim1,dim2,maxAR,n1):
-	# if dim1 < dim2:
-	# 	temp = dim1
-	# 	dim1 = dim2
-	# 	dim2 = temp
-
-	cell_dim1 = dim1/n1
-
-	n2 = int( round(maxAR * (dim2/dim1) * n1) )
-	AR = (dim1/n1)/(dim2/n2)
-	print 'AR =', AR, '  maxAR =', maxAR
-	return n2
+	flag = True
+	while (flag):
+		cell_dim1 = dim1/n1
+		cell_dim2 = cell_dim1 * maxAR
+		n2 = dim2/cell_dim2
+		n2 = int(n2) + 1
+		cell_dim2 = dim2/n2
+		AR = (dim1/n1)/(dim2/n2)
+		if AR < 1.0:
+			AR = 1.0/AR
+		if AR < maxAR:
+			flag = False
+		else:
+			n1 = n1 * 2
+	### optional print statements for debugging ###
+	print 'dim1      =', dim1
+	print 'dim2      =', dim2
+	print 'cell_dim1 =', cell_dim1
+	print 'cell_dim2 =', cell_dim2
+	print 'n1        =', n1
+	print 'n2        =', n2
+	print 'AR        =', AR
+	print 'maxAR     =', maxAR
+	return (n1,n2)
 
 if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
 	corners = np.array([ [-1.5, 1.2],
