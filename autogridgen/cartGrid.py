@@ -67,7 +67,7 @@ def plotGridPoints(gridpts, corners):
 ###				dim2 <double>, 2nd dimension of grid area (e.g. width)
 ###		output:	n1 <int>, number of cells to be distributed along dim1 (may be updated from input n1)
 ###				n2 <int>, number of cells to be distributed along dim2
-def calcDims4LowAR(dim1,n1,maxAR,dim2):
+def calcCellNums(dim1,n1,maxAR,dim2):
 	if type(n1) != type(1):                 # check if input value for n1 is an integer
 		print "ERROR: input value for n1 must be an INTEGER!"
 		n1 = 0
@@ -105,6 +105,15 @@ def calcDims4LowAR(dim1,n1,maxAR,dim2):
 	# print 'AR        =', AR
 	# print 'maxAR     =', maxAR
 	return (n1,n2)
+
+### determine dimensions of a grid, given the x&y coordinates of its corners ###
+###		input:	corners <nd.array>, an array of x&y coordinates for each corner of the grid (4 entries)
+###		output:	dimH <double>, horizontal dimension of grid area
+###				dimV <double>, vertical dimension of grid area
+def calcCornerDims(corners):
+	dimH = abs(corners[0,0] - corners[1,0])  # subtract the x-coords of the top left and top right corners
+	dimV = abs(corners[0,1] - corners[2,1])  # subtract the y-coords of the top left and bottom left corners
+	return (dimH,dimV)
 
 if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
 	corners = np.array([ [-1.5, 1.2],
