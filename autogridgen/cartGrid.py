@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import VABSobjects as vo
+import elementMap as em
 
 
 ### build an array that stores all the (x,y) grid points ###
@@ -35,6 +37,7 @@ def storeGridPoints(nrows,ncols,corners):
 				gridpts[i*(nrows+1)+j,0] = x[i]
 				gridpts[i*(nrows+1)+j,1] = y[j]
 				# print i,j,gridpts[i+j,:]
+
 	else:
 		## print error msg(s) corresponding to each problem edge and return array of gridpoints with all entries equal to zero
 		if (not flagT):
@@ -46,6 +49,84 @@ def storeGridPoints(nrows,ncols,corners):
 		if (not flagR):
 			print "ERROR: x-coords of right edge are NOT EQUAL"
 	return gridpts
+
+
+### build an array that stores all the (x,y) grid points ###   ***VERSION 2***
+###		input:	nrows <int>, the desired number of grid cell rows
+###				ncols <int>, the desired number of grid cell columns
+###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
+###		output:	gridpts <np.array>, an array of x&y coordinates for each grid point
+def storeGridPoints2(nrows,ncols,corners):
+	## check if the entries in the corners array make a rectangle (and not some other shape, like a parallelogram)
+	y0 = corners[0,1]
+	y1 = corners[1,1]
+	y2 = corners[2,1]
+	y3 = corners[3,1]
+	x0 = corners[0,0]
+	x2 = corners[2,0]
+	x1 = corners[1,0]
+	x3 = corners[3,0]
+	flagT = (y0 == y1) # are y-coords of top edge equal?
+	flagB = (y2 == y3) # are y-coords of bottom edge equal?
+	flagL = (x0 == x2) # are x-coords of left edge equal?
+	flagR = (x1 == x3) # are x-coords of right edge equal?
+	gridpts = np.zeros(((nrows+1)*(ncols+1),2))  # initialize the array of grid points
+	if (flagT and flagB and flagL and flagR):
+		## calculate the number of elements and nodes for the region inside these corners ##
+		number_of_elements = nrows * ncols
+		number_of_nodes = (nrows+1) * (ncols+1)
+
+		## initialize objects for the VABSobjects module ##
+		unique_node = []  # create an empty list of node objects
+		element = []      # create an empty list of element objects
+
+		## call functions from the VABSobjects module ##
+		vo.fillNodeObjects(number_of_nodes, unique_node)
+		vo.fillElementObjects(number_of_elements, element)
+
+		## build the array of grid points ##
+		x_max = corners[:,0].max()
+		x_min = corners[:,0].min()
+		y_max = corners[:,1].max()
+		y_min = corners[:,1].min()
+		x = np.linspace(x_min,x_max,ncols+1)
+		y = np.linspace(y_min,y_max,nrows+1)
+		for i in range(len(x)):
+			for j in range(len(y)):
+				gridpts[i*(nrows+1)+j,0] = x[i]
+				gridpts[i*(nrows+1)+j,1] = y[j]
+				# print i,j,gridpts[i+j,:]
+		
+		## assign x&y coordinates to each node object ##
+		vo.assignCoordinatesToNodes(number_of_nodes, gridpts, unique_node)
+		# print "test of unique_node[1] x&y coordinates"
+		# for i in range(1,number_of_nodes+1):
+		# 	print unique_node[i].x2, unique_node[i].x3
+		# print nrows, ncols
+		# print number_of_elements, number_of_nodes
+
+		## assign nodes to elements ##
+		element = em.genElementMap(nrows,ncols,number_of_elements,number_of_nodes,element,unique_node)
+
+		# ## check if the function correctly assigned the element connectivity ##
+		# for i in range(1,number_of_elements+1):
+		# 	print element[i].node1.node_no, element[i].node2.node_no, element[i].node3.node_no, element[i].node4.node_no
+		
+		# print "check coords of element 1, node 4"
+		# print element[1].node4.x2, element[1].node4.x3
+
+	else:
+		## print error msg(s) corresponding to each problem edge and return array of gridpoints with all entries equal to zero
+		if (not flagT):
+			print "ERROR: y-coords of top edge are NOT EQUAL"
+		if (not flagB):
+			print "ERROR: y-coords of bottom edge are NOT EQUAL"
+		if (not flagL):
+			print "ERROR: x-coords of left edge are NOT EQUAL"
+		if (not flagR):
+			print "ERROR: x-coords of right edge are NOT EQUAL"
+	return (gridpts,unique_node,element,number_of_nodes,number_of_elements)
+
 
 ### plot the grid points and the corners ###
 ###		input:	gridpts <np.array>, an array of x&y coordinates for each grid point

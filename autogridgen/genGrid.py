@@ -3,29 +3,46 @@ import matplotlib.pyplot as plt
 import read_layup as rl
 import cartGrid as cg
 import time
+# import elapsed_time as et
+# import VABSobjects as vo
 
 # record the time when the code starts
 start_time = time.time()
 
-plotflag = True   # set to false to suppress plot output and speed up this script
+fastflag = True   # set to True to speed up this script
+
+
+
+if fastflag:
+	plotflag = False   # set to False to suppress plot output and speed up this script
+else:
+	plotflag = True
 
 # import the data from the layup file
 data = rl.readLayupFile('monoplane_spar_layup.txt')
 
-for i in range(1,len(data)+1):   # run for all cross-sections
-# for i in range(1,2):               # run for the first cross-section only
+if fastflag:
+	endrange = 2                   # run for the first cross-section only
+else:
+	endrange = len(data)+1         # run for all cross-sections
+
+for i in range(1,endrange):
+# for i in range(1,2):             # run for the first cross-section only
+# for i in range(1,len(data)+1):   # run for all cross-sections
 	spar_stn = i
 	print "calculating grids for spar station", spar_stn, "..."
+	# nelem = 0  # initialize the number of elements (cells) to zero
 	# nrows = 5
 	# ncols = 10
 	maxAR = 1.2   # set the maximum aspect ratio for any given cell
 
 	## set number of plies for each structural component ##
 	SC_plies = 2       # spar cap has 2 plies:                      [0]_2
-	RB_plies = 6       # root buildup has 6 plies:                  [+/-45]_2[0]_2
+	RB_plies = 6       # root buildup has 6 plies:                  [+/-45]_2 [0]_2
 	SW_biax_plies = 8  # biaxial laminate in shear web has 8 plies: [+/-45]_4
 	SW_foam_plies = 4  # set the foam part of the shear web to use 4 cells across its thickness (the foam doesn't really have plies)
 
+	## create a new figure for each cross-section, and define the max&min plot limits in the x&y directions
 	plt.figure(i)
 	plt.axes().set_xlim(-2,2)
 	plt.axes().set_ylim(-3,3)
@@ -40,11 +57,14 @@ for i in range(1,len(data)+1):   # run for all cross-sections
 		(dimH,dimV) = cg.calcCornerDims(RB_corners[0,:,:])
 		(nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
 		(nrows,ncols) = (nV,nH)
+		# nelem = nelem + nrows*ncols
 		RB_T_gridpts = cg.storeGridPoints(nrows,ncols,RB_corners[0,:,:])
+		(RB_T_gridpts,RB_T_nodes,RB_T_elements,RB_T_number_of_nodes,RB_T_number_of_elements) = cg.storeGridPoints2(nrows,ncols,RB_corners[0,:,:])   ### test out the new implementation that uses the VABSobjects module ###
 		## bottom root buildup ##
 		(dimH,dimV) = cg.calcCornerDims(RB_corners[1,:,:])
 		(nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
 		(nrows,ncols) = (nV,nH)
+		# nelem = nelem + nrows*ncols
 		RB_B_gridpts = cg.storeGridPoints(nrows,ncols,RB_corners[1,:,:])
 		## plot both root buildups ##
 		if (plotflag):
@@ -57,11 +77,13 @@ for i in range(1,len(data)+1):   # run for all cross-sections
 	(dimH,dimV) = cg.calcCornerDims(SC_corners[0,:,:])
 	(nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SC_T_gridpts = cg.storeGridPoints(nrows,ncols,SC_corners[0,:,:])
 	## bottom spar cap ##
 	(dimH,dimV) = cg.calcCornerDims(SC_corners[1,:,:])
 	(nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SC_B_gridpts = cg.storeGridPoints(nrows,ncols,SC_corners[1,:,:])
 	## plot both spar caps ##
 	if (plotflag):
@@ -75,33 +97,43 @@ for i in range(1,len(data)+1):   # run for all cross-sections
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_L_biaxL_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,0,:,:])
 	# foam laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_L_foam_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,1,:,:])
 	# right biax laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[0,2,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_L_biaxR_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,2,:,:])
 	## right shear web ##
 	# left biax laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[1,0,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_R_biaxL_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,0,:,:])
 	# foam laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[1,1,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_R_foam_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,1,:,:])
 	# right biax laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[1,2,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
+	# nelem = nelem + nrows*ncols
 	SW_R_biaxR_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,2,:,:])
+
+	## print out the number of elements created
+	# print "***", nelem, "elements created"
+
 	## plot both shear webs (all laminates) ##
 	if (plotflag):
 		cg.plotGridPoints(SW_L_biaxL_gridpts, SW_corners[0,0,:,:])
@@ -112,5 +144,8 @@ for i in range(1,len(data)+1):   # run for all cross-sections
 		cg.plotGridPoints(SW_R_biaxR_gridpts, SW_corners[1,2,:,:])
 
 # calculate the time it took to run the code
-elapsed_time = time.time() - start_time
-print "program completed in", elapsed_time, "seconds"
+elapsed_time_tot = time.time() - start_time
+
+print "program completed in", ("%.2f" % round(elapsed_time_tot,2)), "seconds"
+# print et.elapsed_time(elapsed_time_tot)
+# print "program completed in", elapsed_time, "seconds"
