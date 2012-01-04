@@ -22,6 +22,18 @@ def setPlotAspectRatioEqual():
 	return
 
 
+## set the max&min x&y limits
+##    input: xmin <int or float> minimum x-coordinate
+##           xmax <int or float> maximum x-coordinate
+##           ymin <int or float> minimum y-coordinate
+##           ymax <int or float> maximum y-coordinate
+##    output: <none>
+def setxyMaxMin(xmin,xmax,ymin,ymax):
+	plt.axes().set_xlim(xmin,xmax)
+	plt.axes().set_ylim(ymin,ymax)
+	return
+
+
 ## plot the node coordinates as unconnected points
 ##    input: coordinates <array>, numpy array of x&y coordinates of each node in this grid
 ##    output: <none>

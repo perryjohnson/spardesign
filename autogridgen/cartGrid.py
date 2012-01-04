@@ -106,7 +106,7 @@ def storeGridPoints2(nrows,ncols,corners):
 		# print number_of_elements, number_of_nodes
 
 		## assign nodes to elements ##
-		element = em.genElementMap(nrows,ncols,number_of_elements,number_of_nodes,element,unique_node)
+		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_elements,number_of_nodes,element,unique_node)
 
 		# ## check if the function correctly assigned the element connectivity ##
 		# for i in range(1,number_of_elements+1):
@@ -125,7 +125,7 @@ def storeGridPoints2(nrows,ncols,corners):
 			print "ERROR: x-coords of left edge are NOT EQUAL"
 		if (not flagR):
 			print "ERROR: x-coords of right edge are NOT EQUAL"
-	return (gridpts,unique_node,element,number_of_nodes,number_of_elements)
+	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,elementMap)
 
 
 ### plot the grid points and the corners ###
