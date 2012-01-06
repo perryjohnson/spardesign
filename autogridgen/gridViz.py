@@ -37,6 +37,13 @@ def generate_grid3():
 def view(dataset):
     # mlab.view(0, 0)  # set the view to -Z (better for 2D grids)
     gp = mlab.pipeline.grid_plane(dataset)  # draw the grid plane from the dataset
+    return
+
+
+def plotVABSgrid(x_coords,y_coords):
+    grid = generate_VABSgrid(x_coords,y_coords)
+    view(grid)
+    return
 
 
 @mlab.show  # the @ is a python function "decorator"... so, the call: main() = mlab.show(main()) ... its like shorthand?!?!
@@ -46,6 +53,7 @@ def main():
     view(generate_grid2()) # plot the second grid (in the same window)
     view(generate_grid3())
     mlab.view(0, 0)  # set the view to -Z (better for 2D grids)
+    return
     
 
 @mlab.show
@@ -81,6 +89,7 @@ def main2():    # hardcoded to display the bottom root buildup grid in mayavi
     y_coord1 = array([-2.633 , -2.6435, -2.654 , -2.6645, -2.675 , -2.6855, -2.696 ])
     view(generate_VABSgrid(x_coord1,y_coord1))
     mlab.view(0, 0)  # set the view to -Z (better for 2D grids)
+    return
 
 
 if __name__ == '__main__':

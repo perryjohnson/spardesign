@@ -8,11 +8,12 @@ import time
 import plotgrid as pg
 import elementMap as em
 from mayavi import mlab
+import gridViz as gv
 
 # record the time when the code starts
 start_time = time.time()
 
-fastflag = True   # set to True to speed up this script
+fastflag = False   # set to True to speed up this script
 
 
 
@@ -27,6 +28,7 @@ data = rl.readLayupFile('monoplane_spar_layup.txt')
 if fastflag:
 	endrange = 2                   # run for the first cross-section only
 else:
+	# endrange = 3
 	endrange = len(data)+1         # run for all cross-sections
 
 for i in range(1,endrange):
@@ -46,12 +48,15 @@ for i in range(1,endrange):
 	SW_foam_plies = 4  # set the foam part of the shear web to use 4 cells across its thickness (the foam doesn't really have plies)
 
 	## create a new figure for each cross-section, and define the max&min plot limits in the x&y directions
-	plt.figure(i)
-	pg.setPlotLabelsTitleAndGrid("spar station #" + str(i))
-	# plt.axes().set_xlim(-2,2)
-	# plt.axes().set_ylim(-3,3)
-	pg.setxyMaxMin(-2,2,-3,3)
-	pg.setPlotAspectRatioEqual()
+	# plt.figure(i)
+	# pg.setPlotLabelsTitleAndGrid("spar station #" + str(i))
+	# # plt.axes().set_xlim(-2,2)
+	# # plt.axes().set_ylim(-3,3)
+	# pg.setxyMaxMin(-2,2,-3,3)
+	# pg.setPlotAspectRatioEqual()
+	figtitle = "spar station #" + str(i)
+	fig = mlab.figure(figure=figtitle, size=(600,750))  # make a new mayavi scene (figure window)
+	mlab.view(0,0)
 
 
 	### ROOT BUILDUP ###
@@ -79,8 +84,14 @@ for i in range(1,endrange):
 			# cg.plotGridPoints(RB_B_gridpts, RB_corners[1,:,:])
 			# pg.plotNodesConnected(RB_T_number_of_elements, RB_T_elements)
 			# pg.plotNodesConnected(RB_B_number_of_elements, RB_B_elements)
-			em.plotGridLines(RB_T_elementMap,RB_T_nodes)
-			em.plotGridLines(RB_B_elementMap,RB_B_nodes)
+			# em.plotGridLines(RB_T_elementMap,RB_T_nodes)
+			# em.plotGridLines(RB_B_elementMap,RB_B_nodes)
+			# RB_T_grid = gv.generate_VABSgrid(RB_T_x,RB_T_y)
+			# RB_B_grid = gv.generate_VABSgrid(RB_B_x,RB_B_y)
+			# gv.view(RB_T_grid)
+			# gv.view(RB_B_grid)
+			gv.plotVABSgrid(RB_T_x,RB_T_y)
+			gv.plotVABSgrid(RB_B_x,RB_B_y)
 
 
 	### SPAR CAPS ###
@@ -104,8 +115,10 @@ for i in range(1,endrange):
 		# cg.plotGridPoints(SC_B_gridpts, SC_corners[1,:,:])
 		# pg.plotNodesConnected(SC_T_number_of_elements, SC_T_elements)
 		# pg.plotNodesConnected(SC_B_number_of_elements, SC_B_elements)
-		em.plotGridLines(SC_T_elementMap,SC_T_nodes)
-		em.plotGridLines(SC_B_elementMap,SC_B_nodes)
+		# em.plotGridLines(SC_T_elementMap,SC_T_nodes)
+		# em.plotGridLines(SC_B_elementMap,SC_B_nodes)
+		gv.plotVABSgrid(SC_T_x,SC_T_y)
+		gv.plotVABSgrid(SC_B_x,SC_B_y)
 
 
 	### SHEAR WEBS ###
@@ -172,26 +185,31 @@ for i in range(1,endrange):
 		# pg.plotNodesConnected(SW_R_biaxR_number_of_elements, SW_R_biaxR_elements)
 		print "* left shear web"
 		print "** left biax"
-		em.plotGridLines(SW_L_biaxL_elementMap,SW_L_biaxL_nodes)
+		# em.plotGridLines(SW_L_biaxL_elementMap,SW_L_biaxL_nodes)
+		gv.plotVABSgrid(SW_L_biaxL_x,SW_L_biaxL_y)
 		print "** foam"
-		em.plotGridLines(SW_L_foam_elementMap,SW_L_foam_nodes)
+		# em.plotGridLines(SW_L_foam_elementMap,SW_L_foam_nodes)
+		gv.plotVABSgrid(SW_L_foam_x,SW_L_foam_y)
 		print "** right biax"
-		em.plotGridLines(SW_L_biaxR_elementMap,SW_L_biaxR_nodes)
+		# em.plotGridLines(SW_L_biaxR_elementMap,SW_L_biaxR_nodes)
+		gv.plotVABSgrid(SW_L_biaxR_x,SW_L_biaxR_y)
 		print "* right shear web"
 		print "** left biax"
-		em.plotGridLines(SW_R_biaxL_elementMap,SW_R_biaxL_nodes)
+		# em.plotGridLines(SW_R_biaxL_elementMap,SW_R_biaxL_nodes)
+		gv.plotVABSgrid(SW_R_biaxL_x,SW_R_biaxL_y)
 		print "** foam"
-		em.plotGridLines(SW_R_foam_elementMap,SW_R_foam_nodes)
+		# em.plotGridLines(SW_R_foam_elementMap,SW_R_foam_nodes)
+		gv.plotVABSgrid(SW_R_foam_x,SW_R_foam_y)
 		print "** right biax"
-		em.plotGridLines(SW_R_biaxR_elementMap,SW_R_biaxR_nodes)
+		# em.plotGridLines(SW_R_biaxR_elementMap,SW_R_biaxR_nodes)
+		gv.plotVABSgrid(SW_R_biaxR_x,SW_R_biaxR_y)
 
 # plt.show()
 ## plot a test grid in mayavi
-import gridViz as gv
-rect = gv.generate_VABSgrid(RB_B_x,RB_B_y)
-fig = mlab.figure(figure='test grid', size=(600,750))  # make a new mayavi scene (figure window)
-gv.view(rect)
-mlab.view(0,0)
+# rect = gv.generate_VABSgrid(RB_B_x,RB_B_y)
+# fig = mlab.figure(figure='test grid', size=(600,750))  # make a new mayavi scene (figure window)
+# gv.view(rect)
+# mlab.view(0,0)
 
 
 # calculate the time it took to run the code
