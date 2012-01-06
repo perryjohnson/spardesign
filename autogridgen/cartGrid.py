@@ -5,6 +5,8 @@ import elementMap as em
 
 
 ### build an array that stores all the (x,y) grid points ###
+###		***DEPRECATED*** use storeGridPoints2 (below)
+###
 ###		input:	nrows <int>, the desired number of grid cell rows
 ###				ncols <int>, the desired number of grid cell columns
 ###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
@@ -55,7 +57,14 @@ def storeGridPoints(nrows,ncols,corners):
 ###		input:	nrows <int>, the desired number of grid cell rows
 ###				ncols <int>, the desired number of grid cell columns
 ###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
-###		output:	***UPDATE THIS***
+###		output:	gridpts <np.array>, an array of x&y coordinates for each grid point
+###		        unique_node <object>, list of unique node objects
+###		        element <object>, list of EMPTY element objects
+###		        number_of_nodes <int>, total number of nodes (vertices) in the grid
+###		        number_of_elements <int>, total number of elements (cells) in the grid
+###		        elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
+###		        x_coords <np.array>, array of x-coordinates for tvtk.RectilinearGrid().x_coordinates in mayavi
+###		        y_coords <np.array>, array of y-coordinates for tvtk.RectilinearGrid().y_coordinates in mayavi
 def storeGridPoints2(nrows,ncols,corners):
 	## check if the entries in the corners array make a rectangle (and not some other shape, like a parallelogram)
 	y0 = corners[0,1]
@@ -99,24 +108,13 @@ def storeGridPoints2(nrows,ncols,corners):
 		
 		## assign x&y coordinates to each node object ##
 		vo.assignCoordinatesToNodes(number_of_nodes, gridpts, unique_node)
-		# print "test of unique_node[1] x&y coordinates"
-		# for i in range(1,number_of_nodes+1):
-		# 	print unique_node[i].x2, unique_node[i].x3
-		# print nrows, ncols
-		# print number_of_elements, number_of_nodes
 
 		## assign nodes to elements ##
-		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_elements,number_of_nodes,element,unique_node)
+		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
 
 		## assign x&y coords along top&left edges for plotting in mayavi
-		(x_coords,y_coords) = em.getRectGridCoords(elementMap,unique_node)
-
-		# ## check if the function correctly assigned the element connectivity ##
-		# for i in range(1,number_of_elements+1):
-		# 	print element[i].node1.node_no, element[i].node2.node_no, element[i].node3.node_no, element[i].node4.node_no
-		
-		# print "check coords of element 1, node 4"
-		# print element[1].node4.x2, element[1].node4.x3
+		# (x_coords,y_coords) = em.getRectGridCoords(elementMap,unique_node)
+		(x_coords,y_coords) = (x,y)  # a less roundabout implementation than using em.getRectGridCoords(...)
 
 	else:
 		## print error msg(s) corresponding to each problem edge and return array of gridpoints with all entries equal to zero
@@ -131,10 +129,10 @@ def storeGridPoints2(nrows,ncols,corners):
 	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,elementMap,x_coords,y_coords)
 
 
-### plot the grid points and the corners ###
+### plot the grid points and the corners (unconnected plot) ###
 ###		input:	gridpts <np.array>, an array of x&y coordinates for each grid point
 ###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
-###		output:	plot of all grid points
+###		output:	(unconnected) plot of all grid points
 def plotGridPoints(gridpts, corners):
 	plt.axes().set_aspect('equal')
 	plt.plot(gridpts[:,0], gridpts[:,1], 'b+')
@@ -199,22 +197,22 @@ def calcCornerDims(corners):
 	dimV = abs(corners[0,1] - corners[2,1])  # subtract the y-coords of the top left and bottom left corners
 	return (dimH,dimV)
 
-if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
-	corners = np.array([ [-1.5, 1.2],
-	                     [ 1.5, 1.2],
-	                     [ 1.5,-1.2],
-	                     [-1.5,-1.2] ])
-	rows = 7
-	cols = 5
-	gridpts = storeGridPoints(rows,cols,corners)
-	### plot the results ###
-	# plt.figure(n)
-	plt.axes().set_aspect('equal')
-	# plt.axes().set_xlim(-2.0,2.0)
-	# plt.axes().set_ylim(-2.0,2.0)
-	plt.plot(gridpts[:,0], gridpts[:,1], 'ro')
-	plt.plot(corners[:,0], corners[:,1], 'b+')
-	plt.xlabel('x [m]')
-	plt.ylabel('y [m]')
-	plt.title('Cartesian grid')
-	plt.show()
+# if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line (not if it is imported from another file)
+# 	corners = np.array([ [-1.5, 1.2],
+# 	                     [ 1.5, 1.2],
+# 	                     [ 1.5,-1.2],
+# 	                     [-1.5,-1.2] ])
+# 	rows = 7
+# 	cols = 5
+# 	gridpts = storeGridPoints(rows,cols,corners)
+# 	### plot the results ###
+# 	# plt.figure(n)
+# 	plt.axes().set_aspect('equal')
+# 	# plt.axes().set_xlim(-2.0,2.0)
+# 	# plt.axes().set_ylim(-2.0,2.0)
+# 	plt.plot(gridpts[:,0], gridpts[:,1], 'ro')
+# 	plt.plot(corners[:,0], corners[:,1], 'b+')
+# 	plt.xlabel('x [m]')
+# 	plt.ylabel('y [m]')
+# 	plt.title('Cartesian grid')
+# 	plt.show()

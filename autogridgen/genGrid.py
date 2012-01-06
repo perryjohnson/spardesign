@@ -19,14 +19,15 @@ import gridViz as gv
 # record the time when the code starts
 start_time = time.time()
 
-fastflag = False   # set to True to speed up this script
+fastflag = True   # set to True to speed up this script
+plotflag = True
 
 
 
-if fastflag:
-	plotflag = False   # set to False to suppress plot output and speed up this script
-else:
-	plotflag = True
+# if fastflag:
+# 	plotflag = False   # set to False to suppress plot output and speed up this script
+# else:
+# 	plotflag = True
 
 
 ## set the maximum aspect ratio for any given cell ##
@@ -53,12 +54,12 @@ for i in range(1,endrange):
 
 	## create a new figure for each cross-section, and define the max&min plot limits in the x&y directions
 	figtitle = "spar station #" + str(i)
-	fig = mlab.figure(figure=figtitle, size=(600,750))  # make a new mayavi scene (figure window)
-	mlab.view(0,0)  # set the view to -Z (better for 2D grids)
+	fig = mlab.figure(figure=figtitle, size=(800,800))  # make a new mayavi scene (figure window)
+	mlab.view(0,180)  # set the view to be along the +Z axis (better for 2D grids)
 
 
 	### ROOT BUILDUP ###
-	print "ROOT BUILDUP"
+	# print "ROOT BUILDUP"
 	### read in the columns for root buildup base & root buildup height
 	rtbldup_bse = rl.extractDataColumn(data,'root buildup base')
 	rtbldup_ht  = rl.extractDataColumn(data,'root buildup height')
@@ -76,12 +77,12 @@ for i in range(1,endrange):
 		(RB_B_gridpts,RB_B_nodes,RB_B_elements,RB_B_number_of_nodes,RB_B_number_of_elements,RB_B_elementMap,RB_B_x,RB_B_y) = cg.storeGridPoints2(nrows,ncols,RB_corners[1,:,:])
 		## plot both root buildups ##
 		if (plotflag):
-			gv.plotVABSgrid(RB_T_x,RB_T_y)
-			gv.plotVABSgrid(RB_B_x,RB_B_y)
+			gv.plotRectGrid(RB_T_x,RB_T_y)
+			gv.plotRectGrid(RB_B_x,RB_B_y)
 
 
 	### SPAR CAPS ###
-	print "SPAR CAPS"
+	# print "SPAR CAPS"
 	SC_corners = rl.extract_SC_corners(data,spar_stn)
 	## top spar cap ##
 	(dimH,dimV) = cg.calcCornerDims(SC_corners[0,:,:])
@@ -95,12 +96,12 @@ for i in range(1,endrange):
 	(SC_B_gridpts,SC_B_nodes,SC_B_elements,SC_B_number_of_nodes,SC_B_number_of_elements,SC_B_elementMap,SC_B_x,SC_B_y) = cg.storeGridPoints2(nrows,ncols,SC_corners[1,:,:])
 	## plot both spar caps ##
 	if (plotflag):
-		gv.plotVABSgrid(SC_T_x,SC_T_y)
-		gv.plotVABSgrid(SC_B_x,SC_B_y)
+		gv.plotRectGrid(SC_T_x,SC_T_y)
+		gv.plotRectGrid(SC_B_x,SC_B_y)
 
 
 	### SHEAR WEBS ###
-	print "SHEAR WEBS"
+	# print "SHEAR WEBS"
 	SW_corners = rl.extract_SW_corners(data,spar_stn)
 	## left shear web ##
 	# left biax laminate #
@@ -143,20 +144,20 @@ for i in range(1,endrange):
 
 	## plot both shear webs (all laminates) ##
 	if (plotflag):
-		print "* left shear web"
-		print "** left biax"
-		gv.plotVABSgrid(SW_L_biaxL_x,SW_L_biaxL_y)
-		print "** foam"
-		gv.plotVABSgrid(SW_L_foam_x,SW_L_foam_y)
-		print "** right biax"
-		gv.plotVABSgrid(SW_L_biaxR_x,SW_L_biaxR_y)
-		print "* right shear web"
-		print "** left biax"
-		gv.plotVABSgrid(SW_R_biaxL_x,SW_R_biaxL_y)
-		print "** foam"
-		gv.plotVABSgrid(SW_R_foam_x,SW_R_foam_y)
-		print "** right biax"
-		gv.plotVABSgrid(SW_R_biaxR_x,SW_R_biaxR_y)
+		# print "* left shear web"
+		# print "** left biax"
+		gv.plotRectGrid(SW_L_biaxL_x,SW_L_biaxL_y)
+		# print "** foam"
+		gv.plotRectGrid(SW_L_foam_x,SW_L_foam_y)
+		# print "** right biax"
+		gv.plotRectGrid(SW_L_biaxR_x,SW_L_biaxR_y)
+		# print "* right shear web"
+		# print "** left biax"
+		gv.plotRectGrid(SW_R_biaxL_x,SW_R_biaxL_y)
+		# print "** foam"
+		gv.plotRectGrid(SW_R_foam_x,SW_R_foam_y)
+		# print "** right biax"
+		gv.plotRectGrid(SW_R_biaxR_x,SW_R_biaxR_y)
 
 
 # calculate the time it took to run the code
