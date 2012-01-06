@@ -79,6 +79,26 @@ def plotGridLines(elementMap,unique_node):
 	
 	return
 
+### get the x&y coordinates required by tvtk.RectilinearGrid() in mayavi
+###		input: elementMap
+###		       unique_node
+###		output: x_coords
+###		        y_coords
+def getRectGridCoords(elementMap,unique_node):
+	(left,right,top,bottom) = extractEdges(elementMap)
+
+	## horizontal (top) edge / x-coordinates ##
+	x_coords = np.empty(top.shape)  # make a new array with the same shape as the array "top"
+	for i in range(len(top)):
+		x_coords[i] = unique_node[top[i]].x2
+	
+	## vertical (left) edge / y-coordinates ##
+	y_coords = np.empty(left.shape) # make a new array with the same shape as the array "left"
+	for i in range(len(left)):
+		y_coords[i] = unique_node[left[i]].x3
+
+	return (x_coords,y_coords)
+
 
 
 if __name__ == '__main__':   # if run, not imported

@@ -55,7 +55,7 @@ def storeGridPoints(nrows,ncols,corners):
 ###		input:	nrows <int>, the desired number of grid cell rows
 ###				ncols <int>, the desired number of grid cell columns
 ###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
-###		output:	gridpts <np.array>, an array of x&y coordinates for each grid point
+###		output:	***UPDATE THIS***
 def storeGridPoints2(nrows,ncols,corners):
 	## check if the entries in the corners array make a rectangle (and not some other shape, like a parallelogram)
 	y0 = corners[0,1]
@@ -108,6 +108,9 @@ def storeGridPoints2(nrows,ncols,corners):
 		## assign nodes to elements ##
 		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_elements,number_of_nodes,element,unique_node)
 
+		## assign x&y coords along top&left edges for plotting in mayavi
+		(x_coords,y_coords) = em.getRectGridCoords(elementMap,unique_node)
+
 		# ## check if the function correctly assigned the element connectivity ##
 		# for i in range(1,number_of_elements+1):
 		# 	print element[i].node1.node_no, element[i].node2.node_no, element[i].node3.node_no, element[i].node4.node_no
@@ -125,7 +128,7 @@ def storeGridPoints2(nrows,ncols,corners):
 			print "ERROR: x-coords of left edge are NOT EQUAL"
 		if (not flagR):
 			print "ERROR: x-coords of right edge are NOT EQUAL"
-	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,elementMap)
+	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,elementMap,x_coords,y_coords)
 
 
 ### plot the grid points and the corners ###

@@ -7,6 +7,7 @@ import time
 # import VABSobjects as vo
 import plotgrid as pg
 import elementMap as em
+from mayavi import mlab
 
 # record the time when the code starts
 start_time = time.time()
@@ -16,7 +17,7 @@ fastflag = True   # set to True to speed up this script
 
 
 if fastflag:
-	plotflag = True   # set to False to suppress plot output and speed up this script
+	plotflag = False   # set to False to suppress plot output and speed up this script
 else:
 	plotflag = True
 
@@ -65,13 +66,13 @@ for i in range(1,endrange):
 		(nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
 		(nrows,ncols) = (nV,nH)
 		# RB_T_gridpts = cg.storeGridPoints(nrows,ncols,RB_corners[0,:,:])
-		(RB_T_gridpts,RB_T_nodes,RB_T_elements,RB_T_number_of_nodes,RB_T_number_of_elements,RB_T_elementMap) = cg.storeGridPoints2(nrows,ncols,RB_corners[0,:,:])
+		(RB_T_gridpts,RB_T_nodes,RB_T_elements,RB_T_number_of_nodes,RB_T_number_of_elements,RB_T_elementMap,RB_T_x,RB_T_y) = cg.storeGridPoints2(nrows,ncols,RB_corners[0,:,:])
 		## bottom root buildup ##
 		(dimH,dimV) = cg.calcCornerDims(RB_corners[1,:,:])
 		(nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
 		(nrows,ncols) = (nV,nH)
 		# RB_B_gridpts = cg.storeGridPoints(nrows,ncols,RB_corners[1,:,:])
-		(RB_B_gridpts,RB_B_nodes,RB_B_elements,RB_B_number_of_nodes,RB_B_number_of_elements,RB_B_elementMap) = cg.storeGridPoints2(nrows,ncols,RB_corners[1,:,:])
+		(RB_B_gridpts,RB_B_nodes,RB_B_elements,RB_B_number_of_nodes,RB_B_number_of_elements,RB_B_elementMap,RB_B_x,RB_B_y) = cg.storeGridPoints2(nrows,ncols,RB_corners[1,:,:])
 		## plot both root buildups ##
 		if (plotflag):
 			# cg.plotGridPoints(RB_T_gridpts, RB_corners[0,:,:])
@@ -90,13 +91,13 @@ for i in range(1,endrange):
 	(nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
 	(nrows,ncols) = (nV,nH)
 	# SC_T_gridpts = cg.storeGridPoints(nrows,ncols,SC_corners[0,:,:])
-	(SC_T_gridpts,SC_T_nodes,SC_T_elements,SC_T_number_of_nodes,SC_T_number_of_elements,SC_T_elementMap) = cg.storeGridPoints2(nrows,ncols,SC_corners[0,:,:])
+	(SC_T_gridpts,SC_T_nodes,SC_T_elements,SC_T_number_of_nodes,SC_T_number_of_elements,SC_T_elementMap,SC_T_x,SC_T_y) = cg.storeGridPoints2(nrows,ncols,SC_corners[0,:,:])
 	## bottom spar cap ##
 	(dimH,dimV) = cg.calcCornerDims(SC_corners[1,:,:])
 	(nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
 	(nrows,ncols) = (nV,nH)
 	# SC_B_gridpts = cg.storeGridPoints(nrows,ncols,SC_corners[1,:,:])
-	(SC_B_gridpts,SC_B_nodes,SC_B_elements,SC_B_number_of_nodes,SC_B_number_of_elements,SC_B_elementMap) = cg.storeGridPoints2(nrows,ncols,SC_corners[1,:,:])
+	(SC_B_gridpts,SC_B_nodes,SC_B_elements,SC_B_number_of_nodes,SC_B_number_of_elements,SC_B_elementMap,SC_B_x,SC_B_y) = cg.storeGridPoints2(nrows,ncols,SC_corners[1,:,:])
 	## plot both spar caps ##
 	if (plotflag):
 		# cg.plotGridPoints(SC_T_gridpts, SC_corners[0,:,:])
@@ -116,21 +117,21 @@ for i in range(1,endrange):
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_L_biaxL_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,0,:,:])
-	(SW_L_biaxL_gridpts,SW_L_biaxL_nodes,SW_L_biaxL_elements,SW_L_biaxL_number_of_nodes,SW_L_biaxL_number_of_elements,SW_L_biaxL_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,0,:,:])
+	(SW_L_biaxL_gridpts,SW_L_biaxL_nodes,SW_L_biaxL_elements,SW_L_biaxL_number_of_nodes,SW_L_biaxL_number_of_elements,SW_L_biaxL_elementMap,SW_L_biaxL_x,SW_L_biaxL_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,0,:,:])
 
 	# foam laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_L_foam_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,1,:,:])
-	(SW_L_foam_gridpts,SW_L_foam_nodes,SW_L_foam_elements,SW_L_foam_number_of_nodes,SW_L_foam_number_of_elements,SW_L_foam_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,1,:,:])
+	(SW_L_foam_gridpts,SW_L_foam_nodes,SW_L_foam_elements,SW_L_foam_number_of_nodes,SW_L_foam_number_of_elements,SW_L_foam_elementMap,SW_L_foam_x,SW_L_foam_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,1,:,:])
 
 	# right biax laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[0,2,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_L_biaxR_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[0,2,:,:])
-	(SW_L_biaxR_gridpts,SW_L_biaxR_nodes,SW_L_biaxR_elements,SW_L_biaxR_number_of_nodes,SW_L_biaxR_number_of_elements,SW_L_biaxR_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,2,:,:])
+	(SW_L_biaxR_gridpts,SW_L_biaxR_nodes,SW_L_biaxR_elements,SW_L_biaxR_number_of_nodes,SW_L_biaxR_number_of_elements,SW_L_biaxR_elementMap,SW_L_biaxR_x,SW_L_biaxR_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[0,2,:,:])
 
 	## right shear web ##
 	# left biax laminate #
@@ -138,21 +139,21 @@ for i in range(1,endrange):
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_R_biaxL_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,0,:,:])
-	(SW_R_biaxL_gridpts,SW_R_biaxL_nodes,SW_R_biaxL_elements,SW_R_biaxL_number_of_nodes,SW_R_biaxL_number_of_elements,SW_R_biaxL_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,0,:,:])
+	(SW_R_biaxL_gridpts,SW_R_biaxL_nodes,SW_R_biaxL_elements,SW_R_biaxL_number_of_nodes,SW_R_biaxL_number_of_elements,SW_R_biaxL_elementMap,SW_R_biaxL_x,SW_R_biaxL_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,0,:,:])
 
 	# foam laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[1,1,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_R_foam_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,1,:,:])
-	(SW_R_foam_gridpts,SW_R_foam_nodes,SW_R_foam_elements,SW_R_foam_number_of_nodes,SW_R_foam_number_of_elements,SW_R_foam_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,1,:,:])
+	(SW_R_foam_gridpts,SW_R_foam_nodes,SW_R_foam_elements,SW_R_foam_number_of_nodes,SW_R_foam_number_of_elements,SW_R_foam_elementMap,SW_R_foam_x,SW_R_foam_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,1,:,:])
 
 	# right biax laminate #
 	(dimH,dimV) = cg.calcCornerDims(SW_corners[1,2,:,:])
 	(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 	(nrows,ncols) = (nV,nH)
 	# SW_R_biaxR_gridpts = cg.storeGridPoints(nrows,ncols,SW_corners[1,2,:,:])
-	(SW_R_biaxR_gridpts,SW_R_biaxR_nodes,SW_R_biaxR_elements,SW_R_biaxR_number_of_nodes,SW_R_biaxR_number_of_elements,SW_R_biaxR_elementMap) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,2,:,:])
+	(SW_R_biaxR_gridpts,SW_R_biaxR_nodes,SW_R_biaxR_elements,SW_R_biaxR_number_of_nodes,SW_R_biaxR_number_of_elements,SW_R_biaxR_elementMap,SW_R_biaxR_x,SW_R_biaxR_y) = cg.storeGridPoints2(nrows,ncols,SW_corners[1,2,:,:])
 
 
 	## plot both shear webs (all laminates) ##
@@ -184,7 +185,14 @@ for i in range(1,endrange):
 		print "** right biax"
 		em.plotGridLines(SW_R_biaxR_elementMap,SW_R_biaxR_nodes)
 
-plt.show()
+# plt.show()
+## plot a test grid in mayavi
+import gridViz as gv
+rect = gv.generate_VABSgrid(RB_B_x,RB_B_y)
+fig = mlab.figure(figure='test grid', size=(600,750))  # make a new mayavi scene (figure window)
+gv.view(rect)
+mlab.view(0,0)
+
 
 # calculate the time it took to run the code
 elapsed_time_tot = time.time() - start_time
