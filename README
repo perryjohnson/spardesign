@@ -2,7 +2,7 @@ run "autogridgen\genGrid.py" from the command line
 
 Notes:
 ------
-(1) this software requires the PYTHON and MAYAVI are already installed on your system
+(1) this software requires that PYTHON and MAYAVI are already installed on your system
 (2) the Python(x,y) distribution (http://code.google.com/p/pythonxy/) is recommended for an easy install of all the required components to run this software
 
 -----------------------------------------------------------------------------------------------------------
