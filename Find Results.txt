@@ -1,0 +1,114 @@
+Searching 215 files for "genElementMap"
+
+D:\Dropbox\ucla\research\perry\github\spardesign\autogridgen\cartGrid.py:
+  111  
+  112  		## assign nodes to elements ##
+  113: 		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
+  114  
+  115  		## assign x&y coords along top&left edges for plotting in mayavi
+
+D:\Dropbox\ucla\research\perry\github\spardesign\autogridgen\elementMap.py:
+   13  ###		        nodeMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid
+   14  ###		        elementMap <np.array>, 2D array of integers, mapping the element numbers to their position in the grid
+   15: def genElementMap(number_of_rows,number_of_columns,number_of_nodes,element,unique_node,debugflag=False):
+   16  	### internal variables in this function ###
+   17  	# nodeList = list of node numbers
+   ..
+   33   	sanityflag = ( number_of_nodes == ((number_of_rows+1)*(number_of_columns+1)) )
+   34   	if (not sanityflag):
+   35:  		print "WARNING in elementMap.genElementMap: number_of_nodes != ((number_of_rows+1)*(number_of_columns+1))"
+   36  
+   37  	nodeList = np.array( range(1, number_of_nodes+1) )
+   ..
+  160  
+  161  	## generate the element map, and store it in the list of element objects ##
+  162: 	(element,nMap,eMap) = genElementMap(nrows,ncols,num_nodes,element,unique_node,True)
+  163  
+  164  # 	## check if the function correctly assigned the element connectivity ##
+
+4 matches across 2 files
+
+
+Searching 215 files for "storeGridPoints2"
+
+D:\Dropbox\ucla\research\perry\github\spardesign\autogridgen\cartGrid.py:
+    6  
+    7  ### build an array that stores all the (x,y) grid points ###
+    8: ###		***DEPRECATED*** use storeGridPoints2 (below)
+    9  ###
+   10  ###		input:	nrows <int>, the desired number of grid cell rows
+   ..
+   66  ###		        x_coords <np.array>, array of x-coordinates for tvtk.RectilinearGrid().x_coordinates in mayavi
+   67  ###		        y_coords <np.array>, array of y-coordinates for tvtk.RectilinearGrid().y_coordinates in mayavi
+   68: def storeGridPoints2(nrows,ncols,corners):
+   69  	## check if the entries in the corners array make a rectangle (and not some other shape, like a parallelogram)
+   70  	y0 = corners[0,1]
+
+D:\Dropbox\ucla\research\perry\github\spardesign\autogridgen\genGrid.py:
+    8  
+    9  ### TODO ###
+   10: # remove gridpts output from all cg.storeGridPoints2 function calls?
+   11  
+   12  
+   ..
+   28  		 RB_T_elementMap,
+   29  		 RB_T_x,
+   30: 		 RB_T_y) = cg.storeGridPoints2(nrows,
+   31  		                               ncols,
+   32  		                               RB_corners[0,:,:])
+   ..
+   42  		 RB_B_elementMap,
+   43  		 RB_B_x,
+   44: 		 RB_B_y) = cg.storeGridPoints2(nrows,
+   45  		                               ncols,
+   46  		                               RB_corners[1,:,:])
+   ..
+   67  	 SC_T_elementMap,
+   68  	 SC_T_x,
+   69: 	 SC_T_y) = cg.storeGridPoints2(nrows,
+   70  	                               ncols,
+   71  	                               SC_corners[0,:,:])
+   ..
+   81  	 SC_B_elementMap,
+   82  	 SC_B_x,
+   83: 	 SC_B_y) = cg.storeGridPoints2(nrows,
+   84  	                               ncols,
+   85  	                               SC_corners[1,:,:])
+   ..
+  107  	 SW_L_biaxL_elementMap,
+  108  	 SW_L_biaxL_x,
+  109: 	 SW_L_biaxL_y) = cg.storeGridPoints2(nrows,
+  110  	                                     ncols,
+  111  	                                     SW_corners[0,0,:,:])
+  ...
+  122  	 SW_L_foam_elementMap,
+  123  	 SW_L_foam_x,
+  124: 	 SW_L_foam_y) = cg.storeGridPoints2(nrows,
+  125  	                                    ncols,
+  126  	                                    SW_corners[0,1,:,:])
+  ...
+  137  	 SW_L_biaxR_elementMap,
+  138  	 SW_L_biaxR_x,
+  139: 	 SW_L_biaxR_y) = cg.storeGridPoints2(nrows,
+  140  	                                     ncols,
+  141  	                                     SW_corners[0,2,:,:])
+  ...
+  153  	 SW_R_biaxL_elementMap,
+  154  	 SW_R_biaxL_x,
+  155: 	 SW_R_biaxL_y) = cg.storeGridPoints2(nrows,
+  156  	                                     ncols,
+  157  	                                     SW_corners[1,0,:,:])
+  ...
+  168  	 SW_R_foam_elementMap,
+  169  	 SW_R_foam_x,
+  170: 	 SW_R_foam_y) = cg.storeGridPoints2(nrows,
+  171  	                                    ncols,
+  172  	                                    SW_corners[1,1,:,:])
+  ...
+  183  	 SW_R_biaxR_elementMap,
+  184  	 SW_R_biaxR_x,
+  185: 	 SW_R_biaxR_y) = cg.storeGridPoints2(nrows,
+  186  	                                     ncols,
+  187  	                                     SW_corners[1,2,:,:])
+
+13 matches across 2 files

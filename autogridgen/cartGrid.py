@@ -110,7 +110,7 @@ def storeGridPoints2(nrows,ncols,corners):
 		vo.assignCoordinatesToNodes(number_of_nodes, gridpts, unique_node)
 
 		## assign nodes to elements ##
-		(element,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
+		(element,nodeMap,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
 
 		## assign x&y coords along top&left edges for plotting in mayavi
 		# (x_coords,y_coords) = em.getRectGridCoords(elementMap,unique_node)
@@ -126,7 +126,7 @@ def storeGridPoints2(nrows,ncols,corners):
 			print "ERROR: x-coords of left edge are NOT EQUAL"
 		if (not flagR):
 			print "ERROR: x-coords of right edge are NOT EQUAL"
-	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,elementMap,x_coords,y_coords)
+	return (gridpts,unique_node,element,number_of_nodes,number_of_elements,nodeMap,elementMap,x_coords,y_coords)
 
 
 ### plot the grid points and the corners (unconnected plot) ###
