@@ -25,6 +25,7 @@ def genRootBuildup(data,spar_stn,RB_plies=6,maxAR=1.2,plotflag=False):
 		 RB_T_elements,
 		 RB_T_number_of_nodes,
 		 RB_T_number_of_elements,
+		 RB_T_nodeMap,
 		 RB_T_elementMap,
 		 RB_T_x,
 		 RB_T_y) = cg.storeGridPoints2(nrows,
@@ -39,6 +40,7 @@ def genRootBuildup(data,spar_stn,RB_plies=6,maxAR=1.2,plotflag=False):
 		 RB_B_elements,
 		 RB_B_number_of_nodes,
 		 RB_B_number_of_elements,
+		 RB_B_nodeMap,
 		 RB_B_elementMap,
 		 RB_B_x,
 		 RB_B_y) = cg.storeGridPoints2(nrows,
@@ -49,8 +51,8 @@ def genRootBuildup(data,spar_stn,RB_plies=6,maxAR=1.2,plotflag=False):
 			gv.plotRectGrid(RB_T_x,RB_T_y)
 			gv.plotRectGrid(RB_B_x,RB_B_y)
 
-	return (RB_T_nodes, RB_T_elements, RB_T_number_of_nodes, RB_T_number_of_elements, RB_T_elementMap,
-	        RB_B_nodes, RB_B_elements, RB_B_number_of_nodes, RB_B_number_of_elements, RB_B_elementMap)
+	return (RB_T_nodes, RB_T_elements, RB_T_number_of_nodes, RB_T_number_of_elements, RB_T_nodeMap, RB_T_elementMap,
+	        RB_B_nodes, RB_B_elements, RB_B_number_of_nodes, RB_B_number_of_elements, RB_B_nodeMap, RB_B_elementMap)
 
 
 def genSparCaps(data,spar_stn,SC_plies=2,maxAR=1.2,plotflag=False):
@@ -64,6 +66,7 @@ def genSparCaps(data,spar_stn,SC_plies=2,maxAR=1.2,plotflag=False):
 	 SC_T_elements,
 	 SC_T_number_of_nodes,
 	 SC_T_number_of_elements,
+	 SC_T_nodeMap,
 	 SC_T_elementMap,
 	 SC_T_x,
 	 SC_T_y) = cg.storeGridPoints2(nrows,
@@ -78,6 +81,7 @@ def genSparCaps(data,spar_stn,SC_plies=2,maxAR=1.2,plotflag=False):
 	 SC_B_elements,
 	 SC_B_number_of_nodes,
 	 SC_B_number_of_elements,
+	 SC_B_nodeMap,
 	 SC_B_elementMap,
 	 SC_B_x,
 	 SC_B_y) = cg.storeGridPoints2(nrows,
@@ -88,8 +92,8 @@ def genSparCaps(data,spar_stn,SC_plies=2,maxAR=1.2,plotflag=False):
 		gv.plotRectGrid(SC_T_x,SC_T_y)
 		gv.plotRectGrid(SC_B_x,SC_B_y)
 
-	return (SC_T_nodes, SC_T_elements, SC_T_number_of_nodes, SC_T_number_of_elements, SC_T_elementMap,
-	        SC_B_nodes, SC_B_elements, SC_B_number_of_nodes, SC_B_number_of_elements, SC_B_elementMap)
+	return (SC_T_nodes, SC_T_elements, SC_T_number_of_nodes, SC_T_number_of_elements, SC_T_nodeMap, SC_T_elementMap,
+	        SC_B_nodes, SC_B_elements, SC_B_number_of_nodes, SC_B_number_of_elements, SC_B_nodeMap, SC_B_elementMap)
 
 
 def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotflag=False):
@@ -104,6 +108,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_L_biaxL_elements,
 	 SW_L_biaxL_number_of_nodes,
 	 SW_L_biaxL_number_of_elements,
+	 SW_L_biaxL_nodeMap,
 	 SW_L_biaxL_elementMap,
 	 SW_L_biaxL_x,
 	 SW_L_biaxL_y) = cg.storeGridPoints2(nrows,
@@ -119,6 +124,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_L_foam_elements,
 	 SW_L_foam_number_of_nodes,
 	 SW_L_foam_number_of_elements,
+	 SW_L_foam_nodeMap,
 	 SW_L_foam_elementMap,
 	 SW_L_foam_x,
 	 SW_L_foam_y) = cg.storeGridPoints2(nrows,
@@ -134,6 +140,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_L_biaxR_elements,
 	 SW_L_biaxR_number_of_nodes,
 	 SW_L_biaxR_number_of_elements,
+	 SW_L_biaxR_nodeMap,
 	 SW_L_biaxR_elementMap,
 	 SW_L_biaxR_x,
 	 SW_L_biaxR_y) = cg.storeGridPoints2(nrows,
@@ -150,6 +157,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_R_biaxL_elements,
 	 SW_R_biaxL_number_of_nodes,
 	 SW_R_biaxL_number_of_elements,
+	 SW_R_biaxL_nodeMap,
 	 SW_R_biaxL_elementMap,
 	 SW_R_biaxL_x,
 	 SW_R_biaxL_y) = cg.storeGridPoints2(nrows,
@@ -165,6 +173,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_R_foam_elements,
 	 SW_R_foam_number_of_nodes,
 	 SW_R_foam_number_of_elements,
+	 SW_R_foam_nodeMap,
 	 SW_R_foam_elementMap,
 	 SW_R_foam_x,
 	 SW_R_foam_y) = cg.storeGridPoints2(nrows,
@@ -180,6 +189,7 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 	 SW_R_biaxR_elements,
 	 SW_R_biaxR_number_of_nodes,
 	 SW_R_biaxR_number_of_elements,
+	 SW_R_biaxR_nodeMap,
 	 SW_R_biaxR_elementMap,
 	 SW_R_biaxR_x,
 	 SW_R_biaxR_y) = cg.storeGridPoints2(nrows,
@@ -199,12 +209,12 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
 		gv.plotRectGrid(SW_R_biaxR_x,SW_R_biaxR_y)  # right biax
 
 
-	return (SW_L_biaxL_nodes, SW_L_biaxL_elements, SW_L_biaxL_number_of_nodes, SW_L_biaxL_number_of_elements, SW_L_biaxL_elementMap,
-	        SW_L_foam_nodes,  SW_L_foam_elements,  SW_L_foam_number_of_nodes,  SW_L_foam_number_of_elements,  SW_L_foam_elementMap,
-	        SW_L_biaxR_nodes, SW_L_biaxR_elements, SW_L_biaxR_number_of_nodes, SW_L_biaxR_number_of_elements, SW_L_biaxR_elementMap,
-	        SW_R_biaxL_nodes, SW_R_biaxL_elements, SW_R_biaxL_number_of_nodes, SW_R_biaxL_number_of_elements, SW_R_biaxL_elementMap,
-	        SW_R_foam_nodes,  SW_R_foam_elements,  SW_R_foam_number_of_nodes,  SW_R_foam_number_of_elements,  SW_R_foam_elementMap,
-	        SW_R_biaxR_nodes, SW_R_biaxR_elements, SW_R_biaxR_number_of_nodes, SW_R_biaxR_number_of_elements, SW_R_biaxR_elementMap)
+	return (SW_L_biaxL_nodes, SW_L_biaxL_elements, SW_L_biaxL_number_of_nodes, SW_L_biaxL_number_of_elements, SW_L_biaxL_nodeMap, SW_L_biaxL_elementMap,
+	        SW_L_foam_nodes,  SW_L_foam_elements,  SW_L_foam_number_of_nodes,  SW_L_foam_number_of_elements,  SW_L_foam_nodeMap,  SW_L_foam_elementMap,
+	        SW_L_biaxR_nodes, SW_L_biaxR_elements, SW_L_biaxR_number_of_nodes, SW_L_biaxR_number_of_elements, SW_L_biaxR_nodeMap, SW_L_biaxR_elementMap,
+	        SW_R_biaxL_nodes, SW_R_biaxL_elements, SW_R_biaxL_number_of_nodes, SW_R_biaxL_number_of_elements, SW_R_biaxL_nodeMap, SW_R_biaxL_elementMap,
+	        SW_R_foam_nodes,  SW_R_foam_elements,  SW_R_foam_number_of_nodes,  SW_R_foam_number_of_elements,  SW_R_foam_nodeMap,  SW_R_foam_elementMap,
+	        SW_R_biaxR_nodes, SW_R_biaxR_elements, SW_R_biaxR_number_of_nodes, SW_R_biaxR_number_of_elements, SW_R_biaxR_nodeMap, SW_R_biaxR_elementMap)
 
 
 if __name__ == '__main__':
