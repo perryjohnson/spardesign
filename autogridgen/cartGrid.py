@@ -59,7 +59,7 @@ def storeGridPoints(nrows,ncols,corners):
 ###				corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
 ###		output:	gridpts <np.array>, an array of x&y coordinates for each grid point
 ###		        unique_node <object>, list of unique node objects
-###		        element <object>, list of EMPTY element objects
+###		        element <object>, list of FILLED element objects
 ###		        number_of_nodes <int>, total number of nodes (vertices) in the grid
 ###		        number_of_elements <int>, total number of elements (cells) in the grid
 ###		        elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element

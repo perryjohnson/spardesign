@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 ###		       number_of_nodes <int>, total number of nodes (vertices) in the grid
 ###		       element <object>, list of EMPTY element objects
 ###		       unique_node <object>, list of unique node objects
-###		output: element <object>, list of UPDATED element objects (assigned nodes and coordinates)
+###		output: element <object>, list of UPDATED (FILLED) element objects (assigned nodes and coordinates)
 ###		        elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
 def genElementMap(number_of_rows,number_of_columns,number_of_nodes,element,unique_node):
 	### internal variables in this function ###
@@ -37,10 +37,10 @@ def genElementMap(number_of_rows,number_of_columns,number_of_nodes,element,uniqu
 	reshapedList = np.reshape(nodeList, (number_of_rows+1, number_of_columns+1), order='F')
 	elementMap = reshapedList[ ::-1,:]  # equivalent to MATLAB's "flipud" function
 
-	# print "node list:"
-	# print nodeList, "\n"
-	# print "element map:"
-	# print elementMap, "\n"
+	print "node list:"
+	print nodeList, "\n"
+	print "element map:"
+	print elementMap, "\n"
 
 	n = 1  # initialize counter for element number
 	for row in range(number_of_rows):
@@ -121,34 +121,34 @@ def getRectGridCoords(elementMap,unique_node):
 
 
 
-# if __name__ == '__main__':   # if run, not imported
-# 	## initialize number of rows and columns ##
-# 	nrows = 10  # number of element rows
-# 	ncols = 5  # number of element columns
+if __name__ == '__main__':   # if run, not imported
+	## initialize number of rows and columns ##
+	nrows = 10  # number of element rows
+	ncols = 5  # number of element columns
 
-# 	## calculate the number of elements and nodes for this region ##
-# 	num_elements = nrows * ncols
-# 	num_nodes = (nrows+1) * (ncols+1)
+	## calculate the number of elements and nodes for this region ##
+	num_elements = nrows * ncols
+	num_nodes = (nrows+1) * (ncols+1)
 
-# 	## initialize objects for the VABSobjects module ##
-# 	unique_node = []  # create an empty list of node objects
-# 	element = []      # create an empty list of element objects
+	## initialize objects for the VABSobjects module ##
+	unique_node = []  # create an empty list of node objects
+	element = []      # create an empty list of element objects
 
-# 	## call functions from the VABSobjects module ##
-# 	vo.fillNodeObjects(num_nodes, unique_node)
-# 	vo.fillElementObjects(num_elements, element)
+	## call functions from the VABSobjects module ##
+	vo.fillNodeObjects(num_nodes, unique_node)
+	vo.fillElementObjects(num_elements, element)
 
-# 	## fill list of node objects ##
-# 	for i in range(1,num_nodes+1):
-# 		unique_node[i].node_no = i
-# 		(unique_node[i].x2, unique_node[i].x3) = (0.0, 0.0)
+	## fill list of node objects ##
+	for i in range(1,num_nodes+1):
+		unique_node[i].node_no = i
+		(unique_node[i].x2, unique_node[i].x3) = (0.0, 0.0)
 # 	# (unique_node[1].x2, unique_node[1].x3) = (0.0, 0.0)
 # 	# (unique_node[2].x2, unique_node[2].x3) = (0.0, 1.0)
 # 	# (unique_node[3].x2, unique_node[3].x3) = (1.0, 0.0)
 # 	# (unique_node[4].x2, unique_node[4].x3) = (1.0, 1.0)
 
-# 	## generate the element map, and store it in the list of element objects ##
-# 	(element,eMap) = genElementMap(nrows,ncols,num_nodes,element,unique_node)
+	## generate the element map, and store it in the list of element objects ##
+	(element,eMap) = genElementMap(nrows,ncols,num_nodes,element,unique_node)
 
 # 	## check if the function correctly assigned the element connectivity ##
 # 	for i in range(1,num_elements+1):
