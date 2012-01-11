@@ -109,6 +109,9 @@ def colorElementsByLayer(nelem, elem, equal_flag, grid_flag):
 		y2_temp = elem[i].upper_border_y
 		plt.fill_between(x_temp, y1_temp, y2_temp, color=fillcolor)
 
+		if i % 5000 == 0:  # print progress to screen
+			print '          filling element #' + str(elem[i].elem_no) + '/' + str(nelem)
+
 	return
 
 

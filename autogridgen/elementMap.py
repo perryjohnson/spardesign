@@ -51,7 +51,7 @@ def genElementMap(number_of_rows,number_of_columns,number_of_nodes,element,uniqu
 	for row in range(number_of_rows):
 		for col in range(number_of_columns):
 			element[n].elem_no = n
-			elementMap[row,col] = int(n)
+			elementMap[row,col] = n
 			(node1_no, node2_no, node3_no, node4_no) = (nodeMap[row+1,col], nodeMap[row+1,col+1], nodeMap[row,col+1], nodeMap[row,col])
 			(element[n].node1, element[n].node2, element[n].node3, element[n].node4) = (unique_node[node1_no], unique_node[node2_no], unique_node[node3_no], unique_node[node4_no])
 			n = n+1
