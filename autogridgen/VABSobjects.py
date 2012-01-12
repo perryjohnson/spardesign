@@ -15,6 +15,7 @@ class materialObj:        # a material with its constants (Young's modulus, Pois
 	                      #                             general anisotropic (2)
 	rho = np.nan          # density
 	color = ''            # color used to fill all elements assigned with this material
+	rgb = ()
 
 
 class layerObj:        # a layer is a unique combination of material type and layup orientation (theta3)
@@ -22,6 +23,7 @@ class layerObj:        # a layer is a unique combination of material type and la
 	material = materialObj()  # material of this layer
 	theta3 = np.nan    # layup angle (in degrees) for this layer
 	color = ''         # color used to fill all elements assigned with this layer
+	rgb = ()
 
 
 class isotropicMatlObj(materialObj):  # an isotropic material object (subclass)
@@ -108,6 +110,7 @@ def assignMaterials(nmate, material_list):
 			(material_list[i].nu12, material_list[i].nu13, material_list[i].nu23) = (0.28, 0.28, 0.28)
 			material_list[i].rho = 1.92E+03
 			material_list[i].color = 'grey'
+			material_list[i].rgb = (0.502,0.502,0.502)
 		elif i == 2:
 			# biaxial GFRP
 			material_list[i].orth_flag = 1
@@ -117,6 +120,7 @@ def assignMaterials(nmate, material_list):
 			(material_list[i].nu12, material_list[i].nu13, material_list[i].nu23) = (0.51, 0.51, 0.51)
 			material_list[i].rho = 1.78E+03
 			material_list[i].color = 'teal'
+			material_list[i].rgb = (0,0.502,0.502)
 		elif i == 3:
 			# triaxial GFRP
 			material_list[i].orth_flag = 1
@@ -126,6 +130,7 @@ def assignMaterials(nmate, material_list):
 			(material_list[i].nu12, material_list[i].nu13, material_list[i].nu23) = (0.39, 0.39, 0.39)
 			material_list[i].rho = 1.85E+03
 			material_list[i].color = 'pink'
+			material_list[i].rgb = (1,0.753,0.796)
 		elif i == 4:
 			# foam
 			material_list[i].orth_flag = 0
@@ -134,6 +139,7 @@ def assignMaterials(nmate, material_list):
 			material_list[i].nu = 0.3
 			material_list[i].rho = 0.20E+03
 			material_list[i].color = 'orange'
+			material_list[i].rgb = (1,0.647,0)
 	return
 
 
@@ -170,36 +176,43 @@ def assignLayers(layer_list, matl):
 	layer_list[1].material = matl[1] # uniaxial GFRP
 	layer_list[1].theta3 = 0.0       # 0 degrees, layup angle
 	layer_list[1].color = 'red'      # color to fill elements assigned with this layer
+	layer_list[1].rgb = (1,0,0)      # RGB code for fill color
 
 	layer_list[2].layer_no = 2       # layer 2
 	layer_list[2].material = matl[2] # biaxial GFRP
 	layer_list[2].theta3 = 45.0      # 45 degrees, layup angle
 	layer_list[2].color = 'green'    # color to fill elements assigned with this layer
+	layer_list[2].rgb = (0,0.514,0)  # RGB code for fill color
 
 	layer_list[3].layer_no = 3       # layer 3
 	layer_list[3].material = matl[2] # biaxial GFRP
 	layer_list[3].theta3 = -45.0     # -45 degrees, layup angle
 	layer_list[3].color = 'cyan'     # color to fill elements assigned with this layer
+	layer_list[3].rgb = (0,1,1)      # RGB code for fill color
 
 	layer_list[4].layer_no = 4       # layer 4
 	layer_list[4].material = matl[3] # triaxial GFRP
 	layer_list[4].theta3 = 45.0      # 45 degrees, layup angle
 	layer_list[4].color = 'tan'      # color to fill elements assigned with this layer
+	layer_list[4].rgb = (0,0.706,0.549)
 
 	layer_list[5].layer_no = 5       # layer 5
 	layer_list[5].material = matl[3] # triaxial GFRP
 	layer_list[5].theta3 = -45.0     # -45 degrees, layup angle
 	layer_list[5].color = 'yellow'   # color to fill elements assigned with this layer
+	layer_list[5].rgb = (1,1,0)      # RGB code for fill color
 
 	layer_list[6].layer_no = 6       # layer 6
 	layer_list[6].material = matl[3] # triaxial GFRP
 	layer_list[6].theta3 = 0.0       # 0 degrees, layup angle
 	layer_list[6].color = 'blue'     # color to fill elements assigned with this layer
+	layer_list[6].rgb = (0,0,1)      # RGB code for fill color
 
 	layer_list[7].layer_no = 7       # layer 7
 	layer_list[7].material = matl[4] # foam
 	layer_list[7].theta3 = 0.0       # 0 degrees, layup angle
 	layer_list[7].color = 'magenta'  # color to fill elements assigned with this layer
+	layer_list[7].rgb = (1,0,1)      # RGB code for fill color
 
 	return
 

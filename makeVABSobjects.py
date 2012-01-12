@@ -4,7 +4,7 @@ import time
 start_time = time.time()
 
 import autogridgen.genGrid as gg
-import VABSobjects as vo
+import autogridgen.VABSobjects as vo
 import autogridgen.read_layup as rl
 
 
@@ -273,20 +273,20 @@ for j in range(1,SW_R_biaxR_number_of_elements+1):
 	i = i+1
 
 
-vo.assignBordersToElements(total_number_of_elements, element)
+# vo.assignBordersToElements(total_number_of_elements, element)
 
-print "STATUS: plotting the grid..."
-import plotgrid as pg
-AR_equal = True
-element_lines = False
-print "        - coloring the elements by layer"
-pg.colorElementsByLayer(total_number_of_elements, element, AR_equal, element_lines)
-# print "        - coloring the elements by material"
-# pg.colorElementsByMaterial(number_of_elements, element, AR_equal, element_lines)
-print "        - showing the plot"
-# pg.printLegendForLayerColors(number_of_layers, layer)
-# pg.printLegendForMaterialColors(number_of_materials, material)
-pg.showPlot()
+# print "STATUS: plotting the grid..."
+# import plotgrid as pg
+# AR_equal = True
+# element_lines = False
+# print "        - coloring the elements by layer"
+# pg.colorElementsByLayer(total_number_of_elements, element, AR_equal, element_lines)
+# # print "        - coloring the elements by material"
+# # pg.colorElementsByMaterial(number_of_elements, element, AR_equal, element_lines)
+# print "        - showing the plot"
+# # pg.printLegendForLayerColors(number_of_layers, layer)
+# # pg.printLegendForMaterialColors(number_of_materials, material)
+# pg.showPlot()
 
 
 
