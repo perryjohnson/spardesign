@@ -279,7 +279,17 @@ for j in range(1,SW_R_biaxR_number_of_elements+1):
 # import plotgrid as pg
 # AR_equal = True
 # element_lines = False
-# print "        - coloring the elements by layer"
+
+print "        - coloring the elements by layer"
+from mayavi import mlab
+mlab.figure(size=(800,800))
+mlab.view(0,180)
+import autogridgen.gridViz as gv
+for i in range(1,total_number_of_elements/250):
+	x_coords = [element[i].node1.x2, element[i].node2.x2]
+	y_coords = [element[i].node1.x3, element[i].node4.x3]
+	gv.plotSurface(x_coords,y_coords,element[i].layer.rgb,1.0)
+
 # pg.colorElementsByLayer(total_number_of_elements, element, AR_equal, element_lines)
 # # print "        - coloring the elements by material"
 # # pg.colorElementsByMaterial(number_of_elements, element, AR_equal, element_lines)

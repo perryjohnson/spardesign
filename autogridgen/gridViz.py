@@ -27,10 +27,10 @@ def drawGridPlane(dataset):
 ### draw a Surface module in Mayavi
 ###     input: dataset <tvtk object>, rectilinear grid object from TVTK
 ###     output: <none>
-def drawSurface(dataset):
+def drawSurface(dataset,color_tuple=(0,0,0),opacity_value=0.5):
     surf = mlab.pipeline.surface(dataset,
-                                 color=(1,0,0),
-                                 opacity=0.5)     # fill in the grid with a half-transparent red
+                                 color=color_tuple,
+                                 opacity=opacity_value)     # fill in the grid with a half-transparent red
     return
 
 
@@ -41,6 +41,14 @@ def drawSurface(dataset):
 def plotRectGrid(x_coords,y_coords):
     grid = genRectGrid(x_coords,y_coords)
     drawGridPlane(grid)
+    # drawSurface(grid,(0,0,1))
+    return
+
+
+###
+def plotSurface(x_coords,y_coords,color_tuple=(0,0,0),opacity_value=0.5):
+    grid = genRectGrid(x_coords,y_coords)
+    drawSurface(grid,color_tuple,opacity_value)
     return
 
 

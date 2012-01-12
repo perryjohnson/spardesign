@@ -113,7 +113,7 @@ def storeGridPoints2(nrows,ncols,corners):
 		(element,nodeMap,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
 
 		## assign x&y coords along top&left edges for plotting in mayavi
-		# (x_coords,y_coords) = em.getRectGridCoords(elementMap,unique_node)
+		# (x_coords,y_coords) = em.getRectGridCoords(nodeMap,unique_node)
 		(x_coords,y_coords) = (x,y)  # a less roundabout implementation than using em.getRectGridCoords(...)
 
 	else:

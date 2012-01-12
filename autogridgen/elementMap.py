@@ -64,16 +64,16 @@ def genElementMap(number_of_rows,number_of_columns,number_of_nodes,element,uniqu
 
 
 ### extract the edges of an element map
-###		input: elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
+###		input: nodeMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
 ###		output: left <np.array>, 1D array of integers, mapping the node numbers of the grid's left edge
 ###		        right <np.array>, 1D array of integers, mapping the node numbers of the grid's right edge
 ###		        top <np.array>, 1D array of integers, mapping the node numbers of the grid's top edge
 ###		        bottom <np.array>, 1D array of integers, mapping the node numbers of the grid's bottom edge
-def extractEdges(elementMap):
-	left   = elementMap[:,0]
-	right  = elementMap[:,-1]
-	top    = elementMap[0,:]
-	bottom = elementMap[-1,:]
+def extractEdges(nodeMap):
+	left   = nodeMap[:,0]
+	right  = nodeMap[:,-1]
+	top    = nodeMap[0,:]
+	bottom = nodeMap[-1,:]
 	return (left,right,top,bottom)
 
 
@@ -82,11 +82,11 @@ def extractEdges(elementMap):
 ### 	more efficiently than drawing each side of each element in the grid
 ### 	***DEPRECATED*** use gridViz.plotRectGrid (with mayavi) ... it's much faster
 ###
-###		input: elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
+###		input: nodeMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
 ###		       unique_node <object>, list of unique node objects
 ###		output: matplotlib plot of the grid (on the screen)
-def plotGridLines(elementMap,unique_node):
-	(left,right,top,bottom) = extractEdges(elementMap)
+def plotGridLines(nodeMap,unique_node):
+	(left,right,top,bottom) = extractEdges(nodeMap)
 
 	## vertical lines ##
 	for i in range(len(top)):
@@ -111,12 +111,12 @@ def plotGridLines(elementMap,unique_node):
 	return
 
 ### get the x&y coordinates required by tvtk.RectilinearGrid() in mayavi
-###		input: elementMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
+###		input: nodeMap <np.array>, 2D array of integers, mapping the node numbers to their position in the grid for each element
 ###		       unique_node <object>, list of unique node objects
 ###		output: x_coords <np.array>, array of x-coordinates for tvtk.RectilinearGrid().x_coordinates in mayavi
 ###		        y_coords <np.array>, array of y-coordinates for tvtk.RectilinearGrid().y_coordinates in mayavi
-def getRectGridCoords(elementMap,unique_node):
-	(left,right,top,bottom) = extractEdges(elementMap)
+def getRectGridCoords(nodeMap,unique_node):
+	(left,right,top,bottom) = extractEdges(nodeMap)
 
 	## horizontal (top) edge / x-coordinates ##
 	x_coords = np.empty(top.shape)  # make a new array with the same shape as the array "top"
