@@ -273,38 +273,731 @@ for j in range(1,SW_R_biaxR_number_of_elements+1):
 	i = i+1
 
 
-# vo.assignBordersToElements(total_number_of_elements, element)
-
-# print "STATUS: plotting the grid..."
-# import plotgrid as pg
-# AR_equal = True
-# element_lines = False
 
 print "        - coloring the elements by layer"
 from mayavi import mlab
-mlab.figure(size=(800,800))
+mlab.figure(figure='layer', size=(800,800))
 mlab.view(0,180)
 import autogridgen.gridViz as gv
-for i in range(1,total_number_of_elements/250):
-	x_coords = [element[i].node1.x2, element[i].node2.x2]
-	y_coords = [element[i].node1.x3, element[i].node4.x3]
-	gv.plotSurface(x_coords,y_coords,element[i].layer.rgb,1.0)
 
-# pg.colorElementsByLayer(total_number_of_elements, element, AR_equal, element_lines)
-# # print "        - coloring the elements by material"
-# # pg.colorElementsByMaterial(number_of_elements, element, AR_equal, element_lines)
-# print "        - showing the plot"
-# # pg.printLegendForLayerColors(number_of_layers, layer)
-# # pg.printLegendForMaterialColors(number_of_materials, material)
-# pg.showPlot()
+### root buildup (top) ###
+## layer 1 ##
+a = RB_T_elementMap[0,0]
+b = RB_T_elementMap[0,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = RB_T_elementMap[1,0]
+b = RB_T_elementMap[1,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = RB_T_elementMap[2,0]
+b = RB_T_elementMap[2,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = RB_T_elementMap[3,0]
+b = RB_T_elementMap[3,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = RB_T_elementMap[4,0]
+b = RB_T_elementMap[4,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = RB_T_elementMap[5,0]
+b = RB_T_elementMap[5,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.rgb,1.0)
+
+### root buildup (bottom) ###
+## layer 1 ##
+a = RB_B_elementMap[0,0]
+b = RB_B_elementMap[0,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = RB_B_elementMap[1,0]
+b = RB_B_elementMap[1,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = RB_B_elementMap[2,0]
+b = RB_B_elementMap[2,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = RB_B_elementMap[3,0]
+b = RB_B_elementMap[3,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = RB_B_elementMap[4,0]
+b = RB_B_elementMap[4,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = RB_B_elementMap[5,0]
+b = RB_B_elementMap[5,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.rgb,1.0)
+
+### spar cap (top) ###
+## layer 1 ##
+a = SC_T_elementMap[0,0]
+b = SC_T_elementMap[0,-1]
+x_coords = [SC_T_elements[a].node4.x2, SC_T_elements[b].node2.x2]
+y_coords = [SC_T_elements[a].node4.x3, SC_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_T_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SC_T_elementMap[1,0]
+b = SC_T_elementMap[1,-1]
+x_coords = [SC_T_elements[a].node4.x2, SC_T_elements[b].node2.x2]
+y_coords = [SC_T_elements[a].node4.x3, SC_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_T_elements[a].layer.rgb,1.0)
+
+### spar cap (bottom) ###
+## layer 1 ##
+a = SC_B_elementMap[0,0]
+b = SC_B_elementMap[0,-1]
+x_coords = [SC_B_elements[a].node4.x2, SC_B_elements[b].node2.x2]
+y_coords = [SC_B_elements[a].node4.x3, SC_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_B_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SC_B_elementMap[1,0]
+b = SC_B_elementMap[1,-1]
+x_coords = [SC_B_elements[a].node4.x2, SC_B_elements[b].node2.x2]
+y_coords = [SC_B_elements[a].node4.x3, SC_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_B_elements[a].layer.rgb,1.0)
+
+### shear web (left, left biax) ###
+## layer 1 ##
+a = SW_L_biaxL_elementMap[0,0]
+b = SW_L_biaxL_elementMap[-1,0]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_L_biaxL_elementMap[0,1]
+b = SW_L_biaxL_elementMap[-1,1]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_L_biaxL_elementMap[0,2]
+b = SW_L_biaxL_elementMap[-1,2]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_L_biaxL_elementMap[0,3]
+b = SW_L_biaxL_elementMap[-1,3]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = SW_L_biaxL_elementMap[0,4]
+b = SW_L_biaxL_elementMap[-1,4]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = SW_L_biaxL_elementMap[0,5]
+b = SW_L_biaxL_elementMap[-1,5]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 7 ##
+a = SW_L_biaxL_elementMap[0,6]
+b = SW_L_biaxL_elementMap[-1,6]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+## layer 8 ##
+a = SW_L_biaxL_elementMap[0,7]
+b = SW_L_biaxL_elementMap[-1,7]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.rgb,1.0)
+
+### shear web (left, foam) ###
+## layer 1 ##
+a = SW_L_foam_elementMap[0,0]
+b = SW_L_foam_elementMap[-1,0]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_L_foam_elementMap[0,1]
+b = SW_L_foam_elementMap[-1,1]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_L_foam_elementMap[0,2]
+b = SW_L_foam_elementMap[-1,2]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_L_foam_elementMap[0,3]
+b = SW_L_foam_elementMap[-1,3]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.rgb,1.0)
+
+### shear web (left, right biax) ###
+## layer 1 ##
+a = SW_L_biaxR_elementMap[0,0]
+b = SW_L_biaxR_elementMap[-1,0]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_L_biaxR_elementMap[0,1]
+b = SW_L_biaxR_elementMap[-1,1]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_L_biaxR_elementMap[0,2]
+b = SW_L_biaxR_elementMap[-1,2]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_L_biaxR_elementMap[0,3]
+b = SW_L_biaxR_elementMap[-1,3]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = SW_L_biaxR_elementMap[0,4]
+b = SW_L_biaxR_elementMap[-1,4]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = SW_L_biaxR_elementMap[0,5]
+b = SW_L_biaxR_elementMap[-1,5]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 7 ##
+a = SW_L_biaxR_elementMap[0,6]
+b = SW_L_biaxR_elementMap[-1,6]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+## layer 8 ##
+a = SW_L_biaxR_elementMap[0,7]
+b = SW_L_biaxR_elementMap[-1,7]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.rgb,1.0)
+
+### shear web (right, foam) ###
+## layer 1 ##
+a = SW_R_foam_elementMap[0,0]
+b = SW_R_foam_elementMap[-1,0]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_R_foam_elementMap[0,1]
+b = SW_R_foam_elementMap[-1,1]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_R_foam_elementMap[0,2]
+b = SW_R_foam_elementMap[-1,2]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_R_foam_elementMap[0,3]
+b = SW_R_foam_elementMap[-1,3]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.rgb,1.0)
+
+### shear web (right, left biax) ###
+## layer 1 ##
+a = SW_R_biaxL_elementMap[0,0]
+b = SW_R_biaxL_elementMap[-1,0]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_R_biaxL_elementMap[0,1]
+b = SW_R_biaxL_elementMap[-1,1]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_R_biaxL_elementMap[0,2]
+b = SW_R_biaxL_elementMap[-1,2]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_R_biaxL_elementMap[0,3]
+b = SW_R_biaxL_elementMap[-1,3]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = SW_R_biaxL_elementMap[0,4]
+b = SW_R_biaxL_elementMap[-1,4]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = SW_R_biaxL_elementMap[0,5]
+b = SW_R_biaxL_elementMap[-1,5]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 7 ##
+a = SW_R_biaxL_elementMap[0,6]
+b = SW_R_biaxL_elementMap[-1,6]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+## layer 8 ##
+a = SW_R_biaxL_elementMap[0,7]
+b = SW_R_biaxL_elementMap[-1,7]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.rgb,1.0)
+
+### shear web (right, right biax) ###
+## layer 1 ##
+a = SW_R_biaxR_elementMap[0,0]
+b = SW_R_biaxR_elementMap[-1,0]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 2 ##
+a = SW_R_biaxR_elementMap[0,1]
+b = SW_R_biaxR_elementMap[-1,1]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 3 ##
+a = SW_R_biaxR_elementMap[0,2]
+b = SW_R_biaxR_elementMap[-1,2]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 4 ##
+a = SW_R_biaxR_elementMap[0,3]
+b = SW_R_biaxR_elementMap[-1,3]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 5 ##
+a = SW_R_biaxR_elementMap[0,4]
+b = SW_R_biaxR_elementMap[-1,4]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 6 ##
+a = SW_R_biaxR_elementMap[0,5]
+b = SW_R_biaxR_elementMap[-1,5]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 7 ##
+a = SW_R_biaxR_elementMap[0,6]
+b = SW_R_biaxR_elementMap[-1,6]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
+## layer 8 ##
+a = SW_R_biaxR_elementMap[0,7]
+b = SW_R_biaxR_elementMap[-1,7]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
 
 
 
 
+print "        - coloring the elements by material"
+mlab.figure(figure='material', size=(800,800))
+mlab.view(0,180)
 
+### root buildup (top) ###
+## layer 1 ##
+a = RB_T_elementMap[0,0]
+b = RB_T_elementMap[0,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = RB_T_elementMap[1,0]
+b = RB_T_elementMap[1,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = RB_T_elementMap[2,0]
+b = RB_T_elementMap[2,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = RB_T_elementMap[3,0]
+b = RB_T_elementMap[3,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = RB_T_elementMap[4,0]
+b = RB_T_elementMap[4,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = RB_T_elementMap[5,0]
+b = RB_T_elementMap[5,-1]
+x_coords = [RB_T_elements[a].node4.x2, RB_T_elements[b].node2.x2]
+y_coords = [RB_T_elements[a].node4.x3, RB_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_T_elements[a].layer.material.rgb,1.0)
 
+### root buildup (bottom) ###
+## layer 1 ##
+a = RB_B_elementMap[0,0]
+b = RB_B_elementMap[0,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = RB_B_elementMap[1,0]
+b = RB_B_elementMap[1,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = RB_B_elementMap[2,0]
+b = RB_B_elementMap[2,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = RB_B_elementMap[3,0]
+b = RB_B_elementMap[3,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = RB_B_elementMap[4,0]
+b = RB_B_elementMap[4,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = RB_B_elementMap[5,0]
+b = RB_B_elementMap[5,-1]
+x_coords = [RB_B_elements[a].node4.x2, RB_B_elements[b].node2.x2]
+y_coords = [RB_B_elements[a].node4.x3, RB_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,RB_B_elements[a].layer.material.rgb,1.0)
 
+### spar cap (top) ###
+## layer 1 ##
+a = SC_T_elementMap[0,0]
+b = SC_T_elementMap[0,-1]
+x_coords = [SC_T_elements[a].node4.x2, SC_T_elements[b].node2.x2]
+y_coords = [SC_T_elements[a].node4.x3, SC_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_T_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SC_T_elementMap[1,0]
+b = SC_T_elementMap[1,-1]
+x_coords = [SC_T_elements[a].node4.x2, SC_T_elements[b].node2.x2]
+y_coords = [SC_T_elements[a].node4.x3, SC_T_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_T_elements[a].layer.material.rgb,1.0)
 
+### spar cap (bottom) ###
+## layer 1 ##
+a = SC_B_elementMap[0,0]
+b = SC_B_elementMap[0,-1]
+x_coords = [SC_B_elements[a].node4.x2, SC_B_elements[b].node2.x2]
+y_coords = [SC_B_elements[a].node4.x3, SC_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_B_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SC_B_elementMap[1,0]
+b = SC_B_elementMap[1,-1]
+x_coords = [SC_B_elements[a].node4.x2, SC_B_elements[b].node2.x2]
+y_coords = [SC_B_elements[a].node4.x3, SC_B_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SC_B_elements[a].layer.material.rgb,1.0)
+
+### shear web (left, left biax) ###
+## layer 1 ##
+a = SW_L_biaxL_elementMap[0,0]
+b = SW_L_biaxL_elementMap[-1,0]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_L_biaxL_elementMap[0,1]
+b = SW_L_biaxL_elementMap[-1,1]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_L_biaxL_elementMap[0,2]
+b = SW_L_biaxL_elementMap[-1,2]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_L_biaxL_elementMap[0,3]
+b = SW_L_biaxL_elementMap[-1,3]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = SW_L_biaxL_elementMap[0,4]
+b = SW_L_biaxL_elementMap[-1,4]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = SW_L_biaxL_elementMap[0,5]
+b = SW_L_biaxL_elementMap[-1,5]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 7 ##
+a = SW_L_biaxL_elementMap[0,6]
+b = SW_L_biaxL_elementMap[-1,6]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 8 ##
+a = SW_L_biaxL_elementMap[0,7]
+b = SW_L_biaxL_elementMap[-1,7]
+x_coords = [SW_L_biaxL_elements[a].node4.x2, SW_L_biaxL_elements[b].node2.x2]
+y_coords = [SW_L_biaxL_elements[a].node4.x3, SW_L_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxL_elements[a].layer.material.rgb,1.0)
+
+### shear web (left, foam) ###
+## layer 1 ##
+a = SW_L_foam_elementMap[0,0]
+b = SW_L_foam_elementMap[-1,0]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_L_foam_elementMap[0,1]
+b = SW_L_foam_elementMap[-1,1]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_L_foam_elementMap[0,2]
+b = SW_L_foam_elementMap[-1,2]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_L_foam_elementMap[0,3]
+b = SW_L_foam_elementMap[-1,3]
+x_coords = [SW_L_foam_elements[a].node4.x2, SW_L_foam_elements[b].node2.x2]
+y_coords = [SW_L_foam_elements[a].node4.x3, SW_L_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_foam_elements[a].layer.material.rgb,1.0)
+
+### shear web (left, right biax) ###
+## layer 1 ##
+a = SW_L_biaxR_elementMap[0,0]
+b = SW_L_biaxR_elementMap[-1,0]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_L_biaxR_elementMap[0,1]
+b = SW_L_biaxR_elementMap[-1,1]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_L_biaxR_elementMap[0,2]
+b = SW_L_biaxR_elementMap[-1,2]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_L_biaxR_elementMap[0,3]
+b = SW_L_biaxR_elementMap[-1,3]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = SW_L_biaxR_elementMap[0,4]
+b = SW_L_biaxR_elementMap[-1,4]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = SW_L_biaxR_elementMap[0,5]
+b = SW_L_biaxR_elementMap[-1,5]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 7 ##
+a = SW_L_biaxR_elementMap[0,6]
+b = SW_L_biaxR_elementMap[-1,6]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 8 ##
+a = SW_L_biaxR_elementMap[0,7]
+b = SW_L_biaxR_elementMap[-1,7]
+x_coords = [SW_L_biaxR_elements[a].node4.x2, SW_L_biaxR_elements[b].node2.x2]
+y_coords = [SW_L_biaxR_elements[a].node4.x3, SW_L_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_L_biaxR_elements[a].layer.material.rgb,1.0)
+
+### shear web (right, foam) ###
+## layer 1 ##
+a = SW_R_foam_elementMap[0,0]
+b = SW_R_foam_elementMap[-1,0]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_R_foam_elementMap[0,1]
+b = SW_R_foam_elementMap[-1,1]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_R_foam_elementMap[0,2]
+b = SW_R_foam_elementMap[-1,2]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_R_foam_elementMap[0,3]
+b = SW_R_foam_elementMap[-1,3]
+x_coords = [SW_R_foam_elements[a].node4.x2, SW_R_foam_elements[b].node2.x2]
+y_coords = [SW_R_foam_elements[a].node4.x3, SW_R_foam_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_foam_elements[a].layer.material.rgb,1.0)
+
+### shear web (right, left biax) ###
+## layer 1 ##
+a = SW_R_biaxL_elementMap[0,0]
+b = SW_R_biaxL_elementMap[-1,0]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_R_biaxL_elementMap[0,1]
+b = SW_R_biaxL_elementMap[-1,1]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_R_biaxL_elementMap[0,2]
+b = SW_R_biaxL_elementMap[-1,2]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_R_biaxL_elementMap[0,3]
+b = SW_R_biaxL_elementMap[-1,3]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = SW_R_biaxL_elementMap[0,4]
+b = SW_R_biaxL_elementMap[-1,4]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = SW_R_biaxL_elementMap[0,5]
+b = SW_R_biaxL_elementMap[-1,5]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 7 ##
+a = SW_R_biaxL_elementMap[0,6]
+b = SW_R_biaxL_elementMap[-1,6]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+## layer 8 ##
+a = SW_R_biaxL_elementMap[0,7]
+b = SW_R_biaxL_elementMap[-1,7]
+x_coords = [SW_R_biaxL_elements[a].node4.x2, SW_R_biaxL_elements[b].node2.x2]
+y_coords = [SW_R_biaxL_elements[a].node4.x3, SW_R_biaxL_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxL_elements[a].layer.material.rgb,1.0)
+
+### shear web (right, right biax) ###
+## layer 1 ##
+a = SW_R_biaxR_elementMap[0,0]
+b = SW_R_biaxR_elementMap[-1,0]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 2 ##
+a = SW_R_biaxR_elementMap[0,1]
+b = SW_R_biaxR_elementMap[-1,1]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 3 ##
+a = SW_R_biaxR_elementMap[0,2]
+b = SW_R_biaxR_elementMap[-1,2]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 4 ##
+a = SW_R_biaxR_elementMap[0,3]
+b = SW_R_biaxR_elementMap[-1,3]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 5 ##
+a = SW_R_biaxR_elementMap[0,4]
+b = SW_R_biaxR_elementMap[-1,4]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 6 ##
+a = SW_R_biaxR_elementMap[0,5]
+b = SW_R_biaxR_elementMap[-1,5]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 7 ##
+a = SW_R_biaxR_elementMap[0,6]
+b = SW_R_biaxR_elementMap[-1,6]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
+## layer 8 ##
+a = SW_R_biaxR_elementMap[0,7]
+b = SW_R_biaxR_elementMap[-1,7]
+x_coords = [SW_R_biaxR_elements[a].node4.x2, SW_R_biaxR_elements[b].node2.x2]
+y_coords = [SW_R_biaxR_elements[a].node4.x3, SW_R_biaxR_elements[b].node2.x3]
+gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.material.rgb,1.0)
 
 # calculate the time it took to run the code
 elapsed_time_tot = time.time() - start_time

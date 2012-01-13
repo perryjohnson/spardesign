@@ -15,7 +15,7 @@ class materialObj:        # a material with its constants (Young's modulus, Pois
 	                      #                             general anisotropic (2)
 	rho = np.nan          # density
 	color = ''            # color used to fill all elements assigned with this material
-	rgb = ()
+	rgb = ()              # RGB tuple used to represent the color for this material
 
 
 class layerObj:        # a layer is a unique combination of material type and layup orientation (theta3)
@@ -23,7 +23,7 @@ class layerObj:        # a layer is a unique combination of material type and la
 	material = materialObj()  # material of this layer
 	theta3 = np.nan    # layup angle (in degrees) for this layer
 	color = ''         # color used to fill all elements assigned with this layer
-	rgb = ()
+	rgb = ()           # RGB tuple used to represent the color for this layer
 
 
 class isotropicMatlObj(materialObj):  # an isotropic material object (subclass)
