@@ -191,25 +191,25 @@ END FUNCTION IOError
 !*  in an array (integer)                                    *
 !*														     *
 !*************************************************************
-FUNCTION  Repeated(array)
+FUNCTION  Repeated(n,array)
 
 LOGICAL            ::Repeated
-INTEGER,INTENT(IN) ::array(:)
+INTEGER,INTENT(IN) ::n,array(:)
 
-INTEGER:: i,j,n,elem
-
-n=size(array) 
+INTEGER:: i,j,elem
 
 Repeated=.FALSE.
 
-DO i=1, n
-
-   IF(array(i)/=0) elem=array(i)
-   
-   DO j=i+1, n
-		IF(elem==array(j)) Repeated=.TRUE.
-   ENDDO
-
+DO i=1, n-1
+   IF(array(i)/=0) THEN 
+		elem=array(i)
+   		DO j=i+1, n
+			IF(elem==array(j)) THEN
+				Repeated=.TRUE.
+				RETURN
+			ENDIF
+		ENDDO
+	ENDIF
 ENDDO
 
 

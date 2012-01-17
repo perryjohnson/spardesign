@@ -111,10 +111,19 @@
 !* used for double precision numbers (6/17/2011)           *
 !* Use long names of input file, including spaces in the   *
 !*    path and file names (7/19/2011)                      *
+!*=========================================================*
+!*                 Version 3.6                             *
+!*                                                         *
+!*          Released on      : Jan 2012                    *
+!*=========================================================*
+!*                                                         *
+!*                    Changes                              *
+!*            =============================                *
+!*                                                         * 
+!* Use sloan method to optimize the mesh, most of time it  *
+!* provides better renumbering of the nodes by minimizing  *
+!* the skyline profile                                     *
 !***********************************************************
-
-!***********************************************************
-
 
 
 
@@ -171,24 +180,23 @@
 
 
 PROGRAM VABS
-USE CPUTime
 USE VABSIO
  
 IMPLICIT NONE ! Cancelling the naming convention of Fortran
 
 INTERFACE
-  SUBROUTINE ConstitutiveModeling (format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer, &
+  SUBROUTINE ConstitutiveModeling (inp_name,format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer, &
                    Timoshenko_I, curved_I, oblique_I, trapeze_I, Vlasov_I, kb, beta, &
-	               nnode, nelem, nmate, nsize, coord, element, layup, mat_type, material, orth, density,&
-                   new_num,mass, xm2, xm3, mass_mc, I22, I33, mass_angle, Xg2, Xg3, V0, Aee, Aee_F, Xe2, &  
-                   Xe3, V1, Aee_k, Aee_k_F, Xe2_k, Xe3_k, V1S, ST, ST_F, Sc1, Sc2, stiff_val,    &
-                   stiff_val_F, Ag1, Bk1, Ck2, Dk3, thermal_I,cte, temperature,VT,NT,NT_F,error)
+	               nnode, nelem, nmate,coord, element, layup, mat_type, material, orth, density,&
+                   mass, xm2, xm3, mass_mc, I22, I33, mass_angle, Xg2, Xg3,  Aee, Aee_F, Xe2, &  
+                   Xe3,  Aee_k, Aee_k_F, Xe2_k, Xe3_k, ST, ST_F, Sc1, Sc2, stiff_val,    &
+                   stiff_val_F, Ag1, Bk1, Ck2, Dk3, thermal_I,cte, temperature,NT,NT_F,error)
             USE GlobalDataFun
 			!DEC$ ATTRIBUTES DLLIMPORT :: ConstitutiveModeling
-
+			CHARACTER(*),INTENT(IN):: inp_name    ! it was made public in VABS3.6 for passing it to dlls for output new numbering and warping functions
 			INTEGER,  INTENT(INOUT):: Timoshenko_I,curved_I,oblique_I,trapeze_I,Vlasov_I
 			REAL(DBL),INTENT(INOUT):: kb(3),beta(3)
-			INTEGER,  INTENT(IN)   :: nnode,nelem,nmate,nsize,LAY_CONST
+			INTEGER,  INTENT(IN)   :: nnode,nelem,nmate,LAY_CONST
 			REAL(DBL),INTENT(INOUT):: coord(nnode,NDIM)
 			INTEGER,  INTENT(INOUT):: element(nelem,MAX_NODE_ELEM)  
 			REAL(DBL),INTENT(INOUT):: layup(nelem,LAY_CONST) 
@@ -197,11 +205,10 @@ INTERFACE
 			INTEGER,  INTENT(IN)   :: orth(nmate)
 		    REAL(DBL),INTENT(IN)   :: density(nmate)
   
-			INTEGER, INTENT(OUT)   :: new_num(nnode)
 			REAL(DBL),INTENT(OUT)  :: mass(6,6),xm2, xm3,mass_mc(6,6),I22, I33, mass_angle,Xg2,Xg3 ! mass properties and centroid
-			REAL(DBL),INTENT(OUT)  :: V0(nsize,NE_1D),Aee(NE_1D,NE_1D),Aee_F(NE_1D,NE_1D),Xe2,Xe3              !Output for classical modeling
-			REAL(DBL),INTENT(OUT)  :: V1(nsize,NE_1D),Aee_k(NE_1D,NE_1D),Aee_k_F(NE_1D,NE_1D),Xe2_k,Xe3_k      !Output for curved/twisted modeling
-			REAL(DBL),INTENT(OUT)  :: V1S(nsize,NE_1D),ST(6,6),ST_F(6,6),Sc1,Sc2  !Output for Timoshenko modeling
+			REAL(DBL),INTENT(OUT)  :: Aee(NE_1D,NE_1D),Aee_F(NE_1D,NE_1D),Xe2,Xe3              !Output for classical modeling
+			REAL(DBL),INTENT(OUT)  :: Aee_k(NE_1D,NE_1D),Aee_k_F(NE_1D,NE_1D),Xe2_k,Xe3_k      !Output for curved/twisted modeling
+			REAL(DBL),INTENT(OUT)  :: ST(6,6),ST_F(6,6),Sc1,Sc2  !Output for Timoshenko modeling
 			REAL(DBL),INTENT(OUT)  :: stiff_val(5,5),stiff_val_F(5,5)     !Output for Vlasov modeling
 			REAL(DBL),INTENT(OUT)  :: Ag1(4,4),Bk1(4,4),Ck2(4,4),Dk3(4,4) !Outputs for Trapeze effect
 
@@ -210,7 +217,7 @@ INTERFACE
 		    INTEGER,  INTENT(INOUT):: thermal_I
 			REAL(DBL),INTENT(IN)   :: cte(nmate,6)
 			REAL(DBL),INTENT(INOUT):: temperature(nnode)
-			REAL(DBL),INTENT(OUT)  :: VT(nsize),NT(4),NT_F(4)
+			REAL(DBL),INTENT(OUT)  :: NT(4),NT_F(4)
 !---------------------------------------------------------------
 
 			CHARACTER(300),INTENT(OUT)::error
@@ -227,30 +234,28 @@ END INTERFACE
  
 
 INTERFACE
-  SUBROUTINE Recovery (format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer,&
+  SUBROUTINE Recovery (inp_name,format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer,&
                    recover_I,Timoshenko_I, curved_I, oblique_I, Vlasov_I, kb, beta,              &
-                   nnode, nelem, nmate, nsize,coord, element, layup, mat_type,  material, orth,density,&
-                   new_num,disp_1D, dir_cos_1D, strain_CL, strain_CL_1, strain_CL_2,   &
-                   force_1D, load_1D, load1_1D, load2_1D, V0, Aee_F, V1, V1S, ST_F,      &
-               	   disp_3D_F, k_F, nd_F, ss_F, ss_nd_F,ss_elem,thermal_I,cte,temperature,VT,NT_F,error)
+                   nnode, nelem, nmate, coord, element, layup, mat_type,  material, orth,density,&
+                   disp_1D, dir_cos_1D, strain_CL, strain_CL_1, strain_CL_2,   &
+                   force_1D, load_1D, load1_1D, load2_1D,       &
+               	   disp_3D_F, k_F, nd_F, ss_F, ss_nd_F,ss_elem,thermal_I,cte,temperature,error)
              
 			 USE GlobalDataFun
 			!DEC$ ATTRIBUTES DLLIMPORT :: Recovery
-
+			CHARACTER(*),INTENT(IN):: inp_name    ! it was made public in VABS3.6 for passing it to dlls for output new numbering and warping functions
 			INTEGER,  INTENT(INOUT):: recover_I, Timoshenko_I, curved_I, oblique_I, Vlasov_I
 			REAL(DBL),INTENT(INOUT):: kb(3),beta(3)
-			INTEGER,  INTENT(IN)   :: nnode,nelem,nmate, nsize,LAY_CONST
+			INTEGER,  INTENT(IN)   :: nnode,nelem,nmate, LAY_CONST
 		    REAL(DBL),INTENT(INOUT):: coord(nnode,NDIM)	
 			INTEGER,  INTENT(INOUT):: element(nelem,MAX_NODE_ELEM)  
 			REAL(DBL),INTENT(INOUT):: layup(nelem,LAY_CONST)
     		INTEGER,  INTENT(IN)   :: mat_type(nelem)
 			REAL(DBL),INTENT(IN)   :: material(nmate,21),density(nmate)
 			INTEGER,  INTENT(IN)   :: orth(nmate)
-			INTEGER, INTENT(OUT)   :: new_num(nnode)
 			REAL(DBL),INTENT(IN)   :: disp_1D(3)
 			REAL(DBL),INTENT(INOUT):: dir_cos_1D(3,3),strain_CL(4),strain_CL_1(4), strain_CL_2(4)
 			REAL(DBL),INTENT(IN)   :: force_1D(6),load_1D(6),load1_1D(6), load2_1D(6)
-			REAL(DBL),INTENT(IN)   :: V0(nsize,NE_1D),Aee_F(NE_1D,NE_1D),V1(nsize,NE_1D),V1S(nsize,NE_1D),ST_F(6,6)
 			REAL(DBL),INTENT(OUT)  :: disp_3D_F(nnode,5)
 			INTEGER,INTENT(OUT)    :: k_F,nd_F
 			REAL(DBL),INTENT(OUT)  :: ss_F(nelem*MAX_NODE_ELEM,26),ss_nd_F(nelem*MAX_NODE_ELEM,26),ss_elem(nelem,24)
@@ -260,7 +265,6 @@ INTERFACE
 		    INTEGER,  INTENT(INOUT) :: thermal_I
 			REAL(DBL),INTENT(IN)    :: cte(nmate,6)
 			REAL(DBL),INTENT(INOUT) :: temperature(nnode)
-			REAL(DBL),INTENT(IN)    :: VT(nsize),NT_F(4)
 !---------------------------------------------------------------
 
 			CHARACTER(300),INTENT(OUT)::error
@@ -274,38 +278,32 @@ INTERFACE
   END SUBROUTINE Recovery
 END INTERFACE
  
-REAL:: 	compute_time  ! time used for analysis
+REAL::start_time,stop_time  ! time used for analysis
 
+CALL CPU_TIME(start_time)
 
 CALL Input ! Read inputs for the cross-sectional analysis: in VABSIO
 IF(error/='')	 GOTO 9999
 WRITE(*,*) 
 WRITE(*,*) 'Finished reading inputs for the cross-sectional analysis.'
-CALL TIC
+
 
 
 !====================================Begin recovery     
 IF(recover_I/=0) THEN 
 
-    CALL RecoveryInput ! Read inputs for recovery: in VABSIO
-    IF(error/='')	 GOTO 9999
-	CALL TIC
-
-	WRITE(*,*) 
-    WRITE(*,*) 'Finished reading data from constitutive modeling needed for recovery.'
-   
-    CALL Recovery (format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer, &
+    CALL Recovery (inp_name,format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer, &
 	               recover_I,Timoshenko_I, curved_I, oblique_I, Vlasov_I, kb, beta,              &
-                   nnode, nelem, nmate,nsize, coord, element, layup, mat_type,  material, orth,density,&
-                   new_num,disp_1D, dir_cos_1D, strain_CL, strain_CL_1, strain_CL_2,  &
-                   force_1D, load_1D, load1_1D, load2_1D, V0, Aee_F, V1, V1S, ST_F,      &
-               	   disp_3D_F, k_F, nd_F, ss_F, ss_nd_F,ss_elem,thermal_I,cte,temperature,VT,NT_F,error)
+                   nnode, nelem, nmate,coord, element, layup, mat_type,  material, orth,density,&
+                   disp_1D, dir_cos_1D, strain_CL, strain_CL_1, strain_CL_2,  &
+                   force_1D, load_1D, load1_1D, load2_1D,       &
+               	   disp_3D_F, k_F, nd_F, ss_F, ss_nd_F,ss_elem,thermal_I,cte,temperature,error)
 
 	IF(error/='')	 GOTO 9999
   	WRITE(*,*)
 	WRITE(*,*)'Finished recovery'
 
-	compute_time=TOC()
+
 	
 	CALL RecoveryOutput ! Output recovery results: in VABSIO
     IF(error/='')	 GOTO 9999
@@ -317,19 +315,19 @@ IF(recover_I/=0) THEN
 ELSE  
 
     !====================================Begin constitutive modeling    
-	CALL ConstitutiveModeling (format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer,Timoshenko_I, curved_I, &
+	CALL ConstitutiveModeling (inp_name,format_I,mat_type_layer,layup_angle,LAY_CONST,nlayer,Timoshenko_I, curved_I, &
 	               oblique_I, trapeze_I, Vlasov_I, kb, beta, &
-	               nnode, nelem, nmate, nsize,coord, element, layup, mat_type, material, orth, density,&
-                   new_num,mass, xm2, xm3, mass_mc, I22, I33, mass_angle, Xg2, Xg3, V0, Aee, Aee_F, Xe2, &  
-                   Xe3, V1, Aee_k, Aee_k_F, Xe2_k, Xe3_k, V1S, ST, ST_F, Sc1, Sc2, stiff_val,    &
-                   stiff_val_F, Ag1, Bk1, Ck2, Dk3, thermal_I,cte, temperature,VT,NT,NT_F,error)
+	               nnode, nelem, nmate, coord, element, layup, mat_type, material, orth, density,&
+                   mass, xm2, xm3, mass_mc, I22, I33, mass_angle, Xg2, Xg3,  Aee, Aee_F, Xe2, &  
+                   Xe3, Aee_k, Aee_k_F, Xe2_k, Xe3_k, ST, ST_F, Sc1, Sc2, stiff_val,    &
+                   stiff_val_F, Ag1, Bk1, Ck2, Dk3, thermal_I,cte, temperature,NT,NT_F,error)
 
 
     IF(error/='')	 GOTO 9999
     WRITE(*,*)
 	WRITE(*,*)'Finished constitutive modeling' 
 
-   	compute_time=TOC()
+   
 
    	CALL Output  ! Output constitutive modeling results: in VABSIO
     IF(error/='')	 GOTO 9999
@@ -339,12 +337,12 @@ ELSE
     !====================================End constitutive modeling
 
 ENDIF
-
+CALL CPU_TIME(stop_time)
 
 WRITE(*,*)
 WRITE(*,*)'VABS finished successfully'
 WRITE(*,*)
-WRITE(*,*)'VABS Runs for  ', compute_time,' Seconds.'
+WRITE(*,*)'VABS Runs for  ',  stop_time-start_time,' Seconds.'
 
 9999 IF(error/='') WRITE(*,*) error 
      CALL WriteError ! Write error to the echo file: in VABSIO

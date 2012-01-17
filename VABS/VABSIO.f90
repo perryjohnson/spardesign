@@ -21,28 +21,15 @@ IMPLICIT NONE
 
 ! files needed/generated for constitutive modeling
 !======================================================
-INTEGER,PARAMETER,PRIVATE:: CHAR_LEN=256
+INTEGER,PARAMETER        :: CHAR_LEN=256
 INTEGER,PARAMETER,PRIVATE:: IN  =10     ! input file: inp_name
-CHARACTER(CHAR_LEN),PRIVATE    :: inp_name 
+CHARACTER(CHAR_LEN)      :: inp_name    ! it was made public in VABS3.6 for passing it to dlls for output new numbering and warping functions
 
 INTEGER,PARAMETER,PRIVATE:: EIN =20     ! file for echoing the inputs: inp_name.ech, EIN is needed for the main program
 CHARACTER(CHAR_LEN+3),PRIVATE    :: ech_name 
 
 INTEGER,PARAMETER,PRIVATE:: OUT =40     ! file for output: inp_name.K
 CHARACTER(CHAR_LEN+1),PRIVATE    :: out_name 
-
-INTEGER,PARAMETER,PRIVATE:: warp0=60    ! file for outputing the first warping functions: inp_name.V0
-CHARACTER(CHAR_LEN+2),PRIVATE    :: warp0_name
-
-
-!Additional files particularly needed for VABS
-!=================================================
-
-INTEGER,PARAMETER,PRIVATE:: warp1=70      ! file for refined warping functions due to initial curvature/twist: inp_name.V1
-CHARACTER(CHAR_LEN+2),PRIVATE    :: warp1_name    
-
-INTEGER,PARAMETER,PRIVATE:: warp1S=80     ! file for refined warping functions due to transverse shear: inp_name.V1s
-CHARACTER(CHAR_LEN+3),PRIVATE    :: warp1S_name 
 
 ! files needed/generated for recovery
 !======================================================
@@ -87,7 +74,6 @@ INTEGER:: recover_I      ! if it is 1, the program will perform recovery
 INTEGER            ::nnode         ! number of nodes
 INTEGER            ::nelem         ! number of elements
 INTEGER            ::nmate         ! number of materials
-INTEGER            ::nsize         ! the size of the problem
 INTEGER,ALLOCATABLE::element(:,:)  ! elemental connectivity: element(nelem,MAX_NODE_ELEM) 
 INTEGER,ALLOCATABLE::mat_type(:)   ! material type for each element: mat_type(nelem)
 INTEGER,ALLOCATABLE::orth(:)       ! indicate whether a material is isotropic (0), orthotropic (1), or anisotropic (2): orth(nmate)  
@@ -118,9 +104,6 @@ REAL(DBL)::load1_1D(6), load2_1D(6) ! First and second derivatives of distribute
 
 
 !=======================================Begin of Output variables needed for the program
-!Global integer variables
-!==========================================
-INTEGER,ALLOCATABLE::new_num(:)    ! the optimized numbering scheme of the mesh 
 
 !Global real variables
 !============================================================================
@@ -150,10 +133,6 @@ REAL(DBL):: Bk1(4,4)
 REAL(DBL):: Ck2(4,4)
 REAL(DBL):: Dk3(4,4)
 
-REAL(DBL),ALLOCATABLE:: V0(:,:)  ! Classical warping functions.
-REAL(DBL),ALLOCATABLE:: V1(:,:)  ! Refined warping function due to initial curvatures/twist
-REAL(DBL),ALLOCATABLE:: V1S(:,:) ! Refined warping function due to Timoshenko or Vlasov modeling
-
 !Global character variables
 !============================================================================
 CHARACTER(300)::error         ! a character variable to hold the error message
@@ -168,13 +147,10 @@ INTEGER:: k_F, nd_F  ! the total number of Guassian points and nodes we have rec
 !-----------------------------------------------
 INTEGER:: thermal_I      ! if it is 3, VABS will perform the one-way coupled thermoelastic c/s analsyis; 
                          ! if it is 0, VABS will not perform any thermal-related analysis
-REAL(DBL),ALLOCATABLE:: VT(:)    ! warping function due to temperature
 REAL(DBL),ALLOCATABLE:: cte(:,:) ! CTE constants for each material: cte(nmate,6)
 REAL(DBL),ALLOCATABLE:: temperature(:) ! nodal temperature: temperature(nnode)
 REAL(DBL)            :: NT(4)    ! 1D nonmechanical stress resultants
 REAL(DBL)            :: NT_F(4)    ! 1D thermal strains
-INTEGER,PARAMETER,PRIVATE:: warpT=90    ! file for outputing the first warping functions: inp_name.T
-CHARACTER(64),PRIVATE    :: warpT_name
 
 ! Variables needed for new vabs input format
 !------------------------------------------------
@@ -363,7 +339,7 @@ DO i=1,nelem
 
    elem_no_arr(i)=elem_no
 
-   IF(Repeated(element(elem_no,:))) THEN  
+   IF(Repeated(MAX_NODE_ELEM,element(elem_no,:))) THEN  
       WRITE(tmp_char, *) elem_no
    	  error='You have repeated nodes for element'//TRIM(tmp_char)
 	  GOTO 9999
@@ -600,33 +576,6 @@ IF(thermal_I==3) THEN
 	WRITE(EIN,'(1X,i8,1ES20.10)') (i,temperature(i),i=1,nnode)
 ENDIF 
 
-nsize=nnode*NDOF_NODE
-
-
-! Allocate the warping functions, which is needed
-! for both constitutive modeling and recovery 
-!----------------------------------------------------------------
-ALLOCATE(new_num(nnode),STAT=allo_stat)
-IF(MemoryError('new_num',error)) GOTO 9999
-
-ALLOCATE(V0(nsize,NE_1D),STAT=allo_stat)
-IF(MemoryError('V0',error)) GOTO 9999
-
-IF(thermal_I==3)THEN
-	ALLOCATE(VT(nsize),STAT=allo_stat)
-	IF(MemoryError('VT',error)) GOTO 9999
-ENDIF
-	
-IF(curved_I==1) THEN
-	ALLOCATE(V1(nsize,NE_1D),STAT=allo_stat)
-	IF(MemoryError('V1',error)) GOTO 9999
-ENDIF
-
-IF(Timoshenko_I==1.OR.Vlasov_I==1) THEN
-	ALLOCATE(V1S(nsize,NE_1D),STAT=allo_stat)
-	IF(MemoryError('V1S',error)) GOTO 9999
-ENDIF
-    
 !
 ! Read the global behavior which is also provided in inp_name
 !----------------------------------------------------------------
@@ -727,11 +676,6 @@ CLOSE(EIN)
 		IF(ALLOCATED(ss_F)) DEALLOCATE(ss_F)
 		IF(ALLOCATED(ss_nd_F)) DEALLOCATE(ss_nd_F)
 		IF(ALLOCATED(disp_3D_F)) DEALLOCATE(disp_3D_F)
-		IF(ALLOCATED(V1S)) DEALLOCATE(V1S)
-		IF(ALLOCATED(V1)) DEALLOCATE(V1)
-		IF(ALLOCATED(VT)) DEALLOCATE(VT)
-    	IF(ALLOCATED(V0)) DEALLOCATE(V0)
-	    IF(ALLOCATED(new_num)) DEALLOCATE(new_num)
 		IF(ALLOCATED(temperature)) DEALLOCATE(temperature)
 		IF(ALLOCATED(cte)) DEALLOCATE(cte)
 		IF(ALLOCATED(density)) DEALLOCATE(density)
@@ -749,96 +693,6 @@ CLOSE(EIN)
 
 END SUBROUTINE Input
 !*****************************************
-
-
-
-!******************************************************
-!*                                                    *
-!* To read additional information for recovery. They  *
-!* are results from the constitutive modeling to avoid*
-!* unnecessary repeating of the calculation, including*
-!* optimized mesh, warping functions, and flexibility *
-!* matrices.                                          *
-!*                                                    *
-!******************************************************
-SUBROUTINE RecoveryInput
-
-
-INTEGER:: i
-
-! Read warping functions
-!-------------------------------------------------
-warp0_name=TRIM(inp_name) // ".v0" 
-IF(FileOpen(warp0,  warp0_name,'OLD','READ',error,'UNFORMATTED'))	 GOTO 9999
-
-
-DO i=1,nsize
-   READ(warp0,IOSTAT=in_stat)V0(i,:)
-   IF(IOError('read classical warping functions',error)) GOTO 9999
-ENDDO
-   
-READ(warp0,IOSTAT=in_stat)Aee_F
-IF(IOError('read classical flexibiity matrix',error)) GOTO 9999
-
-CLOSE(warp0)
-
-
-IF(thermal_I==3)THEN 
-
-	warpT_name=TRIM(inp_name) // ".T" 
-	IF(FileOpen(warpT,  warpT_name,'OLD','READ',error,'UNFORMATTED'))	 GOTO 9999
-
-
-	DO i=1,nsize
-		READ(warpT,IOSTAT=in_stat)VT(i)
-		IF(IOError('read thermal warping functions',error)) GOTO 9999
-	ENDDO
-   
-	READ(warpT,IOSTAT=in_stat)NT_F
-	IF(IOError('read 1D thermal strains',error)) GOTO 9999
-
-	CLOSE(warpT)
-
-ENDIF
-
-IF(curved_I==1) THEN
-  
-	warp1_name=TRIM(inp_name) // ".v1" 
-	IF(FileOpen(warp1,  warp1_name,'OLD','READ',error,'UNFORMATTED'))	 GOTO 9999
-
-	DO i=1,nsize
-		READ(warp1,IOSTAT=in_stat)V1(i,:)
-		IF(IOError('read warping functions V1',error)) GOTO 9999
-	ENDDO
-
-    READ(warp1,IOSTAT=in_stat)Aee_F
-	IF(IOError('read refined flexibility matrix due to initial curvature/twist',error)) GOTO 9999
-	
-    CLOSE(warp1)
-ENDIF
-  
-IF(Timoshenko_I==1.or.Vlasov_I==1) THEN
-
-	warp1S_name=TRIM(inp_name) // ".v1S" 
-	IF(FileOpen(warp1S,  warp1S_name,'OLD','READ',error,'UNFORMATTED'))	 GOTO 9999
-
-   	DO i=1,nsize
-		READ(warp1S,IOSTAT=in_stat)V1S(i,:)
-		IF(IOError('read warping functions V1S',error)) GOTO 9999
-	ENDDO
-	
-	READ(warp1S,IOSTAT=in_stat)ST_F
-	IF(IOError('read flexibility matrix of Timoshenko model',error)) GOTO 9999
-	
-	
-    CLOSE(warp1S)
-   
-  ENDIF  
-
-9999 RETURN
-	  
-END SUBROUTINE 
-!******************************************************
 
 
 
@@ -988,56 +842,6 @@ WRITE(*,*)'Cross-sectional properties can be found in  "',TRIM(out_name),'"'
 CLOSE(OUT)
 
 
-warp0_name=TRIM(inp_name) // ".v0" 
-IF(FileOpen(warp0,  warp0_name,'REPLACE','WRITE',error,'UNFORMATTED'))	 GOTO 9999
-
-DO i=1,nsize
-	WRITE(warp0)V0(i,:)
-ENDDO
-
-WRITE(warp0)Aee_F
-
-CLOSE(warp0)
-
-IF(thermal_I==3)THEN 
-	warpT_name=TRIM(inp_name) // ".T" 
-	IF(FileOpen(warpT,  warpT_name,'REPLACE','WRITE',error,'UNFORMATTED'))	 GOTO 9999
-
-	DO i=1,nsize
-		WRITE(warpT)VT(i)
-	ENDDO
-
-	WRITE(warpT)NT_F
-
-	CLOSE(warpT)
-ENDIF
-
-IF(curved_I==1) THEN
-
-	warp1_name=TRIM(inp_name) // ".v1" 
-	IF(FileOpen(warp1,  warp1_name,'REPLACE','WRITE',error,'UNFORMATTED'))	 GOTO 9999
-
-	DO i=1,nsize
-		WRITE(warp1)V1(i,:)
-	ENDDO
-
-	WRITE(warp1)Aee_k_F
-
-	CLOSE(warp1)
-
-ENDIF
-
-IF(Timoshenko_I==1.OR.Vlasov_I==1) THEN
-	warp1S_name=TRIM(inp_name) // ".v1S" 
-	IF(FileOpen(warp1S,  warp1S_name,'REPLACE','WRITE',error,'UNFORMATTED'))	 GOTO 9999
-
-	DO i=1,nsize
-		WRITE(warp1S)V1S(i,:)
-	ENDDO
-
-    WRITE(warp1S)ST_F
-ENDIF
-
 
 9999 RETURN
 
@@ -1058,6 +862,9 @@ INTEGER:: i
 u_name=TRIM(inp_name)//".U"
 IF(FileOpen(uout,  u_name,'REPLACE','WRITE',error))	 GOTO 9999		  
 WRITE(uout,'(1x,i8,5ES20.10)')(i,disp_3D_F(i,:),i=1,nnode)
+
+WRITE(*,*)'Recovered 3D displacement results are in ', TRIM(u_name)
+CLOSE(uout)
 
 e_name=TRIM(inp_name)//".E"
 IF(FileOpen(eout,  e_name,'REPLACE','WRITE',error))	 GOTO 9999
@@ -1091,19 +898,16 @@ smn_name=TRIM(inp_name)//".SMN"
 IF(FileOpen(smnout,  smn_name,'REPLACE','WRITE',error))	 GOTO 9999
 WRITE(smnout,'(1x,8ES20.10)')(ss_nd_F(i,1:2), ss_nd_F(i,21:26),i=1,nd_F)
 
-elem_name=TRIM(inp_name)//".ELE"
-IF(FileOpen(elemout,  elem_name,'REPLACE','WRITE',error))	 GOTO 9999
-WRITE(elemout,'(1x,i10,24ES20.10)')(i,ss_elem(i,:),i=1,nelem)
-
-
-WRITE(*,*)'Recovered 3D displacement results are in ', TRIM(u_name)
-CLOSE(uout)
-  
 WRITE(*,*)'Recovered 3D strain results are in ', TRIM(e_name),'  ', TRIM(em_name), '  ', TRIM(en_name),'  ', TRIM(emn_name)
 CLOSE(eout); CLOSE(emout); CLOSE(enout); CLOSE(emnout)
 
 WRITE(*,*)'Recovered 3D stress results are in ', TRIM(s_name),'  ', TRIM(sm_name),'  ', TRIM(sn_name),'  ',TRIM(smn_name)
 CLOSE(sout); CLOSE(smout); CLOSE(snout); CLOSE(smnout)
+
+
+elem_name=TRIM(inp_name)//".ELE"
+IF(FileOpen(elemout,  elem_name,'REPLACE','WRITE',error))	 GOTO 9999
+WRITE(elemout,'(1x,i10,24ES20.10)')(i,ss_elem(i,:),i=1,nelem)
 
 WRITE(*,*)'Recovered average 3D stresses/strains at Gaussian points within each element are in ', TRIM(elem_name)
 CLOSE(elemout)
