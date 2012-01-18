@@ -11,24 +11,24 @@
 			"file": "GlobalDataFun.f90",
 			"settings":
 			{
-				"buffer_size": 8175,
-				"line_ending": "Unix"
+				"buffer_size": 8203,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "main.f90",
 			"settings":
 			{
-				"buffer_size": 17015,
-				"line_ending": "Unix"
+				"buffer_size": 17339,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "VABSIO.f90",
 			"settings":
 			{
-				"buffer_size": 39670,
-				"line_ending": "Unix"
+				"buffer_size": 34447,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -207,9 +207,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 99.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -217,6 +218,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"unconnected",
 			"dll",
 			"root buildup",
 			"corners",
@@ -343,8 +345,7 @@
 			"coords",
 			"connectivity_pattern",
 			"node_pattern",
-			"connectmatch",
-			"coordmatch"
+			"connectmatch"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -374,15 +375,15 @@
 					"file": "GlobalDataFun.f90",
 					"settings":
 					{
-						"buffer_size": 8175,
+						"buffer_size": 8203,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6106,
-								6106
+								0,
+								0
 							]
 						],
 						"settings":
@@ -402,15 +403,15 @@
 					"file": "main.f90",
 					"settings":
 					{
-						"buffer_size": 17015,
+						"buffer_size": 17339,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9841,
-								9844
+								3571,
+								3574
 							]
 						],
 						"settings":
@@ -418,7 +419,7 @@
 							"syntax": "Packages/Fortran/Fortran - Modern.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3511.0,
+						"translation.y": 863.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -428,7 +429,7 @@
 					"file": "VABSIO.f90",
 					"settings":
 					{
-						"buffer_size": 39670,
+						"buffer_size": 34447,
 						"regions":
 						{
 						},

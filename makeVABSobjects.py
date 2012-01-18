@@ -10,8 +10,8 @@ import autogridgen.read_layup as rl
 fastflag = True
 plot_flag = True
 startrange = 23   # run the 23rd spar station
-maxAR = 10
-vabs_filename = 'test_input_file3.dat'
+maxAR = 25
+vabs_filename = 'test_input_file4.dat'
 
 
 # set the number of materials
@@ -62,7 +62,8 @@ else:
 for spar_stn in range(startrange,endrange):
     # generate the grids ###########################################################################################################################################
     print ""
-    print "STATUS: create VABS nodes and elements for spar station #" + str(spar_stn) + "..."
+    print "STATUS: create VABS nodes and elements for COMPONENTS of spar station #" + str(spar_stn) + "..."
+    print "        - maximum aspect ratio =", maxAR
 
     rtbldup_bse = rl.extractDataColumn(data,'root buildup base')
     rtbldup_ht  = rl.extractDataColumn(data,'root buildup height')
@@ -513,7 +514,7 @@ for spar_stn in range(startrange,endrange):
 
 
 # write to the VABS input file #############################################################################################################################
-print "STATUS: writing the VABS input file"
+print "STATUS: writing the VABS input file:", vabs_filename
 import VABSutilities as vu
 
 curved = 1  # curve flag is set to True
