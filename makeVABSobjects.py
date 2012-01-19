@@ -8,9 +8,11 @@ import autogridgen.VABSobjects as vo
 import autogridgen.read_layup as rl
 
 fastflag = True
-plot_flag = True
+plot_grid_flag = True
+plot_layer_flag = False
+plot_material_flag = False
 startrange = 23   # run the 23rd spar station
-maxAR = 25
+maxAR = 1000
 vabs_filename = 'test_input_file5.dat'
 
 
@@ -300,7 +302,7 @@ for spar_stn in range(startrange,endrange):
         i = i+1
 
 
-    if plot_flag:   # plot the cross-sections to the screen using mayavi
+    if plot_grid_flag:   # plot the grid to the screen using mayavi
         # import the required plotting modules ######################################################################################################
         from mayavi import mlab
         import autogridgen.gridViz as gv
@@ -332,11 +334,11 @@ for spar_stn in range(startrange,endrange):
         gv.plotRectGrid(SW_R_foam_x,SW_R_foam_y)    # foam
         gv.plotRectGrid(SW_R_biaxR_x,SW_R_biaxR_y)  # right biax
         
-        if ((plot_flag == True) and (fastflag == False)):  # wait for the user to approve plotting the next grid (temp workaround bc lots of mayavi grids sometimes will crash python)
+        if ((plot_grid_flag == True) and (fastflag == False)):  # wait for the user to approve plotting the next grid (temp workaround bc lots of mayavi grids sometimes will crash python)
             print "Press Enter to plot the next grid..."
             raw_input()
 
-
+    if plot_layer_flag:   # plot the layers to the screen using mayavi
         # plot the elements by layer #############################################################################################################################
         print "        - coloring the elements by layer"
         figtitle = 'spar station #' + str(spar_stn) + ', layer'
@@ -425,6 +427,7 @@ for spar_stn in range(startrange,endrange):
             gv.plotSurface(x_coords,y_coords,SW_R_biaxR_elements[a].layer.rgb,1.0)
 
 
+    if plot_material_flag:   # plot the materials to the screen using mayavi
         # plot the elements by material ##################################################################################################################################
         print "        - coloring the elements by material"
         figtitle = 'spar station #' + str(spar_stn) + ', material'

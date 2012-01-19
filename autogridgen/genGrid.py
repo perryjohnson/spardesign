@@ -116,10 +116,10 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
     (dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
     ## (nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
     ## (nrows,ncols) = (nV,nH)
-    # (nrows,ncols) = (nV,SW_foam_plies)   # changed PJ, 2012-01-17
-    nV_biax = nV
-    (SW_foam_plies,nV_foam) = cg.calcCellNums(dimV,nV_biax,maxAR,dimH)
-    (nrows,ncols) = (nV_biax,SW_foam_plies)  # changed PJ, 2012-01-17 (2)
+    (nrows,ncols) = (nV,SW_foam_plies)   # changed PJ, 2012-01-17
+    ### nV_biax = nV
+    ### (SW_foam_plies,nV_foam) = cg.calcCellNums(dimV,nV_biax,maxAR,dimH)
+    ### (nrows,ncols) = (nV_biax,SW_foam_plies)  # changed PJ, 2012-01-17 (2)
     (SW_L_foam_gridpts,
      SW_L_foam_nodes,
      SW_L_foam_elements,
