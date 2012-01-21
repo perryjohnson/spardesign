@@ -9,11 +9,11 @@ import autogridgen.read_layup as rl
 
 fastflag = True
 plot_grid_flag = True
-plot_layer_flag = False
+plot_layer_flag = True
 plot_material_flag = False
 startrange = 23   # run the 23rd spar station
-maxAR = 5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
-vabs_filename = 'test_input_file5.dat'
+maxAR = 1.2  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+vabs_filename = 'test_input_file.dat'
 
 
 # set the number of materials
