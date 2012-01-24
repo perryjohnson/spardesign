@@ -5,17 +5,16 @@ mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1))
 mlab.clf()
 
 # We create a list of positions and connections, each describing a line.
-x = np.array([0, 2, 2, 0, 4])
-y = np.array([0, 0, 2, 2, 1])
-z = np.array([0, 0, 0, 0, 0])
-s = np.array([0, 0, 0, 0, 0])
-connections = np.array([[0, 1],
-                        [1, 2],
+x = np.array([np.nan, 0, 2, 2, 0, 4])
+y = np.array([np.nan, 0, 0, 2, 2, 1])
+z = np.array([np.nan, 0, 0, 0, 0, 0])
+connections = np.array([[1, 2],
                         [2, 3],
-                        [3, 0],
-                        [1, 4],
-                        [4, 2],
-                        [2, 1]])
+                        [3, 4],
+                        [4, 1],
+                        [2, 5],
+                        [5, 3],
+                        [3, 2]])
 
 
 # Create the points

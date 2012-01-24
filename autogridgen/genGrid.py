@@ -6,9 +6,6 @@ import elementMap as em
 from mayavi import mlab
 import gridViz as gv
 
-### TODO ###
-# remove gridpts output from all cg.storeGridPoints2 function calls?
-
 
 def genRootBuildup(data,spar_stn,RB_plies=6,maxAR=1.2,plotflag=False):
     ### read in the columns for root buildup base & root buildup height
@@ -219,6 +216,28 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
             SW_R_biaxR_nodes, SW_R_biaxR_elements, SW_R_biaxR_number_of_nodes, SW_R_biaxR_number_of_elements, SW_R_biaxR_nodeMap, SW_R_biaxR_elementMap, SW_R_biaxR_x, SW_R_biaxR_y)
 
 
+def genMayaviMesh(node, element, number_of_nodes, number_of_elements):
+    # extract coordinates
+    x = [np.nan]  # insert nan placeholders in the zeroth-index (unused index)
+    y = [np.nan]
+    z = [np.nan]
+    for i in range(1,number_of_nodes+1):
+        x.append(node[i].x2)
+        y.append(node[i].x3)
+        z.append(0)
+
+    # extract connectivity
+    conn = np.array([[element[1].node1.node_no, element[1].node2.node_no],
+                     [element[1].node2.node_no, element[1].node3.node_no],
+                     [element[1].node3.node_no, element[1].node4.node_no],
+                     [element[1].node4.node_no, element[1].node1.node_no]])
+    for i in range(2,number_of_elements+1):
+        conn = np.vstack( (conn, np.array([[element[i].node1.node_no, element[i].node2.node_no],
+                                           [element[i].node2.node_no, element[i].node3.node_no],
+                                           [element[i].node3.node_no, element[i].node4.node_no],
+                                           [element[i].node4.node_no, element[i].node1.node_no]]) ) )
+    return (x,y,z,conn)
+
 if __name__ == '__main__':
     # record the time when the code starts
     start_time = time.time()
@@ -246,25 +265,44 @@ if __name__ == '__main__':
         ## create a new figure for each cross-section
         if (plotflag):
             figtitle = "spar station #" + str(spar_stn)
-            fig = mlab.figure(figure=figtitle, size=(800,800))  # make a new mayavi scene (figure window)
-            mlab.view(0,180)  # set the view to be along the +Z axis (better for 2D grids)
+            mlab.figure(figure=figtitle, size=(800,800), bgcolor=(1,1,1))  # make a new mayavi scene (figure window)
+            mlab.clf()
+            mlab.view(0,0)  # set the view to be along the Z axis (better for 2D grids)
 
-        ### ROOT BUILDUP ###
-        rtbldup_bse = rl.extractDataColumn(data,'root buildup base')
-        rtbldup_ht  = rl.extractDataColumn(data,'root buildup height')
-        plotRBflag = (rtbldup_bse[spar_stn-1] * rtbldup_ht[spar_stn-1] > 0.0)
-        if plotRBflag:  # only perform operations for root buildup if its cross-sectional area is non-zero
-            genRootBuildup(data,spar_stn,RB_plies,maxAR,plotflag)
+        # ### ROOT BUILDUP ###
+        # rtbldup_bse = rl.extractDataColumn(data,'root buildup base')
+        # rtbldup_ht  = rl.extractDataColumn(data,'root buildup height')
+        # plotRBflag = (rtbldup_bse[spar_stn-1] * rtbldup_ht[spar_stn-1] > 0.0)
+        # if plotRBflag:  # only perform operations for root buildup if its cross-sectional area is non-zero
+        #     genRootBuildup(data,spar_stn,RB_plies,maxAR,plotflag)
 
-        ### SPAR CAPS ###
-        genSparCaps(data,spar_stn,SC_plies,maxAR,plotflag)
+        # ### SPAR CAPS ###
+        # genSparCaps(data,spar_stn,SC_plies,maxAR,plotflag)
 
-        ### SHEAR WEBS ###
-        genShearWebs(data,spar_stn,SW_biax_plies,SW_foam_plies,maxAR,plotflag)
+        # ### SHEAR WEBS ###
+        # genShearWebs(data,spar_stn,SW_biax_plies,SW_foam_plies,maxAR,plotflag)
         
-        if ((plotflag == True) and (fastflag == False)):  # wait for the user to approve plotting the next grid (temp workaround bc lots of mayavi grids sometimes will crash python)
-            print "Press Enter to plot the next grid..."
-            raw_input()
+        
+        # if ((plotflag == True) and (fastflag == False)):  # wait for the user to approve plotting the next grid (temp workaround bc lots of mayavi grids sometimes will crash python)
+        #     print "Press Enter to plot the next grid..."
+        #     raw_input()
+        
+        ### read in the columns for root buildup base & root buildup height
+        RB_corners = rl.extract_RB_corners(data,spar_stn)
+        ## top root buildup ##
+        (dimH,dimV) = cg.calcCornerDims(RB_corners[0,:,:])
+        (nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
+        (nrows,ncols) = (nV,nH)
+
+        (node, element, number_of_nodes, number_of_elements) = cg.storeGridPoints3(nrows, ncols, RB_corners[0,:,:])
+
+        (x, y, z, conn) = genMayaviMesh(node, element, number_of_nodes, number_of_elements)
+
+        # create the plot
+        gv.plotManyLines(x,y,z,conn)
+
+
+
         
     # calculate the time it took to run the code
     elapsed_time_tot = time.time() - start_time

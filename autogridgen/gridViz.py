@@ -52,6 +52,24 @@ def plotSurface(x_coords,y_coords,color_tuple=(0,0,0),opacity_value=0.5):
     return
 
 
+### draw an arbitrary mesh in Mayavi, given the points and the connectivity
+###     input: x <np.array>, 1D array of x-coordinates of all points in mesh
+###            y <np.array>, 1D array of y-coordinates of all points in mesh
+###            z <np.array>, 1D array of z-coordinates of all points in mesh
+###            connections, 2D array of point indices for mesh connectivity ... each row represents the start and end point for each mesh line
+###     output: Mayavi plot of the grid (on the screen)
+def plotManyLines(x,y,z,connections):
+    # mlab.figure(1, size=(800, 800), bgcolor=(1, 1, 1))      # create a new figure, with a big canvas and a white background
+    # mlab.clf()                                              # clear the current figure
+    src = mlab.pipeline.scalar_scatter(x, y, z)             # create the points
+    src.mlab_source.dataset.lines = connections             # connect them
+    mlab.pipeline.surface(src, line_width=1, opacity=1.0)   # finally, display the set of lines
+    mlab.view(0, 0)                                         # and choose a nice view
+    mlab.show()                                             # show the plot
+
+
+
+
 ### TEST FUNCTIONS ###
 # def generate_grid():
 #     r = tvtk.RectilinearGrid()

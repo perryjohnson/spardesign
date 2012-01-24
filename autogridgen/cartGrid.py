@@ -129,6 +129,78 @@ def storeGridPoints2(nrows,ncols,corners):
     return (gridpts,unique_node,element,number_of_nodes,number_of_elements,nodeMap,elementMap,x_coords,y_coords)
 
 
+### build an array that stores all the (x,y) grid points ###   ***VERSION 3***
+###     input:  nrows <int>, the desired number of grid cell rows
+###             ncols <int>, the desired number of grid cell columns
+###             corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
+###     output: unique_node <object>, list of unique node objects
+###             element <object>, list of FILLED element objects
+###             number_of_nodes <int>, total number of nodes (vertices) in the grid
+###             number_of_elements <int>, total number of elements (cells) in the grid
+def storeGridPoints3(nrows,ncols,corners):
+    ## check if the entries in the corners array make a rectangle (and not some other shape, like a parallelogram)
+    y0 = corners[0,1]
+    y1 = corners[1,1]
+    y2 = corners[2,1]
+    y3 = corners[3,1]
+    x0 = corners[0,0]
+    x2 = corners[2,0]
+    x1 = corners[1,0]
+    x3 = corners[3,0]
+    flagT = (y0 == y1) # are y-coords of top edge equal?
+    flagB = (y2 == y3) # are y-coords of bottom edge equal?
+    flagL = (x0 == x2) # are x-coords of left edge equal?
+    flagR = (x1 == x3) # are x-coords of right edge equal?
+    gridpts = np.zeros(((nrows+1)*(ncols+1),2))  # initialize the array of grid points
+    if (flagT and flagB and flagL and flagR):
+        ## calculate the number of elements and nodes for the region inside these corners ##
+        number_of_elements = nrows * ncols
+        number_of_nodes = (nrows+1) * (ncols+1)
+
+        ## initialize objects for the VABSobjects module ##
+        unique_node = []  # create an empty list of node objects
+        element = []      # create an empty list of element objects
+
+        ## call functions from the VABSobjects module ##
+        vo.fillNodeObjects(number_of_nodes, unique_node)
+        vo.fillElementObjects(number_of_elements, element)
+
+        ## build the array of grid points ##
+        x_max = corners[:,0].max()
+        x_min = corners[:,0].min()
+        y_max = corners[:,1].max()
+        y_min = corners[:,1].min()
+        x = np.linspace(x_min,x_max,ncols+1)
+        y = np.linspace(y_min,y_max,nrows+1)
+        for i in range(len(x)):
+            for j in range(len(y)):
+                gridpts[i*(nrows+1)+j,0] = x[i]
+                gridpts[i*(nrows+1)+j,1] = y[j]
+                # print i,j,gridpts[i+j,:]
+        
+        ## assign x&y coordinates to each node object ##
+        vo.assignCoordinatesToNodes(number_of_nodes, gridpts, unique_node)
+
+        ## assign nodes to elements ##
+        (element,nodeMap,elementMap) = em.genElementMap(nrows,ncols,number_of_nodes,element,unique_node)
+
+        ## assign x&y coords along top&left edges for plotting in mayavi
+        # (x_coords,y_coords) = em.getRectGridCoords(nodeMap,unique_node)
+        (x_coords,y_coords) = (x,y)  # a less roundabout implementation than using em.getRectGridCoords(...)
+
+    else:
+        ## print error msg(s) corresponding to each problem edge and return array of gridpoints with all entries equal to zero
+        if (not flagT):
+            print "ERROR: y-coords of top edge are NOT EQUAL"
+        if (not flagB):
+            print "ERROR: y-coords of bottom edge are NOT EQUAL"
+        if (not flagL):
+            print "ERROR: x-coords of left edge are NOT EQUAL"
+        if (not flagR):
+            print "ERROR: x-coords of right edge are NOT EQUAL"
+    return (unique_node,element,number_of_nodes,number_of_elements)
+
+
 ### plot the grid points and the corners (unconnected plot) ###
 ###     input:  gridpts <np.array>, an array of x&y coordinates for each grid point
 ###             corners <np.array>, an array of x&y coordinates for each corner of the grid (4 entries)
