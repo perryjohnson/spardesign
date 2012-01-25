@@ -24,7 +24,10 @@ src = mlab.pipeline.scalar_scatter(x, y, z)
 src.mlab_source.dataset.lines = connections
 
 # Finally, display the set of lines
-mlab.pipeline.surface(src, line_width=1, opacity=1.0)
+mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
+
+# also, plot the nodes
+mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor='0.1')
 
 # And choose a nice view
 mlab.view(0, 0)

@@ -1,19 +1,21 @@
 import numpy as np
 import VABSobjects as vo
+from mayavi import mlab
 
 ### helps keep track of a region's location (e.g. shear web biax, spar cap, etc.)
 class regionObj():
     region_no = np.nan
     H_cells = np.nan            # number of cells distributed along horizontal axis
     V_cells = np.nan            # number of cells distributed along vertical axis
-    cornerNode1 = vo.nodeObj()
-    cornerNode2 = vo.nodeObj()
-    cornerNode3 = vo.nodeObj()
-    cornerNode4 = vo.nodeObj()
-    edgeB = []
-    edgeR = []
-    edgeT = []
-    edgeL = []
+    cornerNode1 = vo.nodeObj()  # bottom left corner of region
+    cornerNode2 = vo.nodeObj()  # bottom right corner of region
+    cornerNode3 = vo.nodeObj()  # top right corner of region
+    cornerNode4 = vo.nodeObj()  # top left corner of region
+    edgeB = []                  # list of nodes along bottom edge
+    edgeR = []                  # list of nodes along right edge
+    edgeT = []                  # list of nodes along top edge
+    edgeL = []                  # list of nodes along left edge
+    name = ''                   # name of this region
 
 
 ### prints the list of nodes (node number, x2, x3) to screen
@@ -24,6 +26,168 @@ def printNodeList(number_of_nodes, node):
     print "NODES:"
     for i in range(1,number_of_nodes+1):
         print '#' + str(node[i].node_no) + '  (' + str(node[i].x2) + ', ' + str(node[i].x3) + ')'
+
+
+def newMayaviFigure():
+    mlab.figure(1, size=(800, 600), bgcolor=(1, 1, 1))
+    mlab.clf()
+
+
+def nice2Dview():
+    mlab.view(0, 0)
+    mlab.show()
+
+
+def buildMayaviDataSource(node,number_of_nodes):
+    x = [np.nan]
+    y = [np.nan]
+    z = [np.nan]
+    for i in range(1,number_of_nodes+1):
+        x.append(node[i].x2)
+        y.append(node[i].x3)
+        z.append(0.0)
+    src = mlab.pipeline.scalar_scatter(x, y, z)
+    return src
+
+def plotNodes(node,number_of_nodes):
+    newMayaviFigure()
+    src = buildMayaviDataSource(node,number_of_nodes)
+    mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor='0.1')
+    nice2Dview()
+    showAxes()
+
+
+def showAxes():
+    mlab.axes( color=(0,0,0),
+               extent=[0.0, 14.0, 0.0, 14.0, 0.0, 0.0],
+               line_width=1.0,
+               nb_labels=15,
+               x_axis_visibility=True,
+               xlabel='x2',
+               y_axis_visibility=True,
+               ylabel='x3',
+               z_axis_visibility=True )
+    mlab.orientation_axes()
+
+
+### bottom edge of region region_no
+def makeNodesForBottomEdge(region, region_no, node, number_of_nodes):
+    region[region_no].edgeB = []
+    # add bottom left corner node to list for bottom edge
+    region[region_no].edgeB.append(region[region_no].cornerNode1)
+    tempEdge = np.linspace(region[region_no].cornerNode1.x2,
+                           region[region_no].cornerNode2.x2,
+                           region[region_no].H_cells+1)
+    # create new boundary nodes, but exclude first and last entries of tempEdge
+    #   (so we don't double-count nodes)
+    for i in range(1,len(tempEdge)-1):
+        node.append(vo.nodeObj())
+        number_of_nodes += 1
+        node[number_of_nodes].node_no = number_of_nodes
+        node[number_of_nodes].x2 = tempEdge[i]
+        node[number_of_nodes].x3 = region[region_no].cornerNode1.x3
+        # add node to list for bottom edge
+        region[region_no].edgeB.append(node[number_of_nodes])
+    # add bottom right corner node to list for bottom edge
+    region[region_no].edgeB.append(region[region_no].cornerNode2)
+    return (region, node, number_of_nodes)
+
+
+### top edge of region region_no
+def makeNodesForTopEdge(region, region_no, node, number_of_nodes):
+    region[region_no].edgeT = []
+    # add top left corner node to list for top edge
+    region[region_no].edgeT.append(region[region_no].cornerNode4)
+    tempEdge = np.linspace(region[region_no].cornerNode4.x2,
+                           region[region_no].cornerNode3.x2,
+                           region[region_no].H_cells+1)
+    # create new boundary nodes, but exclude first and last entries of tempEdge
+    #   (so we don't double-count nodes)
+    for i in range(1,len(tempEdge)-1):
+        node.append(vo.nodeObj())
+        number_of_nodes += 1
+        node[number_of_nodes].node_no = number_of_nodes
+        node[number_of_nodes].x2 = tempEdge[i]
+        node[number_of_nodes].x3 = region[region_no].cornerNode4.x3
+        # add node to list for bottom edge
+        region[region_no].edgeT.append(node[number_of_nodes])
+    # add top right corner node to list for top edge
+    region[region_no].edgeT.append(region[region_no].cornerNode3)
+    return (region, node, number_of_nodes)
+
+
+### left edge of region region_no
+def makeNodesForLeftEdge(region, region_no, node, number_of_nodes):
+    region[region_no].edgeL = []
+    # add bottom left corner node to list for left edge
+    region[region_no].edgeL.append(region[region_no].cornerNode1)
+    tempEdge = np.linspace(region[region_no].cornerNode1.x3,
+                           region[region_no].cornerNode4.x3,
+                           region[region_no].V_cells+1)
+    # create new boundary nodes, but exclude first and last entries of tempEdge
+    #   (so we don't double-count nodes)
+    for i in range(1,len(tempEdge)-1):
+        node.append(vo.nodeObj())
+        number_of_nodes += 1
+        node[number_of_nodes].node_no = number_of_nodes
+        node[number_of_nodes].x3 = tempEdge[i]
+        node[number_of_nodes].x2 = region[region_no].cornerNode1.x2
+        # add node to list for bottom edge
+        region[region_no].edgeL.append(node[number_of_nodes])
+    # add top left corner node to list for left edge
+    region[region_no].edgeL.append(region[region_no].cornerNode4)
+    return (region, node, number_of_nodes)
+
+
+### right edge of region region_no
+def makeNodesForRightEdge(region, region_no, node, number_of_nodes):
+    region[region_no].edgeR = []
+    # add bottom right corner node to list for right edge
+    region[region_no].edgeR.append(region[region_no].cornerNode2)
+    tempEdge = np.linspace(region[region_no].cornerNode2.x3,
+                           region[region_no].cornerNode3.x3,
+                           region[region_no].V_cells+1)
+    # create new boundary nodes, but exclude first and last entries of tempEdge
+    #   (so we don't double-count nodes)
+    for i in range(1,len(tempEdge)-1):
+        node.append(vo.nodeObj())
+        number_of_nodes += 1
+        node[number_of_nodes].node_no = number_of_nodes
+        node[number_of_nodes].x3 = tempEdge[i]
+        node[number_of_nodes].x2 = region[region_no].cornerNode2.x2
+        # add node to list for bottom edge
+        region[region_no].edgeR.append(node[number_of_nodes])
+    # add top left corner node to list for left edge
+    region[region_no].edgeR.append(region[region_no].cornerNode3)
+    return (region, node, number_of_nodes)
+
+
+def printEdgeNodes(region, region_no):
+    print "REGION #" + str(region_no) + "   ********************"
+    print "BOTTOM EDGE, node_no:"
+    edgeList = []
+    for i in range(len(region[region_no].edgeB)):
+        edgeList.append(region[region_no].edgeB[i].node_no)
+    print edgeList
+
+    print "TOP EDGE, node_no:"
+    edgeList = []
+    for i in range(len(region[region_no].edgeT)):
+        edgeList.append(region[region_no].edgeT[i].node_no)
+    print edgeList
+
+    print "LEFT EDGE, node_no:"
+    edgeList = []
+    for i in range(len(region[region_no].edgeL)):
+        edgeList.append(region[region_no].edgeL[i].node_no)
+    print edgeList
+
+    print "RIGHT EDGE, node_no:"
+    edgeList = []
+    for i in range(len(region[region_no].edgeR)):
+        edgeList.append(region[region_no].edgeR[i].node_no)
+    print edgeList
+
 
 if __name__ == '__main__':
     node = []
@@ -52,8 +216,6 @@ if __name__ == '__main__':
     (node[6].x2, node[6].x3) = (14.0, 0.0)
     (node[7].x2, node[7].x3) = (14.0, 5.0)
     (node[8].x2, node[8].x3) = (11.0, 5.0)
-    # verify that input was saved correctly
-    printNodeList(number_of_nodes, node)
 
 
     # fill in 3 regions
@@ -61,6 +223,10 @@ if __name__ == '__main__':
         region.append(regionObj())
         region[i].region_no = i
         number_of_regions += 1
+    # name regions
+    region[1].name = 'left'
+    region[2].name = 'middle'
+    region[3].name = 'right'
     # assign number of cells distributed along horizontal axis
     region[1].H_cells = 3
     region[2].H_cells = 4
@@ -68,7 +234,7 @@ if __name__ == '__main__':
     # assign number of cells distributed along vertical axis
     #       this will be autofilled by maxAR method (later)
     region[1].V_cells = 5
-    # region[2].V_cells = ?
+    region[2].V_cells = 5  ## ???? will increase vertical cell number later...
     region[3].V_cells = 5
     # assign corner nodes to each region
     (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
@@ -83,18 +249,38 @@ if __name__ == '__main__':
                                                       + str(region[i].cornerNode4.node_no) + ')' )
     # make control nodes at ply boundaries
     # bottom edge of region 1
-    region[1].edgeB.append(region[1].cornerNode1)    # add bottom left corner node to list for bottom edge
-    tempEdge = np.linspace(region[1].cornerNode1.x2, region[1].cornerNode2.x2, region[1].H_cells+1)
-    for i in range(1,len(tempEdge)-1):  # exclude first and last entries of tempEdge (so we don't double-count nodes)
-        node.append(vo.nodeObj())
-        number_of_nodes += 1
-        node[number_of_nodes].node_no = number_of_nodes
-        node[number_of_nodes].x2 = tempEdge[i]
-        node[number_of_nodes].x3 = region[1].cornerNode1.x3
-        region[1].edgeB.append(node[number_of_nodes])           # add node to list for bottom edge
-    region[1].edgeB.append(region[1].cornerNode2)    # add bottom right corner node to list for bottom edge
+    (region, node, number_of_nodes) = makeNodesForBottomEdge(region, 1, node, number_of_nodes)
+    # top edge of region 1
+    (region, node, number_of_nodes) = makeNodesForTopEdge(region, 1, node, number_of_nodes)
+    # left edge of region 1
+    (region, node, number_of_nodes) = makeNodesForLeftEdge(region, 1, node, number_of_nodes)
+    # right edge of region 1
+    (region, node, number_of_nodes) = makeNodesForRightEdge(region, 1, node, number_of_nodes)
 
-    print "BOTTOM EDGE, x2:"
-    print region[1].edgeB[0].node_no, region[1].edgeB[1].node_no, region[1].edgeB[2].node_no, region[1].edgeB[3].node_no
+    # bottom edge of region 2
+    (region, node, number_of_nodes) = makeNodesForBottomEdge(region, 2, node, number_of_nodes)
+    # top edge of region 2
+    (region, node, number_of_nodes) = makeNodesForTopEdge(region, 2, node, number_of_nodes)
+    # left edge of region 2 (copy right edge of region 1)
+    region[2].edgeL = region[1].edgeR
+    # right edge of region 2
+    (region, node, number_of_nodes) = makeNodesForRightEdge(region, 2, node, number_of_nodes)
+
+    # bottom edge of region 3
+    (region, node, number_of_nodes) = makeNodesForBottomEdge(region, 3, node, number_of_nodes)
+    # top edge of region 3
+    (region, node, number_of_nodes) = makeNodesForTopEdge(region, 3, node, number_of_nodes)
+    # left edge of region 3 (copy right edge of region 2)
+    region[3].edgeL = region[2].edgeR
+    # right edge of region 3
+    (region, node, number_of_nodes) = makeNodesForRightEdge(region, 3, node, number_of_nodes)
+
+    printEdgeNodes(region, 1)
+    printEdgeNodes(region, 2)
+    printEdgeNodes(region, 3)
+
+    
+
+
     # verify that input was saved correctly
-    printNodeList(number_of_nodes, node)
+    plotNodes(node,number_of_nodes)
