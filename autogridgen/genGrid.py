@@ -216,6 +216,17 @@ def genShearWebs(data,spar_stn,SW_biax_plies=8,SW_foam_plies=4,maxAR=1.2,plotfla
             SW_R_biaxR_nodes, SW_R_biaxR_elements, SW_R_biaxR_number_of_nodes, SW_R_biaxR_number_of_elements, SW_R_biaxR_nodeMap, SW_R_biaxR_elementMap, SW_R_biaxR_x, SW_R_biaxR_y)
 
 
+### generate the arrays required to plot a mesh of interconnected nodes in Mayavi
+### *** NOTE: this only works for quadrilateral cells right now
+### ***       will need to be modified later to accomodate triangular cells mixed in with the quadrilateral cells
+###     input:  node <object>, list of unique node objects
+###             element <object>, list of element objects
+###             number_of_nodes <int>, number of nodes in this grid
+###             number_of_elements <int>, number of elements in this grid
+###     output: x <np.array>, 1D array of x-coordinates for each node in this grid
+###             y <np.array>, 1D array of y-coordinates for each node in this grid
+###             z <np.array>, 1D array of z-coordinates for each node in this grid (may all be zeros, b/c grid is 2D)
+###             conn <np.array>, 2D array of connectivity between node numbers to draw grid lines
 def genMayaviMesh(node, element, number_of_nodes, number_of_elements):
     # extract coordinates
     x = [np.nan]  # insert nan placeholders in the zeroth-index (unused index)
@@ -227,15 +238,15 @@ def genMayaviMesh(node, element, number_of_nodes, number_of_elements):
         z.append(0)
 
     # extract connectivity
-    conn = np.array([[element[1].node1.node_no, element[1].node2.node_no],
-                     [element[1].node2.node_no, element[1].node3.node_no],
-                     [element[1].node3.node_no, element[1].node4.node_no],
-                     [element[1].node4.node_no, element[1].node1.node_no]])
+    conn = np.array([[element[1].node1.node_no, element[1].node2.node_no],      # bottom edge of element
+                     [element[1].node2.node_no, element[1].node3.node_no],      # right edge
+                     [element[1].node3.node_no, element[1].node4.node_no],      # top edge
+                     [element[1].node4.node_no, element[1].node1.node_no]])     # left edge
     for i in range(2,number_of_elements+1):
-        conn = np.vstack( (conn, np.array([[element[i].node1.node_no, element[i].node2.node_no],
-                                           [element[i].node2.node_no, element[i].node3.node_no],
-                                           [element[i].node3.node_no, element[i].node4.node_no],
-                                           [element[i].node4.node_no, element[i].node1.node_no]]) ) )
+        conn = np.vstack( (conn, np.array([[element[i].node1.node_no, element[i].node2.node_no],        # bottom edge
+                                           [element[i].node2.node_no, element[i].node3.node_no],        # right edge 
+                                           [element[i].node3.node_no, element[i].node4.node_no],        # top edge
+                                           [element[i].node4.node_no, element[i].node1.node_no]]) ) )   # left edge
     return (x,y,z,conn)
 
 if __name__ == '__main__':
@@ -245,7 +256,7 @@ if __name__ == '__main__':
     fastflag = True   # set to True to speed up this script (run for the first cross-section only)
     plotflag = True   # set to False to disable plotting
 
-    maxAR = 1.2  ## set the maximum aspect ratio for any given cell ##
+    maxAR = 8  ## set the maximum aspect ratio for any given cell ##
     data = rl.readLayupFile('monoplane_spar_layup.txt')  # import the data from the layup file
 
     ## set number of plies for each structural component ##
@@ -287,14 +298,30 @@ if __name__ == '__main__':
         #     print "Press Enter to plot the next grid..."
         #     raw_input()
         
-        ### read in the columns for root buildup base & root buildup height
-        RB_corners = rl.extract_RB_corners(data,spar_stn)
-        ## top root buildup ##
-        (dimH,dimV) = cg.calcCornerDims(RB_corners[0,:,:])
-        (nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
-        (nrows,ncols) = (nV,nH)
+        # ### read in the columns for root buildup base & root buildup height
+        # RB_corners = rl.extract_RB_corners(data,spar_stn)
+        # ## top root buildup ##
+        # (dimH,dimV) = cg.calcCornerDims(RB_corners[0,:,:])
+        # (nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR,dimH)
+        # (nrows,ncols) = (nV,nH)
 
-        (node, element, number_of_nodes, number_of_elements) = cg.storeGridPoints3(nrows, ncols, RB_corners[0,:,:])
+        # (node, element, number_of_nodes, number_of_elements) = cg.storeGridPoints3(nrows, ncols, RB_corners[0,:,:])
+
+        ### read in the shear web dimensions
+        SW_corners = rl.extract_SW_corners(data,spar_stn)
+        # ## left shear web ###########################################################
+        # # left biax laminate #
+        # (dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
+        # (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
+        # (nrows,ncols) = (nV,nH)
+        # (node, element, number_of_nodes, number_of_elements) = cg.storeGridPoints3(nrows, ncols, SW_corners[0,0,:,:])
+
+        # foam laminate #
+        (dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
+        (nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
+        (nrows,ncols) = (nV,nH)
+        (node, element, number_of_nodes, number_of_elements) = cg.storeGridPoints3(nrows, ncols, SW_corners[0,1,:,:])
+
 
         (x, y, z, conn) = genMayaviMesh(node, element, number_of_nodes, number_of_elements)
 
