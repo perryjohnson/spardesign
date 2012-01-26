@@ -34,7 +34,7 @@ def newMayaviFigure():
 
 
 def nice2Dview():
-    mlab.view(0, 0)
+    mlab.view(0, 0, 23, np.array([6.2, 2.5, 0.0]))
     mlab.show()
 
 
@@ -61,10 +61,10 @@ def showAxes():
     mlab.axes( color=(0,0,0),
                extent=[0.0, 14.0, 0.0, 14.0, 0.0, 0.0],
                line_width=1.0,
-               nb_labels=15,
+               nb_labels=8,
                x_axis_visibility=True,
                xlabel='x2',
-               y_axis_visibility=True,
+               y_axis_visibility=False,
                ylabel='x3',
                z_axis_visibility=True )
     mlab.orientation_axes()
