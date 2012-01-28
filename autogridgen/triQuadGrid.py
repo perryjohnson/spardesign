@@ -38,13 +38,6 @@ def printElementNodes(number_of_elements, element):
                                                      + str(element[i].node4.node_no) + ']')
 
 
-# ### plot the node numbers (node[i].node_no) on the screen     # DOESN'T WORK
-# ###     output: <mayavi plot>
-# def plotNodeNumbers():
-#     for i in range(1,number_of_nodes+1):
-#         mlab.text(node[i].x2, node[i].x3, str(node[i].node_no), z=0.0)
-
-
 ### fill index 0 of node, element, and region lists (index 0 is unused)
 def fillUnusedZeroIndex(node, element, region):
     node.append(vo.nodeObj())
@@ -90,10 +83,26 @@ def buildMayaviDataSource(node,number_of_nodes):
     src = mlab.pipeline.scalar_scatter(x, y, z)
     return src
 
-def plotNodes(node,number_of_nodes):
+
+def buildConnections(element,number_of_elements):
+    connections = np.empty((1,2), dtype=int)  # initialize the array with a dummy row, so we can use np.vstack
+    for i in range(1,number_of_elements+1):
+        conn1 = np.array([element[i].node1.node_no, element[i].node2.node_no])
+        conn2 = np.array([element[i].node2.node_no, element[i].node3.node_no])
+        conn3 = np.array([element[i].node3.node_no, element[i].node4.node_no])
+        conn4 = np.array([element[i].node4.node_no, element[i].node1.node_no])
+        connections = np.vstack((connections,conn1,conn2,conn3,conn4))
+    connections = connections[1:,:]  # delete the first row
+    return connections
+
+
+def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([])):
     newMayaviFigure()
     src = buildMayaviDataSource(node,number_of_nodes)
     mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor='0.1')
+    if line_flag:
+        src.mlab_source.dataset.lines = connections
+        mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
     nice2Dview()
     showAxes()
 
@@ -230,6 +239,55 @@ def printEdgeNodes(region, region_no):
     print edgeList
 
 
+def fillInteriorQuadElements(number_of_regions, region, number_of_elements, element, number_of_nodes, node):
+    for k in range(1,number_of_regions+1):
+        temp_edgeL = region[k].edgeL
+        temp_edgeB = region[k].edgeB
+        temp_edgeT = region[k].edgeT
+        temp_edgeR = region[k].edgeR
+        v = region[k].V_cells       # number of cells distributed along vertical axis of region 1
+        h = region[k].H_cells       # number of cells distributed along horizontal axis of region 1
+        new_edgeL = []
+
+        for i in range(h):
+            # update temp nodes on bottom edge, as we move right (horizontally)
+            temp_node1 = temp_edgeB[i]
+            temp_node2 = temp_edgeB[i+1]
+            new_edgeL.append(temp_node2)
+            for j in range(v):
+                # update temp node on left edge, as we move up (vertically)
+                temp_node4 = temp_edgeL[j+1]
+
+                (number_of_elements, element) = createNewElement(number_of_elements, element)
+                element[number_of_elements].node1 = temp_node1
+                element[number_of_elements].node2 = temp_node2
+                element[number_of_elements].node4 = temp_node4
+                if (i < range(h)[-1]):   # if we haven't reached the right edge yet...
+                    if (j < range(v)[-1]):   # if we haven't reached the top edge yet...
+                        # ...we need to create a new node for element.node3
+                        (number_of_nodes, node) = createNewNode(number_of_nodes, node)
+                        node[number_of_nodes].x2 = temp_node2.x2
+                        node[number_of_nodes].x3 = temp_node4.x3
+                        temp_node3 = node[number_of_nodes]
+                        # update temp nodes on bottom edge, as we move up (vertically)
+                        temp_node1 = temp_node4
+                        temp_node2 = temp_node3
+                    else:   # otherwise...
+                        # ...we need to assign element.node3 to a node on the top edge
+                        temp_node3 = temp_edgeT[i+1]
+                else:  # otherwise...
+                    # ...we need to assign element.node3 to a node on the right edge
+                    temp_node3 = temp_edgeR[j+1]
+                    # update temp nodes on bottom edge, as we move up (vertically)
+                    temp_node1 = temp_node4
+                    temp_node2 = temp_node3
+                element[number_of_elements].node3 = temp_node3
+                new_edgeL.append(temp_node3)
+            temp_edgeL = new_edgeL
+            new_edgeL = []
+    return (number_of_elements, element, number_of_nodes, node)
+
+
 if __name__ == '__main__':
     node = []
     element = []
@@ -318,53 +376,14 @@ if __name__ == '__main__':
     printEdgeNodes(region, 2)
     printEdgeNodes(region, 3)
 
-
-    # initialize temp nodes for element corners before entering the for loop
-    temp_edgeL = region[1].edgeL
-    temp_edgeB = region[1].edgeB
-    temp_edgeT = region[1].edgeT
-    temp_edgeR = region[1].edgeR
-    # temp_node1 = temp_edgeB[0]  # node at bottom left corner of element
-    # temp_node2 = temp_edgeB[1]  # node at bottom right corner of element
-    # temp_node4 = region[1].edgeL[1]  # node at top left corner of element
-    v = region[1].V_cells       # number of cells distributed along vertical axis of region 1
-    h = region[1].H_cells       # number of cells distributed along horizontal axis of region 1
-    new_edgeL = []
-    # new_edgeL.append(temp_node2)
-
-    for i in range(h-1):   # h = 3
-        # update temp nodes on bottom edge, as we move right (horizontally)
-        temp_node1 = temp_edgeB[i]
-        temp_node2 = temp_edgeB[i+1]
-        new_edgeL.append(temp_node2)
-        for j in range(v):   # v = 5
-            # update temp node on left edge, as we move up (vertically)
-            temp_node4 = temp_edgeL[j+1]
-
-            (number_of_elements, element) = createNewElement(number_of_elements, element)
-            element[number_of_elements].node1 = temp_node1
-            element[number_of_elements].node2 = temp_node2
-            element[number_of_elements].node4 = temp_node4
-            if (j < range(v)[-1]):   # if we haven't reached the top edge yet...
-                # ...we need to create a new node for element.node3
-                (number_of_nodes, node) = createNewNode(number_of_nodes, node)
-                node[number_of_nodes].x2 = temp_node2.x2
-                node[number_of_nodes].x3 = temp_node4.x3
-                temp_node3 = node[number_of_nodes]
-                # update temp nodes on bottom edge, as we move up (vertically)
-                temp_node1 = temp_node4
-                temp_node2 = temp_node3
-            else:   # otherwise...
-                # ...we need to assign element.node3 to a node on the top edge
-                temp_node3 = temp_edgeT[i+1]
-            element[number_of_elements].node3 = temp_node3
-            new_edgeL.append(temp_node3)
-        temp_edgeL = new_edgeL
-        new_edgeL = []
+    (number_of_elements, element,
+     number_of_nodes,    node)    = fillInteriorQuadElements(number_of_regions,  region, 
+                                                             number_of_elements, element,
+                                                             number_of_nodes,    node)
         
 
 
-
+    conn = buildConnections(element,number_of_elements)
 
 
 
@@ -372,5 +391,6 @@ if __name__ == '__main__':
 
 
     # verify that input was saved correctly
-    plotNodes(node,number_of_nodes)
-    printElementNodes(number_of_elements,element)
+    # plotNodes(node,number_of_nodes)
+    plotNodes(node,number_of_nodes,line_flag=True,connections=conn)
+    # printElementNodes(number_of_elements,element)
