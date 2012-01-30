@@ -41,6 +41,7 @@ def printElementNodes(number_of_elements, element):
 ### fill index 0 of node, element, and region lists (index 0 is unused)
 def fillUnusedZeroIndex(node, element, region):
     node.append(vo.nodeObj())
+    node[0].node_no = 0  # dummy node, assigned to element[i].node4 to tell VABS that element[i] is a triangular element
     element.append(vo.elementObj())
     region.append(regionObj())
     return (node, element, region)
@@ -89,9 +90,13 @@ def buildConnections(element,number_of_elements):
     for i in range(1,number_of_elements+1):
         conn1 = np.array([element[i].node1.node_no, element[i].node2.node_no])
         conn2 = np.array([element[i].node2.node_no, element[i].node3.node_no])
-        conn3 = np.array([element[i].node3.node_no, element[i].node4.node_no])
-        conn4 = np.array([element[i].node4.node_no, element[i].node1.node_no])
-        connections = np.vstack((connections,conn1,conn2,conn3,conn4))
+        if (element[i].node4.node_no != 0):  # quadrilateral element
+            conn3 = np.array([element[i].node3.node_no, element[i].node4.node_no])
+            conn4 = np.array([element[i].node4.node_no, element[i].node1.node_no])
+            connections = np.vstack((connections,conn1,conn2,conn3,conn4))
+        else:  # triangular element
+            conn3 = np.array([element[i].node3.node_no, element[i].node1.node_no])
+            connections = np.vstack((connections,conn1,conn2,conn3))
     connections = connections[1:,:]  # delete the first row
     return connections
 
@@ -379,15 +384,32 @@ if __name__ == '__main__':
                                                                                  number_of_elements,element,
                                                                                  number_of_nodes,node)
 
+    # make a test triangular element
+    (number_of_elements, element) = createNewElement(number_of_elements,element)
+    element[number_of_elements].node1 = region[2].edgeL[-2]
+    element[number_of_elements].node2 = region[2].edgeT[1]
+    element[number_of_elements].node3 = region[2].edgeT[0]
+    element[number_of_elements].node4 = node[0]  # dummy node, tells VABS this is a triangular element
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     conn = buildConnections(element,number_of_elements)
-
-
-
-
-
 
     # verify that input was saved correctly
     # plotNodes(node,number_of_nodes)
     plotNodes(node,number_of_nodes,line_flag=True,connections=conn)
-    # printElementNodes(number_of_elements,element)
+    printElementNodes(number_of_elements,element)
