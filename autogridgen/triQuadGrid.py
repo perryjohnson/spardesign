@@ -502,14 +502,18 @@ def fillBoundaryTriElements2(coarse_region_no, fine_region_no, region, number_of
 ###             element <object>, list of UPDATED element objects, including ones made by this function
 ###             number_of_nodes <int> the UPDATED number of nodes created, including ones made by this function
 ###             node <object>, list of UPDATED node objects, including ones made by this function
-def fillInteriorQuadElements(region_no, region, number_of_elements, element, number_of_nodes, node, coarse_flag=False, temp_coarseEdge=np.array([])):
+def fillInteriorQuadElements(region_no, region, number_of_elements, element, number_of_nodes, node, coarse_flag=False, temp_coarseEdgeL=np.array([]), temp_coarseEdgeR=np.array([])):
     if coarse_flag:
-        temp_edgeL = coarseEdge
+        temp_edgeL = temp_coarseEdgeL
+        temp_edgeB = region[region_no].edgeB[1:-1]  # delete the first and last element of this list
+        temp_edgeT = region[region_no].edgeT[1:-1]  # delete the first and last element of this list
+        temp_edgeR = temp_coarseEdgeR
     else:
         temp_edgeL = region[region_no].edgeL
-    temp_edgeB = region[region_no].edgeB
-    temp_edgeT = region[region_no].edgeT
-    temp_edgeR = region[region_no].edgeR
+        temp_edgeB = region[region_no].edgeB
+        temp_edgeT = region[region_no].edgeT
+        temp_edgeR = region[region_no].edgeR
+    
     v = region[region_no].V_cells       # number of cells distributed along vertical axis of region 1
     if coarse_flag:
         h = region[region_no].H_cells - 2   # remove two cell layers (these will be filled with triangular elements)
@@ -598,9 +602,9 @@ if __name__ == '__main__':
     region[3].H_cells = 3
     # assign number of cells distributed along vertical axis
     #       this will be autofilled by maxAR method (later)
-    region[1].V_cells = 6
-    region[2].V_cells = 3
-    region[3].V_cells = 6
+    region[1].V_cells = 16
+    region[2].V_cells = 13
+    region[3].V_cells = 21
     # assign corner nodes to each region
     (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
     (region[2].cornerNode1, region[2].cornerNode2, region[2].cornerNode3, region[2].cornerNode4) = (node[2], node[5], node[8], node[3])
@@ -650,9 +654,11 @@ if __name__ == '__main__':
     # edgeList = genEdgeNodeNumbers(coarseEdge)
     # print edgeList
 
-    (number_of_elements,element,number_of_nodes,node,coarseEdgeL,coarseEdgeR) = fillBoundaryTriElements2(2,1,region,
-                                                                                                 number_of_elements,element,
-                                                                                                 number_of_nodes,node)
+    (number_of_elements,element,
+     number_of_nodes,node,
+    coarseEdgeL,coarseEdgeR) = fillBoundaryTriElements2(2,1,region,
+                                                        number_of_elements,element,
+                                                        number_of_nodes,node)
     print "COARSE EDGE (LEFT):"
     edgeList = genEdgeNodeNumbers(coarseEdgeL)
     print edgeList
@@ -661,12 +667,15 @@ if __name__ == '__main__':
     print edgeList
 
 
-    # (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(2,region,
-    #                                                                              number_of_elements,element,
-    #                                                                              number_of_nodes,node,
-    #                                                                              coarse_flag=True,temp_coarseEdge=coarseEdge)
+    (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(2,region,
+                                                            number_of_elements,element,
+                                                            number_of_nodes,node,
+                                                            coarse_flag=True,
+                                                            temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
-
+    (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(3,region,
+                                                                                 number_of_elements,element,
+                                                                                 number_of_nodes,node)
 
 
 
