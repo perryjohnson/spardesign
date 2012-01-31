@@ -246,33 +246,6 @@ def printEdgeNodes(region, region_no):
     print edgeList
 
 
-# def printEdgeNodes(region, region_no):
-#     print "REGION #" + str(region_no) + "   ********************"
-#     print "BOTTOM EDGE, node_no:"
-#     edgeList = []
-#     for i in range(len(region[region_no].edgeB)):
-#         edgeList.append(region[region_no].edgeB[i].node_no)
-#     print edgeList
-
-#     print "TOP EDGE, node_no:"
-#     edgeList = []
-#     for i in range(len(region[region_no].edgeT)):
-#         edgeList.append(region[region_no].edgeT[i].node_no)
-#     print edgeList
-
-#     print "LEFT EDGE, node_no:"
-#     edgeList = []
-#     for i in range(len(region[region_no].edgeL)):
-#         edgeList.append(region[region_no].edgeL[i].node_no)
-#     print edgeList
-
-#     print "RIGHT EDGE, node_no:"
-#     edgeList = []
-#     for i in range(len(region[region_no].edgeR)):
-#         edgeList.append(region[region_no].edgeR[i].node_no)
-#     print edgeList
-
-
 ### fills the boundary of a coarse-resolution region with triangular elements to bridge to an adjacent fine-resolution region
 ###     input:  coarse_region_no <int>, the identifying number of the coarse-resolution region to be filled
 ###             fine_region_no <int>, the identifying number of the adjacent, fine-resolution region
@@ -291,14 +264,14 @@ def fillBoundaryTriElements(coarse_region_no, fine_region_no, region, number_of_
     temp_edgeT = region[coarse_region_no].edgeT
     temp_edgeR = region[coarse_region_no].edgeR
     fine_v = region[fine_region_no].V_cells       # number of cells distributed along vertical axis of fine-res region
-    coarse_v = region[coarse_region_no].V_cells       # number of cells distributed along vertical axis of coarse-res region
+    coarse_v = region[coarse_region_no].V_cells   # number of cells distributed along vertical axis of coarse-res region
     coarse_dv = (temp_edgeT[1].x3 - temp_edgeB[1].x3)/coarse_v
     print "coarse_dv =", coarse_dv
     new_coarseEdge = []
 
-    temp_node1 = region[coarse_region_no].edgeB[0]
-    temp_node2 = region[coarse_region_no].edgeB[1]
-    # temp_node3 = region[coarse_region_no].edgeL[1]
+    temp_node1 = temp_edgeB[0]
+    temp_node2 = temp_edgeB[1]
+    # temp_node3 = ? # need to assign this
     temp_node4 = node[0]  # dummy node, tells VABS this is a triangular element
     new_coarseEdge.append(temp_node2)
 
@@ -346,6 +319,108 @@ def fillBoundaryTriElements(coarse_region_no, fine_region_no, region, number_of_
         # update nodes for next iteration
         temp_node1 = temp_node3
         # temp_node2 = temp_node2 # same, for this element
+
+    return (number_of_elements, element, number_of_nodes, node, new_coarseEdge)
+
+
+### fills the boundary of a coarse-resolution region with triangular elements to bridge to an adjacent fine-resolution region
+### ### VERSION 2 ###
+###     input:  coarse_region_no <int>, the identifying number of the coarse-resolution region to be filled
+###             fine_region_no <int>, the identifying number of the adjacent, fine-resolution region
+###             region <object>, list of region objects
+###             number_of_elements <int>, the number of elements created so far
+###             element <object>, list of element objects
+###             number_of_nodes <int>, the number of nodes created so far
+###             node <object>, list of node objects
+###     output: number_of_elements <int>, the UPDATED number of elements created, including ones made by this function
+###             element <object>, list of UPDATED element objects, including ones made by this function
+###             number_of_nodes <int> the UPDATED number of nodes created, including ones made by this function
+###             node <object>, list of UPDATED node objects, including ones made by this function
+def fillBoundaryTriElements2(coarse_region_no, fine_region_no, region, number_of_elements, element, number_of_nodes, node):
+    temp_edgeL = region[coarse_region_no].edgeL
+    temp_edgeB = region[coarse_region_no].edgeB
+    temp_edgeT = region[coarse_region_no].edgeT
+    fine_v = region[fine_region_no].V_cells       # number of cells distributed along vertical axis of fine-res region
+    coarse_v = region[coarse_region_no].V_cells   # number of cells distributed along vertical axis of coarse-res region
+    coarse_dv = (temp_edgeT[1].x3 - temp_edgeB[1].x3)/coarse_v
+    print "coarse_dv =", coarse_dv
+    new_coarseEdge = []
+
+    ## make temp_edgeR, based on the coarse-res region spacing
+    new_coarseEdge.append(temp_edgeB[1])
+    for k in range(1,coarse_v):
+        (number_of_nodes, node) = createNewNode(number_of_nodes, node)
+        node[number_of_nodes].x2 = temp_edgeB[1].x2
+        node[number_of_nodes].x3 = temp_edgeB[1].x3 + k*coarse_dv
+        new_coarseEdge.append(node[number_of_nodes])
+    new_coarseEdge.append(temp_edgeT[1])
+    temp_edgeR = new_coarseEdge
+
+    l = 0
+    r = 0
+    temp_node4 = node[0]  # dummy node, tells VABS this is a triangular element
+    while (l < len(temp_edgeL)-1) and (r < len(temp_edgeR)-1):
+        print "l =", l
+        print "r =", r
+        # check if the RIGHT node is between the two LEFT nodes
+        if (temp_edgeL[l].x3 <= temp_edgeR[r].x3) and (temp_edgeR[r].x3 <= temp_edgeL[l+1].x3):
+            # make a triangle (which points right)!
+            temp_node1 = temp_edgeL[l]
+            temp_node2 = temp_edgeR[r]
+            temp_node3 = temp_edgeL[l+1]
+            l += 1
+        # check if the LEFT node is between the two RIGHT nodes
+        elif (temp_edgeR[r].x3 <= temp_edgeL[l].x3) and (temp_edgeL[l].x3 <= temp_edgeR[r+1].x3):
+            # make a triangle (which points left)!
+            temp_node1 = temp_edgeL[l]
+            temp_node2 = temp_edgeR[r]
+            temp_node3 = temp_edgeR[r+1]
+            r += 1
+        # check if the RIGHT node is above the two LEFT nodes
+        elif (temp_edgeL[l].x3 <= temp_edgeR[r].x3) and (temp_edgeL[l+1].x3 <= temp_edgeR[r].x3):
+            # make a triangle (which points right)!
+            temp_node1 = temp_edgeL[l]
+            temp_node2 = temp_edgeR[r]
+            temp_node3 = temp_edgeL[l+1]
+            l += 1
+        # check if the LEFT node is above the two RIGHT nodes   ... do i need this one?!!??
+        elif (temp_edgeR[r].x3 <= temp_edgeL[l].x3) and (temp_edgeR[r+1].x3 <= temp_edgeL[l].x3):
+            # make a triangle (which points left)!
+            temp_node1 = temp_edgeL[l]
+            temp_node2 = temp_edgeR[r]
+            temp_node3 = temp_edgeR[r+1]
+            r += 1
+        else:
+            print "ERROR!!! HELP!!!"
+            break
+        (number_of_elements, element) = createNewElement(number_of_elements, element)
+        element[number_of_elements].node1 = temp_node1
+        element[number_of_elements].node2 = temp_node2
+        element[number_of_elements].node3 = temp_node3
+        element[number_of_elements].node4 = temp_node4
+
+    # still need to fill in a few more triangular elements near the top edge
+    # temp_node2 = temp_edgeT[1] ... always!
+    while (l < len(temp_edgeL)-1):
+        temp_node1 = temp_edgeL[l]
+        temp_node2 = temp_edgeT[1]
+        temp_node3 = temp_edgeL[l+1]
+        l += 1
+        (number_of_elements, element) = createNewElement(number_of_elements, element)
+        element[number_of_elements].node1 = temp_node1
+        element[number_of_elements].node2 = temp_node2
+        element[number_of_elements].node3 = temp_node3
+        element[number_of_elements].node4 = temp_node4
+
+    # # still need to make the last triangular element at the top edge
+    # temp_node1 = temp_edgeL[-2]
+    # temp_node2 = temp_edgeT[1]
+    # temp_node3 = temp_edgeL[-1]
+    # (number_of_elements, element) = createNewElement(number_of_elements, element)
+    # element[number_of_elements].node1 = temp_node1
+    # element[number_of_elements].node2 = temp_node2
+    # element[number_of_elements].node3 = temp_node3
+    # element[number_of_elements].node4 = temp_node4
 
     return (number_of_elements, element, number_of_nodes, node, new_coarseEdge)
 
@@ -451,9 +526,9 @@ if __name__ == '__main__':
     region[3].H_cells = 3
     # assign number of cells distributed along vertical axis
     #       this will be autofilled by maxAR method (later)
-    region[1].V_cells = 12
-    region[2].V_cells = 6
-    region[3].V_cells = 12
+    region[1].V_cells = 16
+    region[2].V_cells = 4
+    region[3].V_cells = 6
     # assign corner nodes to each region
     (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
     (region[2].cornerNode1, region[2].cornerNode2, region[2].cornerNode3, region[2].cornerNode4) = (node[2], node[5], node[8], node[3])
@@ -494,14 +569,20 @@ if __name__ == '__main__':
     # (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(2,region,
     #                                                                              number_of_elements,element,
     #                                                                              number_of_nodes,node)
-    (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(3,region,
-                                                                                 number_of_elements,element,
-                                                                                 number_of_nodes,node)
+    # (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(3,region,
+    #                                                                              number_of_elements,element,
+    #                                                                              number_of_nodes,node)
 
-    (number_of_elements, element, number_of_nodes, node, coarseEdge) = fillBoundaryTriElements(2, 1, region, number_of_elements, element, number_of_nodes, node)
+    # (number_of_elements, element, number_of_nodes, node, coarseEdge) = fillBoundaryTriElements(2, 1, region, number_of_elements, element, number_of_nodes, node)
+    # print "COARSE EDGE:"
+    # edgeList = genEdgeNodeNumbers(coarseEdge)
+    # print edgeList
+
+    (number_of_elements, element, number_of_nodes, node, coarseEdge) = fillBoundaryTriElements2(2, 1, region, number_of_elements, element, number_of_nodes, node)
     print "COARSE EDGE:"
     edgeList = genEdgeNodeNumbers(coarseEdge)
     print edgeList
+
 
 
 
