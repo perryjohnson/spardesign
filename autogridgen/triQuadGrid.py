@@ -639,21 +639,13 @@ if __name__ == '__main__':
     printEdgeNodes(region, 2)
     printEdgeNodes(region, 3)
 
+
+    # fill region 1
     (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(1,region,
                                                                                  number_of_elements,element,
                                                                                  number_of_nodes,node)
-    # (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(2,region,
-    #                                                                              number_of_elements,element,
-    #                                                                              number_of_nodes,node)
-    # (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(3,region,
-    #                                                                              number_of_elements,element,
-    #                                                                              number_of_nodes,node)
 
-    # (number_of_elements, element, number_of_nodes, node, coarseEdge) = fillBoundaryTriElements(2, 1, region, number_of_elements, element, number_of_nodes, node)
-    # print "COARSE EDGE:"
-    # edgeList = genEdgeNodeNumbers(coarseEdge)
-    # print edgeList
-
+    # fill region 2
     (number_of_elements,element,
      number_of_nodes,node,
     coarseEdgeL,coarseEdgeR) = fillBoundaryTriElements2(2,1,region,
@@ -665,14 +657,13 @@ if __name__ == '__main__':
     print "COARSE EDGE (RIGHT):"
     edgeList = genEdgeNodeNumbers(coarseEdgeR)
     print edgeList
-
-
     (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(2,region,
                                                             number_of_elements,element,
                                                             number_of_nodes,node,
                                                             coarse_flag=True,
                                                             temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
+    # fill region 3
     (number_of_elements,element,number_of_nodes,node) = fillInteriorQuadElements(3,region,
                                                                                  number_of_elements,element,
                                                                                  number_of_nodes,node)
@@ -680,21 +671,10 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    # write the element connectivity in a way that Mayavi can understand and plot
     conn = buildConnections(element,number_of_elements)
 
     # verify that input was saved correctly
-    # plotNodes(node,number_of_nodes)
-    plotNodes(node,number_of_nodes,line_flag=True,connections=conn)
+    # plotNodes(node,number_of_nodes)  # print nodes without element lines
+    plotNodes(node,number_of_nodes,line_flag=True,connections=conn)  # print nodes with element lines
     # printElementNodes(number_of_elements,element)
