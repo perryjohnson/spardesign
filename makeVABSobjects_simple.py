@@ -91,9 +91,9 @@ region[2].H_cells = 4
 region[3].H_cells = 3
 # assign number of cells distributed along vertical axis
 #       this will be autofilled by maxAR method (later)
-region[1].V_cells = 6
-region[2].V_cells = 3
-region[3].V_cells = 6
+region[1].V_cells = 16
+region[2].V_cells = 8
+region[3].V_cells = 26
 # assign corner nodes to each region
 (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
 (region[2].cornerNode1, region[2].cornerNode2, region[2].cornerNode3, region[2].cornerNode4) = (node[2], node[5], node[8], node[3])
@@ -137,7 +137,7 @@ tqg.printEdgeNodes(region, 3)
 # fill region 2
 (number_of_elements,element,
  number_of_nodes,node,
-coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements2(2,1,region,
+coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(2,region,
                                                     number_of_elements,element,
                                                     number_of_nodes,node)
 print "COARSE EDGE (LEFT):"
