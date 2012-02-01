@@ -6,6 +6,8 @@ start_time = time.time()
 import autogridgen.genGrid as gg
 import autogridgen.VABSobjects as vo
 import autogridgen.read_layup as rl
+import autogridgen.triQuadGrid as tqg
+import os
 
 fastflag = True
 plot_grid_flag = True
@@ -13,7 +15,7 @@ plot_layer_flag = True
 plot_material_flag = False
 startrange = 23   # run the 23rd spar station
 maxAR = 1.2  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
-vabs_filename = 'test_input_file.dat'
+vabs_filename = 'SW_input_file.dat'
 
 
 # set the number of materials
