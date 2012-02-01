@@ -96,8 +96,8 @@ def newMayaviFigure():
     mlab.clf()
 
 
-def nice2Dview():
-    mlab.view(0, 0, 25, np.array([6.2, 2.5, 0.0]))
+def nice2Dview(azimuth=0, elevation=0, distance=25, focalpoint=np.array([6.2, 2.5, 0.0])):
+    mlab.view(azimuth, elevation, distance, focalpoint)
     mlab.show()
 
 
@@ -129,22 +129,22 @@ def buildConnections(element,number_of_elements):
     return connections
 
 
-def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([])):
+def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([]), circle_scale='0.1'):
     newMayaviFigure()
     src = buildMayaviDataSource(node,number_of_nodes)
-    mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor='0.1')
+    mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor=circle_scale)
     if line_flag:
         src.mlab_source.dataset.lines = connections
         mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
-    nice2Dview()
-    showAxes()
+    # nice2Dview()
+    # showAxes()
 
 
 def showAxes():
     mlab.axes( color=(0,0,0),
-               extent=[0.0, 14.0, 0.0, 14.0, 0.0, 0.0],
+               # extent=[0.0, 14.0, 0.0, 14.0, 0.0, 0.0],
                line_width=1.0,
-               nb_labels=8,
+               # nb_labels=8,
                x_axis_visibility=True,
                xlabel='x2',
                y_axis_visibility=False,

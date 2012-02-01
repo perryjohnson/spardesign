@@ -8,6 +8,7 @@ import autogridgen.VABSobjects as vo
 import autogridgen.read_layup as rl
 import autogridgen.triQuadGrid as tqg
 import os
+import numpy as np
 
 fastflag = True
 plot_grid_flag = True
@@ -121,9 +122,9 @@ region[2].H_cells = 4
 region[3].H_cells = 3
 # assign number of cells distributed along vertical axis
 #       this will be autofilled by maxAR method (later)
-region[1].V_cells = 16
-region[2].V_cells = 8
-region[3].V_cells = 26
+region[1].V_cells = 60
+region[2].V_cells = 13
+region[3].V_cells = 60
 # assign corner nodes to each region
 (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
 (region[2].cornerNode1, region[2].cornerNode2, region[2].cornerNode3, region[2].cornerNode4) = (node[2], node[5], node[8], node[3])
@@ -212,7 +213,9 @@ if plot_grid_flag:   # plot the grid to the screen using mayavi
     print "        - plotting the grid"
     # verify that input was saved correctly
     # plotNodes(node,number_of_nodes)  # print nodes without element lines
-    tqg.plotNodes(node,number_of_nodes,line_flag=True,connections=conn)  # print nodes with element lines
+    tqg.plotNodes(node,number_of_nodes,line_flag=True,connections=conn,circle_scale='0.001')  # print nodes with element lines
+    tqg.nice2Dview(distance=1.4, focalpoint=np.array([-0.8, -0.035, 0.0]))
+    tqg.showAxes()
     # printElementNodes(number_of_elements,element)
 
 
