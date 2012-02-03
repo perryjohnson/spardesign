@@ -9,13 +9,16 @@ import autogridgen.read_layup as rl
 import autogridgen.triQuadGrid as tqg
 import os
 import numpy as np
+import autogridgen.cartGrid as cg
+import autogridgen.gridViz as gv
 
 fastflag = True
 plot_grid_flag = True
 plot_layer_flag = True
 plot_material_flag = False
+main_debug_flag = False
 spar_stn = 23   # run the 23rd spar station
-maxAR = 1.2  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+maxAR = 8.0  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = 'SW_input_file.dat'
 
 
@@ -66,15 +69,7 @@ for i in range(1,9):
     node.append(vo.nodeObj())
     node[i].node_no = i
     number_of_nodes += 1
-# assign coordinates at 8 corners    # need to replace these with actual shear web corner coordinates! ########################
-# (node[1].x2, node[1].x3) = (0.0, 0.0)
-# (node[2].x2, node[2].x3) = (3.0, 0.0)
-# (node[3].x2, node[3].x3) = (3.0, 6.0)
-# (node[4].x2, node[4].x3) = (0.0, 6.0)
-# (node[5].x2, node[5].x3) = (11.0, 0.0)
-# (node[6].x2, node[6].x3) = (14.0, 0.0)
-# (node[7].x2, node[7].x3) = (14.0, 6.0)
-# (node[8].x2, node[8].x3) = (11.0, 6.0)
+
 
 # modify this block of code to replace the block of code above it
 data = rl.readLayupFile('autogridgen/monoplane_spar_layup.txt')  # import the data from the layup file
@@ -85,25 +80,12 @@ SW_corners = rl.extract_SW_corners(data,spar_stn)
 (node[2].x2, node[2].x3) = (SW_corners[0,0,3,0], SW_corners[0,0,3,1])
 (node[3].x2, node[3].x3) = (SW_corners[0,0,1,0], SW_corners[0,0,1,1])
 (node[4].x2, node[4].x3) = (SW_corners[0,0,0,0], SW_corners[0,0,0,1])
-# (dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
-# (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
-# (nrows,ncols) = (nV,nH)
-
-
-# foam laminate #
-# (dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
-# (nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
-# (nrows,ncols) = (nV,nH)
-
 
 # right biax laminate #
 (node[5].x2, node[5].x3) = (SW_corners[0,2,2,0], SW_corners[0,2,2,1])
 (node[6].x2, node[6].x3) = (SW_corners[0,2,3,0], SW_corners[0,2,3,1])
 (node[7].x2, node[7].x3) = (SW_corners[0,2,1,0], SW_corners[0,2,1,1])
 (node[8].x2, node[8].x3) = (SW_corners[0,2,0,0], SW_corners[0,2,0,1])
-# (dimH,dimV) = cg.calcCornerDims(SW_corners[0,2,:,:])
-# (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
-# (nrows,ncols) = (nV,nH)
 
 
 
@@ -113,29 +95,50 @@ for i in range(1,4):
     region[i].region_no = i
     number_of_regions += 1
 # name regions
-region[1].name = 'left'
-region[2].name = 'middle'
-region[3].name = 'right'
+region[1].name = 'SW_biaxL'
+region[2].name = 'SW_foam'
+region[3].name = 'SW_biaxR'
+## set number of plies for each structural component ##
+SC_plies = 2       # spar cap has 2 plies:                      [0]_2
+RB_plies = 6       # root buildup has 6 plies:                  [+/-45]_2 [0]_2
+SW_biax_plies = 8  # biaxial laminate in shear web has 8 plies: [+/-45]_4
+SW_foam_plies = 8  # set the foam part of the shear web to some arbitrary number (the foam doesn't really have plies)
 # assign number of cells distributed along horizontal axis
-region[1].H_cells = 3
-region[2].H_cells = 4
-region[3].H_cells = 3
+region[1].H_cells = SW_biax_plies
+region[2].H_cells = SW_foam_plies
+region[3].H_cells = SW_biax_plies
+
+
 # assign number of cells distributed along vertical axis
-#       this will be autofilled by maxAR method (later)
-region[1].V_cells = 60
-region[2].V_cells = 13
-region[3].V_cells = 60
+#       this will be autofilled by maxAR method
+# left biax laminate #
+(dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
+(nrows,ncols) = (nV,nH)
+region[1].V_cells = nrows
+# foam laminate #
+(dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
+(nrows,ncols) = (nV,nH)
+region[2].V_cells = nrows
+# right biax laminate #
+(dimH,dimV) = cg.calcCornerDims(SW_corners[0,2,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
+(nrows,ncols) = (nV,nH)
+region[3].V_cells = nrows
 # assign corner nodes to each region
+
 (region[1].cornerNode1, region[1].cornerNode2, region[1].cornerNode3, region[1].cornerNode4) = (node[1], node[2], node[3], node[4])
 (region[2].cornerNode1, region[2].cornerNode2, region[2].cornerNode3, region[2].cornerNode4) = (node[2], node[5], node[8], node[3])
 (region[3].cornerNode1, region[3].cornerNode2, region[3].cornerNode3, region[3].cornerNode4) = (node[5], node[6], node[7], node[8])
 # verify that input was saved correctly
-print "REGIONS:"
-for i in range(1,number_of_regions+1):
-    print ('#' + str(region[i].region_no) + '  (' + str(region[i].cornerNode1.node_no) + ', '
-                                                  + str(region[i].cornerNode2.node_no) + ', '
-                                                  + str(region[i].cornerNode3.node_no) + ', '
-                                                  + str(region[i].cornerNode4.node_no) + ')' )
+if main_debug_flag:
+    print "REGIONS:"
+    for i in range(1,number_of_regions+1):
+        print ('#' + str(region[i].region_no) + '  (' + str(region[i].cornerNode1.node_no) + ', '
+                                                      + str(region[i].cornerNode2.node_no) + ', '
+                                                      + str(region[i].cornerNode3.node_no) + ', '
+                                                      + str(region[i].cornerNode4.node_no) + ')' )
 # make control nodes at ply boundaries
 # region 1
 (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, 1, node, number_of_nodes, 'bottom')
@@ -155,9 +158,10 @@ for i in range(1,number_of_regions+1):
 region[2].edgeL = region[1].edgeR
 region[2].edgeR = region[3].edgeL
 
-tqg.printEdgeNodes(region, 1)
-tqg.printEdgeNodes(region, 2)
-tqg.printEdgeNodes(region, 3)
+if main_debug_flag:
+    tqg.printEdgeNodes(region, 1)
+    tqg.printEdgeNodes(region, 2)
+    tqg.printEdgeNodes(region, 3)
 
 
 # fill region 1
@@ -171,12 +175,13 @@ tqg.printEdgeNodes(region, 3)
 coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(2,region,
                                                     number_of_elements,element,
                                                     number_of_nodes,node)
-print "COARSE EDGE (LEFT):"
-edgeList = tqg.genEdgeNodeNumbers(coarseEdgeL)
-print edgeList
-print "COARSE EDGE (RIGHT):"
-edgeList = tqg.genEdgeNodeNumbers(coarseEdgeR)
-print edgeList
+if main_debug_flag:
+    print "COARSE EDGE (LEFT):"
+    edgeList = tqg.genEdgeNodeNumbers(coarseEdgeL)
+    print edgeList
+    print "COARSE EDGE (RIGHT):"
+    edgeList = tqg.genEdgeNodeNumbers(coarseEdgeR)
+    print edgeList
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(2,region,
                                                         number_of_elements,element,
                                                         number_of_nodes,node,
@@ -213,7 +218,7 @@ if plot_grid_flag:   # plot the grid to the screen using mayavi
     print "        - plotting the grid"
     # verify that input was saved correctly
     # plotNodes(node,number_of_nodes)  # print nodes without element lines
-    tqg.plotNodes(node,number_of_nodes,line_flag=True,connections=conn,circle_scale='0.001')  # print nodes with element lines
+    tqg.plotNodes(node,number_of_nodes,line_flag=True,connections=conn,circle_scale='0.0005')  # print nodes with element lines
     tqg.nice2Dview(distance=1.4, focalpoint=np.array([-0.8, -0.035, 0.0]))
     tqg.showAxes()
     # printElementNodes(number_of_elements,element)

@@ -136,6 +136,14 @@ def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([]), cir
     if line_flag:
         src.mlab_source.dataset.lines = connections
         mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
+    fill_flag = False
+    if fill_flag:
+        color_tuple=(0.5,0,0)
+        opacity_value=0.5
+        surf = mlab.pipeline.surface(src,
+                                     color=color_tuple,
+                                     opacity=opacity_value)     # fill in the grid with a half-transparent red
+                                                                # ..this only seems to color the lines, not fill them
     # nice2Dview()
     # showAxes()
 
