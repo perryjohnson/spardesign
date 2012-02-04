@@ -62,6 +62,54 @@ def createNewElement(number_of_elements, element):
     element[number_of_elements].elem_no = number_of_elements
     return (number_of_elements, element)
 
+
+### create a new region
+def createNewRegion(number_of_regions, region):
+    region.append(regionObj())
+    number_of_regions += 1
+    region[number_of_regions].region_no = number_of_regions
+    return (number_of_regions, region)
+
+
+def printEdgeNodes(thisRegion, funcCallFlag=False):
+    if not funcCallFlag:
+        print "REGION #" + str(thisRegion.region_no) + "   ********************"
+    print "BOTTOM EDGE, node_no:"
+    edgeList = genEdgeNodeNumbers(thisRegion.edgeB)
+    print edgeList
+
+    print "TOP EDGE, node_no:"
+    edgeList = genEdgeNodeNumbers(thisRegion.edgeT)
+    print edgeList
+
+    print "LEFT EDGE, node_no:"
+    edgeList = genEdgeNodeNumbers(thisRegion.edgeL)
+    print edgeList
+
+    print "RIGHT EDGE, node_no:"
+    edgeList = genEdgeNodeNumbers(thisRegion.edgeR)
+    print edgeList
+
+
+### inspect all properties of a region (region number, region name, properties of all nodes that make up this region)
+###     input: thisRegion <regionObj>, an individual region (for example, region[2])
+###     output: <none>, prints to the screen
+def inspectRegion(thisRegion):
+    print 'INSPECTING REGION #' + str(thisRegion.region_no) + '  (' + thisRegion.name + ')'
+    print 'H_cells = ' + str(thisRegion.H_cells)
+    print 'V_cells = ' + str(thisRegion.V_cells)
+    printEdgeNodes(thisRegion, funcCallFlag=True)
+    print 'INSPECTING CORNERNODE1 (bottom left) *********'
+    inspectNode(thisRegion.cornerNode1, funcCallFlag=True)
+    print 'INSPECTING CORNERNODE2 (bottom right) ********'
+    inspectNode(thisRegion.cornerNode2, funcCallFlag=True)
+    print 'INSPECTING CORNERNODE3 (top right) ***********'
+    inspectNode(thisRegion.cornerNode3, funcCallFlag=True)
+    print 'INSPECTING CORNERNODE4 (top left) ************'
+    inspectNode(thisRegion.cornerNode4, funcCallFlag=True)
+    return
+
+
 ### inspect all properties of an element (element number, properties of all nodes that make up this element)
 ###     input: thisElement <vo.elementObj>, an individual element (for example, element[36])
 ###     output: <none>, prints to the screen
@@ -132,20 +180,21 @@ def buildConnections(element,number_of_elements):
 def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([]), circle_scale='0.1'):
     newMayaviFigure()
     src = buildMayaviDataSource(node,number_of_nodes)
-    mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor=circle_scale)
+    lightblue = (153.0/255.0, 217.0/255.0, 234.0/255.0)
+    black = (0, 0, 0)
+    mlab.pipeline.glyph(src, color=black, mode='2dcircle', scale_factor=circle_scale)
     if line_flag:
         src.mlab_source.dataset.lines = connections
-        mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
-    fill_flag = False
+        mlab.pipeline.surface(src, line_width=2, opacity=1.0, color=(0, 0, 0))
+    fill_flag = True
     if fill_flag:
-        color_tuple=(0.5,0,0)
+        color_tuple=(0, 0, 0.5)
         opacity_value=0.5
         surf = mlab.pipeline.surface(src,
                                      color=color_tuple,
                                      opacity=opacity_value)     # fill in the grid with a half-transparent red
                                                                 # ..this only seems to color the lines, not fill them
-    # nice2Dview()
-    # showAxes()
+
 
 
 def showAxes():
@@ -263,23 +312,7 @@ def genEdgeNodeNumbers(edge):
     return edgeList
 
 
-def printEdgeNodes(region, region_no):
-    print "REGION #" + str(region_no) + "   ********************"
-    print "BOTTOM EDGE, node_no:"
-    edgeList = genEdgeNodeNumbers(region[region_no].edgeB)
-    print edgeList
 
-    print "TOP EDGE, node_no:"
-    edgeList = genEdgeNodeNumbers(region[region_no].edgeT)
-    print edgeList
-
-    print "LEFT EDGE, node_no:"
-    edgeList = genEdgeNodeNumbers(region[region_no].edgeL)
-    print edgeList
-
-    print "RIGHT EDGE, node_no:"
-    edgeList = genEdgeNodeNumbers(region[region_no].edgeR)
-    print edgeList
 
 
 ### fills the boundary of a coarse-resolution region with triangular elements to bridge to an adjacent fine-resolution region

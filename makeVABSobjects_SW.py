@@ -18,7 +18,7 @@ plot_layer_flag = True
 plot_material_flag = False
 main_debug_flag = False
 spar_stn = 23   # run the 23rd spar station
-maxAR = 8.0  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+maxAR = 28.0  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = 'SW_input_file.dat'
 
 
