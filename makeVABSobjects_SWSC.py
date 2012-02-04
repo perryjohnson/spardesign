@@ -18,10 +18,10 @@ plot_layer_flag = True
 plot_material_flag = False
 main_debug_flag = True
 runVABS_flag = False
-zoom_flag = True
+zoom_flag = False
 grid_flag = True
 spar_stn = 23   # run the 23rd spar station
-maxAR = 8.3  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+maxAR = 5.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = 'SWSC_input_file.dat'
 
 
@@ -242,12 +242,20 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(2,region,
  number_of_nodes,node,
 coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(4,region,
                                                     number_of_elements,element,
-                                                    number_of_nodes,node)
+                                                    number_of_nodes,node,
+                                                    debug_flag=False)
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(4,region,
-                                                                             number_of_elements,element,
-                                                                             number_of_nodes,node)
+                                                        number_of_elements,element,
+                                                        number_of_nodes,node,
+                                                        coarse_flag=True,
+                                                        temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
-
+# # ad hoc fix
+# (number_of_elements, element) = tqg.createNewElement(number_of_elements, element)
+# element[number_of_elements].node1 = node[6150]
+# element[number_of_elements].node2 = node[11]
+# element[number_of_elements].node3 = node[1423]
+# element[number_of_elements].node4 = node[0]
 
 
 
@@ -325,7 +333,8 @@ if plot_grid_flag:   # plot the grid to the screen using mayavi
         tqg.plotNodes(node,number_of_nodes,circle_scale='0.0005')  # print nodes without element lines
     
     if zoom_flag:
-        tqg.nice2Dview(distance=0.07, focalpoint=np.array([-0.736, 0.32, 0.0]))  # zoomed view of shear web/spar cap interface
+        tqg.nice2Dview(distance=0.15, focalpoint=np.array([0.726, 0.32, 0.0]))  # zoomed view of shear web/spar cap interface
+        # tqg.nice2Dview(distance=0.07, focalpoint=np.array([-0.736, 0.32, 0.0]))  # zoomed view of shear web/spar cap interface
         # tqg.nice2Dview(distance=0.21, focalpoint=np.array([-0.72, 0.31, 0.0]))  # zoomed view of shear web/spar cap interface
     else:
         tqg.nice2Dview(distance=3, focalpoint=np.array([-0.1, 0.0008, 0.0]))  # full view of shear web + spar cap
@@ -369,4 +378,4 @@ if runVABS_flag:
   # run the input file with VABS from the Windows command line
   print ""
   print "RUNNING VABS....."
-  os.system('.\VABS\VABSIII .\SW_input_file.dat')
+  os.system('.\VABS\VABSIII .\SWSC_input_file.dat')
