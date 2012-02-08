@@ -18,10 +18,10 @@ plot_layer_flag = False
 plot_material_flag = False
 main_debug_flag = True
 runVABS_flag = False
-zoom_flag = False
+zoom_flag = True
 grid_flag = False
 spar_stn = 23   # run the 23rd spar station
-maxAR = 5.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+maxAR = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = '2SW2SC_input_file.dat'
 
 
@@ -134,12 +134,12 @@ SW_corners = rl.extract_SW_corners(data,spar_stn)
 
 SC_corners = rl.extract_SC_corners(data,spar_stn)
 ## bottom spar cap #############################################################  SC_corners[1,:,:]
-(node[17].x2, node[17].x3) = (SC_corners[1,0,0], SC_corners[1,0,1])
-(node[18].x2, node[18].x3) = (SC_corners[1,1,0], SC_corners[1,1,1])
+# (node[17].x2, node[17].x3) = (SC_corners[1,0,0], SC_corners[1,0,1])
+# (node[18].x2, node[18].x3) = (SC_corners[1,1,0], SC_corners[1,1,1])
 
 ## top spar cap #############################################################  SC_corners[0,:,:]
-(node[19].x2, node[19].x3) = (SC_corners[0,2,0], SC_corners[0,2,1])
-(node[20].x2, node[20].x3) = (SC_corners[0,3,0], SC_corners[0,3,1])
+# (node[19].x2, node[19].x3) = (SC_corners[0,2,0], SC_corners[0,2,1])
+# (node[20].x2, node[20].x3) = (SC_corners[0,3,0], SC_corners[0,3,1])
 
 
 
@@ -154,8 +154,8 @@ SC_corners = rl.extract_SC_corners(data,spar_stn)
 (region[4].cornerNode1, region[4].cornerNode2, region[4].cornerNode3, region[4].cornerNode4) = (node[9], node[10], node[11], node[12])
 (region[5].cornerNode1, region[5].cornerNode2, region[5].cornerNode3, region[5].cornerNode4) = (node[10], node[13], node[16], node[11])
 (region[6].cornerNode1, region[6].cornerNode2, region[6].cornerNode3, region[6].cornerNode4) = (node[13], node[14], node[15], node[16])
-(region[7].cornerNode1, region[7].cornerNode2, region[7].cornerNode3, region[7].cornerNode4) = (node[6], node[9], node[18], node[17])
-(region[8].cornerNode1, region[8].cornerNode2, region[8].cornerNode3, region[8].cornerNode4) = (node[20], node[19], node[12], node[7])
+# (region[7].cornerNode1, region[7].cornerNode2, region[7].cornerNode3, region[7].cornerNode4) = (node[6], node[9], node[18], node[17])
+# (region[8].cornerNode1, region[8].cornerNode2, region[8].cornerNode3, region[8].cornerNode4) = (node[20], node[19], node[12], node[7])
 
 
 
@@ -163,53 +163,141 @@ SC_corners = rl.extract_SC_corners(data,spar_stn)
 
 ################################################################################################################################################
 # assign number of cells distributed along horizontal and vertical axes
-# left shear web, left biax laminate ##############
+# left shear web, left biax laminate ############## SW_corners[0,0,:,:]
 (dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
 (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 (region[1].V_cells,region[1].H_cells) = (nV,nH)
-# left shear web, foam laminate ##############
+# left shear web, foam core ############## SW_corners[0,1,:,:]
 (dimH,dimV) = cg.calcCornerDims(SW_corners[0,1,:,:])
 (nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
 (region[2].V_cells,region[2].H_cells) = (nV,nH)
-# left shear web, right biax laminate ##############
+# left shear web, right biax laminate ############## SW_corners[0,2,:,:]
 (dimH,dimV) = cg.calcCornerDims(SW_corners[0,2,:,:])
 (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
 (region[3].V_cells,region[3].H_cells) = (nV,nH)
-# top spar cap #
+
+# right shear web, left biax laminate ############## SW_corners[1,0,:,:]
+(dimH,dimV) = cg.calcCornerDims(SW_corners[1,0,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
+(region[4].V_cells,region[4].H_cells) = (nV,nH)
+# right shear web, foam core ############## SW_corners[1,1,:,:]
+(dimH,dimV) = cg.calcCornerDims(SW_corners[1,1,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_foam_plies,maxAR,dimV)
+(region[5].V_cells,region[5].H_cells) = (nV,nH)
+# right shear web, right biax laminate ############## SW_corners[1,2,:,:]
+(dimH,dimV) = cg.calcCornerDims(SW_corners[1,2,:,:])
+(nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR,dimV)
+(region[6].V_cells,region[6].H_cells) = (nV,nH)
+
+# bottom spar cap ############## SC_corners[1,:,:]
+(dimH,dimV) = cg.calcCornerDims(SC_corners[1,:,:])
+(nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
+(region[7].V_cells,region[7].H_cells) = (nV,nH)
+
+# top spar cap ############## SC_corners[0,:,:]
 (dimH,dimV) = cg.calcCornerDims(SC_corners[0,:,:])
 (nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR,dimH)
-(region[4].V_cells,region[4].H_cells) = (nV,nH)
+(region[8].V_cells,region[8].H_cells) = (nV,nH)
 
 
 
 
-# ################################################################################################################################################
-# # make control nodes at ply boundaries
-# # region 1 ################### (left shear web, left biax laminate)
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'bottom')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'top')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'left')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'right')
+################################################################################################################################################
+# make control nodes at ply boundaries
+# region 1 ################### (left shear web, left biax laminate)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'top')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'left')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, left biax laminate'], node, number_of_nodes, 'right')
 
-# # region 3 ################### (left shear web, right biax laminate)
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'bottom')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'top')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'left')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'right')
+# region 3 ################### (left shear web, right biax laminate)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'top')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'left')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, right biax laminate'], node, number_of_nodes, 'right')
 
-# # region 2 ################### (left shear web, foam core)
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, foam core'], node, number_of_nodes, 'bottom')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, foam core'], node, number_of_nodes, 'top')
-# region[rDict['left shear web, foam core']].edgeL = region[rDict['left shear web, left biax laminate']].edgeR
-# region[rDict['left shear web, foam core']].edgeR = region[rDict['left shear web, right biax laminate']].edgeL
+# region 2 ################### (left shear web, foam core)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, foam core'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['left shear web, foam core'], node, number_of_nodes, 'top')
+region[rDict['left shear web, foam core']].edgeL = region[rDict['left shear web, left biax laminate']].edgeR
+region[rDict['left shear web, foam core']].edgeR = region[rDict['left shear web, right biax laminate']].edgeL
 
-# # region 4 ################### (top spar cap)
-# # edit the right edge of region[3]
+
+# region 4 ################### (right shear web, left biax laminate)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, left biax laminate'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, left biax laminate'], node, number_of_nodes, 'top')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, left biax laminate'], node, number_of_nodes, 'left')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, left biax laminate'], node, number_of_nodes, 'right')
+
+# region 6 ################### (right shear web, right biax laminate)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, right biax laminate'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, right biax laminate'], node, number_of_nodes, 'top')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, right biax laminate'], node, number_of_nodes, 'left')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, right biax laminate'], node, number_of_nodes, 'right')
+
+# region 5 ################### (right shear web, foam core)
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, foam core'], node, number_of_nodes, 'bottom')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['right shear web, foam core'], node, number_of_nodes, 'top')
+region[rDict['right shear web, foam core']].edgeL = region[rDict['right shear web, left biax laminate']].edgeR
+region[rDict['right shear web, foam core']].edgeR = region[rDict['right shear web, right biax laminate']].edgeL
+
+# region 7 ################### (bottom spar cap)
+SC_top_x3 = SC_corners[1,0,1]
+SC_bottom_x3 = SC_corners[1,2,1]
+SC_middle_x3 = SC_bottom_x3 + abs(SC_top_x3 - SC_bottom_x3)/SC_plies
+print SC_top_x3, SC_middle_x3, SC_bottom_x3
+# edit the right edge of region[3] (left shear web, right biax laminate) to match the ply thicknesses of region[7]
+n = 0
+while region[3].edgeR[n].x3 < SC_middle_x3:
+    print region[3].edgeR[n].x3, "<", SC_middle_x3, "?"
+    n += 1
+print "n =", n
+print "before:", region[3].edgeR[n].x3
+region[3].edgeR[n].x3 = SC_middle_x3  # reassign the x3 value, to align the shear web gridpoint with the adjacent spar cap plies
+print "after:", region[3].edgeR[n].x3
+while region[3].edgeR[n].x3 < SC_top_x3:
+    print region[3].edgeR[n].x3, "<", SC_top_x3, "?"
+    n += 1
+print "n =", n
+print "before:", region[3].edgeR[n].x3
+region[3].edgeR[n].x3 = SC_top_x3
+print "after:", region[3].edgeR[n].x3
+# assign the left edge of region[7] to a subset of the right edge of region[3]
+region[rDict['bottom spar cap']].edgeL = region[rDict['left shear web, right biax laminate']].edgeR[:n+1]
+#region[7].cornerNode4 = region[3].edgeR[n]
+
+##### there's probably an index bug in here!!
+# edit the left edge of region[4] (right shear web, left biax laminate) to match the ply thicknesses of region[8]
+n = 0
+while region[4].edgeL[n].x3 < SC_middle_x3:
+    print region[4].edgeL[n].x3, "<", SC_middle_x3, "?"
+    n += 1
+print "n =", n
+print "before:", region[4].edgeL[n].x3
+region[4].edgeL[n].x3 = SC_middle_x3  # reassign the x3 value, to align the shear web gridpoint with the adjacent spar cap plies
+print "after:", region[4].edgeL[n].x3
+while region[4].edgeL[n].x3 < SC_top_x3:
+    print region[4].edgeL[n].x3, "<", SC_top_x3, "?"
+    n += 1
+print "n =", n
+print "before:", region[4].edgeL[n].x3
+region[4].edgeL[n].x3 = SC_top_x3
+print "after:", region[4].edgeL[n].x3
+# assign the right edge of region[7] to a subset of the left edge of region[4]
+region[rDict['bottom spar cap']].edgeR = region[rDict['right shear web, left biax laminate']].edgeL[:n+1]
+# assign the top and bottom edges to region[7], as usual
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom spar cap'], node, number_of_nodes, 'top')
+(region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom spar cap'], node, number_of_nodes, 'bottom')
+#region[7].cornerNode3 = region[4].edgeL[n]
+
+(region[7].cornerNode1, region[7].cornerNode2, region[7].cornerNode3, region[7].cornerNode4) = (node[6], node[9], region[4].edgeL[n], region[3].edgeR[n])
+
+
+# # region 8 ################### (top spar cap)
 # SC_top_x3 = SC_corners[0,0,1]
 # SC_bottom_x3 = SC_corners[0,2,1]
 # SC_middle_x3 = SC_bottom_x3 + abs(SC_top_x3 - SC_bottom_x3)/SC_plies
-# # print "spar cap: bottom_x3, middle_x3, top_x3"
-# # print (SC_bottom_x3, SC_middle_x3, SC_top_x3)
+# # edit the right edge of region[3] (left shear web, right biax laminate) to match the ply thicknesses of region[8]
 # n = -1
 # while region[3].edgeR[n].x3 > SC_middle_x3:
 #     n -= 1
@@ -219,13 +307,24 @@ SC_corners = rl.extract_SC_corners(data,spar_stn)
 #     n -= 1
 # # print "n =", n
 # region[3].edgeR[n].x3 = SC_bottom_x3
-# # establish the corner nodes (before generating edge nodes)
-# (region[4].cornerNode1, region[4].cornerNode2, region[4].cornerNode3, region[4].cornerNode4) = (node[region[3].edgeR[n].node_no], node[10], node[11], node[7])
-# # assign the left edge of region[4] to a subset of the right edge of region[3]
+# # assign the left edge of region[8] to a subset of the right edge of region[3]
 # region[rDict['top spar cap']].edgeL = region[rDict['left shear web, right biax laminate']].edgeR[n:]
+
+# # edit the left edge of region[4] (right shear web, left biax laminate) to match the ply thicknesses of region[8]
+# n = -1
+# while region[4].edgeL[n].x3 > SC_middle_x3:
+#     n -= 1
+# # print "n =", n
+# region[4].edgeL[n].x3 = SC_middle_x3  # reassign the x3 value, to align the shear web gridpoint with the adjacent spar cap plies
+# while region[4].edgeL[n].x3 > SC_bottom_x3:
+#     n -= 1
+# # print "n =", n
+# region[4].edgeL[n].x3 = SC_bottom_x3
+# # assign the right edge of region[8] to a subset of the left edge of region[4]
+# region[rDict['top spar cap']].edgeR = region[rDict['right shear web, left biax laminate']].edgeL[n:]
+# # assign the top and bottom edges to region[8], as usual
 # (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top spar cap'], node, number_of_nodes, 'top')
 # (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top spar cap'], node, number_of_nodes, 'bottom')
-# (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top spar cap'], node, number_of_nodes, 'right')
 
 
 
@@ -348,14 +447,12 @@ if plot_grid_flag:   # plot the grid to the screen using mayavi
     if grid_flag:
         tqg.plotNodes(node,number_of_nodes,line_flag=True,connections=conn,circle_scale='0.0005')  # print nodes with element lines
     else:
-        tqg.plotNodes(node,number_of_nodes,circle_scale='0.01')  # print nodes without element lines
+        tqg.plotNodes(node,number_of_nodes,circle_scale='0.0005')  # print nodes without element lines
     
     if zoom_flag:
-        tqg.nice2Dview(distance=0.15, focalpoint=np.array([0.726, 0.32, 0.0]))  # zoomed view of shear web/spar cap interface
-        # tqg.nice2Dview(distance=0.07, focalpoint=np.array([-0.736, 0.32, 0.0]))  # zoomed view of shear web/spar cap interface
-        # tqg.nice2Dview(distance=0.21, focalpoint=np.array([-0.72, 0.31, 0.0]))  # zoomed view of shear web/spar cap interface
+        tqg.nice2Dview(distance=0.07, focalpoint=np.array([-0.75, -0.32, 0.0]))  # zoomed view of shear web/spar cap interface
     else:
-        tqg.nice2Dview(distance=3, focalpoint=np.array([-0.1, 0.0008, 0.0]))  # full view of shear web + spar cap
+        tqg.nice2Dview(distance=2.5, focalpoint=np.array([0.004, -0.02, 0.0]))  # full view of cross-section
     # tqg.showAxes()
 
 
