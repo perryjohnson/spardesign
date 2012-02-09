@@ -18,8 +18,8 @@ main_debug_flag = True
 runVABS_flag = True
 zoom_flag = False
 gridlines_flag = True
-spar_stn = 23   # run the 23rd spar station
-maxAR = 7.43  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+spar_stn = 22   # run the 23rd spar station
+maxAR = 7.3  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = 'cs_input_file.dat'
 
 
@@ -99,7 +99,7 @@ SC_corners = rl.extract_SC_corners(data,spar_stn)
 
 ################################################################################################################################################
 # fill in nodes at region corners
-total_cornerNodes = 20
+total_cornerNodes = 16
 for i in range(1,total_cornerNodes+1):
     (number_of_nodes, node) = tqg.createNewNode(number_of_nodes, node)
 
