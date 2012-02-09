@@ -12,14 +12,13 @@ import numpy as np
 import autogridgen.cartGrid as cg
 import autogridgen.gridViz as gv
 
-fastflag = True
 plot_flag = True
 main_debug_flag = True
 runVABS_flag = True
 zoom_flag = False
 gridlines_flag = True
-spar_stn = 22   # run the 23rd spar station
-maxAR = 7.3  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+spar_stn = 24   # run the 23rd spar station
+maxAR = 5.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 vabs_filename = 'cs_input_file.dat'
 
 
@@ -369,6 +368,15 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['left shear web, fo
                                                                                  number_of_elements,element,
                                                                                  number_of_nodes,node)
 
+# assign all elements to layer 1, and set theta1 = 90.0 (left shear web)
+start_elem = 1
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[1]
+    element[i].theta1 = 90.0
+start_elem = number_of_elements+1
+
+
+
 # fill region 4 (right shear web, left biax laminate)
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, left biax laminate'],region,
                                                                                  number_of_elements,element,
@@ -391,6 +399,14 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['right shear web, f
                                                                                  number_of_elements,element,
                                                                                  number_of_nodes,node)
 
+# assign all elements to layer 1, and set theta1 = 270.0 (right shear web)
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[1]
+    element[i].theta1 = 270.0
+start_elem = number_of_elements+1
+
+
+
 # fill region 7 (bottom spar cap)
 (number_of_elements,element,
  number_of_nodes,node,
@@ -403,6 +419,14 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['right shear web, f
                                                         number_of_nodes,node,
                                                         coarse_flag=True,
                                                         temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
+
+# assign all elements to layer 2, and set theta1 = 180.0 (bottom spar cap)
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[1]
+    element[i].theta1 = 180.0
+start_elem = number_of_elements+1
+
+
 
 # fill region 8 (top spar cap)
 (number_of_elements,element,
@@ -417,6 +441,11 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['right shear web, f
                                                         coarse_flag=True,
                                                         temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
+# assign all elements to layer 2, and set theta1 = 0.0 (top spar cap)
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[1]
+    element[i].theta1 = 0.0
+start_elem = number_of_elements+1
 
 
 
@@ -466,10 +495,7 @@ coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['right shear web, f
 # write the element connectivity in a way that Mayavi can understand and plot
 conn = tqg.buildConnections(element,number_of_elements)
 
-# assign all elements to layer 1, and set theta1 = 0.0 (just to test the VABS input file)
-for i in range(1,number_of_elements+1):
-    element[i].layer = layer[1]
-    element[i].theta1 = 0.0
+
 
 
 # verify that input was saved correctly
