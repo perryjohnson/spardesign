@@ -350,6 +350,16 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
     new_coarseEdgeL = temp_edgeR  # save this edge for later, this list will be returned by this function
                                   # so the interior of the coarse region can be filled with quad elements
 
+    if debug_flag:
+        print "temp_edgeL length =", len(temp_edgeL)
+        print "temp_edgeR length =", len(temp_edgeR)
+        print "TEMP EDGE (LEFT):"
+        edgeList = genEdgeNodeNumbers(temp_edgeL)
+        print edgeList
+        print "TEMP EDGE (RIGHT):"
+        edgeList = genEdgeNodeNumbers(temp_edgeR)
+        print edgeList
+
     l = 0
     r = 0
     temp_node4 = node[0]  # dummy node, tells VABS this is a triangular element
@@ -364,6 +374,7 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
             temp_node2 = temp_edgeR[r]
             temp_node3 = temp_edgeL[l+1]
             l += 1
+            if debug_flag: print "case 1: the RIGHT node is between the two LEFT nodes"
         # check if the LEFT node is between the two RIGHT nodes
         elif (temp_edgeR[r].x3 <= temp_edgeL[l].x3) and (temp_edgeL[l].x3 <= temp_edgeR[r+1].x3):
             # make a triangle (which points left)!
@@ -371,6 +382,7 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
             temp_node2 = temp_edgeR[r]
             temp_node3 = temp_edgeR[r+1]
             r += 1
+            if debug_flag: print "case 2: the LEFT node is between the two RIGHT nodes"
         # check if the RIGHT node is above the two LEFT nodes
         elif (temp_edgeL[l].x3 <= temp_edgeR[r].x3) and (temp_edgeL[l+1].x3 <= temp_edgeR[r].x3):
             # make a triangle (which points right)!
@@ -378,6 +390,7 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
             temp_node2 = temp_edgeR[r]
             temp_node3 = temp_edgeL[l+1]
             l += 1
+            if debug_flag: print "case 3: the RIGHT node is above the two LEFT nodes"
         # check if the LEFT node is above the two RIGHT nodes   ... do i need this one?!!??
         elif (temp_edgeR[r].x3 <= temp_edgeL[l].x3) and (temp_edgeR[r+1].x3 <= temp_edgeL[l].x3):
             # make a triangle (which points left)!
@@ -385,6 +398,7 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
             temp_node2 = temp_edgeR[r]
             temp_node3 = temp_edgeR[r+1]
             r += 1
+            if debug_flag: print "case 4: the LEFT node is above the two RIGHT nodes"
         else:
             print "ERROR in fillBoundaryTriElements!!! HELP!!!"
             break
@@ -395,6 +409,11 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
         element[number_of_elements].node4 = temp_node4
 
     # still need to fill in a few more triangular elements near the top edge
+    if debug_flag:
+        print "*********"
+        print "l =", l
+        print "r =", r
+        print "*********"
     while (l < len(temp_edgeL)-1):
         temp_node1 = temp_edgeL[l]
         temp_node2 = temp_edgeT[1]  # always true for this last code block... we already filled up temp_edgeR with elements!
@@ -405,6 +424,18 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
         element[number_of_elements].node2 = temp_node2
         element[number_of_elements].node3 = temp_node3
         element[number_of_elements].node4 = temp_node4
+        if debug_flag: print "adding extra top element: while l <"
+    while (r < len(temp_edgeR)-1):
+        temp_node1 = temp_edgeT[0]  # always true for this last code block... we already filled up temp_edgeL with elements!
+        temp_node2 = temp_edgeR[r]
+        temp_node3 = temp_edgeR[r+1]
+        r += 1
+        (number_of_elements, element) = createNewElement(number_of_elements, element)
+        element[number_of_elements].node1 = temp_node1
+        element[number_of_elements].node2 = temp_node2
+        element[number_of_elements].node3 = temp_node3
+        element[number_of_elements].node4 = temp_node4
+        if debug_flag: print "adding extra top element: while r <"
     
 
     ###############################
@@ -492,6 +523,18 @@ def fillBoundaryTriElements(region_no, region, number_of_elements, element, numb
         element[number_of_elements].node2 = temp_node2
         element[number_of_elements].node3 = temp_node3
         element[number_of_elements].node4 = temp_node4
+        if debug_flag: print "adding extra top element: while r <"
+    while (l < len(temp_edgeL)-1):
+        temp_node1 = temp_edgeL[l]
+        temp_node2 = temp_edgeT[-1]  # always true for this last code block... we already filled up temp_edgeR with elements!
+        temp_node3 = temp_edgeL[l+1]
+        l += 1
+        (number_of_elements, element) = createNewElement(number_of_elements, element)
+        element[number_of_elements].node1 = temp_node1
+        element[number_of_elements].node2 = temp_node2
+        element[number_of_elements].node3 = temp_node3
+        element[number_of_elements].node4 = temp_node4
+        if debug_flag: print "adding extra top element: while l <"
 
     return (number_of_elements, element, number_of_nodes, node, new_coarseEdgeL, new_coarseEdgeR)
 

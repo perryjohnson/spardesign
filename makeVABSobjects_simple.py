@@ -9,12 +9,8 @@ import autogridgen.read_layup as rl
 import autogridgen.triQuadGrid as tqg
 import os
 
-fastflag = True
 plot_grid_flag = True
-plot_layer_flag = True
-plot_material_flag = False
-startrange = 23   # run the 23rd spar station
-maxAR = 1.2  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+runVABS_flag = False
 vabs_filename = 'simple_input_file.dat'
 
 
@@ -124,15 +120,22 @@ for i in range(1,number_of_regions+1):
 region[2].edgeL = region[1].edgeR
 region[2].edgeR = region[3].edgeL
 
-tqg.printEdgeNodes(region, 1)
-tqg.printEdgeNodes(region, 2)
-tqg.printEdgeNodes(region, 3)
+# tqg.printEdgeNodes(region[1])
+# tqg.printEdgeNodes(region[2])
+# tqg.printEdgeNodes(region[3])
 
 
 # fill region 1
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(1,region,
                                                                              number_of_elements,element,
                                                                              number_of_nodes,node)
+# assign all elements in region 1 to layer 1, and set theta1 = 0.0
+start_elem = 1
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[1]
+    element[i].theta1 = 0.0
+start_elem = number_of_elements+1
+
 
 # fill region 2
 (number_of_elements,element,
@@ -140,33 +143,40 @@ tqg.printEdgeNodes(region, 3)
 coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(2,region,
                                                     number_of_elements,element,
                                                     number_of_nodes,node)
-print "COARSE EDGE (LEFT):"
-edgeList = tqg.genEdgeNodeNumbers(coarseEdgeL)
-print edgeList
-print "COARSE EDGE (RIGHT):"
-edgeList = tqg.genEdgeNodeNumbers(coarseEdgeR)
-print edgeList
+# print "COARSE EDGE (LEFT):"
+# edgeList = tqg.genEdgeNodeNumbers(coarseEdgeL)
+# print edgeList
+# print "COARSE EDGE (RIGHT):"
+# edgeList = tqg.genEdgeNodeNumbers(coarseEdgeR)
+# print edgeList
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(2,region,
                                                         number_of_elements,element,
                                                         number_of_nodes,node,
                                                         coarse_flag=True,
                                                         temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
+# assign all elements in region 2 to layer 2, and set theta1 = 0.0
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[2]
+    element[i].theta1 = 0.0
+start_elem = number_of_elements+1
+
 
 # fill region 3
 (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(3,region,
                                                                              number_of_elements,element,
                                                                              number_of_nodes,node)
-
+# assign all elements in region 3 to layer 3, and set theta1 = 0.0
+for i in range(start_elem, number_of_elements+1):
+    element[i].layer = layer[3]
+    element[i].theta1 = 0.0
+start_elem = number_of_elements+1
 
 
 
 # write the element connectivity in a way that Mayavi can understand and plot
 conn = tqg.buildConnections(element,number_of_elements)
 
-# assign all elements to layer 1, and set theta1 = 0.0 (just to test the VABS input file)
-for i in range(1,number_of_elements+1):
-    element[i].layer = layer[1]
-    element[i].theta1 = 0.0
+
 
 
 
@@ -188,37 +198,38 @@ if plot_grid_flag:   # plot the grid to the screen using mayavi
 
 
 # write to the VABS input file #############################################################################################################################
-print "STATUS: writing the VABS input file:", vabs_filename
-import VABSutilities as vu
+if runVABS_flag:
+    print "STATUS: writing the VABS input file:", vabs_filename
+    import VABSutilities as vu
 
-curved = 1  # curve flag is set to True
-twist_rate = 0.0  # twist_rate = k1, which is in units of rad/m (twist rate)
+    curved = 1  # curve flag is set to True
+    twist_rate = 0.0  # twist_rate = k1, which is in units of rad/m (twist rate)
 
-VABSflag_dictionary = {'format_flag': 1,
-                       'nlayer': number_of_layers,
-                       'Timoshenko_flag': 1,
-                       'recover_flag': 0,
-                       'thermal_flag': 0,
-                       'curve_flag': curved,
-                       'oblique_flag': 0,
-                       'trapeze_flag': 0,
-                       'Vlasov_flag': 0,
-                       'k1': twist_rate,
-                       'k2': 0.0,
-                       'k3': 0.0,
-                       'nnode': number_of_nodes,
-                       'nelem': number_of_elements,
-                       'nmate': number_of_materials}
-                       # package all the VABS flags into one dictionary
-vu.writeVABSfile(vabs_filename, node, layer, material, element, VABSflag_dictionary)
+    VABSflag_dictionary = {'format_flag': 1,
+                           'nlayer': number_of_layers,
+                           'Timoshenko_flag': 1,
+                           'recover_flag': 0,
+                           'thermal_flag': 0,
+                           'curve_flag': curved,
+                           'oblique_flag': 0,
+                           'trapeze_flag': 0,
+                           'Vlasov_flag': 0,
+                           'k1': twist_rate,
+                           'k2': 0.0,
+                           'k3': 0.0,
+                           'nnode': number_of_nodes,
+                           'nelem': number_of_elements,
+                           'nmate': number_of_materials}
+                           # package all the VABS flags into one dictionary
+    vu.writeVABSfile(vabs_filename, node, layer, material, element, VABSflag_dictionary)
 
 
-# calculate the time it took to run the code #####################################################################################################################
-elapsed_time_tot = time.time() - start_time
+    # calculate the time it took to run the code #####################################################################################################################
+    elapsed_time_tot = time.time() - start_time
 
-print "program completed in", ("%.2f" % round(elapsed_time_tot,2)), "seconds"
+    print "program completed in", ("%.2f" % round(elapsed_time_tot,2)), "seconds"
 
-# run the input file with VABS from the Windows command line
-print ""
-print "RUNNING VABS....."
-os.system('.\VABS\VABSIII .\simple_input_file.dat')
+    # run the input file with VABS from the Windows command line
+    print ""
+    print "RUNNING VABS....."
+    os.system('.\VABS\VABSIII .\simple_input_file.dat')
