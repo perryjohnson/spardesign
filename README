@@ -1,23 +1,40 @@
-run "autogridgen\genGrid.py" from the command line
+run "main.py" from the command line
+or, in iPython: |>run main
 
 Notes:
 ------
-(1) this software requires that PYTHON and MAYAVI are already installed on your system
-(2) the Python(x,y) distribution (http://code.google.com/p/pythonxy/) is recommended for an easy install of all the required components to run this software
+(1) PYTHON and MAYAVI must already be installed on your system
+(2) the Python(x,y) distribution (http://code.google.com/p/pythonxy/) is
+    recommended for an easy install of all the required components
+(3) the "license" file must be in the top directory (spardesign) in order for
+    VABS to run correctly
 
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 ***OLD INFO***
 run "makeAllVABSinputs.bat" in a Windows command window
 
 Notes:
 ------
-(1) this software requires that PYTHON and MATPLOTLIB are already installed on your system
-(2) the "license" file must be in the top directory (spardesign) in order for VABS to run correctly
-(3) the batch file runs "makeVABSinput.py" for a series of cross-sections ... this needs to be modified by hand for now
+(1) this software requires that PYTHON and MATPLOTLIB are already installed on
+    your system
+(2) the "license" file must be in the top directory (spardesign) in order for
+    VABS to run correctly
+(3) the batch file runs "makeVABSinput.py" for a series of cross-sections
+    ... this needs to be modified by hand for now
 
-# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height -c curved -k1 twist_rate
+# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag
+         -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height
+         -c curved -k1 twist_rate
 ## command line options:
 ## ------------------------------------------------------
 ## -i    input file                        [filename]

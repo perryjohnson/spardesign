@@ -1,3 +1,18 @@
+"""
+Description:  (last updated Februrary 2, 2012)
+This program is a preprocessor for VABS (a cross-sectional analysis code maintained by Prof. Wenbin Yu at Utah State University).
+Given the geometry and layup for a wind turbine spar (autogridgen/monoplane_spar_layup.txt), this program will:
+    (1) make VABS objects (materials, layers, nodes, & elements)
+    (2) plots the grid (and grid lines) to the screen with Mayavi
+    (3) writes the VABS input file (spar_station_xx.dat)
+    (4) runs VABS on the input file to calculate the mass and stiffness matrices (spar_station_xx.dat.K)
+This program currently only runs spar stations 7-24, which are made of two shear webs and two spar caps
+Spar stations 1-6 also includes two root buildup regions, which are not handled by this program yet.
+
+Author:
+Perry Johnson (perryjohnson@ucla.edu)
+"""
+
 import time
 
 # record the time when the code starts
@@ -63,8 +78,8 @@ for i in range(len(spar_stn_list)):
     number_of_layers = 7
 
 
-    # create VABS objects for materials and layups
-    print "STATUS: create VABS materials and layups..."
+    # create VABS objects for materials and layers
+    print "STATUS: create VABS materials and layers..."
 
     layer = []        # create an empty list of layer objects
     material = []     # create an empty list of material objects
@@ -115,7 +130,7 @@ for i in range(len(spar_stn_list)):
     for i in range(1,total_regions+1):
         rDict[region[i].name] = region[i].region_no
 
-    # import the data from the layup file
+    # import the data from the layup file                                           #### this can be moved up and out of this for loop!!!!! ####
     data = rl.readLayupFile('autogridgen/monoplane_spar_layup.txt')
     SW_corners = rl.extract_SW_corners(data,spar_stn)
     SC_corners = rl.extract_SC_corners(data,spar_stn)
