@@ -5,15 +5,16 @@ mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1))
 mlab.clf()
 
 # We create a list of positions and connections, each describing a line.
-x = np.array([np.nan, 0, 2, 2, 0, 4])
-y = np.array([np.nan, 0, 0, 2, 2, 1])
-z = np.array([np.nan, 0, 0, 0, 0, 0])
+x = np.array([np.nan, 0, 1, 1, 0, 2, 2])
+y = np.array([np.nan, 0, 0, 1, 1, 0, 1])
+z = np.array([np.nan, 0, 0, 0, 0, 0, 0])
 connections = np.array([[1, 2],
                         [2, 3],
                         [3, 4],
                         [4, 1],
                         [2, 5],
-                        [5, 3],
+                        [5, 6],
+                        [6, 3],
                         [3, 2]])
 
 
@@ -30,6 +31,7 @@ mlab.pipeline.surface(src, line_width=1, opacity=1.0, color=(0,0,0))
 mlab.pipeline.glyph(src, color=(0,0,0), mode='2dcircle', scale_factor='0.1')
 
 # fill the cells
+mlab.mesh(x, y, z, colormap="bone")
 
 
 # And choose a nice view

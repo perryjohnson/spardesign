@@ -139,8 +139,11 @@ def inspectNode(thisNode,funcCallFlag=False):
     return
 
 
-def newMayaviFigure():
-    mlab.figure(1, size=(800, 600), bgcolor=(1, 1, 1))
+def newMayaviFigure(fignum=0):
+    if fignum == 0:
+        mlab.figure(1, size=(800, 600), bgcolor=(1, 1, 1),)
+    else:
+        mlab.figure(figure='spar station #'+str(fignum), size=(800, 600), bgcolor=(1, 1, 1),)
     mlab.clf()
 
 
@@ -177,8 +180,8 @@ def buildConnections(element,number_of_elements):
     return connections
 
 
-def plotNodes(node,number_of_nodes,line_flag=False,connections=np.array([]), circle_scale='0.1'):
-    newMayaviFigure()
+def plotNodes(node, number_of_nodes, line_flag=False, connections=np.array([]), circle_scale='0.1', figure_num=1):
+    newMayaviFigure(fignum=figure_num)
     src = buildMayaviDataSource(node,number_of_nodes)
     # lightblue = (153.0/255.0, 217.0/255.0, 234.0/255.0)
     black = (0, 0, 0)
