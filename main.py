@@ -18,28 +18,26 @@ import time
 # record the time when the code starts
 start_time = time.time()
 
-import autogridgen.genGrid as gg
 import autogridgen.VABSobjects as vo
 import autogridgen.read_layup as rl
 import autogridgen.triQuadGrid as tqg
-import os
 import numpy as np
 import autogridgen.cartGrid as cg
-import autogridgen.gridViz as gv
 
 # plotting flags #
-plot_flag = True        # show the plot in mayavi?
-gridlines_flag = True   # plot gridlines between the nodes?
-zoom_flag = False       # set the view to the shear web/spar cap interface?
+plot_flag = True            # show the plot in mayavi?
+gridlines_flag = True       # plot gridlines between the nodes?
+zoom_flag = False           # set the view to the shear web/spar cap interface?
 
 # debugging flags #
-main_debug_flag = False # print extra debugging information to the screen?
+main_debug_flag = False     # print extra debugging information to the screen?
 
 # VABS flags #
-runVABS_flag = False    # write the VABS input file to disk and run it with VABS?
+writeVABS_flag = False       # write the VABS input file to disk?
+runVABS_flag = False        # run VABS to calculate the mass and stiffness matrices?
 
 # spar stations #
-# note: spar stations 1-6 have a root buildup layer. this code cannot handle that yet.
+spar_file = 'autogridgen/monoplane_spar_layup.txt'
 # spar_stn_list = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 spar_stn_list = [7]  # generate grids for these spar stations (subset)
 
@@ -47,6 +45,14 @@ spar_stn_list = [7]  # generate grids for these spar stations (subset)
 maxAR_uniax = 1.3
 maxAR_biax = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
 maxAR_foam = 1.3
+
+# import the data from the layup file
+print 'STATUS: importing the data from the spar layup file: ' + spar_file + '  ...'
+data = rl.readLayupFile(spar_file)
+
+
+
+
 
 
 ##### run this block of code for each spar station #####
@@ -130,8 +136,7 @@ for i in range(len(spar_stn_list)):
     for i in range(1,total_regions+1):
         rDict[region[i].name] = region[i].region_no
 
-    # import the data from the layup file                                           #### this can be moved up and out of this for loop!!!!! ####
-    data = rl.readLayupFile('autogridgen/monoplane_spar_layup.txt')
+    # pull the corners of the shear webs and spar caps from the layup file that was read earlier
     SW_corners = rl.extract_SW_corners(data,spar_stn)
     SC_corners = rl.extract_SC_corners(data,spar_stn)
 
@@ -585,13 +590,13 @@ for i in range(len(spar_stn_list)):
         if zoom_flag:
             tqg.nice2Dview(distance=0.038, focalpoint=np.array([0.743, -0.25, 0.0]))  # zoomed view of shear web/spar cap interface
         else:
-            tqg.nice2Dview(distance=2.5, focalpoint=np.array([0.004, -0.02, 0.0]))  # full view of cross-section
+            tqg.nice2Dview()  # full view of cross-section
         # tqg.showAxes()
 
 
 
     # write to the VABS input file #############################################################################################################################
-    if runVABS_flag:
+    if writeVABS_flag:
         print "STATUS: writing the VABS input file:", vabs_filename
         import VABSutilities as vu
 
@@ -623,6 +628,7 @@ for i in range(len(spar_stn_list)):
 
     if runVABS_flag:
         # run the input file with VABS from the Windows command line
+        import os
         print ""
         print "RUNNING VABS....."
         vabs_command = r'.\VABS\VABSIII .\ '[:-1] + vabs_filename

@@ -147,7 +147,7 @@ def newMayaviFigure(fignum=0):
     mlab.clf()
 
 
-def nice2Dview(azimuth=0, elevation=0, distance=25, focalpoint=np.array([6.2, 2.5, 0.0])):
+def nice2Dview(azimuth=0, elevation=0, distance=8, focalpoint=np.array([0.0, 0.0, 0.0])):
     mlab.view(azimuth, elevation, distance, focalpoint)
     mlab.show()
 
