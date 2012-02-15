@@ -25,27 +25,28 @@ import numpy as np
 import autogridgen.cartGrid as cg
 
 # plotting flags #
-plot_flag = True            # show the plot in mayavi?
+plot_flag = False            # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
 zoom_flag = False           # set the view to the shear web/spar cap interface?
+axes_flag = False           # show the axes on the plot?
 
 # debugging flags #
 main_debug_flag = False     # print extra debugging information to the screen?
 
 # VABS flags #
 writeVABS_flag = True       # write the VABS input file to disk?
-runVABS_flag = True        # run VABS to calculate the mass and stiffness matrices?
+runVABS_flag = True         # run VABS to calculate the mass and stiffness matrices?
 
 # spar stations #
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
-spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
-# spar_stn_list = [7, 11]  # generate grids for these spar stations (subset)
-# spar_stn_list = [4]  # generate grids for these spar stations (subset)
+# spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+# spar_stn_list = [1, 2, 3, 4, 5, 6]  # generate grids for these spar stations (subset)
+spar_stn_list = [1, 2, 3, 4]  # generate grids for these spar stations (subset)
 
 # aspect ratio settings #
-# maxAR_master = 10.0
+maxAR_master = 4.8
 maxAR_uniax = 1.3
-maxAR_biax  = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-maxAR_master ... maybe 1.2 is too small (high mem usage!)
+maxAR_biax  = maxAR_master # 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-maxAR_master ... maybe 1.2 is too small (high mem usage!)
 maxAR_triax = 1.3
 maxAR_foam  = 1.3
 
@@ -53,7 +54,11 @@ maxAR_foam  = 1.3
 print 'STATUS: importing spar layup file: ' + spar_file + '  ...'
 data = rl.readLayupFile(spar_file)
 
-
+## set number of plies for each structural component ##
+SC_plies = 2       # spar cap has 2 plies:                      [0]_2
+RB_plies = 6       # root buildup has 6 plies:                  [+/-45]_2 [0]_2
+SW_biax_plies = 8  # biaxial laminate in shear web has 8 plies: [+/-45]_4
+SW_foam_plies = 30  # set the foam part of the shear web to some arbitrary number (the foam doesn't really have plies)
 
 
 
@@ -122,11 +127,7 @@ for i in range(len(spar_stn_list)):
     number_of_elements = 0
     number_of_regions = 0
 
-    ## set number of plies for each structural component ##
-    SC_plies = 2       # spar cap has 2 plies:                      [0]_2
-    RB_plies = 6       # root buildup has 6 plies:                  [+/-45]_2 [0]_2
-    SW_biax_plies = 8  # biaxial laminate in shear web has 8 plies: [+/-45]_4
-    SW_foam_plies = 30  # set the foam part of the shear web to some arbitrary number (the foam doesn't really have plies)
+    
 
     # pull the corners of the shear webs and spar caps from the layup file that was read earlier
     SW_corners = rl.extract_SW_corners(data,spar_stn)
@@ -193,7 +194,10 @@ for i in range(len(spar_stn_list)):
     ################################################################################################################################################
     # create in nodes at region corners
     print "STATUS: create nodes at region corners..."
-    cornerNodes_to_create = 20
+    if RB_flag:
+        cornerNodes_to_create = 20
+    else:
+        cornerNodes_to_create = 16
     for i in range(1,cornerNodes_to_create+1):
         (number_of_nodes, node) = tqg.createNewNode(number_of_nodes, node)
 
@@ -622,11 +626,7 @@ for i in range(len(spar_stn_list)):
                                                       region[rDict['right shear web, left biax laminate']].edgeB[1:] +
                                                       region[rDict['right shear web, foam core']].edgeB[1:] +
                                                       region[rDict['right shear web, right biax laminate']].edgeB[1:])
-        # assign all elements to layer 3, and set theta1 = 180.0 (bottom root buildup)
-        for i in range(start_elem, number_of_elements+1):
-            element[i].layer = layer[3]
-            element[i].theta1 = 180.0
-        start_elem = number_of_elements+1
+        
 
         ## TOP ROOT BUILDUP ##
         ### assign the left, top, and right edges (as usual)
@@ -641,11 +641,7 @@ for i in range(len(spar_stn_list)):
                                                    region[rDict['right shear web, left biax laminate']].edgeT[1:] +
                                                    region[rDict['right shear web, foam core']].edgeT[1:] +
                                                    region[rDict['right shear web, right biax laminate']].edgeT[1:])
-        # assign all elements to layer 3, and set theta1 = 0.0 (top root buildup)
-        for i in range(start_elem, number_of_elements+1):
-            element[i].layer = layer[3]
-            element[i].theta1 = 0.0
-        start_elem = number_of_elements+1
+        
 
 
         # if main_debug_flag:
@@ -657,6 +653,7 @@ for i in range(len(spar_stn_list)):
         ################################################################################################################################################
         # fill root buildup regions with interior elements
         print "STATUS: fill root buildup regions with interior elements"
+        
         # fill bottom root buildup region
         (number_of_elements,element,
          number_of_nodes,node,
@@ -669,6 +666,12 @@ for i in range(len(spar_stn_list)):
                                                                number_of_nodes,node,
                                                                bottom_RB_coarse_flag=True,
                                                                temp_coarseEdgeT=coarseEdgeT)
+        # assign all elements to layer 3, and set theta1 = 180.0 (bottom root buildup)
+        for i in range(start_elem, number_of_elements+1):
+            element[i].layer = layer[3]
+            element[i].theta1 = 180.0
+        start_elem = number_of_elements+1
+
 
         # fill top root buildup region
         (number_of_elements,element,
@@ -683,7 +686,11 @@ for i in range(len(spar_stn_list)):
                                                                coarse_flag=False,bottom_RB_coarse_flag=False,
                                                                top_RB_coarse_flag=True,
                                                                temp_coarseEdgeB=coarseEdgeB)
-
+        # assign all elements to layer 3, and set theta1 = 0.0 (top root buildup)
+        for i in range(start_elem, number_of_elements+1):
+            element[i].layer = layer[3]
+            element[i].theta1 = 0.0
+        start_elem = number_of_elements+1
 
 
 
@@ -735,20 +742,18 @@ for i in range(len(spar_stn_list)):
 
 
     if plot_flag:   # plot the grid to the screen using mayavi
-        ################################################################################################################################################
+        ###########################################################################################################################
         print "STATUS: plot the grid to the screen using mayavi"
-        # import the required plotting modules ######################################################################################################
+        # import the required plotting modules #
         from mayavi import mlab
         import autogridgen.gridViz as gv
-        # plot the grid #############################################################################################################################
-#        print "        - plotting the grid"
 
-        if gridlines_flag:
-            ################################################################################################################################################
+        if gridlines_flag:  # print nodes with element lines
+            ########################################################################################################################
             # write the element connectivity in a way that Mayavi can understand and plot
             print "STATUS: write the element connectivity for Mayavi"
             conn = tqg.buildConnections(element,number_of_elements)
-            tqg.plotNodes(node, number_of_nodes, line_flag=True, connections=conn, circle_scale='0.0002', figure_num=spar_stn)  # print nodes with element lines
+            tqg.plotNodes(node, number_of_nodes, line_flag=True, connections=conn, circle_scale='0.0002', figure_num=spar_stn)  
         else:
             tqg.plotNodes(node, number_of_nodes, circle_scale='0.0005')  # print nodes without element lines
         
@@ -756,11 +761,13 @@ for i in range(len(spar_stn_list)):
             tqg.nice2Dview(distance=0.183, focalpoint=np.array([-0.7736655 ,  2.34868712,  0.00626454]))  # zoomed view of shear web/spar cap interface
         else:
             tqg.nice2Dview()  # full view of cross-section
-        # tqg.showAxes()
+        
+        if axes_flag:  # show the axes on the plot
+            tqg.showAxes()
 
 
 
-    # write to the VABS input file #############################################################################################################################
+    # write to the VABS input file ###################################################################################################
     if writeVABS_flag:
         print "STATUS: writing the VABS input file:", vabs_filename
         import VABSutilities as vu
@@ -789,7 +796,9 @@ for i in range(len(spar_stn_list)):
 
     # calculate the time it took to run the code #####################################################################################################################
     elapsed_time_stn = time.time() - stn_start_time
-    print "spar station #" + str(spar_stn) + " completed in", ("%.2f" % round(elapsed_time_stn,2)), "seconds"
+    elapsed_min_stn = int(elapsed_time_stn/60)  # extract minutes elapsed
+    elapsed_sec_stn = elapsed_time_stn % 60     # extract seconds elapsed
+    print "spar station #" + str(spar_stn) + " completed in " + str(elapsed_min_stn) + ":" + ("%.2f" % round(elapsed_sec_stn,2)) + "  (min:sec)"
 
     if runVABS_flag:
         # run the input file with VABS from the Windows command line
@@ -802,4 +811,6 @@ for i in range(len(spar_stn_list)):
 
 # calculate the time it took to run the code #####################################################################################################################
 elapsed_time_tot = time.time() - start_time
-print "program completed in", ("%.2f" % round(elapsed_time_tot,2)), "seconds"
+elapsed_min_tot = int(elapsed_time_tot/60)  # extract minutes elapsed
+elapsed_sec_tot = elapsed_time_tot % 60     # extract seconds elapsed
+print "program completed in " + str(elapsed_min_tot) + ":" + ("%.2f" % round(elapsed_sec_tot,2)) + "  (min:sec)"
