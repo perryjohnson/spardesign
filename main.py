@@ -26,11 +26,11 @@ import autogridgen.cartGrid as cg
 
 # plotting flags #
 plot_flag = True            # show the plot in mayavi?
-gridlines_flag = True       # plot gridlines between the nodes?
-zoom_flag = False           # set the view to the shear web/spar cap interface?
+gridlines_flag = False       # plot gridlines between the nodes?
+zoom_flag = True           # set the view to the shear web/spar cap interface?
 
 # debugging flags #
-main_debug_flag = False     # print extra debugging information to the screen?
+main_debug_flag = True     # print extra debugging information to the screen?
 
 # VABS flags #
 writeVABS_flag = False       # write the VABS input file to disk?
@@ -39,15 +39,17 @@ runVABS_flag = False        # run VABS to calculate the mass and stiffness matri
 # spar stations #
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
 # spar_stn_list = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
-spar_stn_list = [7, 11]  # generate grids for these spar stations (subset)
+# spar_stn_list = [7, 11]  # generate grids for these spar stations (subset)
+spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # aspect ratio settings #
 maxAR_uniax = 1.3
-maxAR_biax = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
-maxAR_foam = 1.3
+maxAR_biax  = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-8.0 ... maybe 1.2 is too small (high mem usage!)
+maxAR_triax = 3.5
+maxAR_foam  = 1.3
 
 # import the data from the layup file
-print 'STATUS: importing the data from the spar layup file: ' + spar_file + '  ...'
+print 'STATUS: importing spar layup file: ' + spar_file + '  ...'
 data = rl.readLayupFile(spar_file)
 
 
@@ -100,6 +102,18 @@ for i in range(len(spar_stn_list)):
     # create VABS objects for nodes and elements for the entire cross-section ############################################################################################
     print "STATUS: create VABS nodes and elements for the ENTIRE CROSS-SECTION..."
 
+    # determine if root buildup exists for this cross-section
+    root_buildup_height = rl.extractDataColumn(data,'root buildup height')[spar_stn-1]
+    if root_buildup_height > 0.0:   # if the root buildup exists, set RB_flag to True, and EXECUTE root buildup-related operations
+        RB_flag = True
+    else:                           # otherwise, set RB_flag to False, and SKIP root buildup-related operations
+        RB_flag = False
+
+    if main_debug_flag:
+        print "  root buildup height = " + str(root_buildup_height)
+        print "  RB_flag = " + str(RB_flag)
+    
+
     node = []
     element = []
     region = []
@@ -113,13 +127,47 @@ for i in range(len(spar_stn_list)):
     SW_biax_plies = 8  # biaxial laminate in shear web has 8 plies: [+/-45]_4
     SW_foam_plies = 30  # set the foam part of the shear web to some arbitrary number (the foam doesn't really have plies)
 
+    # pull the corners of the shear webs and spar caps from the layup file that was read earlier
+    SW_corners = rl.extract_SW_corners(data,spar_stn)
+    SC_corners = rl.extract_SC_corners(data,spar_stn)
+    if RB_flag:
+        RB_corners = rl.extract_RB_corners(data,spar_stn)
+
     # fill index 0 of node, element, and region lists (index 0 is unused)
     (node, element, region) = tqg.fillUnusedZeroIndex(node, element, region)
 
-    # fill in 4 regions
-    total_regions = 8
+    # fill in regions
+    if RB_flag:
+        total_regions = 10
+    else:
+        total_regions = 8
     for i in range(1,total_regions+1):
         (number_of_regions, region) = tqg.createNewRegion(number_of_regions, region)
+    
+
+
+    # *regions*
+    # -cornerNodes-         (nodes marked "??" will be assigned later)
+    #
+    # 20--------------------------------------------------------------19
+    # |::::::::::::::::::::::::::::::*10*::::::::::::::::::::::::::::::|
+    # 04--03------08--07------------------------------12--11------16--15
+    # |~~~~|......|~~~~|+++++++++++++*8*++++++++++++++|~~~~|......|~~~~|
+    # |~~~~|......|~~~??------------------------------??~~~|......|~~~~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |*1*~|.*2*..|*3*~|                              |*4*~|.*5*..|*6*~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
+    # |~~~~|......|~~~??------------------------------??~~~|......|~~~~|
+    # |~~~~|......|~~~~|+++++++++++++*7*++++++++++++++|~~~~|......|~~~~|
+    # 01--02------05--06------------------------------09--10------13--14
+    # |::::::::::::::::::::::::::::::*9*:::::::::::::::::::::::::::::::|
+    # 17--------------------------------------------------------------18
+
+
 
     # name regions
     region[1].name = 'left shear web, left biax laminate'
@@ -130,30 +178,32 @@ for i in range(len(spar_stn_list)):
     region[6].name = 'right shear web, right biax laminate'
     region[7].name = 'bottom spar cap'
     region[8].name = 'top spar cap'
+    if RB_flag:
+        region[9].name = 'bottom root buildup'
+        region[10].name = 'top root buildup'
 
     # make a dictionary mapping region.name entries to region.region_no entries
     rDict = {}
     for i in range(1,total_regions+1):
         rDict[region[i].name] = region[i].region_no
 
-    # pull the corners of the shear webs and spar caps from the layup file that was read earlier
-    SW_corners = rl.extract_SW_corners(data,spar_stn)
-    SC_corners = rl.extract_SC_corners(data,spar_stn)
+    
 
     ################################################################################################################################################
-    # fill in nodes at region corners
-    print "STATUS: fill in nodes at region corners..."
-    total_cornerNodes = 16
-    for i in range(1,total_cornerNodes+1):
+    # create in nodes at region corners
+    print "STATUS: create nodes at region corners..."
+    cornerNodes_to_create = 20
+    for i in range(1,cornerNodes_to_create+1):
         (number_of_nodes, node) = tqg.createNewNode(number_of_nodes, node)
 
 
     ## left shear web ###########################################################  SW_corners[0,:,:,:]
+    print "  - left shear web:      nodes 1-8"
     # left biax laminate #  SW_corners[0,0,:,:]
-    (node[1].x2, node[1].x3) = (SW_corners[0,0,2,0], SW_corners[0,0,2,1])
+    (node[1].x2, node[1].x3) = (SW_corners[0,0,2,0], SW_corners[0,0,2,1])  # this is also cornerNode4 (top left corner) for the bottom root buildup (region[9])
     (node[2].x2, node[2].x3) = (SW_corners[0,0,3,0], SW_corners[0,0,3,1])
     (node[3].x2, node[3].x3) = (SW_corners[0,0,1,0], SW_corners[0,0,1,1])
-    (node[4].x2, node[4].x3) = (SW_corners[0,0,0,0], SW_corners[0,0,0,1])
+    (node[4].x2, node[4].x3) = (SW_corners[0,0,0,0], SW_corners[0,0,0,1])  # this is also cornerNode1 (bottom left corner) for the top root buildup (region[10])
 
     # right biax laminate #  SW_corners[0,2,:,:]
     (node[5].x2, node[5].x3) = (SW_corners[0,2,2,0], SW_corners[0,2,2,1])
@@ -162,6 +212,7 @@ for i in range(len(spar_stn_list)):
     (node[8].x2, node[8].x3) = (SW_corners[0,2,0,0], SW_corners[0,2,0,1])
 
     ## right shear web ###########################################################  SW_corners[1,:,:,:]
+    print "  - right shear web:     nodes 9-16"
     # left biax laminate #  SW_corners[1,0,:,:]
     (node[9].x2,  node[9].x3)  = (SW_corners[1,0,2,0], SW_corners[1,0,2,1])  # this is also cornerNode2 (bottom left corner) for the bottom spar cap (region[7])
     (node[10].x2, node[10].x3) = (SW_corners[1,0,3,0], SW_corners[1,0,3,1])
@@ -170,17 +221,31 @@ for i in range(len(spar_stn_list)):
 
     # right biax laminate #  SW_corners[1,2,:,:]
     (node[13].x2, node[13].x3) = (SW_corners[1,2,2,0], SW_corners[1,2,2,1])
-    (node[14].x2, node[14].x3) = (SW_corners[1,2,3,0], SW_corners[1,2,3,1])
-    (node[15].x2, node[15].x3) = (SW_corners[1,2,1,0], SW_corners[1,2,1,1])
+    (node[14].x2, node[14].x3) = (SW_corners[1,2,3,0], SW_corners[1,2,3,1])  # this is also cornerNode3 (top right corner) for the bottom root buildup (region[9])
+    (node[15].x2, node[15].x3) = (SW_corners[1,2,1,0], SW_corners[1,2,1,1])  # this is also cornerNode2 (bottom right corner) for the top root buildup (region[10])
     (node[16].x2, node[16].x3) = (SW_corners[1,2,0,0], SW_corners[1,2,0,1])
 
+    if RB_flag:
+        ## bottom root buildup #######################################################  RB_corners[1,:,:]
+        print "  - bottom root buildup: nodes 17-18"
+        (node[17].x2, node[17].x3) = (RB_corners[1,2,0], RB_corners[1,2,1])
+        (node[18].x2, node[18].x3) = (RB_corners[1,3,0], RB_corners[1,3,1])
+
+        ## top root buildup ##########################################################  RB_corners[0,:,:]
+        print "  - top root buildup:    nodes 19-20"
+        (node[19].x2, node[19].x3) = (RB_corners[0,0,0], RB_corners[0,0,1])
+        (node[20].x2, node[20].x3) = (RB_corners[0,1,0], RB_corners[0,1,1])
+
+    
 
     # *regions*
-    # -cornerNodes-
+    # -cornerNodes-         (nodes marked "??" will be assigned later)
     #
+    # 20--------------------------------------------------------------19
+    # |::::::::::::::::::::::::::::::*10*::::::::::::::::::::::::::::::|
     # 04--03------08--07------------------------------12--11------16--15
     # |~~~~|......|~~~~|+++++++++++++*8*++++++++++++++|~~~~|......|~~~~|
-    # |~~~~|......|~~~20------------------------------19~~~|......|~~~~|
+    # |~~~~|......|~~~??------------------------------??~~~|......|~~~~|
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
@@ -188,12 +253,11 @@ for i in range(len(spar_stn_list)):
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
     # |~~~~|......|~~~~|                              |~~~~|......|~~~~|
-    # |~~~~|......|~~~17------------------------------18~~~|......|~~~~|
+    # |~~~~|......|~~~??------------------------------??~~~|......|~~~~|
     # |~~~~|......|~~~~|+++++++++++++*7*++++++++++++++|~~~~|......|~~~~|
     # 01--02------05--06------------------------------09--10------13--14
-
-
-
+    # |::::::::::::::::::::::::::::::*9*:::::::::::::::::::::::::::::::|
+    # 17--------------------------------------------------------------18
 
 
 
@@ -228,6 +292,15 @@ for i in range(len(spar_stn_list)):
      region[rDict['bottom spar cap']].cornerNode2) = (node[6], node[9])  # cornerNode3 and cornerNode4 will be assigned later
     (region[rDict['top spar cap']].cornerNode3,
      region[rDict['top spar cap']].cornerNode4) = (node[12], node[7])  # cornerNode1 and cornerNode2 will be assigned later
+    if RB_flag:
+        (region[rDict['bottom root buildup']].cornerNode1,
+         region[rDict['bottom root buildup']].cornerNode2,
+         region[rDict['bottom root buildup']].cornerNode3,
+         region[rDict['bottom root buildup']].cornerNode4) = (node[17], node[18], node[14], node[1])
+        (region[rDict['top root buildup']].cornerNode1,
+         region[rDict['top root buildup']].cornerNode2,
+         region[rDict['top root buildup']].cornerNode3,
+         region[rDict['top root buildup']].cornerNode4) = (node[4], node[15], node[19], node[20])
 
 
 
@@ -236,6 +309,8 @@ for i in range(len(spar_stn_list)):
     ################################################################################################################################################
     # assign number of cells distributed along horizontal and vertical axes
     print "STATUS: assign number of cells distributed along horizontal and vertical axes"
+
+    print "  - left shear web"
     # left shear web, left biax laminate ############## SW_corners[0,0,:,:]
     (dimH,dimV) = cg.calcCornerDims(SW_corners[0,0,:,:])
     (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR_biax,dimV)
@@ -249,6 +324,7 @@ for i in range(len(spar_stn_list)):
     (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR_biax,dimV)
     (region[rDict['left shear web, right biax laminate']].V_cells, region[rDict['left shear web, right biax laminate']].H_cells) = (nV,nH)
 
+    print "  - right shear web"
     # right shear web, left biax laminate ############## SW_corners[1,0,:,:]
     (dimH,dimV) = cg.calcCornerDims(SW_corners[1,0,:,:])
     (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR_biax,dimV)
@@ -262,15 +338,30 @@ for i in range(len(spar_stn_list)):
     (nH,nV) = cg.calcCellNums(dimH,SW_biax_plies,maxAR_biax,dimV)
     (region[rDict['right shear web, right biax laminate']].V_cells, region[rDict['right shear web, right biax laminate']].H_cells) = (nV,nH)
 
+    print "  - bottom spar cap"
     # bottom spar cap ############## SC_corners[1,:,:]
     (dimH,dimV) = cg.calcCornerDims(SC_corners[1,:,:])
     (nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR_uniax,dimH)
     (region[rDict['bottom spar cap']].V_cells, region[rDict['bottom spar cap']].H_cells) = (nV,nH)
 
+    print "  - top spar cap"
     # top spar cap ############## SC_corners[0,:,:]
     (dimH,dimV) = cg.calcCornerDims(SC_corners[0,:,:])
     (nV,nH) = cg.calcCellNums(dimV,SC_plies,maxAR_uniax,dimH)
     (region[rDict['top spar cap']].V_cells, region[rDict['top spar cap']].H_cells) = (nV,nH)
+
+    if RB_flag:
+        print "  - bottom root buildup"
+        # bottom root buildup ##############  RB_corners[1,:,:]
+        (dimH,dimV) = cg.calcCornerDims(RB_corners[1,:,:])
+        (nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR_triax,dimH)
+        (region[rDict['bottom root buildup']].V_cells, region[rDict['bottom root buildup']].H_cells) = (nV,nH)
+
+        print "  - top root buildup"
+        # top root buildup ##############  RB_corners[0,:,:]
+        (dimH,dimV) = cg.calcCornerDims(RB_corners[0,:,:])
+        (nV,nH) = cg.calcCellNums(dimV,RB_plies,maxAR_triax,dimH)
+        (region[rDict['top root buildup']].V_cells, region[rDict['top root buildup']].H_cells) = (nV,nH)
 
 
 
@@ -397,11 +488,11 @@ for i in range(len(spar_stn_list)):
     ################################################################################################################################################
     # make control nodes at spar cap ply boundaries
     print "STATUS: make control nodes at spar cap ply boundaries"
-    # region 7 ################### (bottom spar cap)
+    ## BOTTOM SPAR CAP ##
     SC_top_x3 = SC_corners[1,0,1]
     SC_bottom_x3 = SC_corners[1,2,1]
     SC_middle_x3 = SC_bottom_x3 + abs(SC_top_x3 - SC_bottom_x3)/SC_plies
-    # edit the right edge of region[3] (left shear web, right biax laminate) to match the ply thicknesses of region[7]
+    ### edit the right edge of the left shear web (right biax laminate) to match the ply thicknesses of the bottom spar cap
     n = 0
     while region[rDict['left shear web, right biax laminate']].edgeR[n].x3 < SC_middle_x3:
         n += 1
@@ -409,11 +500,11 @@ for i in range(len(spar_stn_list)):
     while region[rDict['left shear web, right biax laminate']].edgeR[n].x3 < SC_top_x3:
         n += 1
     region[rDict['left shear web, right biax laminate']].edgeR[n].x3 = SC_top_x3
-    # assign the left edge of region[7] to a subset of the right edge of region[3]
+    ### assign the left edge of the bottom spar cap to a subset of the right edge of the left shear web (right biax laminate)
     region[rDict['bottom spar cap']].edgeL = region[rDict['left shear web, right biax laminate']].edgeR[:n+1]
     region[rDict['bottom spar cap']].cornerNode4 = region[rDict['bottom spar cap']].edgeL[-1]
 
-    # edit the left edge of region[4] (right shear web, left biax laminate) to match the ply thicknesses of region[7]
+    ### edit the left edge of the right shear web (left biax laminate) to match the ply thicknesses of the bottom spar cap
     n = 0
     while region[rDict['right shear web, left biax laminate']].edgeL[n].x3 < SC_middle_x3:
         n += 1
@@ -421,20 +512,20 @@ for i in range(len(spar_stn_list)):
     while region[rDict['right shear web, left biax laminate']].edgeL[n].x3 < SC_top_x3:
         n += 1
     region[rDict['right shear web, left biax laminate']].edgeL[n].x3 = SC_top_x3
-    # assign the right edge of region[7] to a subset of the left edge of region[4]
+    ### assign the right edge of the bottom spar cap to a subset of the left edge of the right shear web (left biax laminate)
     region[rDict['bottom spar cap']].edgeR = region[rDict['right shear web, left biax laminate']].edgeL[:n+1]
     region[rDict['bottom spar cap']].cornerNode3 = region[rDict['bottom spar cap']].edgeR[-1]
 
-    # assign the top and bottom edges to region[7], as usual
+    ### assign the top and bottom edges (as usual)
     (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom spar cap'], node, number_of_nodes, 'top')
     (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom spar cap'], node, number_of_nodes, 'bottom')
 
 
-    # region 8 ################### (top spar cap)
+    ## TOP SPAR CAP ##
     SC_top_x3 = SC_corners[0,0,1]
     SC_bottom_x3 = SC_corners[0,2,1]
     SC_middle_x3 = SC_bottom_x3 + abs(SC_top_x3 - SC_bottom_x3)/SC_plies
-    # edit the right edge of region[3] (left shear web, right biax laminate) to match the ply thicknesses of region[8]
+    ### edit the right edge of left shear web (right biax laminate) to match the ply thicknesses of the top spar cap
     n = -1
     while region[rDict['left shear web, right biax laminate']].edgeR[n].x3 > SC_middle_x3:
         n -= 1
@@ -442,11 +533,11 @@ for i in range(len(spar_stn_list)):
     while region[rDict['left shear web, right biax laminate']].edgeR[n].x3 > SC_bottom_x3:
         n -= 1
     region[rDict['left shear web, right biax laminate']].edgeR[n].x3 = SC_bottom_x3
-    # assign the left edge of region[8] to a subset of the right edge of region[3]
+    ### assign the left edge of the top spar cap to a subset of the right edge of the left shear web (right biax laminate)
     region[rDict['top spar cap']].edgeL = region[rDict['left shear web, right biax laminate']].edgeR[n:]
     region[rDict['top spar cap']].cornerNode1 = region[rDict['top spar cap']].edgeL[0]
 
-    # edit the left edge of region[4] (right shear web, left biax laminate) to match the ply thicknesses of region[8]
+    # edit the left edge of the right shear web (left biax laminate) to match the ply thicknesses of the top spar cap
     n = -1
     while region[rDict['right shear web, left biax laminate']].edgeL[n].x3 > SC_middle_x3:
         n -= 1
@@ -454,11 +545,11 @@ for i in range(len(spar_stn_list)):
     while region[rDict['right shear web, left biax laminate']].edgeL[n].x3 > SC_bottom_x3:
         n -= 1
     region[rDict['right shear web, left biax laminate']].edgeL[n].x3 = SC_bottom_x3
-    # assign the right edge of region[8] to a subset of the left edge of region[4]
+    ### assign the right edge of the top spar cap to a subset of the left edge of the right shear web (left biax laminate)
     region[rDict['top spar cap']].edgeR = region[rDict['right shear web, left biax laminate']].edgeL[n:]
     region[rDict['top spar cap']].cornerNode2 = region[rDict['top spar cap']].edgeR[0]
 
-    # assign the top and bottom edges to region[8], as usual
+    # assign the top and bottom edges (as usual)
     (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top spar cap'], node, number_of_nodes, 'top')
     (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top spar cap'], node, number_of_nodes, 'bottom')
 
@@ -513,6 +604,60 @@ for i in range(len(spar_stn_list)):
 
 
 
+    if RB_flag:
+        ################################################################################################################################################
+        # make control nodes at root buildup ply boundaries
+        print "STATUS: make control nodes at root buildup ply boundaries"
+        ## BOTTOM ROOT BUILDUP ##
+        ### assign the left, bottom, and right edges (as usual)
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom root buildup'], node, number_of_nodes, 'left')
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom root buildup'], node, number_of_nodes, 'bottom')
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['bottom root buildup'], node, number_of_nodes, 'right')
+        ### construct the top edge of the bottom root buildup from the bottom edges of the adjacent spar cap and shear webs
+        region[rDict['bottom root buildup']].edgeT = (region[rDict['left shear web, left biax laminate']].edgeB +
+                                                      region[rDict['left shear web, foam core']].edgeB[1:] +
+                                                      region[rDict['left shear web, right biax laminate']].edgeB[1:] +
+                                                      region[rDict['bottom spar cap']].edgeB[1:] +
+                                                      region[rDict['right shear web, left biax laminate']].edgeB[1:] +
+                                                      region[rDict['right shear web, foam core']].edgeB[1:] +
+                                                      region[rDict['right shear web, right biax laminate']].edgeB[1:])
+
+
+        ## TOP ROOT BUILDUP ##
+        ### assign the left, top, and right edges (as usual)
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top root buildup'], node, number_of_nodes, 'left')
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top root buildup'], node, number_of_nodes, 'top')
+        (region, node, number_of_nodes) = tqg.makeEdgeNodes(region, rDict['top root buildup'], node, number_of_nodes, 'right')
+        ### construct the bottom edge of the top root buildup from the top edges of the adjacent spar cap and shear webs
+        region[rDict['top root buildup']].edgeB = (region[rDict['left shear web, left biax laminate']].edgeT +
+                                                   region[rDict['left shear web, foam core']].edgeT[1:] +
+                                                   region[rDict['left shear web, right biax laminate']].edgeT[1:] +
+                                                   region[rDict['bottom spar cap']].edgeT[1:] +
+                                                   region[rDict['right shear web, left biax laminate']].edgeT[1:] +
+                                                   region[rDict['right shear web, foam core']].edgeT[1:] +
+                                                   region[rDict['right shear web, right biax laminate']].edgeT[1:])
+
+        # if main_debug_flag:
+        #     tqg.inspectRegion(region[rDict['bottom root buildup']])
+        #     tqg.inspectRegion(region[rDict['top root buildup']])
+
+
+
+        ################################################################################################################################################
+        # fill root buildup regions with interior elements
+        print "STATUS: fill root buildup regions with interior elements"
+        # fill bottom root buildup region
+        (number_of_elements,element,
+         number_of_nodes,node,
+         coarseEdgeT) = tqg.fillBoundaryTriElements_bottomRB(rDict['bottom root buildup'],region,
+                                                             number_of_elements,element,
+                                                             number_of_nodes,node,debug_flag=True)
+
+        (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['bottom root buildup'],region,
+                                                               number_of_elements,element,
+                                                               number_of_nodes,node,
+                                                               coarse_flag=True,
+                                                               temp_coarseEdgeT=coarseEdgeT)
 
 
 
@@ -553,13 +698,7 @@ for i in range(len(spar_stn_list)):
 
 
 
-
-
-
-    ################################################################################################################################################
-    # write the element connectivity in a way that Mayavi can understand and plot
-    print "STATUS: write the element connectivity in a way that Mayavi can understand and plot"
-    conn = tqg.buildConnections(element,number_of_elements)
+    
 
 
 
@@ -568,13 +707,14 @@ for i in range(len(spar_stn_list)):
     if main_debug_flag:
         print "REGIONS:"
         for i in range(1,number_of_regions+1):
-            print ('#' + str(region[i].region_no) + '  (' + str(region[i].cornerNode1.node_no) + ', '
-                                                          + str(region[i].cornerNode2.node_no) + ', '
-                                                          + str(region[i].cornerNode3.node_no) + ', '
-                                                          + str(region[i].cornerNode4.node_no) + ')' )
+            print ('  #' + str(region[i].region_no) + '  (' + str(region[i].cornerNode1.node_no) + ', '
+                                                            + str(region[i].cornerNode2.node_no) + ', '
+                                                            + str(region[i].cornerNode3.node_no) + ', '
+                                                            + str(region[i].cornerNode4.node_no) + ')' )
 
 
     if plot_flag:   # plot the grid to the screen using mayavi
+        ################################################################################################################################################
         print "STATUS: plot the grid to the screen using mayavi"
         # import the required plotting modules ######################################################################################################
         from mayavi import mlab
@@ -583,12 +723,16 @@ for i in range(len(spar_stn_list)):
         print "        - plotting the grid"
 
         if gridlines_flag:
+            ################################################################################################################################################
+            # write the element connectivity in a way that Mayavi can understand and plot
+            print "STATUS: write the element connectivity for Mayavi"
+            conn = tqg.buildConnections(element,number_of_elements)
             tqg.plotNodes(node, number_of_nodes, line_flag=True, connections=conn, circle_scale='0.0002', figure_num=spar_stn)  # print nodes with element lines
         else:
             tqg.plotNodes(node, number_of_nodes, circle_scale='0.0005')  # print nodes without element lines
         
         if zoom_flag:
-            tqg.nice2Dview(distance=0.038, focalpoint=np.array([0.743, -0.25, 0.0]))  # zoomed view of shear web/spar cap interface
+            tqg.nice2Dview(distance=0.183, focalpoint=np.array([-0.7736655 ,  -2.34868712,  0.00626454]))  # zoomed view of shear web/spar cap interface
         else:
             tqg.nice2Dview()  # full view of cross-section
         # tqg.showAxes()

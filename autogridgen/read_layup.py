@@ -107,7 +107,7 @@ def extract_RB_corners(data,spar_stn):
 		rtbldup[1,0:2,1] = rtbldup[0,2:4,1] * -1.0  # top row of lower root buildup = -1 * bottom row of upper root buildup
 		rtbldup[1,2:4,1] = rtbldup[0,0:2,1] * -1.0  # bottom row of lower root buildup = -1 * top row of upper root buildup
 	else:
-		print "ERROR: cross-sectional area of the root buildup is ZERO"
+		print "\n***ERROR: cross-sectional area of the root buildup is ZERO***\n"
 	return rtbldup
 
 
