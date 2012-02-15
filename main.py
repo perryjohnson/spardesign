@@ -26,7 +26,7 @@ import autogridgen.cartGrid as cg
 
 # plotting flags #
 plot_flag = True            # show the plot in mayavi?
-gridlines_flag = False       # plot gridlines between the nodes?
+gridlines_flag = True       # plot gridlines between the nodes?
 zoom_flag = True           # set the view to the shear web/spar cap interface?
 
 # debugging flags #
@@ -653,11 +653,11 @@ for i in range(len(spar_stn_list)):
                                                              number_of_elements,element,
                                                              number_of_nodes,node,debug_flag=True)
 
-        (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['bottom root buildup'],region,
-                                                               number_of_elements,element,
-                                                               number_of_nodes,node,
-                                                               coarse_flag=True,
-                                                               temp_coarseEdgeT=coarseEdgeT)
+        # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['bottom root buildup'],region,
+        #                                                        number_of_elements,element,
+        #                                                        number_of_nodes,node,
+        #                                                        coarse_flag=True,
+        #                                                        temp_coarseEdgeT=coarseEdgeT)
 
 
 
