@@ -27,10 +27,10 @@ import autogridgen.cartGrid as cg
 # plotting flags #
 plot_flag = True            # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
-zoom_flag = True           # set the view to the shear web/spar cap interface?
+zoom_flag = False           # set the view to the shear web/spar cap interface?
 
 # debugging flags #
-main_debug_flag = True     # print extra debugging information to the screen?
+main_debug_flag = False     # print extra debugging information to the screen?
 
 # VABS flags #
 writeVABS_flag = True       # write the VABS input file to disk?
@@ -46,7 +46,7 @@ spar_stn_list = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
 # maxAR_master = 10.0
 maxAR_uniax = 1.3
 maxAR_biax  = 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-maxAR_master ... maybe 1.2 is too small (high mem usage!)
-maxAR_triax = 3.5
+maxAR_triax = 1.3
 maxAR_foam  = 1.3
 
 # import the data from the layup file
@@ -741,7 +741,7 @@ for i in range(len(spar_stn_list)):
         from mayavi import mlab
         import autogridgen.gridViz as gv
         # plot the grid #############################################################################################################################
-        print "        - plotting the grid"
+#        print "        - plotting the grid"
 
         if gridlines_flag:
             ################################################################################################################################################
