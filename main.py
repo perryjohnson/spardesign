@@ -38,7 +38,7 @@ runVABS_flag = True        # run VABS to calculate the mass and stiffness matric
 
 # spar stations #
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
-spar_stn_list = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 # spar_stn_list = [7, 11]  # generate grids for these spar stations (subset)
 # spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
