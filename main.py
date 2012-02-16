@@ -25,26 +25,27 @@ import numpy as np
 import autogridgen.cartGrid as cg
 
 # plotting flags #
-plot_flag = False            # show the plot in mayavi?
+plot_flag = False           # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
 zoom_flag = False           # set the view to the shear web/spar cap interface?
-axes_flag = False            # show the axes on the plot?
+axes_flag = False           # show the axes on the plot?
 
 # debugging flags #
 main_debug_flag = False     # print extra debugging information to the screen?
+force_no_RB_flag = False     # force a cross-section not to mesh the root buildup
 
 # VABS flags #
-writeVABS_flag = True       # write the VABS input file to disk?
-runVABS_flag = True         # run VABS to calculate the mass and stiffness matrices?
+writeVABS_flag = False       # write the VABS input file to disk?
+runVABS_flag = False         # run VABS to calculate the mass and stiffness matrices?
 
 # spar stations #
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
 # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 # spar_stn_list = [1, 2, 3, 4, 5, 6]  # generate grids for these spar stations (subset)
-spar_stn_list = [6]  # generate grids for these spar stations (subset)
+spar_stn_list = [5]  # generate grids for these spar stations (subset)
 
 # aspect ratio settings #
-maxAR_master = 5.0
+maxAR_master = 4.8
 maxAR_uniax = 1.3
 maxAR_biax  = maxAR_master # 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-maxAR_master ... maybe 1.2 is too small (high mem usage!)
 maxAR_triax = 1.3
@@ -115,6 +116,9 @@ for i in range(len(spar_stn_list)):
     else:                           # otherwise, set RB_flag to False, and SKIP root buildup-related operations
         RB_flag = False
     
+    if force_no_RB_flag:
+        RB_flag = False
+
     if main_debug_flag:
         print "  root buildup height = " + str(root_buildup_height)
         print "  RB_flag = " + str(RB_flag)
@@ -459,10 +463,37 @@ for i in range(len(spar_stn_list)):
 
 
 
-    # fill region 4 (right shear web, left biax laminate)
-    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, left biax laminate'],region,
-                                                                                     number_of_elements,element,
-                                                                                     number_of_nodes,node)
+    # # fill region 4 (right shear web, left biax laminate)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, left biax laminate'],region,
+    #                                                                                  number_of_elements,element,
+    #                                                                                  number_of_nodes,node)
+
+    # # fill region 5 (right shear web, foam core)
+    # (number_of_elements,element,
+    #  number_of_nodes,node,
+    # coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['right shear web, foam core'],region,
+    #                                                        number_of_elements,element,
+    #                                                        number_of_nodes,node)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, foam core'],region,
+    #                                                        number_of_elements,element,
+    #                                                        number_of_nodes,node,
+    #                                                        coarse_flag=True,
+    #                                                        temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
+
+    # # fill region 6 (right shear web, right biax laminate)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, right biax laminate'],region,
+    #                                                                                  number_of_elements,element,
+    #                                                                                  number_of_nodes,node)
+
+    # # # assign all elements to layer 1, and set theta1 = 270.0 (right shear web)
+    # # for i in range(start_elem, number_of_elements+1):
+    # #     element[i].layer = layer[1]
+    # #     element[i].theta1 = 270.0
+    # # start_elem = number_of_elements+1
+
+
+
+
 
     # fill region 5 (right shear web, foam core)
     (number_of_elements,element,
@@ -476,6 +507,11 @@ for i in range(len(spar_stn_list)):
                                                            coarse_flag=True,
                                                            temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
+    # fill region 4 (right shear web, left biax laminate)
+    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, left biax laminate'],region,
+                                                                                     number_of_elements,element,
+                                                                                     number_of_nodes,node)
+
     # fill region 6 (right shear web, right biax laminate)
     (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['right shear web, right biax laminate'],region,
                                                                                      number_of_elements,element,
@@ -486,10 +522,6 @@ for i in range(len(spar_stn_list)):
     #     element[i].layer = layer[1]
     #     element[i].theta1 = 270.0
     # start_elem = number_of_elements+1
-
-
-
-
 
 
 

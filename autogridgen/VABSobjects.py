@@ -6,6 +6,18 @@ class nodeObj:        # a node is a grid point (vertex)
     x2 = np.nan       # x2-coordinate of this node
     x3 = np.nan       # x3-coordinate of this node
 
+    ### inspect all properties of a node (node number, x2-coordinate, x3-coordinate)
+    ###     input: thisNode <vo.nodeObj>, an individual element (for example, node[3])
+    ###     output: <none>, prints to the screen
+    def inspect(self,funcCallFlag=False):
+        if funcCallFlag:
+            print '  inspecting node #' + str(self.node_no)
+            print '    Coordinates, (x2, x3) = ' + '(' + str(self.x2) + ', ' + str(self.x3) + ')'
+        else:
+            print 'INSPECTING NODE #' + str(self.node_no)
+            print '  Coordinates, (x2, x3) = ' + '(' + str(self.x2) + ', ' + str(self.x3) + ')'
+        return
+
 
 class materialObj:        # a material with its constants (Young's modulus, Poisson's ratio, etc.)
     material_no = np.nan  # integer representing the unique number assigned to each material
@@ -55,6 +67,21 @@ class elementObj:     # an element (quadrilateral cell) is made up of four nodes
     upper_border_y = np.array([np.nan,np.nan])
     lower_border_y = np.array([np.nan,np.nan])
     lower_border_x = np.array([np.nan,np.nan])
+
+    ### inspect all properties of an element (element number, properties of all nodes that make up this element)
+    ###     input: thisElement <vo.elementObj>, an individual element (for example, element[36])
+    ###     output: <none>, prints to the screen
+    def inspect(self):
+        print 'INSPECTING ELEMENT #' + str(self.elem_no)
+        print 'INSPECTING NODE1********'
+        self.node1.inspect(funcCallFlag=True)
+        print 'INSPECTING NODE2********'
+        self.node2.inspect(funcCallFlag=True)
+        print 'INSPECTING NODE3********'
+        self.node3.inspect(funcCallFlag=True)
+        print 'INSPECTING NODE4********'
+        self.node4.inspect(funcCallFlag=True)
+        return
 
 
 ## fill the list with nnode+1 node objects (we won't use the first index, 0)
