@@ -25,17 +25,17 @@ import numpy as np
 import autogridgen.cartGrid as cg
 
 # plotting flags #
-plot_flag = True            # show the plot in mayavi?
+plot_flag = False            # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
-zoom_flag = True           # set the view to the shear web/spar cap interface?
-axes_flag = True           # show the axes on the plot?
+zoom_flag = False           # set the view to the shear web/spar cap interface?
+axes_flag = False            # show the axes on the plot?
 
 # debugging flags #
-main_debug_flag = True     # print extra debugging information to the screen?
+main_debug_flag = False     # print extra debugging information to the screen?
 
 # VABS flags #
-writeVABS_flag = False       # write the VABS input file to disk?
-runVABS_flag = False         # run VABS to calculate the mass and stiffness matrices?
+writeVABS_flag = True       # write the VABS input file to disk?
+runVABS_flag = True         # run VABS to calculate the mass and stiffness matrices?
 
 # spar stations #
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
@@ -44,7 +44,7 @@ spar_file = 'autogridgen/monoplane_spar_layup.txt'
 spar_stn_list = [6]  # generate grids for these spar stations (subset)
 
 # aspect ratio settings #
-maxAR_master = 4.8
+maxAR_master = 5.0
 maxAR_uniax = 1.3
 maxAR_biax  = maxAR_master # 3.5  # according to PreVABS, the cell aspect ratio is usually set from 3.0-maxAR_master ... maybe 1.2 is too small (high mem usage!)
 maxAR_triax = 1.3
@@ -114,7 +114,7 @@ for i in range(len(spar_stn_list)):
         RB_flag = True
     else:                           # otherwise, set RB_flag to False, and SKIP root buildup-related operations
         RB_flag = False
-
+    
     if main_debug_flag:
         print "  root buildup height = " + str(root_buildup_height)
         print "  RB_flag = " + str(RB_flag)
@@ -428,34 +428,34 @@ for i in range(len(spar_stn_list)):
     ################################################################################################################################################
     # fill shear web regions with interior elements
     print "STATUS: fill shear web regions with interior elements"
-    # fill region 1 (left shear web, left biax laminate)
-    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, left biax laminate'],region,
-                                                                                     number_of_elements,element,
-                                                                                     number_of_nodes,node)
+    # # fill region 1 (left shear web, left biax laminate)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, left biax laminate'],region,
+    #                                                                                  number_of_elements,element,
+    #                                                                                  number_of_nodes,node)
 
-    # fill region 2 (left shear web, foam core)
-    (number_of_elements,element,
-     number_of_nodes,node,
-    coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['left shear web, foam core'],region,
-                                                           number_of_elements,element,
-                                                           number_of_nodes,node)
-    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, foam core'],region,
-                                                           number_of_elements,element,
-                                                           number_of_nodes,node,
-                                                           coarse_flag=True,
-                                                           temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
+    # # fill region 2 (left shear web, foam core)
+    # (number_of_elements,element,
+    #  number_of_nodes,node,
+    # coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['left shear web, foam core'],region,
+    #                                                        number_of_elements,element,
+    #                                                        number_of_nodes,node)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, foam core'],region,
+    #                                                        number_of_elements,element,
+    #                                                        number_of_nodes,node,
+    #                                                        coarse_flag=True,
+    #                                                        temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
-    # fill region 3 (left shear web, right biax laminate)
-    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, right biax laminate'],region,
-                                                                                     number_of_elements,element,
-                                                                                     number_of_nodes,node)
+    # # fill region 3 (left shear web, right biax laminate)
+    # (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, right biax laminate'],region,
+    #                                                                                  number_of_elements,element,
+    #                                                                                  number_of_nodes,node)
 
-    # assign all elements to layer 1, and set theta1 = 90.0 (left shear web)
-    start_elem = 1
-    for i in range(start_elem, number_of_elements+1):
-        element[i].layer = layer[1]
-        element[i].theta1 = 90.0
-    start_elem = number_of_elements+1
+    # # # assign all elements to layer 1, and set theta1 = 90.0 (left shear web)
+    # # start_elem = 1
+    # # for i in range(start_elem, number_of_elements+1):
+    # #     element[i].layer = layer[1]
+    # #     element[i].theta1 = 90.0
+    # # start_elem = number_of_elements+1
 
 
 
@@ -481,11 +481,51 @@ for i in range(len(spar_stn_list)):
                                                                                      number_of_elements,element,
                                                                                      number_of_nodes,node)
 
-    # assign all elements to layer 1, and set theta1 = 270.0 (right shear web)
-    for i in range(start_elem, number_of_elements+1):
-        element[i].layer = layer[1]
-        element[i].theta1 = 270.0
-    start_elem = number_of_elements+1
+    # # assign all elements to layer 1, and set theta1 = 270.0 (right shear web)
+    # for i in range(start_elem, number_of_elements+1):
+    #     element[i].layer = layer[1]
+    #     element[i].theta1 = 270.0
+    # start_elem = number_of_elements+1
+
+
+
+
+
+
+
+
+
+    # fill region 1 (left shear web, left biax laminate)
+    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, left biax laminate'],region,
+                                                                                     number_of_elements,element,
+                                                                                     number_of_nodes,node)
+
+    # fill region 2 (left shear web, foam core)
+    (number_of_elements,element,
+     number_of_nodes,node,
+    coarseEdgeL,coarseEdgeR) = tqg.fillBoundaryTriElements(rDict['left shear web, foam core'],region,
+                                                           number_of_elements,element,
+                                                           number_of_nodes,node)
+    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, foam core'],region,
+                                                           number_of_elements,element,
+                                                           number_of_nodes,node,
+                                                           coarse_flag=True,
+                                                           temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
+
+    # fill region 3 (left shear web, right biax laminate)
+    (number_of_elements,element,number_of_nodes,node) = tqg.fillInteriorQuadElements(rDict['left shear web, right biax laminate'],region,
+                                                                                     number_of_elements,element,
+                                                                                     number_of_nodes,node)
+
+    # # assign all elements to layer 1, and set theta1 = 90.0 (left shear web)
+    # start_elem = 1
+    # for i in range(start_elem, number_of_elements+1):
+    #     element[i].layer = layer[1]
+    #     element[i].theta1 = 90.0
+    # start_elem = number_of_elements+1
+
+
+
 
 
 
@@ -580,11 +620,11 @@ for i in range(len(spar_stn_list)):
                                                             coarse_flag=True,
                                                             temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
-    # assign all elements to layer 2, and set theta1 = 180.0 (bottom spar cap)
-    for i in range(start_elem, number_of_elements+1):
-        element[i].layer = layer[2]
-        element[i].theta1 = 180.0
-    start_elem = number_of_elements+1
+    # # assign all elements to layer 2, and set theta1 = 180.0 (bottom spar cap)
+    # for i in range(start_elem, number_of_elements+1):
+    #     element[i].layer = layer[2]
+    #     element[i].theta1 = 180.0
+    # start_elem = number_of_elements+1
 
 
 
@@ -601,11 +641,11 @@ for i in range(len(spar_stn_list)):
                                                             coarse_flag=True,
                                                             temp_coarseEdgeL=coarseEdgeL,temp_coarseEdgeR=coarseEdgeR)
 
-    # assign all elements to layer 2, and set theta1 = 0.0 (top spar cap)
-    for i in range(start_elem, number_of_elements+1):
-        element[i].layer = layer[2]
-        element[i].theta1 = 0.0
-    start_elem = number_of_elements+1
+    # # assign all elements to layer 2, and set theta1 = 0.0 (top spar cap)
+    # for i in range(start_elem, number_of_elements+1):
+    #     element[i].layer = layer[2]
+    #     element[i].theta1 = 0.0
+    # start_elem = number_of_elements+1
 
 
 
@@ -666,11 +706,11 @@ for i in range(len(spar_stn_list)):
                                                                number_of_nodes,node,
                                                                bottom_RB_coarse_flag=True,
                                                                temp_coarseEdgeT=coarseEdgeT)
-        # assign all elements to layer 3, and set theta1 = 180.0 (bottom root buildup)
-        for i in range(start_elem, number_of_elements+1):
-            element[i].layer = layer[3]
-            element[i].theta1 = 180.0
-        start_elem = number_of_elements+1
+        # # assign all elements to layer 3, and set theta1 = 180.0 (bottom root buildup)
+        # for i in range(start_elem, number_of_elements+1):
+        #     element[i].layer = layer[3]
+        #     element[i].theta1 = 180.0
+        # start_elem = number_of_elements+1
 
 
         # fill top root buildup region
@@ -686,11 +726,11 @@ for i in range(len(spar_stn_list)):
                                                                coarse_flag=False,bottom_RB_coarse_flag=False,
                                                                top_RB_coarse_flag=True,
                                                                temp_coarseEdgeB=coarseEdgeB)
-        # assign all elements to layer 3, and set theta1 = 0.0 (top root buildup)
-        for i in range(start_elem, number_of_elements+1):
-            element[i].layer = layer[3]
-            element[i].theta1 = 0.0
-        start_elem = number_of_elements+1
+        # # assign all elements to layer 3, and set theta1 = 0.0 (top root buildup)
+        # for i in range(start_elem, number_of_elements+1):
+        #     element[i].layer = layer[3]
+        #     element[i].theta1 = 0.0
+        # start_elem = number_of_elements+1
 
 
 
@@ -712,7 +752,10 @@ for i in range(len(spar_stn_list)):
 
 
 
-
+    # assign all elements to layer 1, and set theta1 = 0.0 (just to test if VABS runs)
+    for i in range(1, number_of_elements+1):
+        element[i].layer = layer[1]
+        element[i].theta1 = 0.0
 
 
 
