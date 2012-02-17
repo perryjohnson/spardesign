@@ -25,7 +25,7 @@ import numpy as np
 import autogridgen.cartGrid as cg
 
 # plotting flags #
-plot_flag = False           # show the plot in mayavi?
+plot_flag = True           # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
 zoom_flag = False           # set the view to the shear web/spar cap interface?
 axes_flag = False           # show the axes on the plot?
@@ -42,7 +42,7 @@ runVABS_flag = False         # run VABS to calculate the mass and stiffness matr
 spar_file = 'autogridgen/monoplane_spar_layup.txt'
 # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 # spar_stn_list = [1, 2, 3, 4, 5, 6]  # generate grids for these spar stations (subset)
-spar_stn_list = [5]  # generate grids for these spar stations (subset)
+spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # aspect ratio settings #
 maxAR_master = 4.8
