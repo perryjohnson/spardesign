@@ -25,7 +25,7 @@ import numpy as np
 import autogridgen.cartGrid as cg
 
 # plotting flags #
-plot_flag = True           # show the plot in mayavi?
+plot_flag = False           # show the plot in mayavi?
 gridlines_flag = True       # plot gridlines between the nodes?
 zoom_flag = False           # set the view to the shear web/spar cap interface?
 axes_flag = False           # show the axes on the plot?
