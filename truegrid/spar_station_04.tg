@@ -1,0 +1,64 @@
+c 
+c *** spar station #4 ***
+c 
+
+c --------------------------------------------------------
+
+c set the name of the mesh output file
+mof spar_station_04_output.txt
+
+c set the output file type
+abaqus
+
+c set some abaqus-specific parameters
+c   assign a title to the problem
+title spar station #04
+c   build 2nd-order quadrilateral elements (with mid-side nodes)
+quadratic
+
+c include materials.tg   c import the abaqus materials (uni/bi/triax GFRP, foam)
+include layers.tg      c import the layers (dummy ABAQUS materials for VABS)
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL.tg   c import the left biax laminate
+include swL_biaxR.tg   c import the right biax laminate
+include swL_foam.tg    c import the foam core
+c interrupt
+
+c    right shear web
+include swR_biaxL.tg   c import the left biax laminate
+include swR_biaxR.tg   c import the right biax laminate
+include swR_foam.tg    c import the foam core
+
+c  SPAR CAP
+include scT.tg         c import the top spar cap
+include scB.tg         c import the bottom spar cap
+
+c  ROOT BUILDUP
+include rbT.tg         c import the top root buildup
+include rbB.tg         c import the bottom root buildup
+
+c --------------------------------------------------------
+c interrupt 
+merge  c  enter the Merge Phase, so we can do the operations below
+
+c delete redundant nodes at part boundaries
+stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 = 0.000375
+            c choose a tolerance smaller than this (0.0001)
+            c the command stp deletes nodes who are near each other (within the tolerance)
+
+c dam  c display all materials in the grid
+c tvv  c try to color all parts with different colors
+
+c dm 1  c display material #1 (biax laminate)
+c dm 2  c display material #2 (foam)
+c dm 3  c display material #3 (uniax laminate)
+c dm 4  c display material #4 (triax laminate)
+
+c --------------------------------------------------------
+
+write   c write the output file to disk
+exit
