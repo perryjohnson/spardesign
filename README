@@ -1,6 +1,21 @@
-everything has been recently changed to use TrueGrid for mesh generation
-...updates to follow shortly
+to run TrueGrid files:
+  (1) open a Windows Command Prompt as an Administrator
+  (2) from the command line, write:
+        >tg -i=spar_station_04.tg
 
-for now, all the development files are in the `truegrid` directory
+to postprocess TrueGrid files:
+  run "main.py" from the command line
+  or, in iPython: |>run main
 
-old mayavi-specific gridgen files have been moved to the `deprecated/autogridgen` directory
+Notes:
+------
+(1) PYTHON must already be installed on your system
+(2) the "license" file must be in the top directory (spardesign) in order for
+    VABS to run correctly
+(3) TrueGrid must already be installed on your system
+
+Other remarks:
+--------------
+(1) everything has been recently changed to use TrueGrid for mesh generation
+for now, all the development files are in the "truegrid" directory
+(2) old Mayavi-specific gridgen files have been moved to the "deprecated/autogridgen" directory
