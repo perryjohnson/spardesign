@@ -204,3 +204,7 @@ def writeVABSfile(filestr, node_list, layer_list, matl, elem, VABSflag_dict):
 	# writeBlankLineAtEndOfFile(VABSfile)
 	closeFileForVABSinput(VABSfile)
 	return
+
+
+if __name__ == '__main__':
+    print "hi"
