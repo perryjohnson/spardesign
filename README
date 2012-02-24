@@ -1,47 +1,6 @@
-run "main.py" from the command line
-or, in iPython: |>run main
+everything has been recently changed to use TrueGrid for mesh generation
+...updates to follow shortly
 
-Notes:
-------
-(1) PYTHON and MAYAVI must already be installed on your system
-(2) the Python(x,y) distribution (http://code.google.com/p/pythonxy/) is
-    recommended for an easy install of all the required components
-(3) the "license" file must be in the top directory (spardesign) in order for
-    VABS to run correctly
+for now, all the development files are in the `truegrid` directory
 
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-***OLD INFO***
-run "makeAllVABSinputs.bat" in a Windows command window
-
-Notes:
-------
-(1) this software requires that PYTHON and MATPLOTLIB are already installed on
-    your system
-(2) the "license" file must be in the top directory (spardesign) in order for
-    VABS to run correctly
-(3) the batch file runs "makeVABSinput.py" for a series of cross-sections
-    ... this needs to be modified by hand for now
-
-# usage: makeVABSinput.py -i FILEIN.grd -o FILEOUT.dat -p plot_flag
-         -hsw shear_web_height -hrb root_buildup_height -hsc spar_cap_height
-         -c curved -k1 twist_rate
-## command line options:
-## ------------------------------------------------------
-## -i    input file                        [filename]
-## -o    output file                       [filename]
-## -p    show plot?                        [True/False]
-## -hsw  height of the shear web           [#]
-## -hrb  height of the root buildup        [#]
-## -hsc  height of the spar cap            [#]
-## -c    curved and/or twisted beam?       [True/False]
-## -k1   twist rate (dimensions of rad/m)  [#]
+old mayavi-specific gridgen files have been moved to the `deprecated/autogridgen` directory
