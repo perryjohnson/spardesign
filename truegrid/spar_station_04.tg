@@ -50,8 +50,8 @@ stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 =
             c choose a tolerance smaller than this (0.0001)
             c the command stp deletes nodes who are near each other (within the tolerance)
 
-c dam  c display all materials in the grid
-c tvv  c try to color all parts with different colors
+dam  c display all materials in the grid
+tvv  c try to color all parts with different colors
 
 c dm 1  c display material #1 (biax laminate)
 c dm 2  c display material #2 (foam)
@@ -61,4 +61,4 @@ c dm 4  c display material #4 (triax laminate)
 c --------------------------------------------------------
 
 write   c write the output file to disk
-exit
+c exit
