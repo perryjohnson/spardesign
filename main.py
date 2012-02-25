@@ -1,10 +1,12 @@
+outputfile = 'truegrid/spar_station_04_output.txt'
+vabs_filename = 'spar_station_04.dat'
+
 # ----------------------------------------------------------------------------------
 
 # parse the ABAQUS-formatted file
 import truegrid.ABAQUSutilities as au
-outputfile = 'truegrid/spar_station_04_output.txt'
 print "STATUS: interpret the ABAQUS file..."
-(nodeArray, elemArray, number_of_nodes, number_of_elements) = au.parseABAQUS(outputfile)
+(nodeArray, elemArray, esetArray, number_of_nodes, number_of_elements) = au.parseABAQUS(outputfile)
 
 # ----------------------------------------------------------------------------------
 
@@ -51,11 +53,35 @@ vo.assignCoordinatesToNodes(number_of_nodes, nodeArray, node)
 
 vo.fillElementObjects(number_of_elements, element)
 vo.assignNodesAndLayersToElements(number_of_elements, elemArray, element, node, layer)
+vo.assignElementOrientations(esetArray, element)
 
-element[16825].inspect()
-
+element[1].inspect()
+print 'element 1 theta1='
+print element[1].theta1
 
 # ----------------------------------------------------------------------------------
 
 # write the VABS input file
-# import VABS.VABSutilities as vu
+print "STATUS: writing the VABS input file:", vabs_filename
+import VABS.VABSutilities as vu
+
+curved = 1  # curve flag is set to True
+twist_rate = 0.0  # twist_rate = k1, which is in units of rad/m (twist rate)
+
+VABSflag_dictionary = {'format_flag': 1,
+                       'nlayer': number_of_layers,
+                       'Timoshenko_flag': 1,
+                       'recover_flag': 0,
+                       'thermal_flag': 0,
+                       'curve_flag': curved,
+                       'oblique_flag': 0,
+                       'trapeze_flag': 0,
+                       'Vlasov_flag': 0,
+                       'k1': twist_rate,
+                       'k2': 0.0,
+                       'k3': 0.0,
+                       'nnode': number_of_nodes,
+                       'nelem': number_of_elements,
+                       'nmate': number_of_materials}
+                       # package all the VABS flags into one dictionary
+vu.writeVABSfile(vabs_filename, node, layer, material, element, VABSflag_dictionary)

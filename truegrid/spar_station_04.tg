@@ -23,26 +23,35 @@ c --------------------------------------------------------
 
 c  SHEAR WEB
 c    left shear web
-include swL_biaxL.tg   c import the left biax laminate
-include swL_biaxR.tg   c import the right biax laminate
-include swL_foam.tg    c import the foam core
-c interrupt
+include swL_biaxL.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
 
 c    right shear web
-include swR_biaxL.tg   c import the left biax laminate
-include swR_biaxR.tg   c import the right biax laminate
-include swR_foam.tg    c import the foam core
+include swR_biaxL.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
 
 c  SPAR CAP
-include scT.tg         c import the top spar cap
-include scB.tg         c import the bottom spar cap
+include scT.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
 
 c  ROOT BUILDUP
-include rbT.tg         c import the top root buildup
-include rbB.tg         c import the bottom root buildup
+include rbT.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
 
 c --------------------------------------------------------
-c interrupt 
+
 merge  c  enter the Merge Phase, so we can do the operations below
 
 c delete redundant nodes at part boundaries
@@ -50,8 +59,8 @@ stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 =
             c choose a tolerance smaller than this (0.0001)
             c the command stp deletes nodes who are near each other (within the tolerance)
 
-dam  c display all materials in the grid
-tvv  c try to color all parts with different colors
+c dam  c display all materials in the grid
+c tvv  c try to color all parts with different colors
 
 c dm 1  c display material #1 (biax laminate)
 c dm 2  c display material #2 (foam)
@@ -60,5 +69,5 @@ c dm 4  c display material #4 (triax laminate)
 
 c --------------------------------------------------------
 
-c write   c write the output file to disk
-c exit
+write   c write the output file to disk
+exit

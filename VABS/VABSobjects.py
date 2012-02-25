@@ -253,6 +253,14 @@ def assignCoordinatesToNodes(nnode, nodeArray, node_list):
     return
 
 
+def assignElementOrientations(esetArray, element):
+    for i in range(len(esetArray)):  # traverse the element set
+        theta1_angle = esetArray[i,0]
+        elem_no = esetArray[i,1]
+        element[elem_no].theta1 = theta1_angle
+    return
+
+
 ## assign materials and layup angles (theta3) to each layer object
 ##    ...define each layer manually (for now)
 ##    input: layer_list <object>, list of layer objects
