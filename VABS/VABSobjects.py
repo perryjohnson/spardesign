@@ -30,14 +30,16 @@ class materialObj:        # a material with its constants (Young's modulus, Pois
     ### inspect all properties of a material (material number, name, orth_flag, rho)
     ###     input: thisLayer <vo.layerObj>, an individual layer (for example, layer[3])
     ###     output: <none>, prints to the screen
-    def inspect(self, funcCall_flag=False):
+    def inspect(self, funcCallFlag=False, doubleFuncCall=False):
         orth_dict = { 0: 'isotropic',
                       1: 'orthotropic',
                       2: 'general anisotropic' }
 
-        if funcCall_flag:
+        if funcCallFlag:
             spacer = '  '
-            print '  inspecting material #' + str(self.material_no)
+            if doubleFuncCall:
+                spacer = spacer + '  '
+            print spacer + 'inspecting material #' + str(self.material_no)
         else:
             spacer = ''
             print 'INSPECTING MATERIAL #' + str(self.material_no)
@@ -45,19 +47,19 @@ class materialObj:        # a material with its constants (Young's modulus, Pois
         print spacer + '  name: ' + self.material_name
         print spacer + '  ' + orth_dict[self.orth_flag]
         if orth_dict[self.orth_flag] == 'isotropic':
-            print spacer + '  E = ' + str('%.3e' % self.E) + ' Pa'
-            print spacer + '  nu = ' + str(self.nu)
+            print spacer + '  E    = ' + str('%.3e' % self.E) + ' Pa'
+            print spacer + '  nu   = ' + str(self.nu)
         elif orth_dict[self.orth_flag] == 'orthotropic':
-            print spacer + '  E1 = ' + str('%.3e' % self.E1) + ' Pa'
-            print spacer + '  E2 = ' + str('%.3e' % self.E2) + ' Pa'
-            print spacer + '  E3 = ' + str('%.3e' % self.E3) + ' Pa'
-            print spacer + '  G12 = ' + str('%.3e' % self.G12) + ' Pa'
-            print spacer + '  G13 = ' + str('%.3e' % self.G13) + ' Pa'
-            print spacer + '  G23 = ' + str('%.3e' % self.G23) + ' Pa'
+            print spacer + '  E1   = ' + str('%.3e' % self.E1) + ' Pa'
+            print spacer + '  E2   = ' + str('%.3e' % self.E2) + ' Pa'
+            print spacer + '  E3   = ' + str('%.3e' % self.E3) + ' Pa'
+            print spacer + '  G12  = ' + str('%.3e' % self.G12) + ' Pa'
+            print spacer + '  G13  = ' + str('%.3e' % self.G13) + ' Pa'
+            print spacer + '  G23  = ' + str('%.3e' % self.G23) + ' Pa'
             print spacer + '  nu12 = ' + str(self.nu12)
             print spacer + '  nu13 = ' + str(self.nu13)
             print spacer + '  nu23 = ' + str(self.nu23)
-        print spacer + '  density = ' + str(self.rho) + ' kg/m^3'
+        print spacer + '  rho  = ' + str(self.rho) + ' kg/m^3'
         return
 
 class layerObj:        # a layer is a unique combination of material type and layup orientation (theta3)
@@ -68,10 +70,18 @@ class layerObj:        # a layer is a unique combination of material type and la
     ### inspect all properties of a layer (layer number, material, theta3)
     ###     input: thisLayer <vo.layerObj>, an individual layer (for example, layer[3])
     ###     output: <none>, prints to the screen
-    def inspect(self):
-        print 'INSPECTING LAYER #' + str(self.layer_no)
-        self.material.inspect(funcCall_flag=True)
-        print '  theta3 = ' + str(self.theta3) + ' degrees'
+    def inspect(self, funcCallFlag=False):
+        if funcCallFlag:
+            spacer = '  '
+            print '  inspecting layer #' + str(self.layer_no)
+            doubleCall = True
+        else:
+            spacer = ''
+            print 'INSPECTING LAYER #' + str(self.layer_no)
+            doubleCall = False
+
+        self.material.inspect(funcCallFlag=True, doubleFuncCall=doubleCall)
+        print spacer + '  theta3 = ' + str(self.theta3) + ' degrees'
         return
 
 
@@ -113,33 +123,32 @@ class elementObj:     # an element (quadrilateral cell) is made up of four nodes
     layer = layerObj() # layer of this element
     theta1 = np.nan   # layer plane angle (in degrees) for the layer used by this element
 
-    # upper_border_y = np.array([np.nan,np.nan])
-    # lower_border_y = np.array([np.nan,np.nan])
-    # lower_border_x = np.array([np.nan,np.nan])
-
     ### inspect all properties of an element (element number, properties of all nodes that make up this element)
     ###     input: thisElement <vo.elementObj>, an individual element (for example, element[36])
     ###     output: <none>, prints to the screen
     def inspect(self):
         print 'INSPECTING ELEMENT #' + str(self.elem_no)
-        print 'INSPECTING NODE1********'
+        print 'NODE1********'
         self.node1.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE2********'
+        print 'NODE2********'
         self.node2.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE3********'
+        print 'NODE3********'
         self.node3.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE4********'
+        print 'NODE4********'
         self.node4.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE5********'
+        print 'NODE5********'
         self.node5.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE6********'
+        print 'NODE6********'
         self.node6.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE7********'
+        print 'NODE7********'
         self.node7.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE8********'
+        print 'NODE8********'
         self.node8.inspect(funcCallFlag=True)
-        print 'INSPECTING NODE9********'
+        print 'NODE9********'
         self.node9.inspect(funcCallFlag=True)
+        print 'LAYER********'
+        self.layer.inspect(funcCallFlag=True)
+        print '  theta1 = ' + str(self.theta1) + ' degrees'
         return
 
 

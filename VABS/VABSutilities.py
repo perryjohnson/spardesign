@@ -90,11 +90,11 @@ def writeConnectivityBlock(VABSfile, nelem, elem):
 		node_2 = elem[i].node2.node_no
 		node_3 = elem[i].node3.node_no
 		node_4 = elem[i].node4.node_no
-		node_5 = 0
-		node_6 = 0
-		node_7 = 0
-		node_8 = 0
-		node_9 = 0
+		node_5 = elem[i].node5.node_no
+		node_6 = elem[i].node6.node_no
+		node_7 = elem[i].node7.node_no
+		node_8 = elem[i].node8.node_no
+		node_9 = elem[i].node9.node_no
 		VABSfile.write(str(strfmt % elem[i].elem_no) + '  ' +
 		               str(strfmt2 % node_1) +
 		               str(strfmt2 % node_2) +

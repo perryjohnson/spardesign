@@ -29,6 +29,7 @@ include swL_biaxR.tg         c import the right biax laminate   part #2
 eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
 include swL_foam.tg          c import the foam core             part #3
 eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+interrupt
 
 c    right shear web
 include swR_biaxL.tg         c import the left biax laminate    part #4
@@ -37,6 +38,7 @@ include swR_biaxR.tg         c import the right biax laminate   part #5
 eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
 include swR_foam.tg          c import the foam core             part #6
 eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+interrupt
 
 c  SPAR CAP
 include scT.tg               c import the top spar cap          part #7
@@ -70,4 +72,4 @@ c dm 4  c display material #4 (triax laminate)
 c --------------------------------------------------------
 
 write   c write the output file to disk
-exit
+c exit

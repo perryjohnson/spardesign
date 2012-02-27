@@ -1,5 +1,6 @@
 outputfile = 'truegrid/spar_station_04_output.txt'
 vabs_filename = 'spar_station_04.dat'
+main_debug_flag = True
 
 # ----------------------------------------------------------------------------------
 
@@ -55,9 +56,8 @@ vo.fillElementObjects(number_of_elements, element)
 vo.assignNodesAndLayersToElements(number_of_elements, elemArray, element, node, layer)
 vo.assignElementOrientations(esetArray, element)
 
-element[1].inspect()
-print 'element 1 theta1='
-print element[1].theta1
+if main_debug_flag:
+  element[16001].inspect()
 
 # ----------------------------------------------------------------------------------
 
