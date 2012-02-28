@@ -57,7 +57,12 @@ vo.assignNodesAndLayersToElements(number_of_elements, elemArray, element, node, 
 vo.assignElementOrientations(esetArray, element)
 
 if main_debug_flag:
-  element[16001].inspect()
+  # element[16001].inspect()
+  print "element 1"
+  element[1].angles(print_flag=True)
+  print ""
+  print "element 9601"
+  element[9601].angles(print_flag=True)
 
 # ----------------------------------------------------------------------------------
 

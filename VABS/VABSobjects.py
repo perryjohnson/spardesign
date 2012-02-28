@@ -151,6 +151,87 @@ class elementObj:     # an element (quadrilateral cell) is made up of four nodes
         print '  theta1 = ' + str(self.theta1) + ' degrees'
         return
 
+    ## find the "middle" x&y coordinates of this element
+    ##    input: self <object>, a single element object (e.g. elem[1])
+    ##    output: x2_middle <double>, x2-coordinate of the middle of this element
+    ##            x3_middle <double>, x3-coordinate of the middle of this element
+    def middle(self, print_flag=False):
+        x2_middle = (self.node1.x2 + self.node2.x2 + self.node3.x2 + self.node4.x2)/4.0
+        x3_middle = (self.node1.x3 + self.node2.x3 + self.node3.x3 + self.node4.x3)/4.0
+        if print_flag:
+            print "(x2_middle, x3_middle) = (" + str(x2_middle) + ", " + str(x3_middle) + ")"
+        return (x2_middle, x3_middle)
+
+    ## find the angle between a vector drawn from the middle of the element (x2_middle, x3_middle) to the horizontal (positive x2-axis)
+    def angles(self, print_flag=False):
+        (x2_middle, x3_middle) = self.middle()
+        from math import atan2, pi
+        angle_dict={}
+
+        if self.node5.node_no != 0:
+            is_quadratic = True
+        else:
+            is_quadratic = False
+
+        # find the angle to node1
+        y = self.node1.x3 - x3_middle
+        x = self.node1.x2 - x2_middle
+        angle_dict['node1'] = atan2(y,x) * (180.0/pi)
+
+        # find the angle to node2
+        y = self.node2.x3 - x3_middle
+        x = self.node2.x2 - x2_middle
+        angle_dict['node2'] = atan2(y,x) * (180.0/pi)
+
+        # find the angle to node3
+        y = self.node3.x3 - x3_middle
+        x = self.node3.x2 - x2_middle
+        angle_dict['node3'] = atan2(y,x) * (180.0/pi)
+
+        # find the angle to node4
+        y = self.node4.x3 - x3_middle
+        x = self.node4.x2 - x2_middle
+        angle_dict['node4'] = atan2(y,x) * (180.0/pi)
+
+        if is_quadratic:
+            # find the angle to node5
+            y = self.node5.x3 - x3_middle
+            x = self.node5.x2 - x2_middle
+            angle_dict['node5'] = atan2(y,x) * (180.0/pi)
+
+            # find the angle to node6
+            y = self.node6.x3 - x3_middle
+            x = self.node6.x2 - x2_middle
+            angle_dict['node6'] = atan2(y,x) * (180.0/pi)
+
+            # find the angle to node7
+            y = self.node7.x3 - x3_middle
+            x = self.node7.x2 - x2_middle
+            angle_dict['node7'] = atan2(y,x) * (180.0/pi)
+
+            # find the angle to node8
+            y = self.node8.x3 - x3_middle
+            x = self.node8.x2 - x2_middle
+            angle_dict['node8'] = atan2(y,x) * (180.0/pi)
+
+        if print_flag:
+            if is_quadratic:
+                print "node1_angle = " + str(angle_dict['node1']) + " degrees"
+                print "node5_angle = " + str(angle_dict['node5']) + " degrees"
+                print "node2_angle = " + str(angle_dict['node2']) + " degrees"
+                print "node6_angle = " + str(angle_dict['node6']) + " degrees"
+                print "node3_angle = " + str(angle_dict['node3']) + " degrees"
+                print "node7_angle = " + str(angle_dict['node7']) + " degrees"
+                print "node4_angle = " + str(angle_dict['node4']) + " degrees"
+                print "node8_angle = " + str(angle_dict['node8']) + " degrees"
+            else:
+                print "node1_angle = " + str(angle_dict['node1']) + " degrees"
+                print "node2_angle = " + str(angle_dict['node2']) + " degrees"
+                print "node3_angle = " + str(angle_dict['node3']) + " degrees"
+                print "node4_angle = " + str(angle_dict['node4']) + " degrees"
+
+        return angle_dict
+
 
 ## fill the list with nnode+1 node objects (we won't use the first index, 0)
 ##    input: nnode <int>, number of nodes in this grid
@@ -338,6 +419,17 @@ def assignLayers(layer_list, matl):
 ##           node_list <object>, list of unique node objects
 ##    output: <none>
 def assignNodesAndLayersToElements(nelem, elemArray, elem, node_list, layer_list):
+    # determine if linear or quadratic elements are being used
+    if elemArray.shape[1] == 10:  # elemArray has 10 columns (layer number, element number, node1, node2, node3, node4, node5, node6, node7, node8)
+        is_quadratic = True
+        print "  QUADRATIC finite elements were detected"
+    elif elemArray.shape[1] == 6: # elemArray has 6 columns  (layer number, element number, node1, node2, node3, node4)
+        is_quadratic = False
+        print "  LINEAR finite elements were detected"
+    else:
+        is_quadratic = False
+        print "WARNING in VABSobjects.assignNodesAndLayersToElements: elemArray has " + str(elemArray.shape[1]) + " columns, instead of the standard 6 columns (linear elements) or 10 columns (quadratic elements)"
+
     for j in range(1,nelem+1):  # traverse the list of element objects
         layer_number = elemArray[j-1,0]
         element_number = elemArray[j-1,1]
@@ -349,10 +441,16 @@ def assignNodesAndLayersToElements(nelem, elemArray, elem, node_list, layer_list
         unique_node_number_for_node2 = elemArray[j-1,3]
         unique_node_number_for_node3 = elemArray[j-1,4]
         unique_node_number_for_node4 = elemArray[j-1,5]
-        unique_node_number_for_node5 = elemArray[j-1,6]
-        unique_node_number_for_node6 = elemArray[j-1,7]
-        unique_node_number_for_node7 = elemArray[j-1,8]
-        unique_node_number_for_node8 = elemArray[j-1,9]
+        if is_quadratic:
+            unique_node_number_for_node5 = elemArray[j-1,6]
+            unique_node_number_for_node6 = elemArray[j-1,7]
+            unique_node_number_for_node7 = elemArray[j-1,8]
+            unique_node_number_for_node8 = elemArray[j-1,9]
+        else:
+            unique_node_number_for_node5 = 0
+            unique_node_number_for_node6 = 0
+            unique_node_number_for_node7 = 0
+            unique_node_number_for_node8 = 0
 
         elem[j].node1 = node_list[unique_node_number_for_node1]
         elem[j].node2 = node_list[unique_node_number_for_node2]

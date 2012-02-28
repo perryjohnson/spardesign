@@ -44,11 +44,11 @@ def defineRegularExpressions():
 
     # element connectivity pattern:
     # elemPat = re.compile(r'[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+')
-    elemPat = re.compile(r'[0-9]+(,[0-9]+){8}')
+    elemPat = re.compile(r'[0-9]+(,[0-9]+){4,8}')
     #  this regex pattern explained:
     #  -----------------------------
-    #  [0-9]+        :  element number
-    #  (,[0-9]+){8}  :  node1-node8
+    #  [0-9]+          :  element number
+    #  (,[0-9]+){4,8}  :  node1-node4 or node1-node8
 
     # element header pattern:
     elemHeadPat = re.compile(r'\*MATERIAL,NAME=M[0-9]+')
