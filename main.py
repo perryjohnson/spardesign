@@ -55,14 +55,19 @@ vo.assignCoordinatesToNodes(number_of_nodes, nodeArray, node)
 vo.fillElementObjects(number_of_elements, element)
 vo.assignNodesAndLayersToElements(number_of_elements, elemArray, element, node, layer)
 vo.assignElementOrientations(esetArray, element)
-
+print "STATUS: checking if all elements are oriented in a CCW-fashion..."
+reorder_OK = vo.reorderBadElements(number_of_elements, element)
+if reorder_OK:
+    print "  All elements reordered properly!  :)"
+else:
+    print "  WARNING: some elements were not reordered properly!"
 if main_debug_flag:
-  # element[16001].inspect()
-  print "element 1"
-  element[1].angles(print_flag=True)
-  print ""
-  print "element 9601"
-  element[9601].angles(print_flag=True)
+    # element[16001].inspect()
+    print "element 1"
+    element[1].angles(print_flag=True)
+    print ""
+    print "element 9601"
+    element[9601].angles(print_flag=True)
 
 # ----------------------------------------------------------------------------------
 

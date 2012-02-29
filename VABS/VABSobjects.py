@@ -162,75 +162,159 @@ class elementObj:     # an element (quadrilateral cell) is made up of four nodes
             print "(x2_middle, x3_middle) = (" + str(x2_middle) + ", " + str(x3_middle) + ")"
         return (x2_middle, x3_middle)
 
+    def is_quadratic(self):
+        if self.node5.node_no != 0:
+            flag = True
+        else:
+            flag = False
+        return flag
+
     ## find the angle between a vector drawn from the middle of the element (x2_middle, x3_middle) to the horizontal (positive x2-axis)
     def angles(self, print_flag=False):
         (x2_middle, x3_middle) = self.middle()
         from math import atan2, pi
         angle_dict={}
 
-        if self.node5.node_no != 0:
-            is_quadratic = True
-        else:
-            is_quadratic = False
-
         # find the angle to node1
         y = self.node1.x3 - x3_middle
         x = self.node1.x2 - x2_middle
         angle_dict['node1'] = atan2(y,x) * (180.0/pi)
+        if angle_dict['node1'] < 0.0:
+            angle_dict['node1'] += 360.0
 
         # find the angle to node2
         y = self.node2.x3 - x3_middle
         x = self.node2.x2 - x2_middle
         angle_dict['node2'] = atan2(y,x) * (180.0/pi)
+        if angle_dict['node2'] < 0.0:
+            angle_dict['node2'] += + 360.0
 
         # find the angle to node3
         y = self.node3.x3 - x3_middle
         x = self.node3.x2 - x2_middle
         angle_dict['node3'] = atan2(y,x) * (180.0/pi)
+        if angle_dict['node3'] < 0.0:
+            angle_dict['node3'] += + 360.0
 
         # find the angle to node4
         y = self.node4.x3 - x3_middle
         x = self.node4.x2 - x2_middle
         angle_dict['node4'] = atan2(y,x) * (180.0/pi)
+        if angle_dict['node4'] < 0.0:
+            angle_dict['node4'] += + 360.0
 
-        if is_quadratic:
+        if self.is_quadratic():
             # find the angle to node5
             y = self.node5.x3 - x3_middle
             x = self.node5.x2 - x2_middle
             angle_dict['node5'] = atan2(y,x) * (180.0/pi)
+            if angle_dict['node5'] < 0.0:
+                angle_dict['node5'] += + 360.0
 
             # find the angle to node6
             y = self.node6.x3 - x3_middle
             x = self.node6.x2 - x2_middle
             angle_dict['node6'] = atan2(y,x) * (180.0/pi)
+            if angle_dict['node6'] < 0.0:
+                angle_dict['node6'] += + 360.0
 
             # find the angle to node7
             y = self.node7.x3 - x3_middle
             x = self.node7.x2 - x2_middle
             angle_dict['node7'] = atan2(y,x) * (180.0/pi)
+            if angle_dict['node7'] < 0.0:
+                angle_dict['node7'] += + 360.0
 
             # find the angle to node8
             y = self.node8.x3 - x3_middle
             x = self.node8.x2 - x2_middle
             angle_dict['node8'] = atan2(y,x) * (180.0/pi)
+            if angle_dict['node8'] < 0.0:
+                angle_dict['node8'] += + 360.0
 
         if print_flag:
-            if is_quadratic:
-                print "node1_angle = " + str(angle_dict['node1']) + " degrees"
-                print "node5_angle = " + str(angle_dict['node5']) + " degrees"
-                print "node2_angle = " + str(angle_dict['node2']) + " degrees"
-                print "node6_angle = " + str(angle_dict['node6']) + " degrees"
-                print "node3_angle = " + str(angle_dict['node3']) + " degrees"
-                print "node7_angle = " + str(angle_dict['node7']) + " degrees"
-                print "node4_angle = " + str(angle_dict['node4']) + " degrees"
-                print "node8_angle = " + str(angle_dict['node8']) + " degrees"
+            if self.is_quadratic():
+                print "node1_angle = " + str('%6.2f' % angle_dict['node1']) + " degrees"
+                print "node5_angle = " + str('%6.2f' % angle_dict['node5']) + " degrees"
+                print "node2_angle = " + str('%6.2f' % angle_dict['node2']) + " degrees"
+                print "node6_angle = " + str('%6.2f' % angle_dict['node6']) + " degrees"
+                print "node3_angle = " + str('%6.2f' % angle_dict['node3']) + " degrees"
+                print "node7_angle = " + str('%6.2f' % angle_dict['node7']) + " degrees"
+                print "node4_angle = " + str('%6.2f' % angle_dict['node4']) + " degrees"
+                print "node8_angle = " + str('%6.2f' % angle_dict['node8']) + " degrees"
             else:
-                print "node1_angle = " + str(angle_dict['node1']) + " degrees"
-                print "node2_angle = " + str(angle_dict['node2']) + " degrees"
-                print "node3_angle = " + str(angle_dict['node3']) + " degrees"
-                print "node4_angle = " + str(angle_dict['node4']) + " degrees"
+                print "node1_angle = " + str('%6.2f' % angle_dict['node1']) + " degrees"
+                print "node2_angle = " + str('%6.2f' % angle_dict['node2']) + " degrees"
+                print "node3_angle = " + str('%6.2f' % angle_dict['node3']) + " degrees"
+                print "node4_angle = " + str('%6.2f' % angle_dict['node4']) + " degrees"
 
         return angle_dict
+
+    def is_ccw(self, print_flag=False):
+        angle_dict = self.angles()
+        angleDiff = []
+        if self.is_quadratic():
+            angleDiff.append(angle_dict['node5'] - angle_dict['node1'])
+            angleDiff.append(angle_dict['node2'] - angle_dict['node5'])
+            angleDiff.append(angle_dict['node6'] - angle_dict['node2'])
+            angleDiff.append(angle_dict['node3'] - angle_dict['node6'])
+            angleDiff.append(angle_dict['node7'] - angle_dict['node3'])
+            angleDiff.append(angle_dict['node4'] - angle_dict['node7'])
+            angleDiff.append(angle_dict['node8'] - angle_dict['node4'])
+            angleDiff.append(angle_dict['node1'] - angle_dict['node8'])
+        else:
+            angleDiff.append(angle_dict['node2'] - angle_dict['node1'])
+            angleDiff.append(angle_dict['node3'] - angle_dict['node2'])
+            angleDiff.append(angle_dict['node4'] - angle_dict['node3'])
+            angleDiff.append(angle_dict['node1'] - angle_dict['node4'])
+
+        if print_flag:
+            print "Angle differences:", angleDiff
+
+        negCounter = 0
+        for i in range(len(angleDiff)):
+            if angleDiff[i] < 0.0:
+                negCounter += 1
+
+        if negCounter > 1:
+            flag = False
+            if print_flag:
+                print "this element has the WRONG orientation"
+        else:
+            flag = True
+
+        return flag
+
+
+    def reorient(self, print_flag=False):
+        if print_flag:
+            print "BEFORE:"
+            print "node2:", self.node2.node_no
+            print "node4:", self.node4.node_no
+        if self.is_quadratic():
+            # reorder the nodes in a clockwise fashion
+            temp = self.node2
+            self.node2 = self.node4
+            self.node4 = temp
+
+            temp = self.node8
+            self.node8 = self.node5
+            self.node5 = temp
+
+            temp = self.node6
+            self.node6 = self.node7
+            self.node7 = temp
+        else:
+            # reorder the nodes in a clockwise fashion
+            temp = self.node2
+            self.node2 = self.node4
+            self.node4 = temp
+        
+        if print_flag:
+            print "AFTER:"
+            print "node2:", self.node2.node_no
+            print "node4:", self.node4.node_no
+        return
 
 
 ## fill the list with nnode+1 node objects (we won't use the first index, 0)
@@ -238,7 +322,7 @@ class elementObj:     # an element (quadrilateral cell) is made up of four nodes
 ##           node_list <object>, list of unique node objects
 ##    output: <none>
 def fillNodeObjects(nnode, node_list):
-    for i in range(nnode+1):  
+    for i in range(nnode+1):
         node_list.append(nodeObj())
     return
 
@@ -574,6 +658,16 @@ def reassignNodesOnAllBadElements(nelem, elem):
         # print elem[j].elem_no, sorted_node_flag
     return
 
+## updated version of reassignNodesOnAllBadElements()
+def reorderBadElements(nelem, elem):
+    reorder_OK = True
+    for j in range(1,nelem+1):
+        if not elem[j].is_ccw():
+            elem[j].reorient()
+            if not elem[j].is_ccw():
+                print '  WARNING: element #' + str(elem[j].elem_no) + ' was not properly reoriented!'
+                reorder_OK = False
+    return reorder_OK
 
 ## assign upper and lower borders to each element object
 ##    ...this will aid with filling in cells with different colors
@@ -603,6 +697,9 @@ def rewriteConnectivity(nelem, elem, connectivity):
         connectivity[i-1,2] = elem[i].node3.node_no
         connectivity[i-1,3] = elem[i].node4.node_no
     return
+
+
+
 
 
 ## define x-coordinate boundaries of spar caps and shear webs
