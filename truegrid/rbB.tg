@@ -8,16 +8,24 @@ c   j-list (6 plies across height of root buildup)
 c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates
-c   x-coordinates (width of spar cap)
-    -0.836 -0.833 -0.753 -0.750 0.750 0.753 0.833 0.836;
-c   y-coordinates (height of spar cap)
-    -2.3955
-    -2.391333333
-    -2.387166667
-    -2.383
-    -2.378833333
-    -2.374666667
-    -2.3705;
+c   x-coordinates (width of root buildup)
+    c -0.836 -0.833 -0.753 -0.750 0.750 0.753 0.833 0.836;
+    %x1 %x2 %x3 %x4 %x5 %x6 %x7 %x8;
+c   y-coordinates (height of root buildup)
+    c -2.3955
+    c -2.391333333
+    c -2.387166667
+    c -2.383
+    c -2.378833333
+    c -2.374666667
+    c -2.3705;
+    %y1
+    [%y1 + 1.0*%rb_plythk]
+    [%y1 + 2.0*%rb_plythk]
+    [%y1 + 3.0*%rb_plythk]
+    [%y1 + 4.0*%rb_plythk]
+    [%y1 + 5.0*%rb_plythk]
+    %y2;
 c   z-coordinates
     0;
 

@@ -10,9 +10,11 @@ c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates
 c   x-coordinates (width of spar cap)
-    -0.750  0.750;
+    c -0.750  0.750;
+    %x4 %x5;
 c   y-coordinates (height of spar cap)
-    2.3405 2.3705;
+    c 2.3405 2.3705;
+    %y4 %y5;
 c   z-coordinates
     0;
 

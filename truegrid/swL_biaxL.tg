@@ -10,17 +10,27 @@ c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates
 c   x-coordinates (width of biax laminate)
-    -0.836
-    -0.835625
-    -0.83525
-    -0.834875
-    -0.8345
-    -0.834125
-    -0.83375
-    -0.833375
-    -0.833;
+    c -0.836
+    c -0.835625
+    c -0.83525
+    c -0.834875
+    c -0.8345
+    c -0.834125
+    c -0.83375
+    c -0.833375
+    c -0.833;
+    %x1
+    [%x1 + 1.0*%swbi_plythk]
+    [%x1 + 2.0*%swbi_plythk]
+    [%x1 + 3.0*%swbi_plythk]
+    [%x1 + 4.0*%swbi_plythk]
+    [%x1 + 5.0*%swbi_plythk]
+    [%x1 + 6.0*%swbi_plythk]
+    [%x1 + 7.0*%swbi_plythk]
+    %x2;
 c   y-coordinates (height of biax laminate)
-    -2.3705 2.3705;
+    c -2.3705 2.3705;
+    %y2 %y5;
 c   z-coordinates
     0;
 
