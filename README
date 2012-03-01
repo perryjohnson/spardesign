@@ -1,11 +1,20 @@
-to run TrueGrid files:
-  (1) open a Windows Command Prompt as an Administrator
-  (2) from the command line, write:
-        >tg -i=spar_station_04.tg
+(1) write TrueGrid scripts
+(from iPython):
+  |>cd github\spardesign\truegrid
+  |>run writeTGscripts
 
-to postprocess TrueGrid files:
-  run "main.py" from the command line
-  or, in iPython: |>run main
+(2) run TrueGrid scripts and write ABAQUS output files
+(from Admin Windows Command Prompt):
+  >alltg
+
+(3) translate ABAQUS output files to VABS input files and run VABS
+(from iPython ... stations 1-6 take about 4 minutes to run):
+  |>cd ..
+  |>run main
+
+(4) retrieve mass and stiffness matrices in each of the *.dat.K files
+
+----------------------------------------------------------------------------
 
 Notes:
 ------
