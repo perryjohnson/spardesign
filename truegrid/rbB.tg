@@ -2,7 +2,8 @@ c  make a part for the BOTTOM ROOT BUILDUP
 block
 c determine the node distribution
 c   i-list
-    1 5 15 19 219 223 233 237;
+    c 1 5 15 19 219 223 233 237;
+    1 %i2 %i3 %i4 %i5 %i6 %i7 %i8;
 c   j-list (6 plies across height of root buildup)
     1 2 3 4 5 6 7;
 c   k-list (use -1 to use 2D shell elements in this mesh)
@@ -29,12 +30,12 @@ c   y-coordinates (height of root buildup)
 c   z-coordinates
     0;
 
-inttr 0.5  c the relative size of the transition elements
+c inttr 0.5  c the relative size of the transition elements
            c (must be between 0 and 1)
 
 c make block boundary (slave #16) on top edge of mesh
 c                                   (section: left shear web, left biax)
-trbb
+bb
 c   region
     1 7 1  c  i-min j-min k-min
     2 7 1  c  i-max j-max k-max
@@ -43,7 +44,7 @@ c   interface
 
 c make block boundary (slave #17) on top edge of mesh
 c                                   (section: left shear web, foam)
-trbb
+bb
 c   region
     2 7 1  c  i-min j-min k-min
     3 7 1  c  i-max j-max k-max
@@ -52,7 +53,7 @@ c   interface
 
 c make block boundary (slave #18) on top edge of mesh
 c                                   (section: left shear web, right biax)
-trbb
+bb
 c   region
     3 7 1  c  i-min j-min k-min
     4 7 1  c  i-max j-max k-max
@@ -70,7 +71,7 @@ c   interface
 
 c make block boundary (slave #20) on top edge of mesh
 c                                   (section: right shear web, left biax)
-trbb
+bb
 c   region
     5 7 1  c  i-min j-min k-min
     6 7 1  c  i-max j-max k-max
@@ -79,7 +80,7 @@ c   interface
 
 c make block boundary (slave #21) on top edge of mesh
 c                                   (section: right shear web, foam)
-trbb
+bb
 c   region
     6 7 1  c  i-min j-min k-min
     7 7 1  c  i-max j-max k-max
@@ -88,7 +89,7 @@ c   interface
 
 c make block boundary (slave #22) on top edge of mesh
 c                                   (section: right shear web, right biax)
-trbb
+bb
 c   region
     7 7 1  c  i-min j-min k-min
     8 7 1  c  i-max j-max k-max

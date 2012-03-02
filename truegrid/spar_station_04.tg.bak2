@@ -1,18 +1,18 @@
 c 
-c *** spar station #06 ***
+c *** spar station #04 ***
 c 
 
 c --------------------------------------------------------
 
 c set the name of the mesh output file
-mof spar_station_06_abq.txt
+mof spar_station_04_abq.txt
 
 c set the output file type
 abaqus
 
 c set some abaqus-specific parameters
 c   assign a title to the problem
-title spar station #06
+title spar station #04
 c   build 2nd-order quadrilateral elements (with mid-side nodes)
 quadratic
 
@@ -21,14 +21,12 @@ include layers.tg      c import the layers (dummy ABAQUS materials for VABS)
 c --------------------------------------------------------
 
 c set some global parameters
-para sc_ht 0.068;
-para rb_ht 0.005;
-para sw_ht 4.091;
+para sc_ht 0.03;
+para rb_ht 0.025;
+para sw_ht 4.741;
 
-para swfm_jelem 316;  c this number must be divisible by 2
-
+para swbi_jelem 940;  c this number must be divisible by 4
 para swfm_ielem 8;    c this number must be divisible by 4
-para swbi_jelem [%swfm_jelem*2];
 para sc_ielem 100;
 
 para swbi_jmx [%swbi_jelem+1];
@@ -100,5 +98,5 @@ stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 =
 
 c --------------------------------------------------------
 
-write   c write the output file to disk
+c write   c write the output file to disk
 c exit

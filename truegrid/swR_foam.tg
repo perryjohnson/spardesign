@@ -2,7 +2,8 @@ c make a part for the FOAM CORE for the RIGHT SHEAR WEB
 block
 c determine the node distribution
 c   i-list (arbitrary # of plies across width of foam core)
-    1 21;
+    c 1 21;
+    1 %swfm_imx;
 c   j-list
     c 1 501;  c use half as many elements across height as in biax laminate
     1 %swfm_jmx;
