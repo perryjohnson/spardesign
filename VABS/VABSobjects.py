@@ -651,7 +651,7 @@ def reorderBadElements(nelem, elem):
         if not elem[j].is_ccw():
             elem[j].reorient()
             if not elem[j].is_ccw():
-                print '  WARNING: element #' + str(elem[j].elem_no) + ' was not properly reoriented!'
+                print '  ***WARNING*** element #' + str(elem[j].elem_no) + ' was not properly reoriented!'
                 reorder_OK = False
     return reorder_OK
 

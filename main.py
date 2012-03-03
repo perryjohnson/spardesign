@@ -3,11 +3,21 @@ import time
 # record the time when the code starts
 start_time = time.time()
 
+import os
+
 main_debug_flag = False
 runVABS_flag = True
+delete_old_VABS_files = True
 
-for i in range(1,6+1):
-    spar_station = i
+spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+# spar_stn_list = [7]  # generate grids for these spar stations (subset)
+
+spar_stn_summary = []
+for j in range(len(spar_stn_list)):
+    spar_stn_summary.append(False)
+
+for n in range(len(spar_stn_list)):
+    spar_station = spar_stn_list[n]
     if spar_station < 10:
         basefilestr = 'spar_station_0' + str(spar_station)
     else:
@@ -20,6 +30,22 @@ for i in range(1,6+1):
 
     ABAQUSfile = 'truegrid/' + basefilestr + '_abq.txt'
     vabs_filename = basefilestr + '.dat'
+
+    if delete_old_VABS_files:
+        if os.path.exists(basefilestr + '.dat'):
+            os.remove(basefilestr + '.dat')
+        if os.path.exists(basefilestr + '.dat.ech'):
+            os.remove(basefilestr + '.dat.ech')
+        if os.path.exists(basefilestr + '.dat.K'):
+            os.remove(basefilestr + '.dat.K')
+        if os.path.exists(basefilestr + '.dat.opt'):
+            os.remove(basefilestr + '.dat.opt')
+        if os.path.exists(basefilestr + '.dat.v0'):
+            os.remove(basefilestr + '.dat.v0')
+        if os.path.exists(basefilestr + '.dat.v1'):
+            os.remove(basefilestr + '.dat.v1')
+        if os.path.exists(basefilestr + '.dat.v1S'):
+            os.remove(basefilestr + '.dat.v1S')
 
     # ----------------------------------------------------------------------------------
 
@@ -34,6 +60,7 @@ for i in range(1,6+1):
     # parse the ABAQUS-formatted file
     import truegrid.ABAQUSutilities as au
     print "STATUS: interpret the ABAQUS file..."
+    print "  " + ABAQUSfile
     (nodeArray, elemArray, esetArray, number_of_nodes, number_of_elements) = au.parseABAQUS(ABAQUSfile)
 
     # ----------------------------------------------------------------------------------
@@ -87,7 +114,7 @@ for i in range(1,6+1):
     if reorder_OK:
         print "  All elements reordered properly!  :)"
     else:
-        print "  WARNING: some elements were not reordered properly!"
+        print "  ***WARNING*** some elements were not reordered properly!"
 
     x1 = -0.836
     x2 = -0.833
@@ -160,11 +187,13 @@ for i in range(1,6+1):
 
     if vabs_OK and runVABS_flag:
         # run the input file with VABS from the Windows command line
-        import os
         print ""
         print "RUNNING VABS....."
         vabs_command = r'.\VABS\VABSIII .\ '[:-1] + vabs_filename
         os.system(vabs_command)
+
+    if os.path.exists(basefilestr + '.dat.K'):
+        spar_stn_summary[n] = True
 
 # ----------------------------------------------------------------------------------
 # calculate the time it took to run the code
@@ -173,3 +202,11 @@ elapsed_min_tot = int(elapsed_time_tot/60)  # extract minutes elapsed
 elapsed_sec_tot = elapsed_time_tot % 60     # extract seconds elapsed
 print ""
 print "program completed in " + str(elapsed_min_tot) + ":" + ("%.2f" % round(elapsed_sec_tot,2)) + "  (min:sec)"
+print ""
+print "******************"
+print "summary of results"
+print "******************"
+print "spar station     successful?"
+print "------------     -----------"
+for k in range(len(spar_stn_list)):
+    print '     ' + ('%2d' % spar_stn_list[k]) + '             ' + str(spar_stn_summary[k])

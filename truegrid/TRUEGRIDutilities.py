@@ -25,37 +25,69 @@ def defineRegularExpressions():
     scPat = re.compile(r'para sc_ht.+')
     rbPat = re.compile(r'para rb_ht.+')
     swPat = re.compile(r'para sw_ht.+')
+    swfmiPat = re.compile(r'para swfm_ielem.+')
     swfmjPat = re.compile(r'para swfm_jelem.+')
+    sciPat = re.compile(r'para sc_ielem.+')
+    scjPat = re.compile(r'para sc_jelem.+')
     exitPat = re.compile(r'c exit')
     
-    return (nnPat, scPat, rbPat, swPat, swfmjPat, exitPat)
+    return (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, exitPat)
 
 
-def replaceDefaults(tgTemplate, stn, stnData, sw_foam_jelem, silent_flag=False):
-    (nnPat, scPat, rbPat, swPat, swfmjPat, exitPat) = defineRegularExpressions()
+def replaceDefaults(tgTemplate, stn, stnData, elemData, silent_flag=False):
+    (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, exitPat) = defineRegularExpressions()
     for i in range(len(tgTemplate)):
         nnMatch = nnPat.match(tgTemplate[i])
         scMatch = scPat.match(tgTemplate[i])
         rbMatch = rbPat.match(tgTemplate[i])
         swMatch = swPat.match(tgTemplate[i])
+        swfmiMatch = swfmiPat.match(tgTemplate[i])
         swfmjMatch = swfmjPat.match(tgTemplate[i])
+        sciMatch = sciPat.match(tgTemplate[i])
+        scjMatch = scjPat.match(tgTemplate[i])
         exitMatch = exitPat.match(tgTemplate[i])
         if nnMatch:
             if stn < 10:
                 tgTemplate[i] = tgTemplate[i].replace('nn','0'+str(stn))
             else:
-                tgTemplate[i] = tgTemplate[i].replace('nn',str(stn))
+                tgTemplate[i] = tgTemplate[i].replace('nn', str(stn))
         elif scMatch:
             tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['spar cap height']))
         elif rbMatch:
             tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['root buildup height']))
         elif swMatch:
             tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['shear web height']))
+        elif swfmiMatch:
+            tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['shear web foam, i-elements']))
         elif swfmjMatch:
-            tgTemplate[i] = tgTemplate[i].replace('000', str(sw_foam_jelem))
+            tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['shear web foam, j-elements']))
+        elif sciMatch:
+            tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, i-elements']))
+        elif scjMatch:
+            tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, j-elements']))
         elif exitMatch and silent_flag:
             tgTemplate[i] = tgTemplate[i].replace('c ', '')
     
+    return tgTemplate
+
+
+def removeRBentries(tgTemplate):
+    import re
+    para_rbPat = re.compile(r'para rb.+')
+    y1_or_y6Pat = re.compile(r'para y[16].+')
+    RBtitlePat = re.compile(r'c  ROOT BUILDUP.*')
+    include_rbPat = re.compile(r'include rb.+')
+    eset_rbPat = re.compile(r'eset 0 0 1 0 0 1 = rb.+')
+
+    for i in range(len(tgTemplate)):
+        para_rbMatch = para_rbPat.match(tgTemplate[i])
+        y1_or_y6Match = y1_or_y6Pat.match(tgTemplate[i])
+        RBtitleMatch = RBtitlePat.match(tgTemplate[i])
+        include_rbMatch = include_rbPat.match(tgTemplate[i])
+        eset_rbMatch = eset_rbPat.match(tgTemplate[i])
+        if para_rbMatch or y1_or_y6Match or RBtitleMatch or include_rbMatch or eset_rbMatch:
+            tgTemplate[i] = ''
+
     return tgTemplate
 
 

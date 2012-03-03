@@ -6,7 +6,7 @@ c   i-list (arbitrary # of plies across width of foam core)
     1 %swfm_imx;
 c   j-list
     c 1 501;  c use half as many elements across height as in biax laminate
-    1 %swfm_jmx;  c use half as many elements across height as in biax laminate
+    1 %swfm_jmx; 
 c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates

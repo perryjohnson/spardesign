@@ -25,17 +25,16 @@ para sc_ht 0.000;
 para rb_ht 0.000;
 para sw_ht 0.000;
 
+para swfm_ielem 000;  c this number must be divisible by 4
 para swfm_jelem 000;  c this number must be divisible by 2
+para sc_ielem 000;
+para sc_jelem 000;
 
-para swfm_ielem 8;    c this number must be divisible by 4
 para swbi_jelem [%swfm_jelem*2];
-para sc_ielem 100;
 
 para swbi_jmx [%swbi_jelem+1];
 para swfm_jmx [((%swbi_jmx-1)/2) + 1];
 para swfm_imx [%swfm_ielem+1];
-para sc_plies 2;
-para sc_imx [%sc_ielem+1];
 
 para x1 -0.836;
 para x2 -0.833;

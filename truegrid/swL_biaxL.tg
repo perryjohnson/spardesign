@@ -5,7 +5,8 @@ c   i-list (8 plies across width of biax laminate)
     1 2 3 4 5 6 7 8 9;
 c   j-list
     c 1 1001;
-    1 %swbi_jmx;
+    c 1 %swbi_jmx;
+    1 [1 + 2*%sc_jelem] [%swbi_jmx - 2*%sc_jelem] %swbi_jmx;
 c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates
@@ -30,23 +31,24 @@ c   x-coordinates (width of biax laminate)
     %x2;
 c   y-coordinates (height of biax laminate)
     c -2.3705 2.3705;
-    %y2 %y5;
+    c %y2 %y5;
+    %y2 %y3 %y4 %y5;
 c   z-coordinates
     0;
 
 c make block boundary (master #1) on right edge of mesh
 bb
 c   region
-    9 1 1  c  i-min j-min k-min
-    9 2 1  c  i-max j-max k-max
+    9 0 1  c  i-min j-min k-min
+    9 0 1  c  i-max j-max k-max
 c   interface
     1;     c  assign this interface to be #1
 
 c make block boundary (master #9) on top edge of mesh
 bb
 c   region
-    0 2 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
-    0 2 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+    0 4 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 4 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
 c   interface
     9;     c  assign this interface to be #9
 

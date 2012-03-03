@@ -259,9 +259,9 @@ def checkVABSfileForErrors(filestr):
     VABSfile = f.readlines()    # parse all characters in file into one long string
     (nanPat, nanTheta1Pat) = defineRegularExpressions()
     errorLines = findErrors(nanPat, VABSfile)
-    print 'found ' + str(len(errorLines)) + ' errors in the VABS input file'
+    print str(len(errorLines)) + ' errors found in the VABS input file'
     errorElemNums = findTheta1Errors(nanTheta1Pat, VABSfile)
-    print 'found ' + str(len(errorElemNums)) + ' theta1 errors in the VABS input file'
+    print str(len(errorElemNums)) + ' theta1 errors found in the VABS input file'
     if len(errorLines) == 0 and len(errorElemNums) == 0:
         ok_flag = True
 

@@ -3,9 +3,10 @@ block
 c determine the node distribution
 c   i-list
     c 1 201;
-    1 %sc_imx;
+    1 [1+%sc_ielem];
 c   j-list (2 plies across height of spar cap)
-    1 3;
+    c 1 3;
+    1 [1+%sc_jelem];
 c   k-list (use -1 to use 2D shell elements in this mesh)
     -1;
 c specify the coordinates

@@ -1,7 +1,7 @@
 c  define some node spacing parameters
-para foam_sp [(%swfm_imx-1)];    c spacing across foam core
-para biax_sp 8;                  c spacing across biax laminate
-para sc_sp %sc_ielem;                  c spacing across spar cap
+para foam_sp %swfm_ielem;    c spacing across foam core
+para biax_sp 8;              c spacing across biax laminate
+para sc_sp %sc_ielem;        c spacing across spar cap
 para i2 [1+%biax_sp];
 para i3 [%i2+%foam_sp];
 para i4 [%i3+%biax_sp];
