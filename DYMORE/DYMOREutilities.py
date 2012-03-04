@@ -79,7 +79,7 @@ def pullMKmatrices(MKlines, print_flag=False):
 ##    input:  <none>
 ##    output: tempFile <object>, file handle to temp file
 def makeMKfile():
-    tempFile = open('dymoreMK.txt', 'w+')
+    tempFile = open('dymoreMK.dat', 'w+')
     return tempFile
 
 
@@ -115,30 +115,50 @@ def writeDymoreMK(f, eta, cm_x2, cm_x3, mpus, i1, i2, i3, K):
     f.write(tab*3 + ' '*21 +                    ('%17.10e' % i3) + '}\n')
     f.write(tab*3 +   '@CENTRE_OF_MASS_LOCATION {' + ('%17.10e' % cm_x2) + ',\n')
     f.write(tab*3 + ' '*26 +                         ('%17.10e' % cm_x3) + '}\n')
+    f.write(tab*2 + '}\n')
+    f.write(tab*2 + '\n')
 
     return
 
 
-def writeMKmatrices(sparstn, debug_flag=False):
-    if sparstn < 10:
-        sparstnstr = '0' + str(sparstn)
-    else:
-        sparstnstr = str(sparstn)
-    vabsMK = '../VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
-    eta = 0.0
-    print "eta =", eta
-    MKlines = readFile(vabsMK)
+def writeMKmatrices(DYMOREfileHandle, vabsMKfilepath, station_data, debug_flag=False):
+    # if station_data['spar station'] < 10:
+    #     sparstnstr = '0' + str(station_data['spar station'])
+    # else:
+    #     sparstnstr = str(station_data['spar station'])
+    # vabsMK = '../VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+    if debug_flag:
+        print "eta =", station_data['eta']
+    MKlines = readFile(vabsMKfilepath)
     (cm_x2, cm_x3, mpus, i1, i2, i3, K) = pullMKmatrices(MKlines, print_flag=debug_flag)
-    dymoreMKfile = makeMKfile()
-    writeDymoreMK(dymoreMKfile, eta, cm_x2, cm_x3, mpus, i1, i2, i3, K)
-    dymoreMKfile.close()
+    writeDymoreMK(DYMOREfileHandle, station_data['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
 
     return
 
 
 if __name__ == '__main__':
-    spar_station = 24
-    print "****************"
-    print "spar station #" + str(spar_station)
-    print "****************"
-    writeMKmatrices(spar_station, debug_flag=True)
+    import read_layup as rl
+    data = rl.readLayupFile('../truegrid/monoplane_spar_layup.txt')
+
+    spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+
+    dymoreMKfile = makeMKfile()
+
+    for n in range(len(spar_stn_list)):
+        spar_station = spar_stn_list[n]
+        if spar_station < 10:
+            basefilestr = 'spar_station_0' + str(spar_station)
+        else:
+            basefilestr = 'spar_station_' + str(spar_station)
+
+        print ''
+        print '***************'
+        print basefilestr
+        print '***************'
+
+        # ----------------------------------------------------------------------------------
+
+        stationData = rl.extractStationData(data,spar_station)
+        writeMKmatrices(dymoreMKfile, stationData, debug_flag=True)
+
+    dymoreMKfile.close()

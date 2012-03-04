@@ -58,9 +58,23 @@ def extractStationData(data,stn,print_flag=False):
             print "correct station data pulled!  :)"
 
     dataDict = loadDict()
-    stationData = { 'spar cap height':     raw_stationData[dataDict['spar cap height']],
-                    'root buildup height': raw_stationData[dataDict['root buildup height']],
-                    'shear web height':    raw_stationData[dataDict['shear web height']] }
+    stationData = { 'spar station'                : int(raw_stationData[dataDict['spar station']]),
+                    'x1'                          : raw_stationData[dataDict['x1']],
+                    'eta'                         : raw_stationData[dataDict['eta']],
+                    'spar fraction'               : raw_stationData[dataDict['spar fraction']],
+                    'spar cap base'               : raw_stationData[dataDict['spar cap base']],
+                    'spar cap height'             : raw_stationData[dataDict['spar cap height']],
+                    'root buildup base'           : raw_stationData[dataDict['root buildup base']],
+                    'root buildup height'         : raw_stationData[dataDict['root buildup height']],
+                    'shear web base'              : raw_stationData[dataDict['shear web base']],
+                    'shear web height'            : raw_stationData[dataDict['shear web height']],
+                    'shear web foam base'         : raw_stationData[dataDict['shear web foam base']],
+                    'shear web biaxial GFRP base' : raw_stationData[dataDict['shear web biaxial GFRP base']],
+                    'twist degrees'               : raw_stationData[dataDict['twist degrees']],
+                    'twist radians'               : raw_stationData[dataDict['twist radians']],
+                    'k1'                          : raw_stationData[dataDict['k1']],
+                    'blade station'               : int(raw_stationData[dataDict['blade station']]),
+                    'blade fraction'              : raw_stationData[dataDict['blade fraction']] }
 
     return stationData
 

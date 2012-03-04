@@ -21,6 +21,9 @@ maxAR = 1.34
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 # spar_stn_list = [24]  # generate grids for these spar stations (subset)
 
+# read the layup file
+data = rl.readLayupFile('monoplane_spar_layup.txt')
+
 for n in range(len(spar_stn_list)):
     spar_station = spar_stn_list[n]
     if spar_station < 10:
@@ -35,7 +38,6 @@ for n in range(len(spar_stn_list)):
 
     # ----------------------------------------------------------------------------------
 
-    data = rl.readLayupFile('monoplane_spar_layup.txt')
     stationData = rl.extractStationData(data,spar_station)
     if stationData['root buildup height'] > 0.0:
         RB_flag = True
