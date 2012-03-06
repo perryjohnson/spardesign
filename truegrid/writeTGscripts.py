@@ -14,8 +14,8 @@ sw_foam_base = 0.080 # units: meters
 sc_base = 1.5 # units: meters
 
 # set parameters
-sw_foam_ielem = 10 #8 #4
-sc_ielem = 100 #80 #40
+sw_foam_ielem_init = 12 #10 #8 #4
+sc_ielem_init = 120 #100 #80 #40
 maxAR = 1.34
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
@@ -43,8 +43,8 @@ for n in range(len(spar_stn_list)):
         RB_flag = True
     else:
         RB_flag = False
-    (sw_foam_ielem,sw_foam_jelem) = tgu.calcCellNums(sw_foam_base,sw_foam_ielem,maxAR,stationData['shear web height'])
-    (sc_ielem,sc_jelem) = tgu.calcCellNums(sc_base,sc_ielem,maxAR,stationData['spar cap height'])
+    (sw_foam_ielem,sw_foam_jelem) = tgu.calcCellNums(sw_foam_base,sw_foam_ielem_init,maxAR,stationData['shear web height'])
+    (sc_ielem,sc_jelem) = tgu.calcCellNums(sc_base,sc_ielem_init,maxAR,stationData['spar cap height'])
     if sw_foam_jelem % 2 != 0:  # if this number isn't even...
         sw_foam_jelem += 1      # add 1 to it to make it even
     if sc_jelem % 2 != 0:  # if this number isn't even...
@@ -86,8 +86,8 @@ print '  spar cap base:       ' + ('%5.3f' % sc_base)      + ' m'
 
 # print parameters
 print "PARAMETERS:"
-print '  shear web foam, i-elements (initial guess): ' + ('%3d' % sw_foam_ielem)
-print '  spar cap, i-elements (initial guess):       ' + ('%3d' % sc_ielem)
+print '  shear web foam, i-elements (initial guess): ' + ('%3d' % sw_foam_ielem_init)
+print '  spar cap, i-elements (initial guess):       ' + ('%3d' % sc_ielem_init)
 print '  maximum aspect ratio for a cell:            ' + ('%6.2f' % maxAR)
 
 # calculate the time it took to run the code
