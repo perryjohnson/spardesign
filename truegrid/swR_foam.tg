@@ -54,6 +54,6 @@ c   region
 c   interface
     21;     c  assign this interface to be #21
 
-c assign the default material to be #6
-mate 6  c triaxial GFRP, theta3 = 0 degrees
+c assign the default material to be #7
+mate 7  c foam, theta3 = 0 degrees
 

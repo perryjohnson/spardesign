@@ -76,10 +76,10 @@ def pullMKmatrices(MKlines, print_flag=False):
 
 
 ## make temp file on hard disk to store DYMORE-formatted mass and stiffness matrices
-##    input:  <none>
+##    input:  dymoreFileName <string>, filename of file to write to
 ##    output: tempFile <object>, file handle to temp file
-def makeMKfile():
-    tempFile = open('dymoreMK.dat', 'w+')
+def makeMKfile(dymoreFileName):
+    tempFile = open(dymoreFileName, 'w+')
     return tempFile
 
 

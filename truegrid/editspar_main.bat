@@ -1,1 +1,1 @@
-gvim -p spar_station_nn.tg spar_station_01.tg spar_station_02.tg spar_station_03.tg spar_station_04.tg spar_station_05.tg spar_station_06.tg layers.tg
+gvim -p spar_station_nn.tg layers.tg

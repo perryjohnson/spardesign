@@ -9,8 +9,8 @@ main_debug_flag = False
 runVABS_flag = True
 delete_old_VABS_files = True
 
-spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
-# spar_stn_list = [7]  # generate grids for these spar stations (subset)
+spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
+# spar_stn_list = [7]  # generate [M] and [K] matrices for these spar stations (subset)
 
 spar_stn_summary = []
 for j in range(len(spar_stn_list)):
