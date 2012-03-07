@@ -25,7 +25,7 @@ para sc_ht 0.000;
 para rb_ht 0.000;
 para sw_ht 0.000;
 
-para swfm_ielem 000;  c this number must be divisible by 4
+para swfm_ielem 000;  c this number must be divisible by 2
 para swfm_jelem 000;  c this number must be divisible by 2
 para sc_ielem 000;
 para sc_jelem 000;

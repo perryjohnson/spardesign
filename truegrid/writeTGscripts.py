@@ -7,7 +7,7 @@ import read_layup as rl
 import TRUEGRIDutilities as tgu
 
 main_debug_flag = True
-run_TG_silent = False
+run_TG_silent = True
 
 # set constants
 sw_foam_base = 0.080 # units: meters
