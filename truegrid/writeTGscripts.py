@@ -7,22 +7,28 @@ import read_layup as rl
 import TRUEGRIDutilities as tgu
 
 main_debug_flag = True
-run_TG_silent = True
+run_TG_silent = False
 
 # set constants
 sw_foam_base = 0.080 # units: meters
 sc_base = 1.5 # units: meters
 
 # set parameters
-sw_foam_ielem_init = 12 #10 #8 #4
-sc_ielem_init = 120 #100 #80 #40
+sw_foam_ielem_init = 10 #8 #4 #12
+sc_ielem_init = 100 #80 #40 #120
 maxAR = 1.34
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
 # spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # read the layup file
-data = rl.readLayupFile('monoplane_spar_layup.txt')
+layupfile = 'biplane_spar_layup_20120306.txt'
+data = rl.readLayupFile(layupfile)
+print "******************************"
+print "******************************"
+print "reading from " + layupfile
+print "******************************"
+print "******************************"
 
 for n in range(len(spar_stn_list)):
     spar_station = spar_stn_list[n]

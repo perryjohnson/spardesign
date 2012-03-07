@@ -9,8 +9,8 @@ main_debug_flag = False
 runVABS_flag = True
 delete_old_VABS_files = True
 
-spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
-# spar_stn_list = [7]  # generate [M] and [K] matrices for these spar stations (subset)
+# spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
+spar_stn_list = [15]  # generate [M] and [K] matrices for these spar stations (subset)
 
 spar_stn_summary = []
 for j in range(len(spar_stn_list)):
@@ -138,8 +138,6 @@ for n in range(len(spar_stn_list)):
         if str(element[i].theta1) == 'nan':
             nan_flag = True
             (x,y) = element[i].middle()
-            #################### all of these numbers need to be updated for each spar station #############################
-            # (these numbers only work for spar station 4)
             if x > x1 and x < x4 and y > y2 and y < y5:  # left shear web
                 element[i].theta1 = 90.0
             elif x > x5 and x < x8 and y > y2 and y < y5:  # right shear web
@@ -152,6 +150,8 @@ for n in range(len(spar_stn_list)):
                 element[i].theta1 = 0.0
             elif x > x4 and x < x5 and y > y2 and y < y3: # bottom spar cap
                 element[i].theta1 = 180.0
+            else:
+                print '  ***ERROR*** element #' + str(element[i].elem_no) + ' still has theta1=nan!'
     if nan_flag:
         print "  theta1 nans were found and corrected!"
 

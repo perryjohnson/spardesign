@@ -5,6 +5,7 @@
 
 (2) run TrueGrid scripts and write ABAQUS output files
 (from Admin Windows Command Prompt):
+  >cd %truegrid%
   >alltg
 
 (3) translate ABAQUS output files to VABS input files and run VABS
