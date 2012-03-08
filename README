@@ -13,27 +13,27 @@
   |>cd ..
   |>run main
 
-(4) move the VABS output files to a new folder on the Desktop named for
-    today's date (e.g. YYYYMMDD = 20120305)
+(4) move the VABS output files to a new folder outside the Dropbox,
+    named for today's date (e.g. YYYYMMDD = 20120305)
 (from Cygwin):
-  $ mkdir /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD
-  $ mv spar_station_* /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD
+  $ mkdir "/cygdrive/d/data/YYYY-MM-DD (description)"
+  $ mv spar_station_* "/cygdrive/d/data/YYYY-MM-DD (description)"
 
 (5) copy each of the *.dat.K files (mass and stiffness matrices)
     back inside the VABS folder
 (from Cygwin):
-  $ cp /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/*.dat.K VABS/M_and_K_matrices
+  $ cp "/cygdrive/d/data/YYYY-MM-DD (description)/*.dat.K VABS/M_and_K_matrices"
 
 (6) move the TrueGrid output files to the Desktop
 (from Cygwin):
-  $ mkdir /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/truegrid
-  $ mkdir /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/truegrid/abaqus_output_files
-  $ mv truegrid/spar_station_*_abq.txt /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/truegrid/abaqus_output_files
+  $ mkdir "/cygdrive/d/data/YYYY-MM-DD (description)/truegrid"
+  $ mkdir "/cygdrive/d/data/YYYY-MM-DD (description)/truegrid/abaqus_output_files"
+  $ mv truegrid/spar_station_*_abq.txt "/cygdrive/d/data/YYYY-MM-DD (description)/truegrid/abaqus_output_files"
 
 (7) copy the TrueGrid input files to the Desktop
 (from Cygwin):
-  $ mkdir /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/truegrid/truegrid_input_files
-  $ cp truegrid/*.tg /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/truegrid/truegrid_input_files
+  $ mkdir "/cygdrive/d/data/YYYY-MM-DD (description)/truegrid/truegrid_input_files"
+  $ cp truegrid/*.tg "/cygdrive/d/data/YYYY-MM-DD (description)/truegrid/truegrid_input_files"
 
 (8) translate all the VABS output *.dat.K files
     to a code block (dymoreMKblock.dat) for a DYMORE input file
@@ -46,8 +46,8 @@
   ...
 
 (10) copy dymoreMKblock.dat to the Desktop
-  $ mkdir /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/dymore
-  $ cp dymoreMKblock.dat /cygdrive/c/Users/Perry/Desktop/spar_stations_01-24_dateYYYYMMDD/dymore
+  $ mkdir "/cygdrive/d/data/YYYY-MM-DD (description)/dymore"
+  $ cp dymoreMKblock.dat "/cygdrive/d/data/YYYY-MM-DD (description)/dymore"
 
 (11) run DYMORE
 (from Windows Command Prompt):

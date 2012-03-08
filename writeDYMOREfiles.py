@@ -3,30 +3,116 @@ import DYMORE.DYMOREutilities as du
 data = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate a DYMORE code block for these spar stations
-dymore_code_block_filename = 'dymoreMKblock.dat'
+# spar_stn_list = [10]  # generate a DYMORE code block for these spar stations
 
-dymoreMKfile = du.makeMKfile(dymore_code_block_filename)
+# ----------------------------------------------------------------------------------
+# BEAM PROPERTY DEFINITION
+# ------------------------
 
-for n in range(len(spar_stn_list)):
-    spar_station = spar_stn_list[n]
-    if spar_station < 10:
-        basefilestr = 'spar_station_0' + str(spar_station)
-    else:
-        basefilestr = 'spar_station_' + str(spar_station)
+# the beam property definition code block will be saved to this filename:
+dymore_MKblock_filename = 'dymoreMKblock.dat'
 
-    print ''
-    print '***************'
-    print basefilestr
-    print '***************'
+# define settings for the beam property definition
+beam_property_name = 'propSpar'
+property_definition_type = '6X6_MATRICES'
+coordinate_type = 'AXIAL_COORDINATE'
+comments = du.formatComments('beam properties are from dymoreMKblock.dat')
 
-    # ----------------------------------------------------------------------------------
+def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, property_definition_type, coordinate_type, comments, print_flag=False):
+    """
+    Write the DYMORE-formatted @BEAM_PROPERTY_DEFINITION code block to a file.
 
-    stationData = rl.extractStationData(data,spar_station)
-    if stationData['spar station'] < 10:
-        sparstnstr = '0' + str(stationData['spar station'])
-    else:
-        sparstnstr = str(stationData['spar station'])
-    vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
-    du.writeMKmatrices(dymoreMKfile, vabsMK, stationData, debug_flag=True)
+    Parameters
+    ----------
+    fName : <string>
+        A filename. The beam property definition code block will be saved here.
+    spar_stn_list : <list of ints>
+        A list of stations whose properties will be included in this code block.
+    beam_property_name : <string>
+        The label associated with this beam property definition.
+    property_definition_type : <string>
+        The format of the properties.
+        Acceptable values are: 'SECTIONAL_PROPERTIES',
+                               '6X6_MATRICES', or
+                               'PROPERTY_TABLES' 
+    coordinate_type : <string>
+        The format of coordinates along the span of the beam.
+        Acceptable values are: 'ETA_COORDINATE',
+                               'CURVILINEAR_COORDINATE', or
+                               'AXIAL_COORDINATE'
+    comments : <string>
+        The user-defined comment associated with this code block.
+    print_flag : <logical>
+        Set to True to print debugging information to the screen.
 
-dymoreMKfile.close()
+    Returns
+    -------
+    <none> (However, a file is written to hard disk.)
+    """
+
+    dymoreMKfile = du.makeFile(dymore_MKblock_filename)
+
+    tab = '  '
+
+    # write the header for the beam property definition
+    dymoreMKfile.write('@BEAM_PROPERTY_DEFINITION {\n')
+    dymoreMKfile.write(tab*1 + '@BEAM_PROPERTY_NAME {' + beam_property_name + '} {\n')
+    dymoreMKfile.write(tab*2 +   '@PROPERTY_DEFINITION_TYPE {' + property_definition_type + '}\n')
+    dymoreMKfile.write(tab*2 +   '@COORDINATE_TYPE {' + coordinate_type + '}\n')
+    dymoreMKfile.write(tab*2 +   '\n')
+
+    # write the mass and stiffness matrices for the beam property definition
+    for n in range(len(spar_stn_list)):
+        spar_station = spar_stn_list[n]
+        if spar_station < 10:
+            basefilestr = 'spar_station_0' + str(spar_station)
+        else:
+            basefilestr = 'spar_station_' + str(spar_station)
+
+        if print_flag:
+            print ''
+            print '***************'
+            print basefilestr
+            print '***************'
+
+        # ----------------------------------------------------------------------------------
+
+        stationData = rl.extractStationData(data,spar_station)
+        if stationData['spar station'] < 10:
+            sparstnstr = '0' + str(stationData['spar station'])
+        else:
+            sparstnstr = str(stationData['spar station'])
+        vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+        du.writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType=coordinate_type, debug_flag=False)
+
+    # write the footer for the beam property definition
+    dymoreMKfile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
+    dymoreMKfile.write(tab*1 + '}\n')
+    dymoreMKfile.write('}\n')
+
+    # close the file, which now contains the complete beam property defintion
+    dymoreMKfile.close()
+
+    return
+
+
+
+
+
+# ----------------------------------------------------------------------------------
+# ORIENTATION DISTRIBUTION DEFINITION
+# -----------------------------------
+
+# the orientation distribution definition code block will be saved to this filename:
+dymore_orientationblock_filename = 'dymoreOrientationBlock.dat'
+dymoreOrientationFile = du.makeFile(dymore_orientationblock_filename)
+
+
+
+
+
+# close the file, which now contains the complete orientation distribution defintion
+dymoreOrientationFile.close()
+
+
+if __name__ == '__main__':  #run this code if called directly from the command line (good for debugging)

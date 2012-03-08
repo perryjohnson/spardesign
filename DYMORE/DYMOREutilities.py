@@ -1,19 +1,59 @@
+"""
+Functions in the DYMOREutilities module can be used to translate the outputs from VABS to inputs for DYMORE.
+
+For example, if VABS was used to calculate the mass and stiffness matrices for a series of cross-sections in a beam, this module can construct the DYMORE input file for a beam with those cross-sectional properties.
+"""
+
 import numpy as np
 
 
-## read a file into memory
-##    input: filestr <string>, the filename of the file to be read into memory
-##    output: fileLines <list of strings>, a list of strings, each of which represents one line in the file
 def readFile(filestr):
+    """
+    Read a file into memory.
+
+    Parameters
+    ----------
+    filestr : <string>
+        The filename of the file to be read into memory.
+
+    Returns
+    -------
+    fileLines : <list of strings>
+        A list of strings, each of which represents one line in the file.
+    """
+
     f = open(filestr, 'r')  # read the file
     fileLines = f.readlines()  # parse all characters in file into one long string
     return fileLines
 
 
-## define regular expressions to search for mass and stiffness matrices in VABS-formatted output file
-##    input: <none>
-##    output: nnPat <object>, regex pattern for 'nn'
 def defineRegularExpressions():
+    """
+    Define regular expressions to search for mass and stiffness matrices in a 
+    VABS-formatted output file.
+
+    Parameters
+    ----------
+    <none>
+
+    Returns
+    -------
+    cm_x2_pat : <pattern object>
+        The regex pattern for the x2-coordinate of the center of mass.
+    cm_x3_pat : <pattern object>
+        The regex pattern for the x3-coordinate of the center of mass.
+    mpus_pat : <pattern object>
+        The regex pattern for the mass per unit span.
+    i1_pat : <pattern object>
+        The regex pattern for the moment of inertia about the x1-axis.
+    i2_pat : <pattern object>
+        The regex pattern for the moment of inertia about the x2-axis.
+    i3_pat : <pattern object>
+        The regex pattern for the moment of inertia about the x3-axis.
+    K_head_pat : <pattern object>
+        The regex pattern for the Timoshenko Stiffness Matrix header.
+    """
+
     import re
     cm_x2_pat = re.compile(r'\s\sXm2 =.+')
     cm_x3_pat = re.compile(r'\s\sXm3 =.+')
@@ -27,6 +67,36 @@ def defineRegularExpressions():
 
 
 def pullMKmatrices(MKlines, print_flag=False):
+    """
+    Pull the numerical values of the mass and stiffness matrices from the VABS 
+    output file (*.dat.K).
+
+    Parameters
+    ----------
+    MKlines : <list of strings>
+        The contents of the VABS output file (*.dat.K).
+        Each string is a line from the VABS output file.
+    print_flag : <logical>
+        Set to True to print out extra debugging information to the screen.
+
+    Returns
+    -------
+    cm_x2 : <float>
+        The x2-coordinate of the center of mass.
+    cm_x3 : <float>
+        The x3-coordinate of the center of mass.
+    mpus : <float>
+        The mass per unit span.
+    i1 : <float>
+        The moment of inertia about the x1-axis.
+    i2 : <float>
+        The moment of inertia about the x2-axis.
+    i3 : <float>
+        The moment of inertia about the x3-axis.
+    K : <np.array>
+        The Timoshenko stiffness matrix.
+    """
+
     (cm_x2_pat, cm_x3_pat, mpus_pat, i1_pat, i2_pat, i3_pat, K_head_pat) = defineRegularExpressions()
 
     for i in range(len(MKlines)):
@@ -39,17 +109,17 @@ def pullMKmatrices(MKlines, print_flag=False):
         K_head_match = K_head_pat.match(MKlines[i])
 
         if cm_x2_match:
-            cm_x2 = float(MKlines[i].replace('Xm2 =',''))
+            cm_x2 = float(MKlines[i].replace('Xm2 =', ''))
         elif cm_x3_match:
-            cm_x3 = float(MKlines[i].replace('Xm3 =',''))
+            cm_x3 = float(MKlines[i].replace('Xm3 =', ''))
         elif mpus_match:
-            mpus = float(MKlines[i].replace('Mass Per Unit Span                     =',''))
+            mpus = float(MKlines[i].replace('Mass Per Unit Span                     =', ''))
         elif i1_match:
-            i1 = float(MKlines[i].replace('Mass Moments of Intertia about x1 axis =',''))
+            i1 = float(MKlines[i].replace('Mass Moments of Intertia about x1 axis =', ''))
         elif i2_match:
-            i2 = float(MKlines[i].replace('Mass Moments of Intertia about x2 axis =',''))
+            i2 = float(MKlines[i].replace('Mass Moments of Intertia about x2 axis =', ''))
         elif i3_match:
-            i3 = float(MKlines[i].replace('Mass Moments of Intertia about x3 axis =',''))
+            i3 = float(MKlines[i].replace('Mass Moments of Intertia about x3 axis =', ''))
         elif K_head_match:
             K_head_line = i
 
@@ -75,34 +145,85 @@ def pullMKmatrices(MKlines, print_flag=False):
     return (cm_x2, cm_x3, mpus, i1, i2, i3, K)
 
 
-## make temp file on hard disk to store DYMORE-formatted mass and stiffness matrices
-##    input:  dymoreFileName <string>, filename of file to write to
-##    output: tempFile <object>, file handle to temp file
-def makeMKfile(dymoreFileName):
+def makeFile(dymoreFileName):
+    """
+    Make a temporary file on the hard disk to store DYMORE-formatted data.
+
+    Parameters
+    ----------
+    dymoreFileName : <string>
+        The filename of the file to write to.
+       
+    Returns
+    -------
+    tempFile : <file object>
+        A file handle to the temporary file.
+    """
+
     tempFile = open(dymoreFileName, 'w+')
     return tempFile
 
 
-def writeDymoreMK(f, eta, cm_x2, cm_x3, mpus, i1, i2, i3, K):
-    # example output:
-    #
-    # @ETA_COORDINATE {0.00000e+00} {
-    #   @STIFFNESS_MATRIX { 7.6443255182E+09,   -3.5444961981E-04,   -1.5092432335E-03,    3.3599749794E+06,    2.7710007447E-01,    4.1602501550E-02,
-    #                                            2.8284702841E+08,   -2.8863166160E+01,   -4.5930836014E-01,   -3.3517886643E+05,    3.4162114776E-03,
-    #                                                                 3.5606703330E+08,   -4.0749872012E-01,    3.6079611429E-02,   -4.2577508629E+04,
-    #                                                                                      8.8773955810E+08,    1.8897378940E-03,    8.3869473951E-04,
-    #                                                                                                           4.5282893600E+10,   -5.7686739280E-02,
-    #                                                                                                                                2.2625281359E+09}
-    #   @MASS_PER_UNIT_SPAN {7.1224712000E+02}
-    #   @MOMENTS_OF_INERTIA {3.9569408290E+03,
-    #                        3.6961203640E+03,
-    #                        2.6082046495E+02}
-    #   @CENTRE_OF_MASS_LOCATION {-1.6834618673E-17,
-    #                             -1.1472480873E-16}
-    # }
+def writeDymoreMK(f, CoordType, coord, cm_x2, cm_x3, mpus, i1, i2, i3, K):
+    """
+    Description.
+
+    Parameters
+    ----------
+    f : <file object>
+        The file handle that data will be written to.
+    CoordType : <string>
+        Acceptable values are: 'ETA_COORDINATE',
+                               'CURVILINEAR_COORDINATE', or
+                               'AXIAL_COORDINATE'
+    coord : <float>
+        The spanwise coordinate of this cross-section.
+        This coordinate should match the CoordType specified above.
+    cm_x2 : <float>
+        The x2-coordinate of the center of mass.
+    cm_x3 : <float>
+        The x3-coordinate of the center of mass.
+    mpus : <float>
+        The mass per unit span.
+    i1 : <float>
+        The moment of inertia about the x1-axis.
+    i2 : <float>
+        The moment of inertia about the x2-axis.
+    i3 : <float>
+        The moment of inertia about the x3-axis.
+    K : <np.array>
+        The Timoshenko stiffness matrix.
+
+    Returns
+    -------
+    <none>
+
+    Example output (written to a file)
+    ----------------------------------
+    @ETA_COORDINATE {0.00000e+00} {
+      @STIFFNESS_MATRIX { 7.6443255182E+09,   -3.5444961981E-04,   -1.5092432335E-03,    3.3599749794E+06,    2.7710007447E-01,    4.1602501550E-02,
+                                               2.8284702841E+08,   -2.8863166160E+01,   -4.5930836014E-01,   -3.3517886643E+05,    3.4162114776E-03,
+                                                                    3.5606703330E+08,   -4.0749872012E-01,    3.6079611429E-02,   -4.2577508629E+04,
+                                                                                         8.8773955810E+08,    1.8897378940E-03,    8.3869473951E-04,
+                                                                                                              4.5282893600E+10,   -5.7686739280E-02,
+                                                                                                                                   2.2625281359E+09}
+      @MASS_PER_UNIT_SPAN {7.1224712000E+02}
+      @MOMENTS_OF_INERTIA {3.9569408290E+03,
+                           3.6961203640E+03,
+                           2.6082046495E+02}
+      @CENTRE_OF_MASS_LOCATION {-1.6834618673E-17,
+                                -1.1472480873E-16}
+    }
+    """
 
     tab = '  '
-    f.write(tab*2 + '@ETA_COORDINATE {' + ('%11.5e' % eta) + '} {\n')
+    if CoordType == 'ETA_COORDINATE':
+        f.write(tab*2 + '@ETA_COORDINATE {' + ('%11.5e' % coord) + '} {\n')
+    elif CoordType == 'CURVILINEAR_COORDINATE':
+        # f.write(tab*2 + '@CURVILINEAR_COORDINATE {' + ('%11.5e' % coord) + '} {\n')
+        print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
+    elif CoordType == 'AXIAL_COORDINATE':
+        f.write(tab*2 + '@AXIAL_COORDINATE {' + ('%11.5e' % coord) + '} {\n')
     f.write(tab*3 +   '@STIFFNESS_MATRIX {' + ('%17.10e' % K[0,0]) + ',' + ('%20.10e' % K[0,1]) + ',' + ('%20.10e' % K[0,2]) + ',' + ('%20.10e' % K[0,3]) + ',' + ('%20.10e' % K[0,4]) + ',' + ('%20.10e' % K[0,5]) + ',' + '\n')
     f.write(tab*3 + ' '*37 +                                               ('%20.10e' % K[1,1]) + ',' + ('%20.10e' % K[1,2]) + ',' + ('%20.10e' % K[1,3]) + ',' + ('%20.10e' % K[1,4]) + ',' + ('%20.10e' % K[1,5]) + ',' + '\n')
     f.write(tab*3 + ' '*(37+21*1) +                                                                     ('%20.10e' % K[2,2]) + ',' + ('%20.10e' % K[2,3]) + ',' + ('%20.10e' % K[2,4]) + ',' + ('%20.10e' % K[2,5]) + ',' + '\n')
@@ -121,44 +242,215 @@ def writeDymoreMK(f, eta, cm_x2, cm_x3, mpus, i1, i2, i3, K):
     return
 
 
-def writeMKmatrices(DYMOREfileHandle, vabsMKfilepath, station_data, debug_flag=False):
-    # if station_data['spar station'] < 10:
-    #     sparstnstr = '0' + str(station_data['spar station'])
-    # else:
-    #     sparstnstr = str(station_data['spar station'])
-    # vabsMK = '../VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+def writeMKmatrices(DYMOREfileHandle, vabsMKfilepath, station_data, CoordType='ETA_COORDINATE', debug_flag=False):
+    """
+    Write the mass and stiffness matrices for one cross-section to a file.
+
+    Parameters
+    ----------
+    DYMOREfileHandle : <file object>
+        The file handle that data will be written to.
+    vabsMKfilepath : <string>
+        The path to the VABS file that contains the mass and stiffness matrices\
+        for this cross-section.
+        Example: 'VABS/M_and_K_matrices/spar_station_04.dat.K'
+    station_data : <dictionary>
+        The dictionary of layup parameters for this spar station.
+    CoordType : <string>
+        Acceptable values are: 'ETA_COORDINATE',
+                               'CURVILINEAR_COORDINATE', or
+                               'AXIAL_COORDINATE'
+    debug_flag : <logical>
+        Set to True to print out extra debugging information to the screen.
+
+    Returns
+    -------
+    <none>
+    """
+
     if debug_flag:
-        print "eta =", station_data['eta']
+        print "CoordType = " + CoordType
+        if CoordType == 'ETA_COORDINATE':
+            print "eta =", station_data['eta']
+        elif CoordType == 'CURVILINEAR_COORDINATE':
+            # print "s =", station_data['s']
+            print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
+        elif CoordType == 'AXIAL_COORDINATE':
+            print "x1 =", station_data['x1']
     MKlines = readFile(vabsMKfilepath)
     (cm_x2, cm_x3, mpus, i1, i2, i3, K) = pullMKmatrices(MKlines, print_flag=debug_flag)
-    writeDymoreMK(DYMOREfileHandle, station_data['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+    if CoordType == 'ETA_COORDINATE':
+        writeDymoreMK(DYMOREfileHandle, CoordType, station_data['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+    elif CoordType == 'CURVILINEAR_COORDINATE':
+        # writeDymoreMK(DYMOREfileHandle, CoordType, station_data['s'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+        print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
+    elif CoordType == 'AXIAL_COORDINATE':
+        writeDymoreMK(DYMOREfileHandle, CoordType, station_data['x1'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
 
     return
 
 
-if __name__ == '__main__':
-    import read_layup as rl
-    data = rl.readLayupFile('../truegrid/monoplane_spar_layup.txt')
+def formatComments(comments):
+    """
+    Format the comments for a Dymore code block. Maximum comment length is 5 lines of 120 characters each
 
-    spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+    Parameters
+    ----------
+    comments : <string>
+        The original, unformatted comment.
 
-    dymoreMKfile = makeMKfile()
+    Returns
+    -------
+    comments : <string>
+        The comment, reformatted for Dymore.
+    """
 
-    for n in range(len(spar_stn_list)):
-        spar_station = spar_stn_list[n]
-        if spar_station < 10:
-            basefilestr = 'spar_station_0' + str(spar_station)
+    if len(comments) > 120:
+        if len(comments) < 120*2:    # break the comment up into 2 lines
+            line1 = comments[0:120]
+            line2 = comments[120:]
+            comments = line1 + '/' + line2
+        elif len(comments) < 120*3:  # break the comment up into 3 lines
+            line1 = comments[0:120]
+            line2 = comments[120:240]
+            line3 = comments[240:]
+            comments = line1 + '/' + line2 + '/' + line3
+        elif len(comments) < 120*4:  # break the comment up into 4 lines
+            line1 = comments[0:120]
+            line2 = comments[120:240]
+            line3 = comments[240:360]
+            line4 = comments[360:]
+            comments = line1 + '/' + line2 + '/' + line3 + '/' + line4
+        elif len(comments) < 120*5:  # break the comment up into 5 lines
+            line1 = comments[0:120]
+            line2 = comments[120:240]
+            line3 = comments[240:360]
+            line4 = comments[360:480]
+            line5 = comments[480:]
+            comments = line1 + '/' + line2 + '/' + line3 + '/' + line4 + '/' + line5
         else:
-            basefilestr = 'spar_station_' + str(spar_station)
+            print "***WARNING*** the comment was too long and was truncated to 600 characters!"
+            line1 = comments[0:120]
+            line2 = comments[120:240]
+            line3 = comments[240:360]
+            line4 = comments[360:480]
+            line5 = comments[480:600]
+            comments = line1 + '/' + line2 + '/' + line3 + '/' + line4 + '/' + line5
 
-        print ''
-        print '***************'
-        print basefilestr
-        print '***************'
+    return comments
 
-        # ----------------------------------------------------------------------------------
 
-        stationData = rl.extractStationData(data,spar_station)
-        writeMKmatrices(dymoreMKfile, stationData, debug_flag=True)
+# def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, property_definition_type, coordinate_type, comments, print_flag=False):
+#     """
+#     Write the DYMORE-formatted @BEAM_PROPERTY_DEFINITION code block to a file.
 
-    dymoreMKfile.close()
+#     Parameters
+#     ----------
+#     fName : <string>
+#         A filename. The beam property definition code block will be saved here.
+#     spar_stn_list : <list of ints>
+#         A list of stations whose properties will be included in this code block.
+#     beam_property_name : <string>
+#         The label associated with this beam property definition.
+#     property_definition_type : <string>
+#         The format of the properties.
+#         Acceptable values are: 'SECTIONAL_PROPERTIES',
+#                                '6X6_MATRICES', or
+#                                'PROPERTY_TABLES' 
+#     coordinate_type : <string>
+#         The format of coordinates along the span of the beam.
+#         Acceptable values are: 'ETA_COORDINATE',
+#                                'CURVILINEAR_COORDINATE', or
+#                                'AXIAL_COORDINATE'
+#     comments : <string>
+#         The user-defined comment associated with this code block.
+#     print_flag : <logical>
+#         Set to True to print debugging information to the screen.
+
+#     Returns
+#     -------
+#     <none> (However, a file is written to hard disk.)
+#     """
+
+#     dymoreMKfile = makeFile(fName)
+
+#     tab = '  '
+
+#     # write the header for the beam property definition
+#     dymoreMKfile.write('@BEAM_PROPERTY_DEFINITION {\n')
+#     dymoreMKfile.write(tab*1 + '@BEAM_PROPERTY_NAME {' + beam_property_name + '} {\n')
+#     dymoreMKfile.write(tab*2 +   '@PROPERTY_DEFINITION_TYPE {' + property_definition_type + '}\n')
+#     dymoreMKfile.write(tab*2 +   '@COORDINATE_TYPE {' + coordinate_type + '}\n')
+#     dymoreMKfile.write(tab*2 +   '\n')
+
+#     # write the mass and stiffness matrices for the beam property definition
+#     for n in range(len(spar_stn_list)):
+#         spar_station = spar_stn_list[n]
+#         if spar_station < 10:
+#             basefilestr = 'spar_station_0' + str(spar_station)
+#         else:
+#             basefilestr = 'spar_station_' + str(spar_station)
+
+#         if print_flag:
+#             print ''
+#             print '***************'
+#             print basefilestr
+#             print '***************'
+
+#         # ----------------------------------------------------------------------------------
+
+#         stationData = rl.extractStationData(data,spar_station)
+#         if stationData['spar station'] < 10:
+#             sparstnstr = '0' + str(stationData['spar station'])
+#         else:
+#             sparstnstr = str(stationData['spar station'])
+#         vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+#         writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType=coordinate_type, debug_flag=print_flag)
+
+#     # write the footer for the beam property definition
+#     dymoreMKfile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
+#     dymoreMKfile.write(tab*1 + '}\n')
+#     dymoreMKfile.write('}\n')
+
+#     # close the file, which now contains the complete beam property defintion
+#     dymoreMKfile.close()
+
+#     return
+
+
+if __name__ == '__main__':  #run this code if DYMOREutilities is called directly from the command line (good for debugging)
+    print "hello world"
+    # import numpy as np
+    # data = np.loadtxt('../truegrid/monoplane_spar_layup.txt')  # read layup file and store all data in one array
+
+    # # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    # spar_stn_list = [10]
+
+    # dymoreMKfile = makeFile('dymoreMK_temp.dat')
+
+    # for n in range(len(spar_stn_list)):
+    #     spar_station = spar_stn_list[n]
+    #     if spar_station < 10:
+    #         basefilestr = 'spar_station_0' + str(spar_station)
+    #     else:
+    #         basefilestr = 'spar_station_' + str(spar_station)
+
+    #     print ''
+    #     print '***************'
+    #     print basefilestr
+    #     print '***************'
+
+
+
+    #     # ----------------------------------------------------------------------------------
+
+    #     stationData = rl.extractStationData(data,spar_station)
+    #     if stationData['spar station'] < 10:
+    #         sparstnstr = '0' + str(stationData['spar station'])
+    #     else:
+    #         sparstnstr = str(stationData['spar station'])
+    #     vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+
+    #     writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType='ETA_COORDINATE', debug_flag=True)
+
+    # dymoreMKfile.close()
