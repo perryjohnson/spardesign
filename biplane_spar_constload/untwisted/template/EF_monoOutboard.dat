@@ -1,3 +1,81 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeEF} {
+    @CONNECTED_TO_VERTICES {vertexE, vertexF}
+    @CURVE_NAME {curveEF}
+  }
+}
+
+@BEAM_DEFINITION {
+  @BEAM_NAME {EF_monoOutboard} {
+    @EDGE_NAME {edgeEF}
+    @BEAM_PROPERTY_NAME {propEF}
+    @COMMENTS {the monoplane outboard region of the spar}
+  }
+}
+
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveEF} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {2}
+      @DEGREE_OF_CURVE {1}
+      @RATIONAL_CURVE_FLAG {NO}
+      @END_POINT_0 {pointE}
+      @END_POINT_1 {pointF}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDistEF}
+      @INITIAL_COORDINATE {0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshEF}
+    @COMMENTS {straight line from the outboard joint (pointE) to the tip (pointF)}
+  }
+}
+
+@ORIENTATION_DISTRIBUTION_DEFINITION {
+  @ORIENTATION_DISTRIBUTION_NAME {OriDistEF} {
+    @ORIENTATION_DEFINITION_TYPE {TWIST_ANGLE}
+    @COORDINATE_TYPE {ETA_COORDINATE}
+    
+    @ETA_COORDINATE {0.00000e+00}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {1.93853e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {3.47518e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {3.85343e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {5.01182e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {5.76832e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {7.70686e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {8.84161e-01}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @ETA_COORDINATE {1.00000e+00}
+    @TWIST_ANGLE {0.00000e+00}
+    
+    @COMMENTS {eta coordinates for spar stations 16-24}
+  }
+}
+
+@CURVE_MESH_PARAMETERS_DEFINITION {
+  @CURVE_MESH_PARAMETERS_NAME {meshEF} {
+    @NUMBER_OF_ELEMENTS {8}
+    @ORDER_OF_ELEMENTS {3}
+    @COMMENTS {models the root region with 8 cubic beam elements}
+  }
+}
+
 @BEAM_PROPERTY_DEFINITION {
   @BEAM_PROPERTY_NAME {propEF} {
     @PROPERTY_DEFINITION_TYPE {6X6_MATRICES}
@@ -141,3 +219,18 @@
     @COMMENTS {beam properties for spar stations 16-24}
   }
 }
+
+@GRAPHICAL_PARAMETERS_DEFINITION {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamEF} {
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME {surveyEF} {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE {DISPLACEMENTS}
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+

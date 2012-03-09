@@ -1,0 +1,941 @@
+
+     ****************************************************
+     *                                                  *
+     *         GEORGIA INSTITUTE OF TECHNOLOGY          *
+     *                                                  *
+     *          - - -     D Y M O R E    - - -          *
+     *          - - -     Version 3.0    - - -          *
+     *                                                  *
+     * FINITE ELEMENT BASED MULTI-BODY DYNAMIC ANALYSIS *
+     *                                                  *
+     ****************************************************
+     ---  Version: Georgia Tech Dymore V.3
+
+     --- Run date: Thu Mar 08 18:45:21 2012
+
+
+
+
+                    ***********************************
+                    *   @PROCESS_CONTROL_DEFINITION   *
+                    ***********************************
+
+ List of design parameters for assembly : [Master assembly].
+ Design parameter [#pointA_xyz] = ( 0.00000e+000,  0.00000e+000,  0.00000e+000)
+ Design parameter [#pointB_xyz] = ( 2.30000e+000,  0.00000e+000,  0.00000e+000)
+ Design parameter [#pointC_xyz] = ( 1.71000e+001,  0.00000e+000,  7.63000e+000)
+ Design parameter [#pointD_xyz] = ( 3.34000e+001,  0.00000e+000,  6.92000e+000)
+ Design parameter [#pointE_xyz] = ( 4.96000e+001,  0.00000e+000,  0.00000e+000)
+ Design parameter [#pointF_xyz] = ( 9.19000e+001,  0.00000e+000,  0.00000e+000)
+ Design parameter [#pointG_xyz] = ( 1.71000e+001,  0.00000e+000, -7.63000e+000)
+ Design parameter [#pointH_xyz] = ( 3.34000e+001,  0.00000e+000, -6.92000e+000)
+
+
+
+                    *************************
+                    *   @MODEL_DEFINITION   *
+                    *************************
+
+
+
+
+      ---------------------------------
+      |   @TIME_FUNCTION_DEFINITION   |
+      ---------------------------------
+
+
+ *** Time function: [scheduleload],
+ Time function type : [USER_DEFINED].
+ Time = ( 0.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 1.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 2.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 3.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 4.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 5.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 6.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 7.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 8.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 9.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 1.00000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.10000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.20000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.30000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.40000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.50000e+001).  Function value = ( 1.00000e+000).
+ Comment 1 : [gives a 15-second constant time function].
+
+
+
+      -------------------------
+      |   @POINT_DEFINITION   |
+      -------------------------
+
+
+ *** Point: [pointA],
+ Coordinates = ( 0.00000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the root of the spar].
+
+ *** Point: [pointB],
+ Coordinates = ( 2.30000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the inboard joint].
+
+ *** Point: [pointC],
+ Coordinates = ( 1.71000e+001,  0.00000e+000,  7.63000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of root transition to upper airfoil].
+
+ *** Point: [pointD],
+ Coordinates = ( 3.34000e+001,  0.00000e+000,  6.92000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of joint transition to upper airfoil].
+
+ *** Point: [pointE],
+ Coordinates = ( 4.96000e+001,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the outboard joint].
+
+ *** Point: [pointF],
+ Coordinates = ( 9.19000e+001,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the tip of the spar].
+
+ *** Point: [pointG],
+ Coordinates = ( 1.71000e+001,  0.00000e+000, -7.63000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of root transition to lower airfoil].
+
+ *** Point: [pointH],
+ Coordinates = ( 3.34000e+001,  0.00000e+000, -6.92000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of joint transition to lower airfoil].
+
+
+
+      --------------------------
+      |   @VERTEX_DEFINITION   |
+      --------------------------
+
+
+ *** Vertex: [vertexA],
+ At point : [pointA].
+
+ *** Vertex: [vertexB],
+ At point : [pointB].
+
+ *** Vertex: [vertexC],
+ At point : [pointC].
+
+ *** Vertex: [vertexD],
+ At point : [pointD].
+
+ *** Vertex: [vertexE],
+ At point : [pointE].
+
+ *** Vertex: [vertexF],
+ At point : [pointF].
+
+ *** Vertex: [vertexG],
+ At point : [pointG].
+
+ *** Vertex: [vertexH],
+ At point : [pointH].
+
+
+
+      ------------------------
+      |   @INCLUDE_COMMAND   |
+      ------------------------
+
+
+ *** Include command: [includeLoads],
+ Active command : [YES].
+ List of file names:
+ loadDist.dat
+
+
+
+      ------------------------
+      |   @INCLUDE_COMMAND   |
+      ------------------------
+
+
+ *** Include command: [includeParts],
+ Active command : [YES].
+ List of file names:
+ AB_root.dat
+ BC_rootTrans_upper.dat
+ BG_rootTrans_lower.dat
+ CD_straightBiplane_upper.dat
+ GH_straightBiplane_lower.dat
+ DE_jointTrans_upper.dat
+ HE_jointTrans_lower.dat
+ EF_monoOutboard.dat
+
+
+
+      ------------------------------------
+      |   @CREATE_FINITE_ELEMENT_MODEL   |
+      ------------------------------------
+
+ Analysis type : [STATIC].
+
+
+
+      --------------------------------
+      |   @FINITE_ELEMENT_ANALYSIS   |
+      --------------------------------
+
+
+ *** Analysis control parameters: [AnalysisControlParameters],
+ Maximum number of time steps = (   10).
+ Simulation initial time = ( 0.00000e+000). [sec].
+ Simulation final time = ( 1.50000e+001). [sec].
+ Minimum time step size = ( 1.00000e-006). [sec].
+ Maximum time step size = ( 5.00000e-002). [sec].
+ Reference energy level = ( 6.00000e+005). [J].
+
+ *** Step control parameters: [Step1],
+ Archival frequency = (    1).  Reuse number = (  100).
+ Requested number of eigenvalues = (   10).
+ Eigenvalues print flag = (    0).
+ Gyroscopic term: : [NO].
+ Eigen spectrum shift = ( 0.00000e+000).
+ Time Step Size = ( 1.00000e+000). [sec].
+ Maximum number of iterations = (   10).
+ Factorization strategy = (    1).
+ Convergence norm type : [ENERGY LIKE].  Convergence tolerance = ( 1.00000e-006).
+ Maximum number of reject = (    5).
+ Average stiffness = ( 1.00000e+006).  Average mass = ( 0.00000e+000).
+
+
+
+      ---------------------------------
+      |   @POST_PROCESSING_ANALYSIS   |
+      ---------------------------------
+
+
+ *** Graphical control parameters: [GraphicsControlParameters],
+ Time step size = ( 0.00000e+000). [sec].
+ Reference frame : [INERTIAL].
+ Eigenvectors scaling factor = ( 1.00000e-001).
+ Number of cycles for modal animation = (    5).
+ Number of frames per cycle = (  100).
+ Vector field type : [FORCES].  Scaling factor = ( 1.00000e-001).
+ Vector field type : [STRAINS].  Scaling factor = ( 1.00000e-001).
+ Vector field type : [VELOCITIES].  Scaling factor = ( 1.00000e-001).
+
+ *** Plotting control parameters: [PlottingControlParameters],
+ Graph  plot format : [PNG].
+        plot Size   : [MEDIUM].
+ Map    plot format : [PNG].
+        plot Size   : [LARGE].
+ Map    plot format : [EPS].
+        plot Size   : [LARGE].
+ Map    plot format : [TRM].
+        plot Size   : [LARGE].
+ Object plot format : [PNG].
+        plot Size   : [LARGE].
+ Object plot format : [EPS].
+        plot Size   : [LARGE].
+ Object plot format : [TRM].
+        plot Size   : [LARGE].
+ Sensor plot format : [PNG].
+        plot Size   : [LARGE].
+ Sensor plot format : [EPS].
+        plot Size   : [LARGE].
+ Sensor plot format : [TRM].
+        plot Size   : [LARGE].
+ Signal plot format : [PNG].
+        plot Size   : [MEDIUM].
+ Survey plot format : [PNG].
+        plot Size   : [LARGE].
+ Survey plot format : [EPS].
+        plot Size   : [LARGE].
+ Survey plot format : [TRM].
+        plot Size   : [LARGE].
+ Sensor memory size = (  100).
+ Map    memory size = (   10).
+
+ *** View parameters definition: [ViewParamName],
+ View reference point = ( 5.00000e-001,  5.00000e-001,  5.00000e-001)
+ View size = ( 1.20000e+000,  1.20000e+000,  1.20000e+000)
+ Projection reference point = (-7.58693e-001, -5.03030e-004, -8.33261e-001)
+ Projection eye vector = ( 0.00000e+000, -1.00000e+000,  0.00000e+000)
+ Projection up vector = ( 0.00000e+000,  0.00000e+000,  1.00000e+000)
+ Projection viewport = (-2.00000e-001,  1.72102e+000, -5.00000e-002,  5.00000e-002)
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+  --- Executing include command : [includeLoads].
+ 
+ --- Opening data file : [loadDist.dat].
+
+
+
+      -----------------------------
+      |   @EDGE_LOAD_DEFINITION   |
+      -----------------------------
+
+
+ *** Edge load: [AB_load_rootRegion],
+ Edge : [edgeAB].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 1.00000e+003).
+ Time function : [scheduleload].
+
+ *** Edge load: [BC_load_rootTrans_upper],
+ Edge : [edgeBC].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [CD_load_straightBiplane_upper],
+ Edge : [edgeCD].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [DE_load_jointTrans_upper],
+ Edge : [edgeDE].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [BG_load_rootTrans_lower],
+ Edge : [edgeBG].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [GH_load_straightBiplane_lower],
+ Edge : [edgeGH].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [HE_load_jointTrans_lower],
+ Edge : [edgeHE].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+ *** Edge load: [EF_load_monoOutboard],
+ Edge : [edgeEF].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 1.00000e+003).
+ Time function : [scheduleload].
+
+
+
+      ------------------------------
+      |   @DATA_TABLE_DEFINITION   |
+      ------------------------------
+
+
+ *** Data table: [constloaddistTable],
+ Coordinate type : [ETA_COORDINATE].
+ Data type : [FORCE_ALONG_I3].
+ X entry = ( 0.00000e+000).  Y entry = (-1.00000e+000). [N/m].
+ X entry = ( 1.00000e+000).  Y entry = (-1.00000e+000). [N/m].
+ Comment 1 : [this defines the load on any edge (beam) to have a constant load distribution].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeLoads].
+ --- Closing data file : [loadDist.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+  --- Executing include command : [includeParts].
+ 
+ --- Opening data file : [AB_root.dat].
+
+
+
+      ------------------------
+      |   @EDGE_DEFINITION   |
+      ------------------------
+
+
+ *** Edge: [edgeAB],
+ Connected to vertices: [vertexA, vertexB].
+ Curve : [curveAB].
+
+
+
+      ------------------------
+      |   @BEAM_DEFINITION   |
+      ------------------------
+
+
+ *** Beam: [AB_root],
+ Edge : [edgeAB].
+ Property table : [propAB].
+ Comment 1 : [the root region of the spar].
+
+
+
+      -------------------------
+      |   @CURVE_DEFINITION   |
+      -------------------------
+
+
+ *** Curve: [curveAB],
+ Is defined in frame : [INERTIAL].
+
+      ---  Curve points  ---- 
+
+ Number of control points = (    2).
+ Curve degree = (    1).
+ Rational curve : [NO].
+ End point 0 : [pointA].
+ End point 1 : [pointB].
+ Orientation distribution : [OriDistAB].
+ Initial coordinate = ( 0.00000e+000). [m].
+ Curve mesh parameters : [meshAB].
+ Comment 1 : [straight line from the root (pointA) to the inboard joint (pointB)].
+
+
+
+      --------------------------------------------
+      |   @ORIENTATION_DISTRIBUTION_DEFINITION   |
+      --------------------------------------------
+
+
+ *** Orientation distribution: [OriDistAB],
+ Orientation definition type : [TWIST_ANGLE].
+ Coordinate type : [ETA_COORDINATE].
+ ETA_COORDINATE = ( 0.00000e+000).
+ Twist angle = ( 0.00000e+000). [deg].
+ ETA_COORDINATE = ( 8.69565e-002).
+ Twist angle = ( 0.00000e+000). [deg].
+ ETA_COORDINATE = ( 1.00000e+000).
+ Twist angle = ( 0.00000e+000). [deg].
+ Comment 1 : [eta coordinates for spar stations 1-3].
+
+
+
+      -----------------------------------------
+      |   @CURVE_MESH_PARAMETERS_DEFINITION   |
+      -----------------------------------------
+
+
+ *** Curve mesh parameters: [meshAB],
+ Number of elements = (    2).
+ Order of the elements = (    3).
+ Comment 1 : [models the root region with 2 cubic beam elements].
+
+
+
+      --------------------------------------
+      |   @BOUNDARY_CONDITION_DEFINITION   |
+      --------------------------------------
+
+
+ *** Boundary condition: [clampA],
+ Entity : [vertexA].
+ Displacements boundary conditions = (    1,     1,     1).
+ Rotation      boundary conditions = (    1,     1,     1).
+
+
+
+      ---------------------------------
+      |   @BEAM_PROPERTY_DEFINITION   |
+      ---------------------------------
+
+
+ *** Beam property table: [propAB],
+ Property definition type : [6X6_MATRICES].
+ Coordinate type : [ETA_COORDINATE].
+ ETA_COORDINATE = ( 0.00000e+000).
+ Stiffness matrix = (
+  8.07327e+009,  3.53426e+002, -1.27035e+001,  3.12853e+006, -3.42972e+003, -7.35535e+002, 
+  3.74475e+008,  2.98810e+001,  1.52553e+002,  1.48402e+006,  1.31434e+002,  3.69434e+008, 
+ -4.33780e+001, -2.36137e+001,  1.44304e+005,  9.26478e+008, -2.69239e+002, -5.38899e+001, 
+  4.83386e+010, -1.36429e+003,  2.53049e+009)
+ Mass/Span = ( 7.45617e+002). [kg/m].
+ Moments of Inertia M11, M22, M33 = ( 4.21487e+003,  3.93304e+003,  2.81823e+002) [kg.m^2/m].
+ Center of mass location = (-1.73157e-015, -9.54355e-018) [m].
+ Damping coefficient = ( 0.00000e+000). [sec].
+ ETA_COORDINATE = ( 8.69565e-002).
+ Stiffness matrix = (
+  7.48542e+009,  4.25637e+002, -4.78856e+001,  2.25052e+006, -7.47569e+003, -9.50283e+002, 
+  3.34383e+008,  1.63720e+001,  3.87864e+002,  1.67733e+006,  1.12487e+002,  3.67933e+008, 
+ -4.81428e+001, -9.08192e+001,  1.38986e+005,  9.20585e+008, -5.49531e+002, -9.39839e+001, 
+  4.40476e+010, -1.36376e+003,  2.39346e+009)
+ Mass/Span = ( 6.96072e+002). [kg/m].
+ Moments of Inertia M11, M22, M33 = ( 3.84317e+003,  3.57291e+003,  2.70260e+002) [kg.m^2/m].
+ Center of mass location = (-1.30582e-015, -1.81928e-017) [m].
+ Damping coefficient = ( 0.00000e+000). [sec].
+ ETA_COORDINATE = ( 1.00000e+000).
+ Stiffness matrix = (
+  7.17491e+009, -5.40083e+000,  1.27608e+000,  1.04161e+006,  1.36222e+002,  1.59725e+001, 
+  3.20309e+008,  1.96520e-001,  4.28454e+000,  1.29985e+006,  2.37444e+000,  3.46896e+008, 
+ -3.31667e+000, -1.04098e+000,  1.04179e+005,  8.64737e+008,  2.36771e+001,  2.31857e+000, 
+  3.79592e+010, -5.55134e+001,  2.24607e+009)
+ Mass/Span = ( 6.29936e+002). [kg/m].
+ Moments of Inertia M11, M22, M33 = ( 3.10037e+003,  2.85277e+003,  2.47597e+002) [kg.m^2/m].
+ Center of mass location = (-8.05851e-015,  1.99246e-016) [m].
+ Damping coefficient = ( 0.00000e+000). [sec].
+ Comment 1 : [beam properties for spar stations 1-3].
+
+
+
+      ----------------------------------------
+      |   @GRAPHICAL_PARAMETERS_DEFINITION   |
+      ----------------------------------------
+
+
+ *** GrfParam: [grfparamAB],
+
+
+
+      --------------------------
+      |   @SURVEY_DEFINITION   |
+      --------------------------
+
+
+ *** Survey: [surveyAB],
+ Surveyed object : [AB_root].
+ Survey type : [DISPLACEMENTS].
+ Time = ( 5.00000e+000). [sec].
+ Reference frame : [INERTIAL].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [AB_root.dat].
+ 
+ --- Opening data file : [BC_rootTrans_upper.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [BC_rootTrans_upper.dat].
+ 
+ --- Opening data file : [BG_rootTrans_lower.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [BG_rootTrans_lower.dat].
+ 
+ --- Opening data file : [CD_straightBiplane_upper.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [CD_straightBiplane_upper.dat].
+ 
+ --- Opening data file : [GH_straightBiplane_lower.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [GH_straightBiplane_lower.dat].
+ 
+ --- Opening data file : [DE_jointTrans_upper.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [DE_jointTrans_upper.dat].
+ 
+ --- Opening data file : [HE_jointTrans_lower.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [HE_jointTrans_lower.dat].
+ 
+ --- Opening data file : [EF_monoOutboard.dat].
+
+
+
+      ----------------------------------
+      |   @EXECUTING_INCLUDE_COMMAND   |
+      ----------------------------------
+
+ --- Include command : [includeParts].
+ --- Closing data file : [EF_monoOutboard.dat].
+
+
+
+                    ********************
+                    *   @CHECK_MODEL   *
+                    ********************
+
+
+
+
+      ---------------------
+      |   @CHECK_FRAMES   |
+      ---------------------
+
+
+ *** Fixed frame: [FXDFRAME_INERTIAL],
+ Origin = ( 0.00000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Orientation definition type : [VECTORS_E2_E3].
+ E2 = ( 0.00000e+000,  1.00000e+000,  0.00000e+000)
+ E3 = ( 0.00000e+000,  0.00000e+000,  1.00000e+000)
+
+ *** Orientation distribution: [OriDistAB],
+ Orientation definition type : [TWIST_ANGLE].
+ Coordinate type : [ETA_COORDINATE].
+ ETA_COORDINATE = ( 0.00000e+000).
+ Twist angle = ( 0.00000e+000). [deg].
+ ETA_COORDINATE = ( 8.69565e-002).
+ Twist angle = ( 0.00000e+000). [deg].
+ ETA_COORDINATE = ( 1.00000e+000).
+ Twist angle = ( 0.00000e+000). [deg].
+ Comment 1 : [eta coordinates for spar stations 1-3].
+
+ *** Fixed frame: [FXDFRAME_INERTIAL],
+ Origin = ( 0.00000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Orientation definition type : [VECTORS_E2_E3].
+ E2 = ( 0.00000e+000,  1.00000e+000,  0.00000e+000)
+ E3 = ( 0.00000e+000,  0.00000e+000,  1.00000e+000)
+
+
+
+      --------------------------------
+      |   @CHECK_POINTS_AND_TRIADS   |
+      --------------------------------
+
+
+ *** Point: [POINT_ORIGIN],
+ Coordinates = ( 0.00000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+
+ *** Triad: [TRIAD_INERTIAL],
+ Orientation definition type : [VECTORS_E2_E3].
+ E2 = ( 0.00000e+000,  1.00000e+000,  0.00000e+000)
+ E3 = ( 0.00000e+000,  0.00000e+000,  1.00000e+000)
+ Is defined in frame : [INERTIAL].
+
+ *** Point: [pointA],
+ Coordinates = ( 0.00000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the root of the spar].
+
+ *** Point: [pointB],
+ Coordinates = ( 2.30000e+000,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the inboard joint].
+
+ *** Point: [pointC],
+ Coordinates = ( 1.71000e+001,  0.00000e+000,  7.63000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of root transition to upper airfoil].
+
+ *** Point: [pointD],
+ Coordinates = ( 3.34000e+001,  0.00000e+000,  6.92000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of joint transition to upper airfoil].
+
+ *** Point: [pointE],
+ Coordinates = ( 4.96000e+001,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the outboard joint].
+
+ *** Point: [pointF],
+ Coordinates = ( 9.19000e+001,  0.00000e+000,  0.00000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [the tip of the spar].
+
+ *** Point: [pointG],
+ Coordinates = ( 1.71000e+001,  0.00000e+000, -7.63000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of root transition to lower airfoil].
+
+ *** Point: [pointH],
+ Coordinates = ( 3.34000e+001,  0.00000e+000, -6.92000e+000) [m].
+ Is defined in frame : [INERTIAL].
+ Comment 1 : [end of joint transition to lower airfoil].
+
+
+
+      ----------------------------------
+      |   @CHECK_CURVES_AND_VERTICES   |
+      ----------------------------------
+
+
+ *** Vertex: [vertexA],
+ At point : [pointA].
+
+ *** Vertex: [vertexB],
+ At point : [pointB].
+
+ *** Vertex: [vertexC],
+ At point : [pointC].
+
+ *** Vertex: [vertexD],
+ At point : [pointD].
+
+ *** Vertex: [vertexE],
+ At point : [pointE].
+
+ *** Vertex: [vertexF],
+ At point : [pointF].
+
+ *** Vertex: [vertexG],
+ At point : [pointG].
+
+ *** Vertex: [vertexH],
+ At point : [pointH].
+
+ *** Curve: [curveAB],
+ Is defined in frame : [INERTIAL].
+
+      ---  Curve points  ---- 
+
+ Number of control points = (    2).
+ Curve degree = (    1).
+ Rational curve : [NO].
+ End point 0 : [pointA].
+ End point 1 : [pointB].
+ Orientation distribution : [OriDistAB].
+ Initial coordinate = ( 0.00000e+000). [m].
+ Curve mesh parameters : [meshAB].
+ Comment 1 : [straight line from the root (pointA) to the inboard joint (pointB)].
+
+ *** Curve mesh parameters: [meshAB],
+ Number of elements = (    2).
+ Order of the elements = (    3).
+ Comment 1 : [models the root region with 2 cubic beam elements].
+
+
+
+      ---------------------------------
+      |   @CHECK_SURFACES_AND_EDGES   |
+      ---------------------------------
+
+
+ *** Edge: [edgeAB],
+ Connected to vertices: [vertexA, vertexB].
+ Curve : [curveAB].
+
+
+
+      --------------------------------
+      |   @CHECK_VOLUMES_AND_FACES   |
+      --------------------------------
+
+
+
+
+      ----------------------------
+      |   @CHECK_COPY_COMMANDS   |
+      ----------------------------
+
+
+
+
+      -------------------------------
+      |   @CHECK_STRUCTURAL_EDGES   |
+      -------------------------------
+
+
+ *** Beam: [AB_root],
+ Edge : [edgeAB].
+ Property table : [propAB].
+ Comment 1 : [the root region of the spar].
+
+
+
+      -------------------------------
+      |   @CHECK_STRUCTURAL_FACES   |
+      -------------------------------
+
+
+
+
+      ----------------------------
+      |   @CHECK_OTHER_OBJECTS   |
+      ----------------------------
+
+
+ *** Time function: [scheduleload],
+ Time function type : [USER_DEFINED].
+ Time = ( 0.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 1.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 2.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 3.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 4.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 5.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 6.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 7.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 8.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 9.00000e+000).  Function value = ( 1.00000e+000).
+ Time = ( 1.00000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.10000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.20000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.30000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.40000e+001).  Function value = ( 1.00000e+000).
+ Time = ( 1.50000e+001).  Function value = ( 1.00000e+000).
+ Comment 1 : [gives a 15-second constant time function].
+
+ *** Include command: [includeLoads],
+ Active command : [YES].
+ List of file names:
+ loadDist.dat
+
+ *** Include command: [includeParts],
+ Active command : [YES].
+ List of file names:
+ AB_root.dat
+ BC_rootTrans_upper.dat
+ BG_rootTrans_lower.dat
+ CD_straightBiplane_upper.dat
+ GH_straightBiplane_lower.dat
+ DE_jointTrans_upper.dat
+ HE_jointTrans_lower.dat
+ EF_monoOutboard.dat
+
+ *** Analysis control parameters: [AnalysisControlParameters],
+ Maximum number of time steps = (   10).
+ Simulation initial time = ( 0.00000e+000). [sec].
+ Simulation final time = ( 1.50000e+001). [sec].
+ Minimum time step size = ( 1.00000e-006). [sec].
+ Maximum time step size = ( 5.00000e-002). [sec].
+ Reference energy level = ( 6.00000e+005). [J].
+
+ *** Graphical control parameters: [GraphicsControlParameters],
+ Time step size = ( 0.00000e+000). [sec].
+ Reference frame : [INERTIAL].
+ Eigenvectors scaling factor = ( 1.00000e-001).
+ Number of cycles for modal animation = (    5).
+ Number of frames per cycle = (  100).
+ Vector field type : [FORCES].  Scaling factor = ( 1.00000e-001).
+ Vector field type : [STRAINS].  Scaling factor = ( 1.00000e-001).
+ Vector field type : [VELOCITIES].  Scaling factor = ( 1.00000e-001).
+
+ *** Plotting control parameters: [PlottingControlParameters],
+ Graph  plot format : [PNG].
+        plot Size   : [MEDIUM].
+ Map    plot format : [PNG].
+        plot Size   : [LARGE].
+ Map    plot format : [EPS].
+        plot Size   : [LARGE].
+ Map    plot format : [TRM].
+        plot Size   : [LARGE].
+ Object plot format : [PNG].
+        plot Size   : [LARGE].
+ Object plot format : [EPS].
+        plot Size   : [LARGE].
+ Object plot format : [TRM].
+        plot Size   : [LARGE].
+ Sensor plot format : [PNG].
+        plot Size   : [LARGE].
+ Sensor plot format : [EPS].
+        plot Size   : [LARGE].
+ Sensor plot format : [TRM].
+        plot Size   : [LARGE].
+ Signal plot format : [PNG].
+        plot Size   : [MEDIUM].
+ Survey plot format : [PNG].
+        plot Size   : [LARGE].
+ Survey plot format : [EPS].
+        plot Size   : [LARGE].
+ Survey plot format : [TRM].
+        plot Size   : [LARGE].
+ Sensor memory size = (  100).
+ Map    memory size = (   10).
+
+ *** Edge load: [AB_load_rootRegion],
+ Edge : [edgeAB].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 1.00000e+003).
+ Time function : [scheduleload].
+
+ *** Edge load: [BC_load_rootTrans_upper],
+ Edge : [edgeBC].
+
+      ---  Loading component  ---- 
+
+ Data table for force along i3 : [constloaddistTable].
+ Scale factor = ( 5.00000e+002).
+ Time function : [scheduleload].
+
+
+ $$$ Checking object: [BC_load_rootTrans_upper].
+ Error: EDGELOAD1. For edge load [BC_load_rootTrans_upper]
+ Edge [edgeBC] does not exist.
+ 
+ 
+
+      ---  Destroying Iost  ---- 
+
+
+      ---  List of Memory Items  ---- 
+
+ Number of Items = (    0).

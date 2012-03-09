@@ -276,16 +276,18 @@ def writeMKmatrices(DYMOREfileHandle, vabsMKfilepath, station_data, CoordType='E
             # print "s =", station_data['s']
             print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
         elif CoordType == 'AXIAL_COORDINATE':
-            print "x1 =", station_data['x1']
+            # print "x1 =", station_data['x1']
+            print "***WARNING*** AXIAL_COORDINATE feature is not yet supported."
     MKlines = readFile(vabsMKfilepath)
     (cm_x2, cm_x3, mpus, i1, i2, i3, K) = pullMKmatrices(MKlines, print_flag=debug_flag)
     if CoordType == 'ETA_COORDINATE':
-        writeDymoreMK(DYMOREfileHandle, CoordType, station_data['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+        writeDymoreMK(DYMOREfileHandle, CoordType, stationData['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
     elif CoordType == 'CURVILINEAR_COORDINATE':
         # writeDymoreMK(DYMOREfileHandle, CoordType, station_data['s'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
         print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
     elif CoordType == 'AXIAL_COORDINATE':
-        writeDymoreMK(DYMOREfileHandle, CoordType, station_data['x1'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+        # writeDymoreMK(DYMOREfileHandle, CoordType, station_data['x1'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+        print "***WARNING*** AXIAL_COORDINATE feature is not yet supported."
 
     return
 
@@ -340,117 +342,6 @@ def formatComments(comments):
     return comments
 
 
-# def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, property_definition_type, coordinate_type, comments, print_flag=False):
-#     """
-#     Write the DYMORE-formatted @BEAM_PROPERTY_DEFINITION code block to a file.
-
-#     Parameters
-#     ----------
-#     fName : <string>
-#         A filename. The beam property definition code block will be saved here.
-#     spar_stn_list : <list of ints>
-#         A list of stations whose properties will be included in this code block.
-#     beam_property_name : <string>
-#         The label associated with this beam property definition.
-#     property_definition_type : <string>
-#         The format of the properties.
-#         Acceptable values are: 'SECTIONAL_PROPERTIES',
-#                                '6X6_MATRICES', or
-#                                'PROPERTY_TABLES' 
-#     coordinate_type : <string>
-#         The format of coordinates along the span of the beam.
-#         Acceptable values are: 'ETA_COORDINATE',
-#                                'CURVILINEAR_COORDINATE', or
-#                                'AXIAL_COORDINATE'
-#     comments : <string>
-#         The user-defined comment associated with this code block.
-#     print_flag : <logical>
-#         Set to True to print debugging information to the screen.
-
-#     Returns
-#     -------
-#     <none> (However, a file is written to hard disk.)
-#     """
-
-#     dymoreMKfile = makeFile(fName)
-
-#     tab = '  '
-
-#     # write the header for the beam property definition
-#     dymoreMKfile.write('@BEAM_PROPERTY_DEFINITION {\n')
-#     dymoreMKfile.write(tab*1 + '@BEAM_PROPERTY_NAME {' + beam_property_name + '} {\n')
-#     dymoreMKfile.write(tab*2 +   '@PROPERTY_DEFINITION_TYPE {' + property_definition_type + '}\n')
-#     dymoreMKfile.write(tab*2 +   '@COORDINATE_TYPE {' + coordinate_type + '}\n')
-#     dymoreMKfile.write(tab*2 +   '\n')
-
-#     # write the mass and stiffness matrices for the beam property definition
-#     for n in range(len(spar_stn_list)):
-#         spar_station = spar_stn_list[n]
-#         if spar_station < 10:
-#             basefilestr = 'spar_station_0' + str(spar_station)
-#         else:
-#             basefilestr = 'spar_station_' + str(spar_station)
-
-#         if print_flag:
-#             print ''
-#             print '***************'
-#             print basefilestr
-#             print '***************'
-
-#         # ----------------------------------------------------------------------------------
-
-#         stationData = rl.extractStationData(data,spar_station)
-#         if stationData['spar station'] < 10:
-#             sparstnstr = '0' + str(stationData['spar station'])
-#         else:
-#             sparstnstr = str(stationData['spar station'])
-#         vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
-#         writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType=coordinate_type, debug_flag=print_flag)
-
-#     # write the footer for the beam property definition
-#     dymoreMKfile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
-#     dymoreMKfile.write(tab*1 + '}\n')
-#     dymoreMKfile.write('}\n')
-
-#     # close the file, which now contains the complete beam property defintion
-#     dymoreMKfile.close()
-
-#     return
-
-
 if __name__ == '__main__':  #run this code if DYMOREutilities is called directly from the command line (good for debugging)
     print "hello world"
-    # import numpy as np
-    # data = np.loadtxt('../truegrid/monoplane_spar_layup.txt')  # read layup file and store all data in one array
-
-    # # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
-    # spar_stn_list = [10]
-
-    # dymoreMKfile = makeFile('dymoreMK_temp.dat')
-
-    # for n in range(len(spar_stn_list)):
-    #     spar_station = spar_stn_list[n]
-    #     if spar_station < 10:
-    #         basefilestr = 'spar_station_0' + str(spar_station)
-    #     else:
-    #         basefilestr = 'spar_station_' + str(spar_station)
-
-    #     print ''
-    #     print '***************'
-    #     print basefilestr
-    #     print '***************'
-
-
-
-    #     # ----------------------------------------------------------------------------------
-
-    #     stationData = rl.extractStationData(data,spar_station)
-    #     if stationData['spar station'] < 10:
-    #         sparstnstr = '0' + str(stationData['spar station'])
-    #     else:
-    #         sparstnstr = str(stationData['spar station'])
-    #     vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
-
-    #     writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType='ETA_COORDINATE', debug_flag=True)
-
-    # dymoreMKfile.close()
+    

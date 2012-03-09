@@ -8,10 +8,23 @@ def readLayupFile(fname):
     data = np.loadtxt(fname)  # read layup file and store all data in one array
     return data
 
-### load the dictionary for columns in the 2D array of data from the layup file ###
-###     input:  <none>
-###     output: dataDict <dictionary>, dictionary of keywords that correspond to different columns of the data from the layup file
-def loadDict():
+def loadDict(biplane_flag=False):
+    """
+    Load a dictionary for columns in the 2D array of data from the layup file
+
+    Parameters
+    ----------
+    biplane_flag : <logical>
+        Set to True to add entries in the dictionary for extra columns in the 
+        biplane layup file.
+
+    Returns
+    -------
+    dataDict : <dictionary>
+        A dictionary of keywords that correspond to different columns of the 
+        data in the layup file.
+    """
+
     dataDict = {'spar station'                :  0,  # station numbers for the spar (begins at 1)
                 'x1'                          :  1,  # distances from root (in meters)
                 'eta'                         :  2,  # distances from root (dimensionless, normalized by total spar length)
@@ -29,6 +42,12 @@ def loadDict():
                 'k1'                          : 14,  # twist rates (in radians/meter)
                 'blade station'               : 15,  # station numbers for the blade (begins at 7)
                 'blade fraction'              : 16 } # percentage distances from blade root (dimensionless, normalized by total blade length and multiplied by 100)
+
+    if biplane_flag:
+        dataDict['chord'] = 17                       # chord length of airfoil that goes over this spar cross-section (in meters)
+        dataDict['gap-to-chord ratio'] = 18          # gap-to-chord ratio of this cross-section for this layup (dimensionless, normalized by chord length)
+        dataDict['x3'] = 19                          # vertical distance from pitch axis (in meters)
+
     return dataDict
 
 
@@ -36,8 +55,8 @@ def loadDict():
 ###     input:  data <np.array, double>, 2D array of all data contained in the layup file
 ###             colname <string>, keyword name of the column to extract from the 2D array of data
 ###     output: dataCol <np.array>, array of the data in the desired column
-def extractDataColumn(data,colname):
-    dataDict = loadDict()  # load the dictionary of column name keywords
+def extractDataColumn(data,colname,biplane_switch=False):
+    dataDict = loadDict(biplane_flag=biplane_switch)  # load the dictionary of column name keywords
     if (colname == 'spar station' or colname == 'blade station'): # if the data is for a spar or blade station ...
         dataCol = np.int_( data[ :,dataDict[colname] ] )          # ... convert the data to integers
     else:
@@ -45,11 +64,77 @@ def extractDataColumn(data,colname):
     return dataCol
 
 
+def x_to_eta(x):
+    """
+    Calculates eta coordinates for each x-coordinate in a list.
+
+    Parameters
+    ----------
+    x : <np.array>
+        An array of x-coordinates for a series of adjacent spar stations.
+
+    Returns
+    -------
+    eta : <np.array>
+        An array of eta-coordinates that correspond to the given x-coordinates.
+    """
+
+    eta = np.zeros(len(x))  # initialize an empty array for eta-coordinates
+
+    for i in range(1,len(x)):
+        eta[i] = (x[i] - x[0])/(x[-1] - x[0])
+
+    return eta
+
+
+def sparStns_to_eta(layup_data, spar_stn_start, spar_stn_end, pretty_print=False):
+    """
+    Calculates eta coordinates for each spar station in a list.
+
+    Parameters
+    ----------
+    layup_data : <np.array>
+        An array of cross-sectional data for the entire spar.
+        This data has been obtained from a layup file.
+        (See readLayupFile(...))   
+    spar_stn_start : <int>
+        The first spar station, which corresponds to eta=0.
+    spar_stn_end : <int>
+        The last spar station, which corresponds to eta=1.
+    pretty_print : <logical>
+        Set to True to print the outputs to the screen.
+
+    Returns
+    -------
+    eta : <np.array>
+        An array of eta-coordinates that correspond to the given spar stations.
+    x1 : <np.array>
+        An array of x-coordinates that correspond to range of spar stations 
+        between spar_stn_start and spar_stn_end (both inclusive).
+    """
+
+    x1 = extractDataColumn(layup_data, 'x1')
+    start_index = spar_stn_start - 1
+    end_index = spar_stn_end - 1
+    x1 = x1[start_index:end_index+1]
+
+    eta = x_to_eta(x1)
+
+    if pretty_print:
+        print ''
+        print 'spar stn   x1       eta    '
+        print '--------  ----  -----------'
+        for j in range(len(eta)):
+            print ' '*3 + ('%2d' % (spar_stn_start+j)) + ' '*5 + ('%4.1f' % x1[j]) + ' '*2 + ('%11.5e' % eta[j])
+
+    return (eta, x1)
+
+
 ### extract a specific row from the layup data ###
 ###     input:  data <np.array, double>, 2D array of all data contained in the layup file
 ###             stn <int>, spanwise station number
 ###     output: stationData <np.array>, array of the data for the desired station
-def extractStationData(data,stn,print_flag=False):
+def extractStationData(data,stn,biplane_switch=False,print_flag=False):
     raw_stationData = data[stn-1,:]
     if int(raw_stationData[0]) != stn:
         print "ERROR: wrong station data pulled!"
@@ -57,7 +142,7 @@ def extractStationData(data,stn,print_flag=False):
         if print_flag:
             print "correct station data pulled!  :)"
 
-    dataDict = loadDict()
+    dataDict = loadDict(biplane_flag=biplane_switch)
     stationData = { 'spar station'                : int(raw_stationData[dataDict['spar station']]),
                     'x1'                          : raw_stationData[dataDict['x1']],
                     'eta'                         : raw_stationData[dataDict['eta']],
@@ -75,6 +160,10 @@ def extractStationData(data,stn,print_flag=False):
                     'k1'                          : raw_stationData[dataDict['k1']],
                     'blade station'               : int(raw_stationData[dataDict['blade station']]),
                     'blade fraction'              : raw_stationData[dataDict['blade fraction']] }
+    if biplane_flag:
+        stationData['chord'] = raw_stationData[dataDict['chord']]
+        stationData['gap-to-chord ratio'] = raw_stationData[dataDict['gap-to-chord ratio']]
+        stationData['x3'] = raw_stationData[dataDict['x3']]
 
     return stationData
 
@@ -323,9 +412,25 @@ def extract_SC_corners(data,spar_stn):
     return sparcap
 
 if __name__ == '__main__':  # only run this block of code if this file is called directly from the command line
-    # import the data from the layup file
-    spar_file = '../monoplane_spar_layup.txt'
-    print 'STATUS: importing spar layup file: ' + spar_file + '  ...'
-    data = readLayupFile(spar_file)
-    stationData = extractStationData(data,14,print_flag=True)
-    extractDataColumn(stationData,'spar cap base')
+    layup_data = readLayupFile('biplane_spar_layup_20120306.txt')
+    # loadDict(biplane_flag=True)
+    stn = extractDataColumn(layup_data, 'spar station', biplane_switch=True)
+    x1 = extractDataColumn(layup_data, 'x1', biplane_switch=True)
+    x3 = extractDataColumn(layup_data, 'x3', biplane_switch=True)
+    # slope = x3/x1
+    # print slope
+
+    print ''
+    print 'spar stn   x1    x3      x3/x1   '
+    print '--------  ----  ----  -----------'
+    for j in range(23):
+        slope = (x3[j+1]-x3[j])/(x1[j+1]-x1[j])
+        print ' '*3 + ('%2d' % stn[j]) + ' '*5 + ('%4.1f' % x1[j]) + ' '*2 + ('%4.1f' % x3[j]) + ' '*2 + ('%8.3f' % slope)
+
+
+
+    # (eta_root, x1_root) = sparStns_to_eta('biplane_spar_layup_20120306.txt',1,3,pretty_print=True)
+    # (eta_rootTrans, x1_rootTrans) = sparStns_to_eta('biplane_spar_layup_20120306.txt',3,10,pretty_print=True)
+    # (eta_straightBiplane, x1_straightBiplane) = sparStns_to_eta('biplane_spar_layup_20120306.txt',10,14,pretty_print=True)
+    # (eta_jointTrans, x1_jointTrans) = sparStns_to_eta('biplane_spar_layup_20120306.txt',14,16,pretty_print=True)
+    # (eta_monoOutboard, x1_monoOutboard) = sparStns_to_eta('biplane_spar_layup_20120306.txt',16,24,pretty_print=True)

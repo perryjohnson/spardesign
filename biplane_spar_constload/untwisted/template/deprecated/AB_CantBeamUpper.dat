@@ -1,0 +1,101 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeAB} {
+    @CONNECTED_TO_VERTICES {vertexA, vertexB}
+    @CURVE_NAME {curveAB}
+  }
+}
+@BEAM_DEFINITION {
+  @BEAM_NAME {CantBeamUpper} {
+    @EDGE_NAME {edgeAB}
+    @BEAM_PROPERTY_NAME {propAB}
+    @COMMENTS {this is the cantilevered upper beam}
+  }
+}
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveAB} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {     2}
+      @DEGREE_OF_CURVE {     1}
+      @RATIONAL_CURVE_FLAG {NO}
+      @END_POINT_0 {pointA}
+      @END_POINT_1 {pointB}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDistAB}
+      @INITIAL_COORDINATE{0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshAB}
+    @COMMENTS {this curve is a straight line from pointA (x, y, z)=(0, 0, 0.75) to pointB (x, y, z)=(5, 0, 0.75)}
+  }
+}
+@ORIENTATION_DISTRIBUTION_DEFINITION {
+  @ORIENTATION_DISTRIBUTION_NAME { OriDistAB } {
+    @ORIENTATION_DEFINITION_TYPE { TWIST_ANGLE }
+    @COORDINATE_TYPE { ETA_COORDINATE }
+    @ETA_COORDINATE {0}
+    @TWIST_ANGLE {0}
+  }
+}
+@CURVE_MESH_PARAMETERS_DEFINITION {
+  @CURVE_MESH_PARAMETERS_NAME {meshAB} {
+    @NUMBER_OF_ELEMENTS {     5}
+    @ORDER_OF_ELEMENTS {     3}
+    @COMMENTS {models the cantilever beam with 5 beam finite elements, of cubic (3rd) order}    
+  }
+}
+@BOUNDARY_CONDITION_DEFINITION {
+  @BOUNDARY_CONDITION_NAME {clampA} {
+    @ENTITY_NAME {vertexA}
+    @DISPLACEMENT_BOUNDARY_CONDITIONS {     1,      1,      1}
+    @ROTATION_BOUNDARY_CONDITIONS {     1,      1,      1}
+    @COMMENTS {fixed end of cantilever beam, constrains all displacements and rotations at pointA = (x, y, z) = (0, 0, 0.75)}
+  }
+}
+@BEAM_PROPERTY_DEFINITION {
+  @BEAM_PROPERTY_NAME {propAB} {
+    @PROPERTY_DEFINITION_TYPE { 6X6_MATRICES }
+    @COORDINATE_TYPE { ETA_COORDINATE }
+    @ETA_COORDINATE { 0.00000e+000} {
+      @STIFFNESS_MATRIX { 6.2500000000E+09,   0.0000000000E+00,   0.0000000000E+00,   0.0000000000E+00,   5.0544467055E-06,  -1.0885515814E-04,
+                                              1.7322081746E+09,  -1.5613390244E-05,   8.6564792307E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                  3.5101487000E+08,   1.9382982535E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                      1.3257491818E+08,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                                          1.2017356827E+08,  -3.3584560690E-06,
+                                                                                                                              6.9912208271E+08}
+      @MASS_PER_UNIT_SPAN {2.4999999999E+02}
+      @MOMENTS_OF_INERTIA {3.2760416666E+01,
+                           4.8020833333E+00,
+                           2.7958333333E+01}
+      @CENTRE_OF_MASS_LOCATION { 8.8817841970E-19,
+                                -5.2069459854E-17}
+    }
+    @ETA_COORDINATE { 1.00000e+000} {
+      @STIFFNESS_MATRIX { 6.2500000000E+09,   0.0000000000E+00,   0.0000000000E+00,   0.0000000000E+00,   5.0544467055E-06,  -1.0885515814E-04,
+                                              1.7322081746E+09,  -1.5613390244E-05,   8.6564792307E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                  3.5101487000E+08,   1.9382982535E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                      1.3257491818E+08,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                                          1.2017356827E+08,  -3.3584560690E-06,
+                                                                                                                              6.9912208271E+08}
+      @MASS_PER_UNIT_SPAN {2.4999999999E+02}
+      @MOMENTS_OF_INERTIA {3.2760416666E+01,
+                           4.8020833333E+00,
+                           2.7958333333E+01}
+      @CENTRE_OF_MASS_LOCATION { 8.8817841970E-19,
+                                -5.2069459854E-17}
+    }
+    @COMMENTS {these properties were calculated with VABS and are in the file hollowrect05.dat.K}
+  }
+}
+@GRAPHICAL_PARAMETERS_DEFINITION {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamAB} {
+  }
+}
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { surveyAB } {
+    @OBJECT_NAME {CantBeamUpper}
+    @SURVEY_TYPE { DISPLACEMENTS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}

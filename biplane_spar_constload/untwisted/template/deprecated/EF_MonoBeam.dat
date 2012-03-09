@@ -1,0 +1,93 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeEF} {
+    @CONNECTED_TO_VERTICES {vertexE, vertexF}
+    @CURVE_NAME {curveEF}
+  }
+}
+@BEAM_DEFINITION {
+  @BEAM_NAME {MonoBeam} {
+    @EDGE_NAME {edgeEF}
+    @BEAM_PROPERTY_NAME {propEF}
+    @COMMENTS {this is the monoplane beam}
+  }
+}
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveEF} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {     2}
+      @DEGREE_OF_CURVE {     1}
+      @RATIONAL_CURVE_FLAG {NO}
+      @END_POINT_0 {pointE}
+      @END_POINT_1 {pointF}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDistEF}
+      @INITIAL_COORDINATE{0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshEF}
+    @COMMENTS {this curve is a straight line from pointE (x, y, z)=(10, 0, 0) to pointF (x, y, z)=(20,0, 0)}
+  }
+}
+@ORIENTATION_DISTRIBUTION_DEFINITION {
+  @ORIENTATION_DISTRIBUTION_NAME { OriDistEF } {
+    @ORIENTATION_DEFINITION_TYPE { TWIST_ANGLE }
+    @COORDINATE_TYPE { ETA_COORDINATE }
+    @ETA_COORDINATE {0}
+    @TWIST_ANGLE {0}
+  }
+}
+@CURVE_MESH_PARAMETERS_DEFINITION {
+  @CURVE_MESH_PARAMETERS_NAME {meshEF} {
+    @NUMBER_OF_ELEMENTS {     10}
+    @ORDER_OF_ELEMENTS {     3}
+    @COMMENTS {models the monoplane beam with 10 beam finite elements, of cubic (3rd) order}    
+  }
+}
+@BEAM_PROPERTY_DEFINITION {
+  @BEAM_PROPERTY_NAME {propEF} {
+    @PROPERTY_DEFINITION_TYPE { 6X6_MATRICES }
+    @COORDINATE_TYPE { ETA_COORDINATE }
+    @ETA_COORDINATE { 0.00000e+000} {
+      @STIFFNESS_MATRIX { 1.2500042111E+10,   0.0000000000E+00,   0.0000000000E+00,   0.0000000000E+00,  -6.1556128044E-06,   5.5656809812E-06,
+                                              3.7001115869E+09,   4.4932370687E-06,   4.7468660850E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                  7.4090437075E+08,   3.2850491560E-07,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                      2.0032688358E+08,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                                          1.7204317826E+08,  -2.6861770674E-06,
+                                                                                                                              1.2062148024E+09}
+      @MASS_PER_UNIT_SPAN {5.0000168447E+02}
+      @MOMENTS_OF_INERTIA {5.5104282122E+01,
+                           6.8708113536E+00,
+                           4.8233470769E+01}
+      @CENTRE_OF_MASS_LOCATION { 1.3100587555E-17,
+                                -2.4702379076E-17}
+    }
+    @ETA_COORDINATE { 1.00000e+000} {
+      @STIFFNESS_MATRIX { 1.2500042111E+10,   0.0000000000E+00,   0.0000000000E+00,   0.0000000000E+00,  -6.1556128044E-06,   5.5656809812E-06,
+                                              3.7001115869E+09,   4.4932370687E-06,   4.7468660850E-06,   0.0000000000E+00,   0.0000000000E+00,
+                                                                  7.4090437075E+08,   3.2850491560E-07,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                      2.0032688358E+08,   0.0000000000E+00,   0.0000000000E+00,
+                                                                                                          1.7204317826E+08,  -2.6861770674E-06,
+                                                                                                                              1.2062148024E+09}
+      @MASS_PER_UNIT_SPAN {5.0000168447E+02}
+      @MOMENTS_OF_INERTIA {5.5104282122E+01,
+                           6.8708113536E+00,
+                           4.8233470769E+01}
+      @CENTRE_OF_MASS_LOCATION { 1.3100587555E-17,
+                                -2.4702379076E-17}
+    }
+    @COMMENTS {these properties were calculated with VABS and are in the file hollowrect110771.dat.K}
+  }
+}
+@GRAPHICAL_PARAMETERS_DEFINITION {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamEF} {
+  }
+}
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { surveyEF } {
+    @OBJECT_NAME {MonoBeam}
+    @SURVEY_TYPE { DISPLACEMENTS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}

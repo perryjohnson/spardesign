@@ -2,7 +2,7 @@ import truegrid.read_layup as rl
 import DYMORE.DYMOREutilities as du
 
 
-def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, property_definition_type, coordinate_type, comments, print_flag=False):
+def writeBeamPropertyDefinition(fName, spar_stn_list, layup_data, beam_property_name, property_definition_type, coordinate_type, comments, read_layup_eta=True, print_flag=False):
     """
     Write the DYMORE-formatted @BEAM_PROPERTY_DEFINITION code block to a file.
 
@@ -12,6 +12,10 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, proper
         A filename. The beam property definition code block will be saved here.
     spar_stn_list : <list of ints>
         A list of stations whose properties will be included in this code block.
+    layup_data : <np.array>
+        An array of cross-sectional data for the entire spar.
+        This data has been obtained from a layup file.
+        (See truegrid.read_layup.readLayupFile(...))
     beam_property_name : <string>
         The label associated with this beam property definition.
     property_definition_type : <string>
@@ -22,10 +26,13 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, proper
     coordinate_type : <string>
         The format of coordinates along the span of the beam.
         Acceptable values are: 'ETA_COORDINATE',
-                               'CURVILINEAR_COORDINATE', or
-                               'AXIAL_COORDINATE'
+                               'CURVILINEAR_COORDINATE' (not yet supported), or
+                               'AXIAL_COORDINATE' (not yet supported)
     comments : <string>
         The user-defined comment associated with this code block.
+    read_layup_eta : <logical>
+        Set to False to use local eta values from a subset of spar stations.
+        (See truegrid.read_layup_sparStns_to_eta(...))
     print_flag : <logical>
         Set to True to print debugging information to the screen.
 
@@ -45,6 +52,9 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, proper
     dymoreMKfile.write(tab*2 +   '@COORDINATE_TYPE {' + coordinate_type + '}\n')
     dymoreMKfile.write(tab*2 +   '\n')
 
+    if not read_layup_eta:
+        (eta, x1) = rl.sparStns_to_eta(layup_data, spar_stn_list[0], spar_stn_list[-1], pretty_print=print_flag)
+
     # write the mass and stiffness matrices for the beam property definition
     for n in range(len(spar_stn_list)):
         spar_station = spar_stn_list[n]
@@ -61,13 +71,18 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, proper
 
         # ----------------------------------------------------------------------------------
 
-        stationData = rl.extractStationData(data,spar_station)
+        stationData = rl.extractStationData(layup_data,spar_station)
         if stationData['spar station'] < 10:
             sparstnstr = '0' + str(stationData['spar station'])
         else:
             sparstnstr = str(stationData['spar station'])
         vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
+        if not read_layup_eta:
+            stationData['eta'] = eta[n]
         du.writeMKmatrices(dymoreMKfile, vabsMK, stationData, CoordType=coordinate_type, debug_flag=False)
+
+    # Format the comments for a Dymore code block. Maximum comment length is 5 lines of 120 characters each
+    comments = du.formatComments(comments)
 
     # write the footer for the beam property definition
     dymoreMKfile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
@@ -80,55 +95,70 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, beam_property_name, proper
     return
 
 
-if __name__ == '__main__':  #run this code if called directly from the command line (good for debugging)
-    print_flag = False
+def writeOrientationDistributionDefinition(fName, spar_stn_list, layup_data, orientation_distribution_name, orientation_definition_type, coordinate_type, comments, untwisted=False, read_layup_eta=True, print_flag=False):
+    """
+    Write the DYMORE-formatted @ORIENTATION_DISTRIBUTION_DEFINITION code block.
 
-    data = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
+    Parameters
+    ----------
+    fName : <string>
+        A filename. The beam property definition code block will be saved here.
+    spar_stn_list : <list of ints>
+        A list of stations whose properties will be included in this code block.
+    layup_data : <np.array>
+        An array of cross-sectional data for the entire spar.
+        This data has been obtained from a layup file.
+        (See truegrid.read_layup.readLayupFile(...))    
+    orientation_distribution_name : <string>
+        The label associated with this orientation distribution definition.
+    orientation_definition_type : <string>
+        The format of the orientation triads.
+        Acceptable values are: 'TWIST_ANGLE',
+                               'VECTORS_E2_E3' (not yet supported), or
+                               'EULER_ANGLES_313' (not yet supported), or
+                               'EULER_ANGLES_323' (not yet supported), or
+                               'EULER_ANGLES_321' (not yet supported), or
+                               'EULER_ANGLES_312' (not yet supported)
+    coordinate_type : <string>
+        The format of coordinates along the span of the beam.
+        Acceptable values are: 'ETA_COORDINATE',
+                               'CURVILINEAR_COORDINATE' (not yet supported), or
+                               'AXIAL_COORDINATE' (not yet supported)
+    comments : <string>
+        The user-defined comment associated with this code block.
+    untwisted : <logical>
+        Set to True to force all TWIST_ANGLE entries to be zero.
+    read_layup_eta : <logical>
+        Set to False to use local eta values from a subset of spar stations.
+        (See truegrid.read_layup_sparStns_to_eta(...))
+    print_flag : <logical>
+        Set to True to print debugging information to the screen.
 
-    spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate a DYMORE code block for these spar stations
-    # spar_stn_list = [10]  # generate a DYMORE code block for these spar stations
+    Returns
+    -------
+    <none> (However, a file is written to hard disk.)
 
-    # ----------------------------------------------------------------------------------
-    # BEAM PROPERTY DEFINITION
-    # ------------------------
+    Example output
+    --------------
+    @ORIENTATION_DISTRIBUTION_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME { orientationSpar } {
+        @ORIENTATION_DEFINITION_TYPE { TWIST_ANGLE }
+        @COORDINATE_TYPE { ETA_COORDINATE }
 
-    # the beam property definition code block will be saved to this filename:
-    dymore_MKblock_filename = 'dymoreMKblock.dat'
+        @ETA_COORDINATE {0.00000e+00} 
+        @TWIST_ANGLE {12.1}
 
-    # define settings for the beam property definition
-    beam_property_name = 'propSpar'
-    property_definition_type = '6X6_MATRICES'
-    coordinate_type = 'AXIAL_COORDINATE'
-    comments = du.formatComments('beam properties are from dymoreMKblock.dat')
+        @ETA_COORDINATE {2.17628e-03}
+        @TWIST_ANGLE {10.5}
+        
+        ...
 
-    writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, beam_property_name, property_definition_type, coordinate_type, comments)
+        @COMMENTS{CommentText}
+      }
+    }
+    """
 
-    # ----------------------------------------------------------------------------------
-    # ORIENTATION DISTRIBUTION DEFINITION
-    # -----------------------------------
-
-    # the orientation distribution definition code block will be saved to this filename:
-    dymore_orientationblock_filename = 'dymoreOrientationBlock.dat'
-    dymoreOrientationFile = du.makeFile(dymore_orientationblock_filename)
-
-    # define settings for the orientation distribution definition
-    orientation_distribution_name = 'orientationSpar'
-    orientation_definition_type = 'TWIST_ANGLE'
-    # coordinate_type = 'AXIAL_COORDINATE'   ## this is already defined above by the beam property definition ##
-    untwisted = True
-
-    CoordType = coordinate_type
-
-    # @ORIENTATION_DISTRIBUTION_DEFINITION {
-    #   @ORIENTATION_DISTRIBUTION_NAME { orientationSpar } {
-    #     @ORIENTATION_DEFINITION_TYPE { TWIST_ANGLE }
-    #     @COORDINATE_TYPE { ETA_COORDINATE }
-    #     @ETA_COORDINATE {0.00000e+00} 
-    #     @TWIST_ANGLE {0.0}
-
-    #     @ETA_COORDINATE {2.17628e-03}
-    #     @TWIST_ANGLE {0.0}
-
+    dymoreOrientationFile = du.makeFile(fName)
 
     tab = '  '
 
@@ -137,10 +167,12 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     dymoreOrientationFile.write(tab*1 + '@ORIENTATION_DISTRIBUTION_NAME {' + orientation_distribution_name + '} {\n')
     dymoreOrientationFile.write(tab*2 +   '@ORIENTATION_DEFINITION_TYPE {' + orientation_definition_type + '}\n')
     dymoreOrientationFile.write(tab*2 +   '@COORDINATE_TYPE {' + coordinate_type + '}\n')
-    # dymoreOrientationFile.write(tab*2 +   '\n')
+    dymoreOrientationFile.write(tab*2 +   '\n')
 
+    if not read_layup_eta:
+        (eta, x1) = rl.sparStns_to_eta(layup_data, spar_stn_list[0], spar_stn_list[-1], pretty_print=print_flag)
 
-    # write the mass and stiffness matrices for the beam property definition
+    # write the eta and twist values for the orientation distribution definition
     for n in range(len(spar_stn_list)):
         spar_station = spar_stn_list[n]
         if spar_station < 10:
@@ -156,19 +188,24 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
         # ----------------------------------------------------------------------------------
 
-        stationData = rl.extractStationData(data,spar_station)
+        stationData = rl.extractStationData(layup_data,spar_station)
         if stationData['spar station'] < 10:
             sparstnstr = '0' + str(stationData['spar station'])
         else:
             sparstnstr = str(stationData['spar station'])
 
-        if CoordType == 'ETA_COORDINATE':
-            dymoreOrientationFile.write(tab*2 + '@ETA_COORDINATE {' + ('%11.5e' % stationData['eta']) + '}\n')
-        elif CoordType == 'CURVILINEAR_COORDINATE':
+        if coordinate_type == 'ETA_COORDINATE':
+            if read_layup_eta:
+                coord = stationData['eta']
+            else:
+                coord = eta[n]
+            dymoreOrientationFile.write(tab*2 + '@ETA_COORDINATE {' + ('%11.5e' % coord) + '}\n')
+        elif coordinate_type == 'CURVILINEAR_COORDINATE':
             # f.write(tab*2 + '@CURVILINEAR_COORDINATE {' + ('%11.5e' % coord) + '}\n')
             print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
-        elif CoordType == 'AXIAL_COORDINATE':
-            dymoreOrientationFile.write(tab*2 + '@AXIAL_COORDINATE {' + ('%11.5e' % stationData['x1']) + '}\n')
+        elif coordinate_type == 'AXIAL_COORDINATE':
+            # dymoreOrientationFile.write(tab*2 + '@AXIAL_COORDINATE {' + ('%11.5e' % stationData['x1']) + '}\n')
+            print "***WARNING*** AXIAL_COORDINATE feature is not yet supported."
 
         if untwisted:
             tw = 0.0
@@ -177,10 +214,54 @@ if __name__ == '__main__':  #run this code if called directly from the command l
         dymoreOrientationFile.write(tab*2 + '@TWIST_ANGLE {' + ('%11.5e' % tw) + '}\n')
         dymoreOrientationFile.write(tab*2 + '\n')
 
+    # Format the comments for a Dymore code block. Maximum comment length is 5 lines of 120 characters each
+    comments = du.formatComments(comments)
+
     # write the footer for the orientation distribution definition
-    # dymoreOrientationFile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
+    dymoreOrientationFile.write(tab*2 + '@COMMENTS {' + comments + '}\n')
     dymoreOrientationFile.write(tab*1 + '}\n')
     dymoreOrientationFile.write('}\n')
 
     # close the file, which now contains the complete orientation distribution defintion
     dymoreOrientationFile.close()
+
+if __name__ == '__main__':  #run this code if called directly from the command line (good for debugging)
+    # ----------------------------------------------------------------------------------
+    # set parameters for DYMORE code blocks
+    # -------------------------------------
+    layup_file_data = rl.readLayupFile('truegrid/biplane_spar_layup_20120306.txt')
+    # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate a DYMORE code block for these spar stations
+    spar_stn_list = [16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate a DYMORE code block for these spar stations
+
+    beam_property_name = 'propEF'
+    BPD_comments = 'beam properties for spar stations 16-24'
+    orientation_distribution_name = 'OriDistEF'
+    ODD_comments = 'eta coordinates for spar stations 16-24'
+
+
+    # ----------------------------------------------------------------------------------
+    # BEAM PROPERTY DEFINITION
+    # ------------------------
+
+    # the beam property definition code block will be saved to this filename:
+    dymore_MKblock_filename = 'dymoreMKblock.dat'
+
+    # define settings for the beam property definition
+    property_definition_type = '6X6_MATRICES'
+    coordinate_type = 'ETA_COORDINATE'
+
+    writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=False)
+
+    # ----------------------------------------------------------------------------------
+    # ORIENTATION DISTRIBUTION DEFINITION
+    # -----------------------------------
+
+    # the orientation distribution definition code block will be saved to this filename:
+    dymore_orientationblock_filename = 'dymoreOrientationBlock.dat'
+
+    # define settings for the orientation distribution definition
+    orientation_definition_type = 'TWIST_ANGLE'
+    # coordinate_type = 'ETA_COORDINATE'   ## this is already defined above by the beam property definition ##
+    untwisted_flag = True
+
+    writeOrientationDistributionDefinition(dymore_orientationblock_filename, spar_stn_list, layup_file_data, orientation_distribution_name, orientation_definition_type, coordinate_type, ODD_comments, untwisted=untwisted_flag, read_layup_eta=False, print_flag=True)
