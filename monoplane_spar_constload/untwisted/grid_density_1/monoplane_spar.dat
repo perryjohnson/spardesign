@@ -29,6 +29,9 @@
   @BEAM_NAME {monoplane_spar} {
     @EDGE_NAME {edgeSpar}
     @BEAM_PROPERTY_NAME {propSpar}
+    @SHAPE_NAME {shape_monoplaneSpar}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
+    @COMMENTS {the monoplane spar}
   }
 }
 

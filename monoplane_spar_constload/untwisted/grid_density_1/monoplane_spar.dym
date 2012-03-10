@@ -31,9 +31,27 @@
     }
   }
   @INCLUDE_COMMAND {
-    @INCLUDE_COMMAND_NAME {include1} {
+    @INCLUDE_COMMAND_NAME {includeLoads} {
       @ACTIVE_COMMAND {YES}
-      @LIST_OF_FILE_NAMES {monoplane_spar.dat, loadDist.dat}
+      @LIST_OF_FILE_NAMES {loadDist.dat}
+    }
+  }  
+  @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeParts} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {monoplane_spar.dat}
+    }
+  }
+  @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeCurvesShapes} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {curves.dat, shapes.dat}
+    }
+  }
+  @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeGraphicParameters} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {grfparams.dat}
     }
   }
 }
@@ -102,7 +120,12 @@
   }
   @VIEW_PARAMETERS_DEFINITION {
     @VIEW_PARAMETERS_NAME {ViewParamName} {
-      
+      @VIEW_REFERENCE_POINT { 5.00000e-001,  5.00000e-001,  5.00000e-001}
+      @VIEW_SIZE { 1.20000e+000,  1.20000e+000,  1.20000e+000}
+      @PROJECTION_REFERENCE_POINT {-7.58693e-001, -5.03030e-004, -8.33261e-001}
+      @PROJECTION_EYE_VECTOR { 0.00000e+000, -1.00000e+000,  0.00000e+000}
+      @PROJECTION_UP_VECTOR { 0.00000e+000,  0.00000e+000,  1.00000e+000}
+      @PROJECTION_VIEWPORT {-0.20000e+000,  1.72102e+000, -0.05000e+000,  0.05000e+000}
     }
-  }
+  } 
 }
