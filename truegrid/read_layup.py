@@ -160,7 +160,7 @@ def extractStationData(data,stn,biplane_switch=False,print_flag=False):
                     'k1'                          : raw_stationData[dataDict['k1']],
                     'blade station'               : int(raw_stationData[dataDict['blade station']]),
                     'blade fraction'              : raw_stationData[dataDict['blade fraction']] }
-    if biplane_flag:
+    if biplane_switch:
         stationData['chord'] = raw_stationData[dataDict['chord']]
         stationData['gap-to-chord ratio'] = raw_stationData[dataDict['gap-to-chord ratio']]
         stationData['x3'] = raw_stationData[dataDict['x3']]

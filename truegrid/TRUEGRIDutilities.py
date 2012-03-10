@@ -29,13 +29,14 @@ def defineRegularExpressions():
     swfmjPat = re.compile(r'para swfm_jelem.+')
     sciPat = re.compile(r'para sc_ielem.+')
     scjPat = re.compile(r'para sc_jelem.+')
+    writePat = re.compile(r'write.+')
     exitPat = re.compile(r'c exit')
-    
-    return (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, exitPat)
+
+    return (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, writePat, exitPat)
 
 
-def replaceDefaults(tgTemplate, stn, stnData, elemData, silent_flag=False):
-    (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, exitPat) = defineRegularExpressions()
+def replaceDefaults(tgTemplate, stn, stnData, elemData, nowrite_flag=False, silent_flag=False):
+    (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, writePat, exitPat) = defineRegularExpressions()
     for i in range(len(tgTemplate)):
         nnMatch = nnPat.match(tgTemplate[i])
         scMatch = scPat.match(tgTemplate[i])
@@ -65,6 +66,8 @@ def replaceDefaults(tgTemplate, stn, stnData, elemData, silent_flag=False):
             tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, i-elements']))
         elif scjMatch:
             tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, j-elements']))
+        elif writePat and nowrite_flag:
+            tgTemplate[i] = tgTemplate[i].replace('write   c write the output file to disk', 'c write   c do not write the output file to disk')
         elif exitMatch and silent_flag:
             tgTemplate[i] = tgTemplate[i].replace('c ', '')
     

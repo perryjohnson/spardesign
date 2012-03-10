@@ -1,0 +1,1597 @@
+c **********************
+c *** monoplane spar ***
+c **********************
+
+c --------------------------------------------------------
+
+c set the name of the mesh output file
+c mof monoplane_spar_abq.txt
+
+c set the output file type
+abaqus
+
+c set some abaqus-specific parameters
+c   assign a title to the problem
+title monoplane spar
+c   do not build 2nd-order quadrilateral elements (with mid-side nodes)
+c quadratic
+
+include layers.tg      c import the layers (dummy ABAQUS materials for VABS)
+
+c --------------------------------------------------------
+c *** spar station #01 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.013;
+para rb_ht 0.063;
+para sw_ht 5.266;
+para z_coord 0.000;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 492;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #02 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.013;
+para rb_ht 0.055;
+para sw_ht 5.265;
+para z_coord 0.200;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 492;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #03 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.02;
+para rb_ht 0.04;
+para sw_ht 5.009;
+para z_coord 2.300;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 468;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #04 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.03;
+para rb_ht 0.025;
+para sw_ht 4.741;
+para z_coord 4.400;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 444;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #05 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.051;
+para rb_ht 0.015;
+para sw_ht 4.425;
+para z_coord 6.500;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 414;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 4;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #06 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.068;
+para rb_ht 0.005;
+para sw_ht 4.091;
+para z_coord 9.000;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 382;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 4;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y6 [%y5+%rb_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+para y1 [-1.0*%y6];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+para rb_plies 6.0;
+para rb_plythk [(%y2-%y1)/%rb_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c  ROOT BUILDUP
+include rbT_nobb.tg               c import the top root buildup      part #9
+eset 0 0 1 0 0 1 = rbt       c   name this set of elements
+include rbB_nobb.tg               c import the bottom root buildup   part #10
+eset 0 0 1 0 0 1 = rbb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #07 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.094;
+para sw_ht 3.68;
+para z_coord 12.20;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 344;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #08 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.111;
+para sw_ht 3.48;
+para z_coord 13.90;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 326;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #09 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.119;
+para sw_ht 3.285;
+para z_coord 15.50;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 308;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #10 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.136;
+para sw_ht 3.089;
+para z_coord 17.10;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 290;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 8;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #11 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.136;
+para sw_ht 2.882;
+para z_coord 19.80;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 270;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 8;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #12 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.136;
+para sw_ht 2.696;
+para z_coord 22.50;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 252;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 8;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #13 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.128;
+para sw_ht 2.498;
+para z_coord 25.20;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 234;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 8;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #14 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.119;
+para sw_ht 2.077;
+para z_coord 33.4;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 194;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+
+c --------------------------------------------------------
+c *** spar station #15 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.111;
+para sw_ht 1.672;
+para z_coord 41.5;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 156;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #16 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.102;
+para sw_ht 1.36;
+para z_coord 49.6;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 128;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #17 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.085;
+para sw_ht 1.138;
+para z_coord 57.8;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 108;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 6;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #18 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.068;
+para sw_ht 0.954;
+para z_coord 64.3;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 90;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 4;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #19 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.064;
+para sw_ht 0.91;
+para z_coord 65.9;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 86;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 4;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #20 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.047;
+para sw_ht 0.832;
+para z_coord 70.8;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 78;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 4;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #21 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.034;
+para sw_ht 0.796;
+para z_coord 74.0;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 76;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #22 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.017;
+para sw_ht 0.707;
+para z_coord 82.2;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 66;  c this number must be divisible by 2
+para sc_ielem 100;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #23 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.009;
+para sw_ht 0.651;
+para z_coord 87.0;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 62;  c this number must be divisible by 2
+para sc_ielem 200;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+c *** spar station #24 ***
+c --------------------------------------------------------
+
+c set some global parameters
+para sc_ht 0.005;
+para sw_ht 0.508;
+para z_coord 91.9;
+
+para swfm_ielem 10;  c this number must be divisible by 2
+para swfm_jelem 48;  c this number must be divisible by 2
+para sc_ielem 400;
+para sc_jelem 2;
+
+para swbi_jelem [%swfm_jelem*2];
+
+para swbi_jmx [%swbi_jelem+1];
+para swfm_jmx [((%swbi_jmx-1)/2) + 1];
+para swfm_imx [%swfm_ielem+1];
+
+para x1 -0.836;
+para x2 -0.833;
+para x3 -0.753;
+para x4 -0.750;
+para x5 [-1.0*%x4];
+para x6 [-1.0*%x3];
+para x7 [-1.0*%x2];
+para x8 [-1.0*%x1];
+
+para y5 [%sw_ht/2.0];
+para y4 [%y5-%sc_ht];
+para y3 [-1.0*%y4];
+para y2 [-1.0*%y5];
+
+para swbi_plies 8.0;
+para swbi_plythk [(%x2-%x1)/%swbi_plies];
+
+c --------------------------------------------------------
+
+c  SHEAR WEB
+c    left shear web
+include swL_biaxL_nobb.tg         c import the left biax laminate    part #1
+eset 0 0 1 0 0 1 = swlbiaxl  c   name this set of elements
+include swL_biaxR_nobb.tg         c import the right biax laminate   part #2
+eset 0 0 1 0 0 1 = swlbiaxr  c   name this set of elements
+include swL_foam_nobb.tg          c import the foam core             part #3
+eset 0 0 1 0 0 1 = swlfoam   c   name this set of elements
+
+c    right shear web
+include swR_biaxL_nobb.tg         c import the left biax laminate    part #4
+eset 0 0 1 0 0 1 = swrbiaxl  c   name this set of elements
+include swR_biaxR_nobb.tg         c import the right biax laminate   part #5
+eset 0 0 1 0 0 1 = swrbiaxr  c   name this set of elements
+include swR_foam_nobb.tg          c import the foam core             part #6
+eset 0 0 1 0 0 1 = swrfoam   c   name this set of elements
+
+c  SPAR CAP
+include scT_nobb.tg               c import the top spar cap          part #7
+eset 0 0 1 0 0 1 = sct       c   name this set of elements
+include scB_nobb.tg               c import the bottom spar cap       part #8
+eset 0 0 1 0 0 1 = scb       c   name this set of elements
+
+c --------------------------------------------------------
+
+curd    c  make a 3D curve along the pitch axis of the spar
+	1             c  the label number for this curve
+	lp3           c  form a polygonal curve from point triads
+	0 0 0         c  x1 y1 z1
+	0 0 91.9; ;   c  x2 y2 z2
+
+merge  c  enter the Merge Phase, so we can do the operations below
+
+draw   c  show the spar cross-sections on the screen
+ry 90
+
+c do not delete redundant nodes at part boundaries
+c stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 = 0.000375
+            c choose a tolerance smaller than this (0.0001)
+            c the command stp deletes nodes who are near each other (within the tolerance)
+
+c --------------------------------------------------------
+
+c write   c do not write the output file to disk
+c exit

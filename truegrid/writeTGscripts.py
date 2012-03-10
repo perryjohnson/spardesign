@@ -8,6 +8,7 @@ import TRUEGRIDutilities as tgu
 
 main_debug_flag = True
 run_TG_silent = True
+no_ABQ_output = True
 
 # set constants
 sw_foam_base = 0.080 # units: meters
@@ -22,13 +23,19 @@ spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 # spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # read the layup file
-layupfile = 'biplane_spar_layup_20120306.txt'
+layupfile = 'monoplane_spar_layup.txt'
+# layupfile = 'biplane_spar_layup_20120306.txt'
 data = rl.readLayupFile(layupfile)
 print "******************************"
 print "******************************"
 print "reading from " + layupfile
 print "******************************"
 print "******************************"
+
+if layupfile == 'biplane_spar_layup_20120306.txt':
+    biplane_switch = True
+else:
+    biplane_switch = False
 
 for n in range(len(spar_stn_list)):
     spar_station = spar_stn_list[n]
@@ -72,12 +79,16 @@ for n in range(len(spar_stn_list)):
             print 'silent flag is ON (TrueGrid will exit at end of script)'
         else:
             print 'silent flag is OFF'
+        if no_ABQ_output:
+            print 'no-write flag is ON (TrueGrid will not generate an ABAQUS output file)'
+        else:
+            print 'no-write flag is OFF'
 
     # ----------------------------------------------------------------------------------
 
     tgTemplate = tgu.readFile('spar_station_nn.tg')
     tgFile = tgu.makeTGFile(basefilestr)
-    tgTemplate = tgu.replaceDefaults(tgTemplate, spar_station, stationData, elemData, silent_flag=run_TG_silent)
+    tgTemplate = tgu.replaceDefaults(tgTemplate, spar_station, stationData, elemData, nowrite_flag=no_ABQ_output, silent_flag=run_TG_silent)
     if not RB_flag:
         tgTemplate = tgu.removeRBentries(tgTemplate)
     tgu.writeNewTGscript(tgFile, tgTemplate)

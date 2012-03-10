@@ -72,7 +72,7 @@
   @CURVE_MESH_PARAMETERS_NAME {meshEF} {
     @NUMBER_OF_ELEMENTS {8}
     @ORDER_OF_ELEMENTS {3}
-    @COMMENTS {models the root region with 8 cubic beam elements}
+    @COMMENTS {models the monoplane outboard region with 8 cubic beam elements}
   }
 }
 

@@ -281,7 +281,7 @@ def writeMKmatrices(DYMOREfileHandle, vabsMKfilepath, station_data, CoordType='E
     MKlines = readFile(vabsMKfilepath)
     (cm_x2, cm_x3, mpus, i1, i2, i3, K) = pullMKmatrices(MKlines, print_flag=debug_flag)
     if CoordType == 'ETA_COORDINATE':
-        writeDymoreMK(DYMOREfileHandle, CoordType, stationData['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
+        writeDymoreMK(DYMOREfileHandle, CoordType, station_data['eta'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
     elif CoordType == 'CURVILINEAR_COORDINATE':
         # writeDymoreMK(DYMOREfileHandle, CoordType, station_data['s'], cm_x2, cm_x3, mpus, i1, i2, i3, K)
         print "***WARNING*** CURVILINEAR_COORDINATE feature is not yet supported."
