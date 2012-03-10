@@ -9,6 +9,8 @@
   @BEAM_NAME {HE_jointTrans_lower} {
     @EDGE_NAME {edgeHE}
     @BEAM_PROPERTY_NAME {propHE}
+    @SHAPE_NAME {shape_jointTrans_lower}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the lower joint transition region of the spar}
   }
 }

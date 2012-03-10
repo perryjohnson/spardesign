@@ -9,6 +9,8 @@
   @BEAM_NAME {GH_straightBiplane_lower} {
     @EDGE_NAME {edgeGH}
     @BEAM_PROPERTY_NAME {propGH}
+    @SHAPE_NAME {shape_straightBiplane}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the lower straight biplane region of the spar}
   }
 }

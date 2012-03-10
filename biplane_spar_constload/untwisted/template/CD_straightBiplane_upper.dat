@@ -9,6 +9,8 @@
   @BEAM_NAME {CD_straightBiplane_upper} {
     @EDGE_NAME {edgeCD}
     @BEAM_PROPERTY_NAME {propCD}
+    @SHAPE_NAME {shape_straightBiplane}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the upper straight biplane region of the spar}
   }
 }

@@ -9,6 +9,8 @@
   @BEAM_NAME {DE_jointTrans_upper} {
     @EDGE_NAME {edgeDE}
     @BEAM_PROPERTY_NAME {propDE}
+    @SHAPE_NAME {shape_jointTrans_upper}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the upper joint transition region of the spar}
   }
 }

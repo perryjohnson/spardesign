@@ -113,6 +113,19 @@
       @LIST_OF_FILE_NAMES {AB_root.dat, BC_rootTrans_upper.dat, BG_rootTrans_lower.dat, CD_straightBiplane_upper.dat, GH_straightBiplane_lower.dat, DE_jointTrans_upper.dat, HE_jointTrans_lower.dat, EF_monoOutboard.dat}
     }
   }
+  @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeCurvesShapes} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {curves.dat, shapes.dat}
+    }
+  }
+  @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeGraphicParameters} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {grfparams.dat}
+    }
+  }
+
 }
 
 @CREATE_FINITE_ELEMENT_MODEL {

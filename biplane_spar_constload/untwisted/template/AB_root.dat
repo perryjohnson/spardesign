@@ -9,8 +9,9 @@
   @BEAM_NAME {AB_root} {
     @EDGE_NAME {edgeAB}
     @BEAM_PROPERTY_NAME {propAB}
-    @SHAPE_NAME {ShapeRoot}
-    @GRAPHICAL_PARAMETERS_NAME {grfparamAB}
+    @SHAPE_NAME {shape_root}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
+!     @GRAPHICAL_PARAMETERS_NAME {grfparamAB}
     @COMMENTS {the root region of the spar}
   }
 }
@@ -57,72 +58,6 @@
     @NUMBER_OF_ELEMENTS {2}
     @ORDER_OF_ELEMENTS {3}
     @COMMENTS {models the root region with 2 cubic beam elements}
-  }
-}
-
-
-@CURVE_DEFINITION {
-  @CURVE_NAME {CurveNaca0010} {
-    @IS_DEFINED_IN_FRAME {INERTIAL}
-    @POINT_DEFINITION {
-      @NUMBER_OF_CONTROL_POINTS {     5}
-      @DEGREE_OF_CURVE {     3}
-      @RATIONAL_CURVE_FLAG {NO}
-      @COORDINATES { 0.00000e+000, -7.50000e-001,  0.00000e+000}
-      @COORDINATES { 0.00000e+000,  9.50000e-003,  8.70000e-002}
-      @COORDINATES { 0.00000e+000,  4.90500e-001,  0.00000e+000}
-      @COORDINATES { 0.00000e+000,  9.50000e-003, -8.70000e-002}
-      @COORDINATES { 0.00000e+000, -7.50000e-001,  0.00000e+000}
-    }
-    @KNOT_SEQUENCE_DEFINITION {
-      @KNOT_SEQUENCE {
-       0.00000e+000,  0.00000e+000,  0.00000e+000,  0.00000e+000,  5.00000e-001,  1.00000e+000,
-       1.00000e+000,  1.00000e+000,  1.00000e+000}
-    }
-    @COMMENTS {unit chord length, origin at 3 quarter chord}
-  }
-}
-
-@CURVE_DEFINITION {
-  @CURVE_NAME {CurveSquare} {
-    @IS_DEFINED_IN_FRAME {INERTIAL}
-    @POINT_DEFINITION {
-      @NUMBER_OF_CONTROL_POINTS {5}
-      @DEGREE_OF_CURVE {1}
-      @RATIONAL_CURVE_FLAG {YES}
-      @COORDINATES {0.0,  0.5,  0.5, 1.0}
-      @COORDINATES {0.0, -0.5,  0.5, 1.0}
-      @COORDINATES {0.0, -0.5, -0.5, 1.0}
-      @COORDINATES {0.0,  0.5, -0.5, 1.0}
-      @COORDINATES {0.0,  0.5,  0.5, 1.0}
-    }
-    @KNOT_SEQUENCE_DEFINITION {
-      @KNOT_SEQUENCE {0.00, 0.00, 0.25, 0.50, 0.75, 1.00, 1.00}
-    }
-    @COMMENTS {unit square, modified from: www.ocnus.com, Square.wrl}
-  }
-}
-
-
-@SHAPE_DEFINITION {
-  @SHAPE_NAME {ShapeRoot} {
-    @SHAPE_TYPE {CURVE}
-    @COORDINATE_TYPE {ETA_COORDINATE}
-    @ETA_COORDINATE {0.0} {
-      @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 2.0, 2.0}
-      @ORIGIN {0.0, 0.0, 0.0}
-    }
-    @ETA_COORDINATE {0.5} {
-      @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 2.0, 2.0}
-      @ORIGIN {0.0, 0.0, 0.0}
-    }
-    @ETA_COORDINATE {1.0} {
-      @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 2.0, 2.0}
-      @ORIGIN {0.0, 0.0, 0.0}
-    }
   }
 }
 
@@ -186,13 +121,6 @@
     }
     
     @COMMENTS {beam properties for spar stations 1-3}
-  }
-}
-
-@GRAPHICAL_PARAMETERS_DEFINITION {
-  @GRAPHICAL_PARAMETERS_NAME {grfparamAB} {
-    @REPRESENTATION_TYPE {MESH}
-    @COLOR_FOR_CONFIGURATION {CYAN}
   }
 }
 

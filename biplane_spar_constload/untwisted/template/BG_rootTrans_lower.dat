@@ -9,6 +9,8 @@
   @BEAM_NAME {BG_rootTrans_lower} {
     @EDGE_NAME {edgeBG}
     @BEAM_PROPERTY_NAME {propBG}
+    @SHAPE_NAME {shape_rootTrans_lower}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the lower root transition region of the spar}
   }
 }
@@ -209,10 +211,10 @@
   }
 }
 
-@GRAPHICAL_PARAMETERS_DEFINITION {
-  @GRAPHICAL_PARAMETERS_NAME {grfparamBG} {
-  }
-}
+! @GRAPHICAL_PARAMETERS_DEFINITION {
+!   @GRAPHICAL_PARAMETERS_NAME {grfparamBG} {
+!   }
+! }
 
 @SURVEY_DEFINITION {
   @SURVEY_NAME {surveyBG} {

@@ -9,6 +9,8 @@
   @BEAM_NAME {BC_rootTrans_upper} {
     @EDGE_NAME {edgeBC}
     @BEAM_PROPERTY_NAME {propBC}
+    @SHAPE_NAME {shape_rootTrans_upper}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the upper root transition region of the spar}
   }
 }
@@ -209,10 +211,10 @@
   }
 }
 
-@GRAPHICAL_PARAMETERS_DEFINITION {
-  @GRAPHICAL_PARAMETERS_NAME {grfparamBC} {
-  }
-}
+! @GRAPHICAL_PARAMETERS_DEFINITION {
+!   @GRAPHICAL_PARAMETERS_NAME {grfparamBC} {
+!   }
+! }
 
 @SURVEY_DEFINITION {
   @SURVEY_NAME {surveyBC} {

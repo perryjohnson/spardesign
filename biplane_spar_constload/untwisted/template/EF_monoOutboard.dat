@@ -9,6 +9,8 @@
   @BEAM_NAME {EF_monoOutboard} {
     @EDGE_NAME {edgeEF}
     @BEAM_PROPERTY_NAME {propEF}
+    @SHAPE_NAME {shape_monoOutboard}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
     @COMMENTS {the monoplane outboard region of the spar}
   }
 }
