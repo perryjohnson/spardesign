@@ -83,23 +83,39 @@
   }
 }
 
+@CURVE_DEFINITION {
+  @CURVE_NAME {CurveSquare} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {4}
+      @DEGREE_OF_CURVE {3}
+      @RATIONAL_CURVE_FLAG {NO}
+      @COORDINATES {0.0,  1.0,  2.0}
+      @COORDINATES {0.0, -1.0,  2.0}
+      @COORDINATES {0.0, -1.0, -2.0}
+      @COORDINATES {0.0,  1.0, -2.0}
+      @SPLINE {YES}
+    }
+  }
+}
+
 
 @SHAPE_DEFINITION {
   @SHAPE_NAME {ShapeRoot} {
     @SHAPE_TYPE {CURVE}
     @COORDINATE_TYPE {ETA_COORDINATE}
     @ETA_COORDINATE {0.0} {
-      @CURVE_NAME {CurveNaca0010}
+      @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 10.0, 10.0}
       @ORIGIN {0.0, 0.0, 0.0}
     }
     @ETA_COORDINATE {0.5} {
-      @CURVE_NAME {CurveNaca0010}
+      @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 5.0, 5.0}
       @ORIGIN {0.0, 0.0, 0.0}
     }
     @ETA_COORDINATE {1.0} {
-      @CURVE_NAME {CurveNaca0010}
+      @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 2.0, 2.0}
       @ORIGIN {0.0, 0.0, 0.0}
     }
