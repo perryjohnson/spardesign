@@ -9,6 +9,8 @@
   @BEAM_NAME {AB_root} {
     @EDGE_NAME {edgeAB}
     @BEAM_PROPERTY_NAME {propAB}
+    @SHAPE_NAME {ShapeRoot}
+    @GRAPHICAL_PARAMETERS_NAME {grfparamAB}
     @COMMENTS {the root region of the spar}
   }
 }
@@ -55,6 +57,52 @@
     @NUMBER_OF_ELEMENTS {2}
     @ORDER_OF_ELEMENTS {3}
     @COMMENTS {models the root region with 2 cubic beam elements}
+  }
+}
+
+
+@CURVE_DEFINITION {
+  @CURVE_NAME {CurveNaca0010} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {     5}
+      @DEGREE_OF_CURVE {     3}
+      @RATIONAL_CURVE_FLAG {NO}
+      @COORDINATES { 0.00000e+000, -7.50000e-001,  0.00000e+000}
+      @COORDINATES { 0.00000e+000,  9.50000e-003,  8.70000e-002}
+      @COORDINATES { 0.00000e+000,  4.90500e-001,  0.00000e+000}
+      @COORDINATES { 0.00000e+000,  9.50000e-003, -8.70000e-002}
+      @COORDINATES { 0.00000e+000, -7.50000e-001,  0.00000e+000}
+    }
+    @KNOT_SEQUENCE_DEFINITION {
+      @KNOT_SEQUENCE {
+       0.00000e+000,  0.00000e+000,  0.00000e+000,  0.00000e+000,  5.00000e-001,  1.00000e+000,
+       1.00000e+000,  1.00000e+000,  1.00000e+000}
+    }
+    @COMMENTS {unit chord length, origin at 3 quarter chord}
+  }
+}
+
+
+@SHAPE_DEFINITION {
+  @SHAPE_NAME {ShapeRoot} {
+    @SHAPE_TYPE {CURVE}
+    @COORDINATE_TYPE {ETA_COORDINATE}
+    @ETA_COORDINATE {0.0} {
+      @CURVE_NAME {CurveNaca0010}
+      @SCALING_FACTOR {0.0, 10.0, 10.0}
+      @ORIGIN {0.0, 0.0, 0.0}
+    }
+    @ETA_COORDINATE {0.5} {
+      @CURVE_NAME {CurveNaca0010}
+      @SCALING_FACTOR {0.0, 5.0, 5.0}
+      @ORIGIN {0.0, 0.0, 0.0}
+    }
+    @ETA_COORDINATE {1.0} {
+      @CURVE_NAME {CurveNaca0010}
+      @SCALING_FACTOR {0.0, 2.0, 2.0}
+      @ORIGIN {0.0, 0.0, 0.0}
+    }
   }
 }
 
@@ -123,6 +171,7 @@
 
 @GRAPHICAL_PARAMETERS_DEFINITION {
   @GRAPHICAL_PARAMETERS_NAME {grfparamAB} {
+    @REPRESENTATION_TYPE {MESH}
   }
 }
 
