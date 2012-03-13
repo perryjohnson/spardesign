@@ -229,14 +229,14 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     # ----------------------------------------------------------------------------------
     # set parameters for DYMORE code blocks
     # -------------------------------------
-    layup_file_data = rl.readLayupFile('truegrid/biplane_spar_layup_20120306.txt')
+    layup_file_data = rl.readLayupFile('truegrid/biplane_spar_layup_20120312.txt')
     # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate a DYMORE code block for these spar stations
-    spar_stn_list = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]  # generate a DYMORE code block for these spar stations
+    spar_stn_list = [6, 7, 8, 9, 10]  # generate a DYMORE code block for these spar stations
 
-    beam_property_name = 'propBE'
-    BPD_comments = 'beam properties for spar stations 3-16'
-    orientation_distribution_name = 'OriDistBE'
-    ODD_comments = 'eta coordinates for spar stations 3-16'
+    beam_property_name = 'propBC'
+    BPD_comments = 'beam properties for spar stations 6-10'
+    orientation_distribution_name = 'OriDistBC'
+    ODD_comments = 'eta coordinates for spar stations 6-10'
 
 
     # ----------------------------------------------------------------------------------
