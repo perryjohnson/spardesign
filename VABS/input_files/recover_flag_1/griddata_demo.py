@@ -2,35 +2,60 @@
 from matplotlib.mlab import griddata
 import matplotlib.pyplot as plt
 import numpy as np
-# make up data.
-#npts = int(raw_input('enter # of random points to plot:'))
-# seed(0)
-# npts = 200
-# x = uniform(-2,2,npts)
-# y = uniform(-2,2,npts)
-# z = x*np.exp(-x**2-y**2)
+
+# set bounds of cross-section
+sw_height = 0.508
+sw_base   = 0.003 + 0.080 + 0.003
+sc_height = 0.005
+sc_base   = 1.5
+(x2i,x3i) = (sc_base/2.0, sw_height/2.0-sc_height)  # inside bounds
+(x2o,x3o) = (sc_base/2.0+sw_base, sw_height/2.0)    # outside bounds
+
+#   *----*-------------------*----*(x2o,x3o)
+#   |    |                   |    |
+#   |    *-------------------*    |
+#   |    |          (x2i,x3i)|    |
+#   |    |                   |    |
+#   |    |                   |    |
+#   |    *-------------------*    |
+#   |    |                   |    |
+#   *----*-------------------*----*
+
 
 # get data
-data = np.loadtxt('spar_station_24.dat.U')
-x = data[:,1]  # x2 coordinate
-y = data[:,2]  # x3 coordinate
-z = data[:,3]  # U1 deflection (in the beam coordinate system)
+print "getting data..."
+# x2,x3,s11,s12,s13,s22,s23,s33 = np.loadtxt('spar_station_24.dat.S', unpack=True)
+node_no,x2,x3,u1,u2,u3 = np.loadtxt('spar_station_24.dat.U', unpack=True)
 
 # define grid.
-# xi = np.linspace(-1.1,1.1,1000)
-# yi = np.linspace(-1.1,1.1,1000)
-X,Y = np.meshgrid(x,y)
+print "defining grid..."
+# tol = 0.000001# set tolerance
+x2_interp = np.linspace(-x2o, x2o, 1000)
+x3_interp = np.linspace(-x3o, x3o, 1000)
 
 # grid the data.
-# zi = griddata(x,y,z,xi,yi,interp='linear')
-# zi[400:600,200:800] = np.nan
-# # contour the gridded data, plotting dots at the nonuniform data points.
-# CS = plt.contour(xi,yi,zi,15,linewidths=0.5,colors='k')
-# CS = plt.contourf(xi,yi,zi,15,cmap=plt.cm.jet)
-# plt.colorbar() # draw colorbar
-# # plot data points.
-# plt.scatter(x,y,marker='o',c='b',s=5,zorder=10)
-# plt.xlim(-1,1)
-# plt.ylim(-1,1)
-# plt.title('spar station #24')
-# plt.show()
+print "interpolating the data onto the grid..."
+# s11_interp = griddata(x2,x3,s11,x2_interp,x3_interp)
+u1i = griddata(x2,x3,u1,x2_interp,x3_interp, interp='nn')
+
+
+# mask the interior points (-x2i<x2<x2i, -x3i<x3<x3i)
+# x2_interp_mask_start = np.nonzero(x2_interp<-x2i)[0][-1]
+# x2_interp_mask_end = np.nonzero(x2_interp>x2i)[0][0]
+# x3_interp_mask_start = np.nonzero(x3_interp<-x3i)[0][-1]
+# x3_interp_mask_end = np.nonzero(x3_interp>x3i)[0][0]
+# u1i[x2_interp_mask_start:x2_interp_mask_end,x3_interp_mask_start:x3_interp_mask_end] = np.nan
+
+# contour the gridded data, plotting dots at the nonuniform data points.
+print "contour the gridded data..."
+CS = plt.contour(x2_interp,x3_interp,u1i,15,linewidths=0.5,colors='k')
+CS = plt.contourf(x2_interp,x3_interp,u1i,15,cmap=plt.cm.jet)
+plt.colorbar() # draw colorbar
+
+# plot data points.
+print "plot data points..."
+plt.scatter(x2,x3,marker='o',c='b',s=5,zorder=10)
+plt.xlim(-1,1)
+plt.ylim(-1,1)
+plt.title('spar station #24')
+plt.show()
