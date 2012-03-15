@@ -46,68 +46,68 @@ c   z-coordinates
 c inttr 0.5  c the relative size of the transition elements
            c (must be between 0 and 1)
 
-c c make block boundary (slave #9) on bottom edge of mesh
-c c                                   (section: left shear web, left biax)
-c bb
-c c   region
-c     1 1 1  c  i-min j-min k-min
-c     2 1 1  c  i-max j-max k-max
-c c   interface
-c     9;     c  assign this interface to be #9
-c 
-c c make block boundary (slave #10) on bottom edge of mesh
-c c                                   (section: left shear web, foam)
-c bb
-c c   region
-c     2 1 1  c  i-min j-min k-min
-c     3 1 1  c  i-max j-max k-max
-c c   interface
-c     10;     c  assign this interface to be #10
-c 
-c c make block boundary (slave #11) on bottom edge of mesh
-c c                                   (section: left shear web, right biax)
-c bb
-c c   region
-c     3 1 1  c  i-min j-min k-min
-c     4 1 1  c  i-max j-max k-max
-c c   interface
-c     11;     c  assign this interface to be #11
-c 
-c c make block boundary (slave #12) on bottom edge of mesh
-c c                                   (section: spar cap)
-c bb
-c c   region
-c     4 1 1  c  i-min j-min k-min
-c     5 1 1  c  i-max j-max k-max
-c c   interface
-c     12;     c  assign this interface to be #12
-c 
-c c make block boundary (slave #13) on bottom edge of mesh
-c c                                   (section: right shear web, left biax)
-c bb
-c c   region
-c     5 1 1  c  i-min j-min k-min
-c     6 1 1  c  i-max j-max k-max
-c c   interface
-c     13;     c  assign this interface to be #13
-c 
-c c make block boundary (slave #14) on bottom edge of mesh
-c c                                   (section: right shear web, foam)
-c bb
-c c   region
-c     6 1 1  c  i-min j-min k-min
-c     7 1 1  c  i-max j-max k-max
-c c   interface
-c     14;     c  assign this interface to be #14
-c 
-c c make block boundary (slave #15) on bottom edge of mesh
-c c                                   (section: right shear web, right biax)
-c bb
-c c   region
-c     7 1 1  c  i-min j-min k-min
-c     8 1 1  c  i-max j-max k-max
-c c   interface
-c     15;     c  assign this interface to be #15
+c make block boundary (slave #9) on bottom edge of mesh
+c                                   (section: left shear web, left biax)
+bb
+c   region
+    1 1 1  c  i-min j-min k-min
+    2 1 1  c  i-max j-max k-max
+c   interface
+    9;     c  assign this interface to be #9
+
+c make block boundary (slave #10) on bottom edge of mesh
+c                                   (section: left shear web, foam)
+bb
+c   region
+    2 1 1  c  i-min j-min k-min
+    3 1 1  c  i-max j-max k-max
+c   interface
+    10;     c  assign this interface to be #10
+
+c make block boundary (slave #11) on bottom edge of mesh
+c                                   (section: left shear web, right biax)
+bb
+c   region
+    3 1 1  c  i-min j-min k-min
+    4 1 1  c  i-max j-max k-max
+c   interface
+    11;     c  assign this interface to be #11
+
+c make block boundary (slave #12) on bottom edge of mesh
+c                                   (section: spar cap)
+bb
+c   region
+    4 1 1  c  i-min j-min k-min
+    5 1 1  c  i-max j-max k-max
+c   interface
+    12;     c  assign this interface to be #12
+
+c make block boundary (slave #13) on bottom edge of mesh
+c                                   (section: right shear web, left biax)
+bb
+c   region
+    5 1 1  c  i-min j-min k-min
+    6 1 1  c  i-max j-max k-max
+c   interface
+    13;     c  assign this interface to be #13
+
+c make block boundary (slave #14) on bottom edge of mesh
+c                                   (section: right shear web, foam)
+bb
+c   region
+    6 1 1  c  i-min j-min k-min
+    7 1 1  c  i-max j-max k-max
+c   interface
+    14;     c  assign this interface to be #14
+
+c make block boundary (slave #15) on bottom edge of mesh
+c                                   (section: right shear web, right biax)
+bb
+c   region
+    7 1 1  c  i-min j-min k-min
+    8 1 1  c  i-max j-max k-max
+c   interface
+    15;     c  assign this interface to be #15
 
 c assign the default material to be #6
 mate 6  c triaxial GFRP, theta3 = 0 degrees

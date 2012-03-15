@@ -23,29 +23,29 @@ c   z-coordinates
 inttr 0.5  c the relative size of the transition elements
            c (must be between 0 and 1)
 
-c c make block boundary (slave #5) on left edge of mesh
-c trbb
-c c   region
-c     1 1 1  c  i-min j-min k-min
-c     1 2 1  c  i-max j-max k-max
-c c   interface
-c     5;     c  assign this interface to be #5
-c 
-c c make block boundary (slave #6) on right edge of mesh
-c trbb
-c c   region
-c     2 1 1  c  i-min j-min k-min
-c     2 2 1  c  i-max j-max k-max
-c c   interface
-c     6;     c  assign this interface to be #6
-c 
-c c make block boundary (master #12) on top edge of mesh
-c bb
-c c   region
-c     0 2 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
-c     0 2 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=2)
-c c   interface
-c     12;     c  assign this interface to be #12
+c make block boundary (slave #5) on left edge of mesh
+trbb
+c   region
+    1 1 1  c  i-min j-min k-min
+    1 2 1  c  i-max j-max k-max
+c   interface
+    5;     c  assign this interface to be #5
+
+c make block boundary (slave #6) on right edge of mesh
+trbb
+c   region
+    2 1 1  c  i-min j-min k-min
+    2 2 1  c  i-max j-max k-max
+c   interface
+    6;     c  assign this interface to be #6
+
+c make block boundary (master #12) on top edge of mesh
+bb
+c   region
+    0 2 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 2 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=2)
+c   interface
+    12;     c  assign this interface to be #12
 
 c assign the default material to be #1
 mate 1  c uniaxial GFRP, theta3 = 0 degrees

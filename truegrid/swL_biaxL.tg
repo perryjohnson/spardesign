@@ -37,29 +37,29 @@ c   z-coordinates
     c 0;
     %z_coord;
 
-c c make block boundary (master #1) on right edge of mesh
-c bb
-c c   region
-c     9 0 1  c  i-min j-min k-min
-c     9 0 1  c  i-max j-max k-max
-c c   interface
-c     1;     c  assign this interface to be #1
-c 
-c c make block boundary (master #9) on top edge of mesh
-c bb
-c c   region
-c     0 4 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
-c     0 4 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
-c c   interface
-c     9;     c  assign this interface to be #9
-c 
-c c make block boundary (master #16) on bottom edge of mesh
-c bb
-c c   region
-c     0 1 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
-c     0 1 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
-c c   interface
-c     16;     c  assign this interface to be #16
+c make block boundary (master #1) on right edge of mesh
+bb
+c   region
+    9 0 1  c  i-min j-min k-min
+    9 0 1  c  i-max j-max k-max
+c   interface
+    1;     c  assign this interface to be #1
+
+c make block boundary (master #9) on top edge of mesh
+bb
+c   region
+    0 4 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 4 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    9;     c  assign this interface to be #9
+
+c make block boundary (master #16) on bottom edge of mesh
+bb
+c   region
+    0 1 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 1 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    16;     c  assign this interface to be #16
 
 c assign the default material to be #2
 mate 2  c biaxial GFRP, theta3 = +45 degrees
