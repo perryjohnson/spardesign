@@ -108,6 +108,12 @@
     }
   }
   @INCLUDE_COMMAND {
+    @INCLUDE_COMMAND_NAME {includeCommonDefs} {
+      @ACTIVE_COMMAND {YES}
+      @LIST_OF_FILE_NAMES {common.dat}
+    }
+  }
+  @INCLUDE_COMMAND {
     @INCLUDE_COMMAND_NAME {includeParts} {
       @ACTIVE_COMMAND {YES}
       @LIST_OF_FILE_NAMES {AB_root.dat, BC_rootTrans_upper.dat, BG_rootTrans_lower.dat, CD_straightBiplane_upper.dat, GH_straightBiplane_lower.dat, DE_jointTrans_upper.dat, HE_jointTrans_lower.dat, EF_monoOutboard.dat}
@@ -157,6 +163,7 @@
       @TIME_STEP_SIZE { 1.00000e+000}
       @MAXIMUM_NUMBER_OF_ITERATIONS {    10}
       @FACTORIZATION_STRATEGY {     1}
+      @CONVERGENCE_NORM_TYPE {DISPLACEMENTS}
       @CONVERGENCE_TOLERANCE { 1.00000e-003}
       @MAXIMUM_NUMBER_OF_REJECT {     5}
       @AVERAGE_STIFFNESS_TERM { 1.00000e+006}

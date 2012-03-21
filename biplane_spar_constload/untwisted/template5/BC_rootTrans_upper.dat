@@ -31,35 +31,11 @@
       @SPLINE {NO}
     }
     @TRIAD_DEFINITION {
-      @ORIENTATION_DISTRIBUTION_NAME {OriDistBC}
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshBC}
     @COMMENTS {a cubic spline from the inboard joint (pointB) to the end of the upper root transition (pointC)}
-  }
-}
-
-@ORIENTATION_DISTRIBUTION_DEFINITION {
-  @ORIENTATION_DISTRIBUTION_NAME {OriDistBC} {
-    @ORIENTATION_DEFINITION_TYPE {TWIST_ANGLE}
-    @COORDINATE_TYPE {ETA_COORDINATE}
-    
-    @ETA_COORDINATE {0.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {3.95062e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {6.04938e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {8.02469e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {1.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @COMMENTS {eta coordinates for spar stations 6-10}
   }
 }
 

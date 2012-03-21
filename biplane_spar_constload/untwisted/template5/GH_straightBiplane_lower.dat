@@ -26,35 +26,11 @@
       @END_POINT_1 {pointH}
     }
     @TRIAD_DEFINITION {
-      @ORIENTATION_DISTRIBUTION_NAME {OriDistGH}
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshGH}
     @COMMENTS {a cubic spline from the end of the lower root transition (pointG) to the end of the lower joint transition (pointH)}
-  }
-}
-
-@ORIENTATION_DISTRIBUTION_DEFINITION {
-  @ORIENTATION_DISTRIBUTION_NAME {OriDistGH} {
-    @ORIENTATION_DEFINITION_TYPE {TWIST_ANGLE}
-    @COORDINATE_TYPE {ETA_COORDINATE}
-    
-    @ETA_COORDINATE {0.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {1.65644e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {3.31288e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {4.96933e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {1.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @COMMENTS {eta coordinates for spar stations 10-14}
   }
 }
 

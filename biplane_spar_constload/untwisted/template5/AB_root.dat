@@ -26,38 +26,11 @@
       @END_POINT_1 {pointB}
     }
     @TRIAD_DEFINITION {
-      @ORIENTATION_DISTRIBUTION_NAME {OriDistAB}
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshAB}
     @COMMENTS {straight line from the root (pointA) to the inboard joint (pointB)}
-  }
-}
-
-@ORIENTATION_DISTRIBUTION_DEFINITION {
-  @ORIENTATION_DISTRIBUTION_NAME {OriDistAB} {
-    @ORIENTATION_DEFINITION_TYPE {TWIST_ANGLE}
-    @COORDINATE_TYPE {ETA_COORDINATE}
-    
-    @ETA_COORDINATE {0.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {2.22222e-02}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {2.55556e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {4.88889e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {7.22222e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {1.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @COMMENTS {eta coordinates for spar stations 1-6}
   }
 }
 

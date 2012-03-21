@@ -31,29 +31,11 @@
       @SPLINE {NO}
     }
     @TRIAD_DEFINITION {
-      @ORIENTATION_DISTRIBUTION_NAME {OriDistHE}
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshHE}
     @COMMENTS {a cubic spline from the end of the lower joint transition (pointH) to the outboard joint (pointE)}
-  }
-}
-
-@ORIENTATION_DISTRIBUTION_DEFINITION {
-  @ORIENTATION_DISTRIBUTION_NAME {OriDistHE} {
-    @ORIENTATION_DEFINITION_TYPE {TWIST_ANGLE}
-    @COORDINATE_TYPE {ETA_COORDINATE}
-    
-    @ETA_COORDINATE {0.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {5.00000e-01}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @ETA_COORDINATE {1.00000e+00}
-    @TWIST_ANGLE {0.00000e+00}
-    
-    @COMMENTS {eta coordinates for spar stations 14-16}
   }
 }
 
