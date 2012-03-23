@@ -146,9 +146,11 @@ def interpretABAQUS(abqfile, nodeFile, elemFile, esetFile, debug_flag=False):
     theta1_dict = { 'swlbiaxl': 90,      # left wall
                     'swlfoam':  90,      # left wall
                     'swlbiaxr': 90,      # left wall
+                    'swl':      90,      # left wall (simple bi-material cross-section)
                     'swrbiaxl': 270,     # right wall
                     'swrfoam':  270,     # right wall
                     'swrbiaxr': 270,     # right wall
+                    'swr':      270,     # right wall (simple bi-material cross-section)
                     'sct':      0,       # top wall
                     'rbt':      0,       # top wall
                     'scb':      180,     # bottom wall
