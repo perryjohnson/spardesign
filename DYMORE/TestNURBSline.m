@@ -12,7 +12,7 @@ clear all;
 % close all;
 clc;
 
-addpath 'C:\Program Files (x86)\MATLAB\R2007b\nurbs-1.3.6\inst' -BEGIN;
+addpath '.\nurbs-1.3.6\inst' -BEGIN;
 
 % weights
 w = [1.0 1.0 1.0 1.0];
