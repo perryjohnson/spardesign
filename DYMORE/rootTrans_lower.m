@@ -1,4 +1,4 @@
-% this script plots the upper root transition of the biplane blade as a NURBS curve,
+% this script plots the lower root transition of the biplane blade as a NURBS curve,
 % then calculates the curvature and radius of curvature at several test points along the curve
 %
 % the curvature should be smallest near the middle of the curve
@@ -18,7 +18,7 @@ w = [1.0 0.7 0.3 1.0];
 
 % control points
 cntrl = [w(1)*9.0  w(2)*13.9  w(3)*13.9    w(4)*17.1;      % upper root transition
-         w(1)*0.0  w(2)* 0.0  w(3)* 3.815  w(4)* 3.815;
+         w(1)*0.0  w(2)* 0.0  w(3)*-3.815  w(4)*-3.815;
          w(1)*0.0  w(2)* 0.0  w(3)* 0.0    w(4)* 0.0;
          w(1)      w(2)       w(3)         w(4)];
      
@@ -31,7 +31,7 @@ crv = nrbmak(cntrl,knots);
 % plot the NURBS curve
 nrbplot(crv, 50);
 hold on;
-title('upper root transition');
+title('lower root transition');
 
 % create plot for the control points
 plot(cntrl(1,:),cntrl(2,:),'m.-');
