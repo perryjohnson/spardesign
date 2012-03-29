@@ -1,75 +1,268 @@
-% this script plots the upper root transition of the biplane blade as a NURBS curve,
+% this script plots beam reference line(s) of the biplane blade as several NURBS curves,
 % then calculates the curvature and radius of curvature at several test points along the curve
 %
-% the curvature should be smallest near the middle of the curve
-% (and the radius of curvature should be largest near the middle of the curve)
-%
 % Author: Perry Johnson
-% Date:   March 27, 2012
+% Date:   March 28, 2012
 
 clear all;
-% close all;
 clc;
 
 addpath '.\nurbs-1.3.6\inst' -BEGIN;
 
+
+%%%% GLOBAL CONSTANTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+R = 91.9;       % span, [m]
+c_max = 7.628;  % maximum chord in monoplane blade (Sandia), [m]
+
+% plot the location of the monoplane spar stations
+x1 = [0.0 0.2 2.3 4.4 6.5 9.0 12.2 13.9 15.5 17.1 19.8 22.5 25.2 33.4 41.5 49.6 57.8 64.3 65.9 70.8 74.0 82.2 87.0 91.9];
+x3 = [-20 20];
+for j=1:length(x1)
+    plot([x1(j) x1(j)], x3, 'c:');
+    if j == 1
+        hold on;
+    end
+end
+
+
+%%%% GLOBAL PARAMETERS, NON-DIMENSIONAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+r_j__to__R    = 0.5397;  % joint length-to-span ratio
+r_jt__to__r_j = 0.3266;  % joint transition length-to-joint length ratio
+r_rt__to__r_j = 0.1633;  % root transition length-to-joint length ratio
+r_r__to__r_j  = 0.1815;  % root length-to-joint length ratio
+g__to__c      = 1.0003;  % gap-to-chord ratio
+
+% template5 presets:
+% r_j__to__R    = 0.5397;  % joint length-to-span ratio
+% r_jt__to__r_j = 0.3266;  % joint transition length-to-joint length ratio
+% r_rt__to__r_j = 0.1633;  % root transition length-to-joint length ratio
+% r_r__to__r_j  = 0.1815;  % root length-to-joint length ratio
+% g__to__c      = 1.0003;  % gap-to-chord ratio
+
+
+%%%% GLOBAL PARAMETERS, DIMENSIONAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+g = g__to__c * c_max;        % gap, [m]
+r_j = r_j__to__R * R;        % joint length, [m]
+r_r = r_r__to__r_j * r_j;    % root length, [m]
+r_rt = r_rt__to__r_j * r_j;  % root transition length, [m]
+r_jt = r_jt__to__r_j * r_j;  % joint transition length, [m]
+
+% point = [x, y, z, w];
+A = [0.0,         0.0,  0.0,   1.0];
+B = [r_r,         0.0,  0.0,   1.0];
+C = [r_r + r_rt,  0.0,  g/2.0, 1.0];
+D = [r_j - r_jt,  0.0,  g/2.0, 1.0];
+E = [r_j,         0.0,  0.0,   1.0];
+F = [R,           0.0,  0.0,   1.0];
+G = [r_r + r_rt,  0.0, -g/2.0, 1.0];
+H = [r_j - r_jt,  0.0, -g/2.0, 1.0];
+
+
+
+%%%% ROOT REGION (AB) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % weights
-w = [1.0 0.7 0.3 1.0];
+w = [A(4) B(4)];
 
 % control points
-cntrl = [w(1)*9.0  w(2)*13.9  w(3)*13.9    w(4)*17.1;      % upper root transition
-         w(1)*0.0  w(2)* 0.0  w(3)* 3.815  w(4)* 3.815;
-         w(1)*0.0  w(2)* 0.0  w(3)* 0.0    w(4)* 0.0;
-         w(1)      w(2)       w(3)         w(4)];
+cntrl = [w(1)*A(1)  w(2)*B(1);
+         w(1)*A(3)  w(2)*B(3);
+         w(1)*A(2)  w(2)*B(2);
+         w(1)       w(2)];
+
+% knot sequence
+knots = [0.0 0.0 1.0 1.0];
+
+% make a 2D NURBS curve
+root = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(root, 50);
+
+% create plot for the control points
+% plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+
+%%%% ROOT TRANSITION, UPPER (BC) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [B(4) 1.0 1.0 C(4)];
+
+% control points
+cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*0.5 + B(1)  w(3)*(C(1)-B(1))*0.5 + B(1)  w(4)*C(1);
+         w(1)*B(3)  w(2)* 0.0                    w(3)*g/2.0                   w(4)*C(3);
+         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*C(2);
+         w(1)       w(2)                         w(3)                         w(4)];
      
 % knot sequence
 knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
 
 % make a 2D NURBS curve
-crv = nrbmak(cntrl,knots);
+rootTrans_upper = nrbmak(cntrl,knots);
 
 % plot the NURBS curve
-nrbplot(crv, 50);
-hold on;
-title('upper root transition');
+nrbplot(rootTrans_upper, 50);
 
 % create plot for the control points
-plot(cntrl(1,:),cntrl(2,:),'m.-');
+plot(cntrl(1,:),cntrl(2,:),'m.:');
 
-% make 9 test points along the NURBS curve, spread between eta=0.0 and eta=1.0
-% tt = linspace(0.0,1.0,9);
+[tt, x, y, curvature] = getCurvature(rootTrans_upper);
 
-% make 5 test points along the NURBS curve, at each of the beam element end nodes
-tt = [0.0 0.395062 0.604938 0.802469 1.0];
 
-% make 13 test points along the NURBS curve, at each of the cubic beam element nodes
-% elem1 = linspace(0.0, 0.395062, 4);
-% elem2 = linspace(0.395062, 0.604938, 4);
-% elem3 = linspace(0.604938, 0.802469, 4);
-% elem4 = linspace(0.802465, 1.0, 4);
-% tt = horzcat(elem1, elem2(2:end), elem3(2:end), elem4(2:end));
+%%%% ROOT TRANSITION, LOWER (BG) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% create the NURBS representation of the 1st and 2nd derivatives
-[dcrv, dcrv2] = nrbderiv(crv);
+% weights
+w = [B(4) 1.0 1.0 G(4)];
 
-% evaluate the 1st and 2nd derivatives of the NURBS curve at each of the test points
-[p1, dp, d2p] = nrbdeval(crv, dcrv, dcrv2, tt);
+% control points
+cntrl = [w(1)*B(1)  w(2)*(G(1)-B(1))*0.5 + B(1)  w(3)*(G(1)-B(1))*0.5 + B(1)  w(4)*G(1);
+         w(1)*B(3)  w(2)* 0.0                    w(3)*-g/2.0                  w(4)*G(3);
+         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*G(2);
+         w(1)       w(2)                         w(3)                         w(4)];
+     
+% knot sequence
+knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
 
-% normalize the tangent vectors along the NURBS curve
-p2 = vecnorm(dp);
-p2_d2p = vecnorm(d2p);
+% make a 2D NURBS curve
+rootTrans_lower = nrbmak(cntrl,knots);
 
-% plot the tangent vectors along the NURBS curve
-plot(p1(1,:),p1(2,:),'ro');
-h = quiver(p1(1,:), p1(2,:), p2(1,:), p2(2,:), 0);
-set(h,'Color','black');
-% plot the second derivative vectors along the NURBS curve
-% g = quiver(p1(1,:), p1(2,:), p2_d2p(1,:), p2_d2p(2,:), 0);
-% set(g,'Color','red');
+% plot the NURBS curve
+nrbplot(rootTrans_lower, 50);
+
+% create plot for the control points
+plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+[tt, x, y, curvature] = getCurvature(rootTrans_lower);
+
+
+%%%% STRAIGHT BIPLANE, UPPER (CD) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [C(4) D(4)];
+
+% control points
+cntrl = [w(1)*C(1)  w(2)*D(1);
+         w(1)*C(3)  w(2)*D(3);
+         w(1)*C(2)  w(2)*D(2);
+         w(1)       w(2)];
+
+% knot sequence
+knots = [0.0 0.0 1.0 1.0];
+
+% make a 2D NURBS curve
+straightBiplane_upper = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(straightBiplane_upper, 50);
+
+% create plot for the control points
+% plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+
+%%%% STRAIGHT BIPLANE, LOWER (GH) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [G(4) H(4)];
+
+% control points
+cntrl = [w(1)*G(1)  w(2)*H(1);
+         w(1)*G(3)  w(2)*H(3);
+         w(1)*G(2)  w(2)*H(2);
+         w(1)       w(2)];
+
+% knot sequence
+knots = [0.0 0.0 1.0 1.0];
+
+% make a 2D NURBS curve
+straightBiplane_lower = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(straightBiplane_lower, 50);
+
+% create plot for the control points
+% plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+
+%%%% JOINT TRANSITION, UPPER (DE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [D(4) 1.0 1.0 E(4)];
+
+% control points
+cntrl = [w(1)*D(1)  w(2)*(E(1)-D(1))*0.5 + D(1)  w(3)*(E(1)-D(1))*0.5 + D(1)  w(4)*E(1);
+         w(1)*D(3)  w(2)*g/2.0                   w(3)* 0.0                    w(4)*E(3);
+         w(1)*D(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
+         w(1)       w(2)                         w(3)                         w(4)];
+     
+% knot sequence
+knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
+
+% make a 2D NURBS curve
+jointTrans_upper = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(jointTrans_upper, 50);
+
+% create plot for the control points
+plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+[tt, x, y, curvature] = getCurvature(jointTrans_upper);
+
+
+%%%% JOINT TRANSITION, LOWER (HE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [H(4) 1.0 1.0 E(4)];
+
+% control points
+cntrl = [w(1)*H(1)  w(2)*(E(1)-D(1))*0.5 + D(1)  w(3)*(E(1)-D(1))*0.5 + D(1)  w(4)*E(1);
+         w(1)*H(3)  w(2)*-g/2.0                  w(3)* 0.0                    w(4)*E(3);
+         w(1)*H(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
+         w(1)       w(2)                         w(3)                         w(4)];
+     
+% knot sequence
+knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
+
+% make a 2D NURBS curve
+jointTrans_lower = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(jointTrans_lower, 50);
+
+% create plot for the control points
+plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+[tt, x, y, curvature] = getCurvature(jointTrans_lower);
+
+
+%%%% OUTBOARD MONOPLANE REGION (EF) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% weights
+w = [E(4) F(4)];
+
+% control points
+cntrl = [w(1)*E(1)  w(2)*F(1);
+         w(1)*E(3)  w(2)*F(3);
+         w(1)*E(2)  w(2)*F(2);
+         w(1)       w(2)];
+
+% knot sequence
+knots = [0.0 0.0 1.0 1.0];
+
+% make a 2D NURBS curve
+monoOutboard = nrbmak(cntrl,knots);
+
+% plot the NURBS curve
+nrbplot(monoOutboard, 50);
+
+% create plot for the control points
+% plot(cntrl(1,:),cntrl(2,:),'m.:');
+
+
+title('biplane blade, beam reference line(s)');
+xlim([-5 100])
+% ylim([-20 20])
+xlabel('x_1, spanwise direction [m]')
+ylabel('x_3, flapwise direction [m]')
+
 hold off;
-
-% curvature = mag( dp x d2p ) / (mag( dp ))^3
-numerator = vecmag( veccross(dp, d2p) );
-denominator = (vecmag(dp) ).^3;
-curvature = numerator ./ denominator
-radius_of_curvature = 1.0./curvature
