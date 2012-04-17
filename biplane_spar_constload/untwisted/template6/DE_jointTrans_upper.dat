@@ -24,8 +24,8 @@
       @RATIONAL_CURVE_FLAG {YES}
       @END_POINT_0 {pointD}
       @WEIGHT_DEFINITION {1.0}
-      @COORDINATES {41.500, 0.000, 3.815, 0.5}
-      @COORDINATES {41.500, 0.000, 0.000, 0.5}
+      @COORDINATES {41.500,  0.000,  3.814,  1.000}
+      @COORDINATES {41.500,  0.000,  0.000,  1.000}
       @END_POINT_1 {pointE}
       @WEIGHT_DEFINITION {1.0}
       @SPLINE {NO}
@@ -35,7 +35,7 @@
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshDE}
-    @COMMENTS {a cubic spline from the end of the upper joint transition (pointH) to the outboard joint (pointE)}
+    @COMMENTS {a cubic spline from the upper joint transition (pointD) to the outboard joint (pointE)}
   }
 }
 

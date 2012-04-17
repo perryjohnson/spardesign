@@ -12,66 +12,13 @@ global_constants;  % initialize the global constants for the biplane spar
 
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 g__to__c = 1.00;  % gap-to-chord ratio
-rt_beg = x1(6);   % beginning of root transition
-rt_end = x1(10);  % end of root transition
-jt_beg = x1(14);  % beginning of joint transition
-jt_end = x1(16);  % end of joint transition
+jt_end_station = 17;  % spar station for end of joint transition
+jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
+rt_beg_station = 2;   % spar station for beginning of root transition
+rt_end_station = rt_beg_station+3;  % spar station for end of root transition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-%%%% DERIVED PARAMETERS, DIMENSIONAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-g = g__to__c * c_max;    % gap, [m]
-
-% point = [x-coordinate, y-coordinate, z-coordinate, weight];
-A = [0.0,    0.0,  0.0,   1.0];
-B = [rt_beg, 0.0,  0.0,   1.0];
-C = [rt_end, 0.0,  g/2.0, 1.0];
-D = [jt_beg, 0.0,  g/2.0, 1.0];
-E = [jt_end, 0.0,  0.0,   1.0];
-F = [R,      0.0,  0.0,   1.0];
-G = [rt_end, 0.0, -g/2.0, 1.0];
-H = [jt_beg, 0.0, -g/2.0, 1.0];
-
-r_r = B(1);                  % root length, [m]
-r_rt = C(1) - B(1);          % root transition length, [m]
-r_j = E(1);                  % joint length, [m]
-r_jt = E(1) - D(1);          % joint transition length, [m]
-
-fprintf('span:                    R    = %6.3f m \n', R);
-fprintf('joint length:            r_j  = %6.3f m \n', r_j);
-fprintf('joint transition length: r_jt = %6.3f m \n', r_jt);
-fprintf('root transition length:  r_rt = %6.3f m \n', r_rt);
-fprintf('root length:             r_r  = %6.3f m \n', r_r);
-fprintf('gap:                     g    = %6.3f m \n', g);
-fprintf('maximum chord:           c    = %6.3f m \n', c_max);
-fprintf('\n');
-
-
-%%%% DERIVED PARAMETERS, NON-DIMENSIONAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-r_j__to__R    = r_j/R;     % joint length-to-span ratio
-r_jt__to__r_j = r_jt/r_j;  % joint transition length-to-joint length ratio
-r_rt__to__r_j = r_rt/r_j;  % root transition length-to-joint length ratio
-r_r__to__r_j  = r_r/r_j;   % root length-to-joint length ratio
-
-fprintf('joint length-to-span ratio:                    r_j/R    = %5.3f \n', r_j__to__R);
-fprintf('joint transition length-to-joint length ratio: r_jt/r_j = %5.3f \n', r_jt__to__r_j);
-fprintf('root transition length-to-joint length ratio:  r_rt/r_j = %5.3f \n', r_rt__to__r_j);
-fprintf('root length-to-joint length ratio:             r_r/r_j  = %5.3f \n', r_r__to__r_j);
-fprintf('gap-to-maximum chord ratio:                    g/c      = %5.3f \n', g__to__c);
-
-
-%%%% WRITE ENDPOINTS OF EACH REGION TO DYMORE-FORMATTED FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-fid = fopen('biplane_spar_params.dgp', 'wt');
-fprintf(fid, '@DESIGN_PARAMETERS_DEFINITION {\n');
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointA_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', A(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointB_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', B(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointC_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', C(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointD_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', D(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointE_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', E(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointF_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', F(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointG_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', G(1:3));
-fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointH_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', H(1:3));
-fprintf(fid, '}\n');
-fclose(fid);
+derived_parameters;  % calculate the derived parameters for the biplane spar
 
 
 %%%% ROOT REGION (AB) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,10 +51,11 @@ nrbplot(root, 50);
 w = [B(4) 1.0 1.0 C(4)];
 
 % control points
-cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*0.5 + B(1)  w(3)*(C(1)-B(1))*0.5 + B(1)  w(4)*C(1);
-         w(1)*B(3)  w(2)* 0.0                    w(3)*g/2.0                   w(4)*C(3);
-         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*C(2);
-         w(1)       w(2)                         w(3)                         w(4)];
+cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*0.5 + B(1)  w(3)*(C(1)-B(1))*0.5 + B(1)  w(4)*C(1);   % x1-coordinates (or x-coordinates on plot)
+         w(1)*B(3)  w(2)* 0.0                    w(3)*g/2.0                   w(4)*C(3);   % x3-coordinates (or y-coordinates on plot)
+         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*C(2);   % x2-coordinates
+         w(1)       w(2)                         w(3)                         w(4)];       % weights
+                    % midctrlpt_low              % midctrlpt_high
      
 % knot sequence
 knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
@@ -122,6 +70,33 @@ nrbplot(rootTrans_upper, 50);
 plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 % [tt, x, y, curvature] = getCurvature(rootTrans_upper);
+
+% write NURBS curve to DYMORE-formatted file
+fid = fopen('BC_rootTrans_upper.dat', 'wt');
+fprintf(fid, '@CURVE_DEFINITION {\n');
+fprintf(fid, '  @CURVE_NAME {curveBC} {\n');
+fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
+fprintf(fid, '    @POINT_DEFINITION {\n');
+fprintf(fid, '      @NUMBER_OF_CONTROL_POINTS {4}\n');
+fprintf(fid, '      @DEGREE_OF_CURVE {3}\n');
+fprintf(fid, '      @RATIONAL_CURVE_FLAG {YES}\n');
+fprintf(fid, '      @END_POINT_0 {pointB}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,2), cntrl(3,2), cntrl(2,2), cntrl(4,2));
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,3), cntrl(3,3), cntrl(2,3), cntrl(4,3));
+fprintf(fid, '      @END_POINT_1 {pointC}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @SPLINE {NO}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @TRIAD_DEFINITION {\n');
+fprintf(fid, '      @ORIENTATION_DISTRIBUTION_NAME {OriDist}\n');
+fprintf(fid, '      @INITIAL_COORDINATE {0}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @CURVE_MESH_PARAMETERS_NAME {meshBC}\n');
+fprintf(fid, '    @COMMENTS {a cubic spline from the inboard joint (pointB) to the end of the upper root transition (pointC)}\n');
+fprintf(fid, '  }\n');
+fprintf(fid, '}\n');
+fclose(fid);
 
 
 %%%% ROOT TRANSITION, LOWER (BG) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -148,6 +123,33 @@ nrbplot(rootTrans_lower, 50);
 plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 % [tt, x, y, curvature] = getCurvature(rootTrans_lower);
+
+% write NURBS curve to DYMORE-formatted file
+fid = fopen('BG_rootTrans_lower.dat', 'wt');
+fprintf(fid, '@CURVE_DEFINITION {\n');
+fprintf(fid, '  @CURVE_NAME {curveBG} {\n');
+fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
+fprintf(fid, '    @POINT_DEFINITION {\n');
+fprintf(fid, '      @NUMBER_OF_CONTROL_POINTS {4}\n');
+fprintf(fid, '      @DEGREE_OF_CURVE {3}\n');
+fprintf(fid, '      @RATIONAL_CURVE_FLAG {YES}\n');
+fprintf(fid, '      @END_POINT_0 {pointB}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,2), cntrl(3,2), cntrl(2,2), cntrl(4,2));
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,3), cntrl(3,3), cntrl(2,3), cntrl(4,3));
+fprintf(fid, '      @END_POINT_1 {pointG}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @SPLINE {NO}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @TRIAD_DEFINITION {\n');
+fprintf(fid, '      @ORIENTATION_DISTRIBUTION_NAME {OriDist}\n');
+fprintf(fid, '      @INITIAL_COORDINATE {0}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @CURVE_MESH_PARAMETERS_NAME {meshBG}\n');
+fprintf(fid, '    @COMMENTS {a cubic spline from the inboard joint (pointB) to the end of the lower root transition (pointG)}\n');
+fprintf(fid, '  }\n');
+fprintf(fid, '}\n');
+fclose(fid);
 
 
 %%%% STRAIGHT BIPLANE, UPPER (CD) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -223,6 +225,33 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 % [tt, x, y, curvature] = getCurvature(jointTrans_upper);
 
+% write NURBS curve to DYMORE-formatted file
+fid = fopen('DE_jointTrans_upper.dat', 'wt');
+fprintf(fid, '@CURVE_DEFINITION {\n');
+fprintf(fid, '  @CURVE_NAME {curveDE} {\n');
+fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
+fprintf(fid, '    @POINT_DEFINITION {\n');
+fprintf(fid, '      @NUMBER_OF_CONTROL_POINTS {4}\n');
+fprintf(fid, '      @DEGREE_OF_CURVE {3}\n');
+fprintf(fid, '      @RATIONAL_CURVE_FLAG {YES}\n');
+fprintf(fid, '      @END_POINT_0 {pointD}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,2), cntrl(3,2), cntrl(2,2), cntrl(4,2));
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,3), cntrl(3,3), cntrl(2,3), cntrl(4,3));
+fprintf(fid, '      @END_POINT_1 {pointE}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @SPLINE {NO}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @TRIAD_DEFINITION {\n');
+fprintf(fid, '      @ORIENTATION_DISTRIBUTION_NAME {OriDist}\n');
+fprintf(fid, '      @INITIAL_COORDINATE {0}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @CURVE_MESH_PARAMETERS_NAME {meshDE}\n');
+fprintf(fid, '    @COMMENTS {a cubic spline from the upper joint transition (pointD) to the outboard joint (pointE)}\n');
+fprintf(fid, '  }\n');
+fprintf(fid, '}\n');
+fclose(fid);
+
 
 %%%% JOINT TRANSITION, LOWER (HE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -248,6 +277,33 @@ nrbplot(jointTrans_lower, 50);
 plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 % [tt, x, y, curvature] = getCurvature(jointTrans_lower);
+
+% write NURBS curve to DYMORE-formatted file
+fid = fopen('HE_jointTrans_lower.dat', 'wt');
+fprintf(fid, '@CURVE_DEFINITION {\n');
+fprintf(fid, '  @CURVE_NAME {curveHE} {\n');
+fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
+fprintf(fid, '    @POINT_DEFINITION {\n');
+fprintf(fid, '      @NUMBER_OF_CONTROL_POINTS {4}\n');
+fprintf(fid, '      @DEGREE_OF_CURVE {3}\n');
+fprintf(fid, '      @RATIONAL_CURVE_FLAG {YES}\n');
+fprintf(fid, '      @END_POINT_0 {pointH}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,2), cntrl(3,2), cntrl(2,2), cntrl(4,2));
+fprintf(fid, '      @COORDINATES {%6.3f, %6.3f, %6.3f, %6.3f}\n', cntrl(1,3), cntrl(3,3), cntrl(2,3), cntrl(4,3));
+fprintf(fid, '      @END_POINT_1 {pointE}\n');
+fprintf(fid, '      @WEIGHT_DEFINITION {1.0}\n');
+fprintf(fid, '      @SPLINE {NO}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @TRIAD_DEFINITION {\n');
+fprintf(fid, '      @ORIENTATION_DISTRIBUTION_NAME {OriDist}\n');
+fprintf(fid, '      @INITIAL_COORDINATE {0}\n');
+fprintf(fid, '    }\n');
+fprintf(fid, '    @CURVE_MESH_PARAMETERS_NAME {meshHE}\n');
+fprintf(fid, '    @COMMENTS {a cubic spline from the lower joint transition (pointH) to the outboard joint (pointE)}\n');
+fprintf(fid, '  }\n');
+fprintf(fid, '}\n');
+fclose(fid);
 
 
 %%%% OUTBOARD MONOPLANE REGION (EF) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
