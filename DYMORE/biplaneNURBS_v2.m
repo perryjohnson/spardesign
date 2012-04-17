@@ -11,11 +11,14 @@ global_constants;  % initialize the global constants for the biplane spar
 
 
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-g__to__c = 1.00;  % gap-to-chord ratio
-jt_end_station = 17;  % spar station for end of joint transition
+g__to__c = 0.50;                    % gap-to-chord ratio
+jt_end_station = 11;                % spar station for end of joint transition
 jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
-rt_beg_station = 2;   % spar station for beginning of root transition
-rt_end_station = rt_beg_station+3;  % spar station for end of root transition
+jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
+rt_beg_station = 2;                 % spar station for beginning of root transition
+rt_end_station = rt_beg_station+2;  % spar station for end of root transition
+rt_mid = 0.2;                       % midpoint for NURBS control points that define root transition region
+inboard_view = 0;                   % if 1, zoom view on inboard region; if 0, show entire spar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 derived_parameters;  % calculate the derived parameters for the biplane spar
@@ -51,7 +54,7 @@ nrbplot(root, 50);
 w = [B(4) 1.0 1.0 C(4)];
 
 % control points
-cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*0.5 + B(1)  w(3)*(C(1)-B(1))*0.5 + B(1)  w(4)*C(1);   % x1-coordinates (or x-coordinates on plot)
+cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*rt_mid + B(1)  w(3)*(C(1)-B(1))*rt_mid + B(1)  w(4)*C(1);   % x1-coordinates (or x-coordinates on plot)
          w(1)*B(3)  w(2)* 0.0                    w(3)*g/2.0                   w(4)*C(3);   % x3-coordinates (or y-coordinates on plot)
          w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*C(2);   % x2-coordinates
          w(1)       w(2)                         w(3)                         w(4)];       % weights
@@ -105,7 +108,7 @@ fclose(fid);
 w = [B(4) 1.0 1.0 G(4)];
 
 % control points
-cntrl = [w(1)*B(1)  w(2)*(G(1)-B(1))*0.5 + B(1)  w(3)*(G(1)-B(1))*0.5 + B(1)  w(4)*G(1);
+cntrl = [w(1)*B(1)  w(2)*(G(1)-B(1))*rt_mid + B(1)  w(3)*(G(1)-B(1))*rt_mid + B(1)  w(4)*G(1);
          w(1)*B(3)  w(2)* 0.0                    w(3)*-g/2.0                  w(4)*G(3);
          w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*G(2);
          w(1)       w(2)                         w(3)                         w(4)];
@@ -206,7 +209,7 @@ nrbplot(straightBiplane_lower, 50);
 w = [D(4) 1.0 1.0 E(4)];
 
 % control points
-cntrl = [w(1)*D(1)  w(2)*(E(1)-D(1))*0.5 + D(1)  w(3)*(E(1)-D(1))*0.5 + D(1)  w(4)*E(1);
+cntrl = [w(1)*D(1)  w(2)*(E(1)-D(1))*jt_mid + D(1)  w(3)*(E(1)-D(1))*jt_mid + D(1)  w(4)*E(1);
          w(1)*D(3)  w(2)*g/2.0                   w(3)* 0.0                    w(4)*E(3);
          w(1)*D(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
          w(1)       w(2)                         w(3)                         w(4)];
@@ -259,7 +262,7 @@ fclose(fid);
 w = [H(4) 1.0 1.0 E(4)];
 
 % control points
-cntrl = [w(1)*H(1)  w(2)*(E(1)-D(1))*0.5 + D(1)  w(3)*(E(1)-D(1))*0.5 + D(1)  w(4)*E(1);
+cntrl = [w(1)*H(1)  w(2)*(E(1)-D(1))*jt_mid + D(1)  w(3)*(E(1)-D(1))*jt_mid + D(1)  w(4)*E(1);
          w(1)*H(3)  w(2)*-g/2.0                  w(3)* 0.0                    w(4)*E(3);
          w(1)*H(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
          w(1)       w(2)                         w(3)                         w(4)];
@@ -331,28 +334,39 @@ nrbplot(monoOutboard, 50);
 
 
 %%%% plot shear web heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-sw_heights = [5.266 5.265 2.505 2.371 2.213 2.046 1.840 1.740 1.643 1.545 1.441 1.348 1.249 1.039 0.836 0.680 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];
-
-% rt_beg_station;  % spar station for beginning of root transition
-% rt_end_station;  % spar station for end of root transition
-% jt_beg_station;  % spar station for beginning of joint transition
-% jt_end_station;  % spar station for end of joint transition
-
+% these are the shear web heights for the monoplane spar...
+sw_heights = [5.266 5.265 5.009 4.741 4.425 4.091 3.680 3.480 3.285 3.089 2.882 2.696 2.498 2.077 1.672 1.360 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];
 fprintf('\n')
 
 for j=1:length(x1)
+    s = sw_heights(j)/4;  % half-height scaling factor for biplane cross-sections
     if j <= rt_beg_station
         fprintf('station #%d, root region\n', j)
         plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
     elseif rt_beg_station < j && j < rt_end_station
         fprintf('station #%d, root transition region\n', j)
-%         plot([x1(j) x1(j)]
+        % upper station
+        [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(rootTrans_upper, [x1_to_eta(rootTrans_upper,x1(j))], 0);
+        plot([x(1) x(1)+s*norm_x(1)], [y(1) y(1)+s*norm_y(1)], 'k-')
+        plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
+        % lower station
+        [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(rootTrans_lower, [x1_to_eta(rootTrans_lower,x1(j))], 0);
+        plot([x(1) x(1)+s*norm_x(1)], [y(1) y(1)+s*norm_y(1)], 'k-')
+        plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
     elseif rt_end_station <= j && j <= jt_beg_station
         fprintf('station #%d, straight biplane region\n', j)
-        plot([x1(j) x1(j)], [sw_heights(j)/2+g/2 -sw_heights(j)/2+g/2], 'k-');
-        plot([x1(j) x1(j)], [sw_heights(j)/2-g/2 -sw_heights(j)/2-g/2], 'k-');
+        plot([x1(j) x1(j)], [s+g/2 -s+g/2], 'k-');
+        plot([x1(j) x1(j)], [s-g/2 -s-g/2], 'k-');
     elseif jt_beg_station < j && j < jt_end_station
         fprintf('station #%d, joint transition region\n', j)
+        % upper station
+        [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(jointTrans_upper, [x1_to_eta(jointTrans_upper,x1(j))], 0);
+        plot([x(1) x(1)+s*norm_x(1)], [y(1) y(1)+s*norm_y(1)], 'k-')
+        plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
+        % lower station
+        [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(jointTrans_lower, [x1_to_eta(jointTrans_lower,x1(j))], 0);
+        plot([x(1) x(1)+s*norm_x(1)], [y(1) y(1)+s*norm_y(1)], 'k-')
+        plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
     else
         fprintf('station #%d, outboard monoplane region\n', j)
         plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
@@ -360,17 +374,15 @@ for j=1:length(x1)
 end
 
 title('biplane blade, beam reference line(s)');
-xlim([-5 100])
-% ylim([-20 20])
+if inboard_view
+    xlim([x1(rt_beg_station) x1(jt_end_station)])
+    ylim([-10 10])
+else
+    xlim([-5 100])
+    ylim([-20 20])  
+end
 xlabel('x_1, spanwise direction [m]')
 ylabel('x_3, flapwise direction [m]')
 
-% plot rough bounds on shear web height in root transition region
-plot([0.2 6.5], [2.632 -2.708], 'r-')
-plot([0.2 6.5], [-2.632 2.708], 'r-')
-plot([0.2 6.5], [2.632 4.921], 'r-')
-plot([0.2 6.5], [-2.632 -4.921], 'r-')
-getCurvature_tt(rootTrans_upper, [x1_to_eta(rootTrans_upper,2.3) x1_to_eta(rootTrans_upper,4.4)]);
-getCurvature_tt(rootTrans_lower, [x1_to_eta(rootTrans_lower,2.3) x1_to_eta(rootTrans_lower,4.4)]);
 
 hold off;

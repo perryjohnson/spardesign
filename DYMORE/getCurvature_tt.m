@@ -20,6 +20,17 @@ p2_d2p = vecnorm(d2p);
 plot(p1(1,:),p1(2,:),'ro');
 h = quiver(p1(1,:), p1(2,:), p2(1,:), p2(2,:), 0);
 set(h,'Color','black');
+
+% plot the perpendicular vectors along the NURBS curve
+p2_perp = zeros(size(p2));
+p2_perp(1,:) = -p2(2,:);
+p2_perp(2,:) = p2(1,:);
+p2_perp(3,:) = p2(3,:);
+perp = quiver(p1(1,:), p1(2,:), p2_perp(1,:), p2_perp(2,:), 0);
+set(perp,'Color','green');
+perp_rev = quiver(p1(1,:), p1(2,:), -p2_perp(1,:), -p2_perp(2,:), 0);
+set(perp_rev,'Color','green');
+
 % plot the second derivative vectors along the NURBS curve
 % g = quiver(p1(1,:), p1(2,:), p2_d2p(1,:), p2_d2p(2,:), 0);
 % set(g,'Color','red');
