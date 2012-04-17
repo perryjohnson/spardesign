@@ -330,10 +330,47 @@ nrbplot(monoOutboard, 50);
 % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
+%%%% plot shear web heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+sw_heights = [5.266 5.265 2.505 2.371 2.213 2.046 1.840 1.740 1.643 1.545 1.441 1.348 1.249 1.039 0.836 0.680 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];
+
+% rt_beg_station;  % spar station for beginning of root transition
+% rt_end_station;  % spar station for end of root transition
+% jt_beg_station;  % spar station for beginning of joint transition
+% jt_end_station;  % spar station for end of joint transition
+
+fprintf('\n')
+
+for j=1:length(x1)
+    if j <= rt_beg_station
+        fprintf('station #%d, root region\n', j)
+        plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
+    elseif rt_beg_station < j && j < rt_end_station
+        fprintf('station #%d, root transition region\n', j)
+%         plot([x1(j) x1(j)]
+    elseif rt_end_station <= j && j <= jt_beg_station
+        fprintf('station #%d, straight biplane region\n', j)
+        plot([x1(j) x1(j)], [sw_heights(j)/2+g/2 -sw_heights(j)/2+g/2], 'k-');
+        plot([x1(j) x1(j)], [sw_heights(j)/2-g/2 -sw_heights(j)/2-g/2], 'k-');
+    elseif jt_beg_station < j && j < jt_end_station
+        fprintf('station #%d, joint transition region\n', j)
+    else
+        fprintf('station #%d, outboard monoplane region\n', j)
+        plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
+    end
+end
+
 title('biplane blade, beam reference line(s)');
 xlim([-5 100])
 % ylim([-20 20])
 xlabel('x_1, spanwise direction [m]')
 ylabel('x_3, flapwise direction [m]')
+
+% plot rough bounds on shear web height in root transition region
+plot([0.2 6.5], [2.632 -2.708], 'r-')
+plot([0.2 6.5], [-2.632 2.708], 'r-')
+plot([0.2 6.5], [2.632 4.921], 'r-')
+plot([0.2 6.5], [-2.632 -4.921], 'r-')
+getCurvature_tt(rootTrans_upper, [x1_to_eta(rootTrans_upper,2.3) x1_to_eta(rootTrans_upper,4.4)]);
+getCurvature_tt(rootTrans_lower, [x1_to_eta(rootTrans_lower,2.3) x1_to_eta(rootTrans_lower,4.4)]);
 
 hold off;

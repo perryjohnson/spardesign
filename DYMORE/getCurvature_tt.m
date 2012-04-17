@@ -1,7 +1,4 @@
-function [tt, x, y, curvature] = getCurvature(crv, numtestpts)
-
-% make numtestpts test points along the NURBS curve, spread between eta=0.0 and eta=1.0
-tt = linspace(0.0,1.0,numtestpts);
+function [tt, x, y, curvature] = getCurvature_tt(crv, tt)
 
 % create the NURBS representation of the 1st and 2nd derivatives
 [dcrv, dcrv2] = nrbderiv(crv);
