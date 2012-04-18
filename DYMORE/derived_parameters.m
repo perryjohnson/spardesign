@@ -37,11 +37,11 @@ r_jt__to__r_j = r_jt/r_j;  % joint transition length-to-joint length ratio
 r_rt__to__r_j = r_rt/r_j;  % root transition length-to-joint length ratio
 r_r__to__r_j  = r_r/r_j;   % root length-to-joint length ratio
 
-fprintf('joint length-to-span ratio:                    r_j/R    = %5.3f \n', r_j__to__R);
+fprintf('joint length-to-span ratio:                    r_j/R    = %5.3f *\n', r_j__to__R);
 fprintf('joint transition length-to-joint length ratio: r_jt/r_j = %5.3f \n', r_jt__to__r_j);
 fprintf('root transition length-to-joint length ratio:  r_rt/r_j = %5.3f \n', r_rt__to__r_j);
 fprintf('root length-to-joint length ratio:             r_r/r_j  = %5.3f \n', r_r__to__r_j);
-fprintf('gap-to-maximum chord ratio:                    g/c      = %5.3f \n', g__to__c);
+fprintf('gap-to-maximum chord ratio:                    g/c      = %5.3f *\n', g__to__c);
 
 
 %%%% WRITE ENDPOINTS OF EACH REGION TO DYMORE-FORMATTED FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

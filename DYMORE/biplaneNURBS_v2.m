@@ -10,6 +10,7 @@ addpath '.\nurbs-1.3.6\inst' -BEGIN;  % start the NURBS package for MATLAB
 global_constants;  % initialize the global constants for the biplane spar
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 g__to__c = 0.50;                    % gap-to-chord ratio
 jt_end_station = 11;                % spar station for end of joint transition
@@ -20,6 +21,8 @@ rt_end_station = rt_beg_station+2;  % spar station for end of root transition
 rt_mid = 0.2;                       % midpoint for NURBS control points that define root transition region
 inboard_view = 0;                   % if 1, zoom view on inboard region; if 0, show entire spar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 derived_parameters;  % calculate the derived parameters for the biplane spar
 
@@ -333,16 +336,14 @@ nrbplot(monoOutboard, 50);
 % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
-%%%% plot shear web heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% these are the shear web heights for the monoplane spar...
-sw_heights = [5.266 5.265 5.009 4.741 4.425 4.091 3.680 3.480 3.285 3.089 2.882 2.696 2.498 2.077 1.672 1.360 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];
+%%%% plot cross-section heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fprintf('\n')
 
 for j=1:length(x1)
-    s = sw_heights(j)/4;  % half-height scaling factor for biplane cross-sections
+    s = cs_heights(j)/4;  % half-height scaling factor for biplane cross-sections
     if j <= rt_beg_station
         fprintf('station #%d, root region\n', j)
-        plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
+        plot([x1(j) x1(j)], [cs_heights(j)/2 -cs_heights(j)/2], 'k-');
     elseif rt_beg_station < j && j < rt_end_station
         fprintf('station #%d, root transition region\n', j)
         % upper station
@@ -369,7 +370,7 @@ for j=1:length(x1)
         plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
     else
         fprintf('station #%d, outboard monoplane region\n', j)
-        plot([x1(j) x1(j)], [sw_heights(j)/2 -sw_heights(j)/2], 'k-');
+        plot([x1(j) x1(j)], [cs_heights(j)/2 -cs_heights(j)/2], 'k-');
     end
 end
 
