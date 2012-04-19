@@ -1,22 +1,22 @@
 @EDGE_DEFINITION {
-  @EDGE_NAME {edgeBG} {
-    @CONNECTED_TO_VERTICES {vertexB, vertexG}
-    @CURVE_NAME {curveBG}
+  @EDGE_NAME {edgeBC} {
+    @CONNECTED_TO_VERTICES {vertexB, vertexC}
+    @CURVE_NAME {curveBC}
   }
 }
 
 @BEAM_DEFINITION {
-  @BEAM_NAME {BG_rootTrans_lower} {
-    @EDGE_NAME {edgeBG}
-    @BEAM_PROPERTY_NAME {propBG}
+  @BEAM_NAME {BC_rootTrans_upper} {
+    @EDGE_NAME {edgeBC}
+    @BEAM_PROPERTY_NAME {propBC}
     @SHAPE_NAME {shape_rootTrans}
-    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneLower}
-    @COMMENTS {the lower root transition region of the spar}
+    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneUpper}
+    @COMMENTS {the upper root transition region of the spar}
   }
 }
 
 @CURVE_DEFINITION {
-  @CURVE_NAME {curveBG} {
+  @CURVE_NAME {curveBC} {
     @IS_DEFINED_IN_FRAME {INERTIAL}
     @POINT_DEFINITION {
       @NUMBER_OF_CONTROL_POINTS {4}
@@ -25,8 +25,8 @@
       @END_POINT_0 {pointB}
       @WEIGHT_DEFINITION {1.0}
       @COORDINATES { 1.040,  0.000,  0.000,  1.000}
-      @COORDINATES { 1.040,  0.000, -1.907,  1.000}
-      @END_POINT_1 {pointG}
+      @COORDINATES { 1.040,  0.000,  3.814,  1.000}
+      @END_POINT_1 {pointC}
       @WEIGHT_DEFINITION {1.0}
       @SPLINE {NO}
     }
@@ -34,24 +34,24 @@
       @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
-    @CURVE_MESH_PARAMETERS_NAME {meshBG}
-    @COMMENTS {a cubic spline from the inboard joint (pointB) to the end of the lower root transition (pointG)}
+    @CURVE_MESH_PARAMETERS_NAME {meshBC}
+    @COMMENTS {a cubic spline from the inboard joint (pointB) to the end of the upper root transition (pointC)}
   }
 }
 
 @CURVE_MESH_PARAMETERS_DEFINITION {
-  @CURVE_MESH_PARAMETERS_NAME {meshBG} {
+  @CURVE_MESH_PARAMETERS_NAME {meshBC} {
     @NUMBER_OF_ELEMENTS {2}
     @ORDER_OF_ELEMENTS {2}
     @ETA_COORDINATE {0.000}
     @ETA_COORDINATE {0.724}
     @ETA_COORDINATE {1.000}
-    @COMMENTS {models the lower root transition region with 2 cubic beam elements}
+    @COMMENTS {models the upper root transition region with 2 cubic beam elements}
   }
 }
 
 @BEAM_PROPERTY_DEFINITION {
-  @BEAM_PROPERTY_NAME {propBG} {
+  @BEAM_PROPERTY_NAME {propBC} {
     @PROPERTY_DEFINITION_TYPE {6X6_MATRICES}
     @COORDINATE_TYPE {ETA_COORDINATE}
     
@@ -85,7 +85,7 @@
                                  2.1819096131e-17}
     }
     
-    @ETA_COORDINATE {1.000} {
+    @ETA_COORDINATE {1.00000e+00} {
       @STIFFNESS_MATRIX { 9.0619521179e+09,    1.7091005180e-01,    1.0805459423e-02,    7.2116812803e+03,    8.1610934560e-01,   -8.1969984227e-01,
                                                4.6082883009e+08,   -1.5860850745e-01,   -3.8010883977e-02,   -7.4863512841e+02,    2.0381462311e-02,
                                                                     9.3442613519e+07,   -1.3223263725e-02,   -1.1466477304e-02,   -3.9434691385e+03,
@@ -105,11 +105,10 @@
 }
 
 @SURVEY_DEFINITION {
-  @SURVEY_NAME {surveyBG} {
-    @OBJECT_NAME {BG_rootTrans_lower}
+  @SURVEY_NAME {surveyBC} {
+    @OBJECT_NAME {BC_rootTrans_upper}
     @SURVEY_TYPE {DISPLACEMENTS}
     @FRAME_NAME {INERTIAL}
     @TIME {5.00000e+000}
   }
 }
-

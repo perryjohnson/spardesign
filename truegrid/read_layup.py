@@ -47,6 +47,7 @@ def loadDict(biplane_flag=False):
         dataDict['chord'] = 17                       # chord length of airfoil that goes over this spar cross-section (in meters)
         dataDict['gap-to-chord ratio'] = 18          # gap-to-chord ratio of this cross-section for this layup (dimensionless, normalized by chord length)
         dataDict['x3'] = 19                          # vertical distance from pitch axis (in meters)
+        dataDict['k2'] = 20                          # curvature about the x2 (edgewise) axis (in radians/meter)
 
     return dataDict
 

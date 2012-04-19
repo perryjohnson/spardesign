@@ -23,9 +23,10 @@ spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 # spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # read the layup file
-layupfile = 'monoplane_spar_layup.txt'
+# layupfile = 'monoplane_spar_layup.txt'
 # layupfile = 'biplane_spar_layup_20120306.txt'
 # layupfile = 'biplane_spar_layup_20120312.txt'
+layupfile = 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt'
 data = rl.readLayupFile(layupfile)
 print "******************************"
 print "******************************"
@@ -33,7 +34,7 @@ print "reading from " + layupfile
 print "******************************"
 print "******************************"
 
-if layupfile == 'biplane_spar_layup_20120306.txt' or layupfile == 'biplane_spar_layup_20120312.txt':
+if layupfile == 'biplane_spar_layup_20120306.txt' or layupfile == 'biplane_spar_layup_20120312.txt' or layupfile == 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt':
     biplane_switch = True
 else:
     biplane_switch = False

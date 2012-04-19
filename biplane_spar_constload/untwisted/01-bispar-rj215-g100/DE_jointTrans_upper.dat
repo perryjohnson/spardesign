@@ -1,30 +1,30 @@
 @EDGE_DEFINITION {
-  @EDGE_NAME {edgeHE} {
-    @CONNECTED_TO_VERTICES {vertexH, vertexE}
-    @CURVE_NAME {curveHE}
+  @EDGE_NAME {edgeDE} {
+    @CONNECTED_TO_VERTICES {vertexD, vertexE}
+    @CURVE_NAME {curveDE}
   }
 }
 
 @BEAM_DEFINITION {
-  @BEAM_NAME {HE_jointTrans_lower} {
-    @EDGE_NAME {edgeHE}
-    @BEAM_PROPERTY_NAME {propHE}
+  @BEAM_NAME {DE_jointTrans_upper} {
+    @EDGE_NAME {edgeDE}
+    @BEAM_PROPERTY_NAME {propDE}
     @SHAPE_NAME {shape_jointTrans}
-    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneLower}
-    @COMMENTS {the lower joint transition region of the spar}
+    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneUpper}
+    @COMMENTS {the upper joint transition region of the spar}
   }
 }
 
 @CURVE_DEFINITION {
-  @CURVE_NAME {curveHE} {
+  @CURVE_NAME {curveDE} {
     @IS_DEFINED_IN_FRAME {INERTIAL}
     @POINT_DEFINITION {
       @NUMBER_OF_CONTROL_POINTS {4}
       @DEGREE_OF_CURVE {3}
       @RATIONAL_CURVE_FLAG {YES}
-      @END_POINT_0 {pointH}
+      @END_POINT_0 {pointD}
       @WEIGHT_DEFINITION {1.0}
-      @COORDINATES {17.650,  0.000, -1.907,  1.000}
+      @COORDINATES {17.650,  0.000,  3.814,  1.000}
       @COORDINATES {17.650,  0.000,  0.000,  1.000}
       @END_POINT_1 {pointE}
       @WEIGHT_DEFINITION {1.0}
@@ -34,24 +34,24 @@
       @ORIENTATION_DISTRIBUTION_NAME {OriDist}
       @INITIAL_COORDINATE {0}
     }
-    @CURVE_MESH_PARAMETERS_NAME {meshHE}
-    @COMMENTS {a cubic spline from the end of the lower joint transition (pointH) to the outboard joint (pointE)}
+    @CURVE_MESH_PARAMETERS_NAME {meshDE}
+    @COMMENTS {a cubic spline from the end of the upper joint transition (pointD) to the outboard joint (pointE)}
   }
 }
 
 @CURVE_MESH_PARAMETERS_DEFINITION {
-  @CURVE_MESH_PARAMETERS_NAME {meshHE} {
+  @CURVE_MESH_PARAMETERS_NAME {meshDE} {
     @NUMBER_OF_ELEMENTS {2}
     @ORDER_OF_ELEMENTS {2}
-    @ETA_COORDINATE {0.00000e+00}
-    @ETA_COORDINATE {5.00000e-01}
-    @ETA_COORDINATE {1.00000e+00}
-    @COMMENTS {models the lower joint transition region with 2 cubic beam elements}
+    @ETA_COORDINATE {0.000}
+    @ETA_COORDINATE {0.335}
+    @ETA_COORDINATE {1.000}
+    @COMMENTS {models the upper joint transition region with 2 cubic beam elements}
   }
 }
 
 @BEAM_PROPERTY_DEFINITION {
-  @BEAM_PROPERTY_NAME {propHE} {
+  @BEAM_PROPERTY_NAME {propDE} {
     @PROPERTY_DEFINITION_TYPE {6X6_MATRICES}
     @COORDINATE_TYPE {ETA_COORDINATE}
     
@@ -105,17 +105,18 @@
 }
 
 @GRAPHICAL_PARAMETERS_DEFINITION {
-  @GRAPHICAL_PARAMETERS_NAME {grfparamHE} {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamDE} {
   }
 }
 
 @SURVEY_DEFINITION {
-  @SURVEY_NAME {surveyHE} {
-    @OBJECT_NAME {HE_jointTrans_lower}
+  @SURVEY_NAME {surveyDE} {
+    @OBJECT_NAME {DE_jointTrans_upper}
     @SURVEY_TYPE {DISPLACEMENTS}
     @FRAME_NAME {INERTIAL}
     @TIME {5.00000e+000}
   }
 }
+
 
 

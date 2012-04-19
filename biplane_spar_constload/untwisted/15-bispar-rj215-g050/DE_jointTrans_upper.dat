@@ -24,8 +24,8 @@
       @RATIONAL_CURVE_FLAG {YES}
       @END_POINT_0 {pointD}
       @WEIGHT_DEFINITION {1.0}
-      @COORDINATES {41.500, 0.000, 3.815, 0.5}
-      @COORDINATES {41.500, 0.000, 0.000, 0.5}
+      @COORDINATES {17.650,  0.000,  1.907,  1.000}
+      @COORDINATES {17.650,  0.000,  0.000,  1.000}
       @END_POINT_1 {pointE}
       @WEIGHT_DEFINITION {1.0}
       @SPLINE {NO}
@@ -35,17 +35,17 @@
       @INITIAL_COORDINATE {0}
     }
     @CURVE_MESH_PARAMETERS_NAME {meshDE}
-    @COMMENTS {a cubic spline from the end of the upper joint transition (pointH) to the outboard joint (pointE)}
+    @COMMENTS {a cubic spline from the end of the upper joint transition (pointD) to the outboard joint (pointE)}
   }
 }
 
 @CURVE_MESH_PARAMETERS_DEFINITION {
   @CURVE_MESH_PARAMETERS_NAME {meshDE} {
     @NUMBER_OF_ELEMENTS {2}
-    @ORDER_OF_ELEMENTS {3}
-    @ETA_COORDINATE {0.00000e+00}
-    @ETA_COORDINATE {5.00000e-01}
-    @ETA_COORDINATE {1.00000e+00}
+    @ORDER_OF_ELEMENTS {2}
+    @ETA_COORDINATE {0.000}
+    @ETA_COORDINATE {0.335}
+    @ETA_COORDINATE {1.000}
     @COMMENTS {models the upper joint transition region with 2 cubic beam elements}
   }
 }
@@ -55,7 +55,7 @@
     @PROPERTY_DEFINITION_TYPE {6X6_MATRICES}
     @COORDINATE_TYPE {ETA_COORDINATE}
     
-    @ETA_COORDINATE {0.00000e+00} {
+    @ETA_COORDINATE {0.000} {
       @STIFFNESS_MATRIX { 7.8836290559e+09,   -1.0790537790e+00,   -4.7555309459e-03,    4.0266478378e+03,   -4.1502459930e+01,   -1.8992053147e+00,
                                                4.1102562864e+08,   -7.8176198962e-02,    3.0759058009e+00,   -2.8193188022e+02,    3.7740872459e-03,
                                                                     5.7963601913e+07,    1.7775031907e-03,    1.9576534651e-03,   -2.2926270907e+03,
@@ -70,7 +70,7 @@
                                 -1.9295417949e-16}
     }
     
-    @ETA_COORDINATE {5.00000e-01} {
+    @ETA_COORDINATE {0.335} {
       @STIFFNESS_MATRIX { 7.3117672686e+09,    4.3698687667e-04,   -5.0751730020e-05,    2.7730038277e+03,    1.3588340033e-01,   -1.7889512048e-01,
                                                3.8350329621e+08,    4.2727128100e-03,   -3.4595313663e-03,   -9.1303947694e+01,    5.1266763241e-04,
                                                                     4.3856017158e+07,   -2.8502441423e-05,   -2.2161642291e-04,   -1.6149076490e+03,
@@ -85,22 +85,22 @@
                                  1.7613278417e-17}
     }
     
-    @ETA_COORDINATE {1.00000e+00} {
-      @STIFFNESS_MATRIX { 1.3261822314e+10,    1.8300456510e-04,    2.6005779702e-04,    6.4161981661e+03,    8.1272543863e-01,    4.3337894532e-01,
-                                               6.8949031714e+08,    2.4264345541e-03,   -3.0490695681e-02,   -4.7539012119e+02,   -1.6064146939e-05,
-                                                                    8.2987209521e+07,    9.1169927220e-03,    3.3743978258e-04,   -3.4421970269e+03,
-                                                                                         1.8980293652e+08,   -8.6290279666e-04,   -5.0755271983e-04,
-                                                                                                              5.1443720028e+09,    4.2784079463e-01,
-                                                                                                                                   2.6951745741e+09}
-      @MASS_PER_UNIT_SPAN { 6.6008960000e+02}
-      @MOMENTS_OF_INERTIA { 4.0001035802e+02,
-                            2.4414177451e+02,
-                            1.5586858352e+02}
-      @CENTRE_OF_MASS_LOCATION { 1.0908142510e-15,
-                                 3.7170603573e-17}
+    @ETA_COORDINATE {1.000} {
+      @STIFFNESS_MATRIX { 1.8052285040e+10,   -5.9786281627e-03,   -1.1078155919e-01,    1.6448877933e+04,   -2.0098765762e+01,    5.8234624139e+00,
+                                               8.5486179586e+08,    7.3672221405e-01,    1.7069940736e+00,   -4.7487184355e+03,   -2.8524642335e-03,
+                                                                    1.8975193929e+08,    5.3728324233e-01,    5.5183872138e-03,   -8.4473291786e+03,
+                                                                                         4.6414418955e+08,    9.8388250508e-03,    1.1453100654e-01,
+                                                                                                              3.2867677863e+10,   -1.2136638189e+01,
+                                                                                                                                   3.8267274475e+09}
+      @MASS_PER_UNIT_SPAN { 9.3714352000e+02}
+      @MOMENTS_OF_INERTIA { 1.8281267907e+03,
+                            1.5843849248e+03,
+                            2.4374186595e+02}
+      @CENTRE_OF_MASS_LOCATION { 1.7144217676e-15,
+                                 1.9548542713e-15}
     }
     
-    @COMMENTS {beam properties for spar stations 14-16}
+    @COMMENTS {beam properties for spar stations 9-11}
   }
 }
 

@@ -14,6 +14,6 @@ for j=1:length(x1)
     end
 end
 
-% total cross-section heights of each spar station
+% total cross-section heights of each spar station in the monoplane spar
 % (the first 6 stations include the top and bottom root buildup heights, in addition to the shear web heights)
 cs_heights = [5.392 5.375 5.089 4.791 4.455 4.101 3.680 3.480 3.285 3.089 2.882 2.696 2.498 2.077 1.672 1.360 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];

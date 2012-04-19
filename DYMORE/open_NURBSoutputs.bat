@@ -1,0 +1,1 @@
+gvim -p BC_rootTrans_upper.dat BG_rootTrans_lower.dat DE_jointTrans_upper.dat HE_jointTrans_lower.dat biplane_spar_params.dgp
