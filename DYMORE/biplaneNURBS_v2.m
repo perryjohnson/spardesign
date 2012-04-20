@@ -18,7 +18,7 @@ jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transi
 jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
 rt_beg_station = 2;                 % spar station for beginning of root transition
 rt_end_station = rt_beg_station+2;  % spar station for end of root transition
-rt_mid = 0.2;                       % midpoint for NURBS control points that define root transition region
+rt_mid = 0.5;                       % midpoint for NURBS control points that define root transition region
 inboard_view = 0;                   % if 1, zoom view on inboard region; if 0, show entire spar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,9 +58,9 @@ w = [B(4) 1.0 1.0 C(4)];
 
 % control points
 cntrl = [w(1)*B(1)  w(2)*(C(1)-B(1))*rt_mid + B(1)  w(3)*(C(1)-B(1))*rt_mid + B(1)  w(4)*C(1);   % x1-coordinates (or x-coordinates on plot)
-         w(1)*B(3)  w(2)* 0.0                    w(3)*g/2.0                   w(4)*C(3);   % x3-coordinates (or y-coordinates on plot)
-         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*C(2);   % x2-coordinates
-         w(1)       w(2)                         w(3)                         w(4)];       % weights
+         w(1)*B(3)  w(2)* 0.0                       w(3)*g/2.0                      w(4)*C(3);   % x3-coordinates (or y-coordinates on plot)
+         w(1)*B(2)  w(2)* 0.0                       w(3)* 0.0                       w(4)*C(2);   % x2-coordinates
+         w(1)       w(2)                            w(3)                            w(4)];       % weights
                     % midctrlpt_low              % midctrlpt_high
      
 % knot sequence
@@ -112,9 +112,9 @@ w = [B(4) 1.0 1.0 G(4)];
 
 % control points
 cntrl = [w(1)*B(1)  w(2)*(G(1)-B(1))*rt_mid + B(1)  w(3)*(G(1)-B(1))*rt_mid + B(1)  w(4)*G(1);
-         w(1)*B(3)  w(2)* 0.0                    w(3)*-g/2.0                  w(4)*G(3);
-         w(1)*B(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*G(2);
-         w(1)       w(2)                         w(3)                         w(4)];
+         w(1)*B(3)  w(2)* 0.0                       w(3)*-g/2.0                     w(4)*G(3);
+         w(1)*B(2)  w(2)* 0.0                       w(3)* 0.0                       w(4)*G(2);
+         w(1)       w(2)                            w(3)                            w(4)];
      
 % knot sequence
 knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
@@ -213,9 +213,9 @@ w = [D(4) 1.0 1.0 E(4)];
 
 % control points
 cntrl = [w(1)*D(1)  w(2)*(E(1)-D(1))*jt_mid + D(1)  w(3)*(E(1)-D(1))*jt_mid + D(1)  w(4)*E(1);
-         w(1)*D(3)  w(2)*g/2.0                   w(3)* 0.0                    w(4)*E(3);
-         w(1)*D(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
-         w(1)       w(2)                         w(3)                         w(4)];
+         w(1)*D(3)  w(2)*g/2.0                      w(3)* 0.0                       w(4)*E(3);
+         w(1)*D(2)  w(2)* 0.0                       w(3)* 0.0                       w(4)*E(2);
+         w(1)       w(2)                            w(3)                            w(4)];
      
 % knot sequence
 knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
@@ -266,9 +266,9 @@ w = [H(4) 1.0 1.0 E(4)];
 
 % control points
 cntrl = [w(1)*H(1)  w(2)*(E(1)-D(1))*jt_mid + D(1)  w(3)*(E(1)-D(1))*jt_mid + D(1)  w(4)*E(1);
-         w(1)*H(3)  w(2)*-g/2.0                  w(3)* 0.0                    w(4)*E(3);
-         w(1)*H(2)  w(2)* 0.0                    w(3)* 0.0                    w(4)*E(2);
-         w(1)       w(2)                         w(3)                         w(4)];
+         w(1)*H(3)  w(2)*-g/2.0                     w(3)* 0.0                       w(4)*E(3);
+         w(1)*H(2)  w(2)* 0.0                       w(3)* 0.0                       w(4)*E(2);
+         w(1)       w(2)                            w(3)                            w(4)];
      
 % knot sequence
 knots = [0.0 0.0 0.0 0.0 1.0 1.0 1.0 1.0];
@@ -374,10 +374,10 @@ for j=1:length(x1)
     end
 end
 
-title('biplane blade, beam reference line(s)');
+title('biplane spar, beam reference line(s)');
 if inboard_view
-    xlim([x1(rt_beg_station) x1(jt_end_station)])
-    ylim([-10 10])
+    xlim([x1(rt_beg_station)-1 x1(jt_end_station)+1])
+    ylim([-6 6])
 else
     xlim([-5 100])
     ylim([-20 20])  
