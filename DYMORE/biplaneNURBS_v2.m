@@ -13,7 +13,7 @@ global_constants;  % initialize the global constants for the biplane spar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 g__to__c = 1.00;                    % gap-to-chord ratio
-jt_end_station = 11;                % spar station for end of joint transition
+jt_end_station = 16;                % spar station for end of joint transition
 jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
 jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
 rt_beg_station = 2;                 % spar station for beginning of root transition
@@ -374,7 +374,7 @@ for j=1:length(x1)
     end
 end
 
-title('biplane spar, beam reference line(s)');
+title('biplane spar, one-dimensional reference lines');
 if inboard_view
     xlim([x1(rt_beg_station)-1 x1(jt_end_station)+1])
     ylim([-6 6])

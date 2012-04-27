@@ -16,7 +16,7 @@ end_station = rt_beg_station;
 fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
 fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
-    fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(root, x1(i)), cs_heights(i))
+    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(root, x1(i)), cs_heights(i))
 end
 fprintf('\n')
 
@@ -28,9 +28,9 @@ fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
 fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
     if i == start_station
-        fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i))
+        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i))
     else
-        fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i)/2.0)
+        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i)/2.0)
     end
 end
 fprintf('\n')
@@ -42,7 +42,7 @@ end_station = jt_beg_station;
 fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
 fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
-    fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i)/2.0)
+    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i)/2.0)
 end
 fprintf('\n')
 
@@ -54,9 +54,9 @@ fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
 fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
     if i == end_station
-        fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i))
+        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i))
     else
-        fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i)/2.0)
+        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i)/2.0)
     end
 end
 fprintf('\n')
@@ -68,6 +68,6 @@ end_station = 24;
 fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
 fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
-    fprintf('%8d %8.3f %8.3f \n', i, x1_to_eta(monoOutboard, x1(i)), cs_heights(i))
+    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(monoOutboard, x1(i)), cs_heights(i))
 end
 fprintf('\n')

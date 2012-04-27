@@ -10,7 +10,12 @@ runVABS_flag = True
 delete_old_VABS_files = True
 
 import truegrid.read_layup as rl
-data = rl.readLayupFile('truegrid/biplane_spar_layup_20120312.txt')
+print 'Please type the layup file path.'
+print '  For example: truegrid/monoplane_spar_layup.txt'
+print '  *** the layup file must be the same file used by TrueGrid! ***'
+layupfile = raw_input('  layup file path = ')
+print 'Using layup file:', layupfile
+data = rl.readLayupFile(layupfile)
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
 # spar_stn_list = [15]  # generate [M] and [K] matrices for these spar stations (subset)
@@ -162,7 +167,7 @@ for n in range(len(spar_stn_list)):
     print "STATUS: writing the VABS input file:", vabs_filename
     import VABS.VABSutilities as vu
 
-    curved = 1  # curve flag is set to True
+    curved = 0  # curve flag is set to True
     twist_rate = 0.0  # twist_rate = k1, which is in units of rad/m (twist rate)
 
     VABSflag_dictionary = {'format_flag': 1,

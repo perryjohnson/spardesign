@@ -8,7 +8,7 @@ import TRUEGRIDutilities as tgu
 
 main_debug_flag = True
 run_TG_silent = False
-no_ABQ_output = True
+no_ABQ_output = False
 
 # set constants
 sw_foam_base = 0.080 # units: meters
@@ -23,10 +23,16 @@ spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 # spar_stn_list = [4]  # generate grids for these spar stations (subset)
 
 # read the layup file
+
+print 'Please type the layup file path.'
+print '  For example: monoplane_spar_layup.txt'
+print '  *** the layup file must also be used later by main.py! ***'
+layupfile = raw_input('  layup file path = ')
+print 'Using layup file:', layupfile
 # layupfile = 'monoplane_spar_layup.txt'
 # layupfile = 'biplane_spar_layup_20120306.txt'
 # layupfile = 'biplane_spar_layup_20120312.txt'
-layupfile = 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt'
+# layupfile = 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt'
 data = rl.readLayupFile(layupfile)
 print "******************************"
 print "******************************"
@@ -34,10 +40,10 @@ print "reading from " + layupfile
 print "******************************"
 print "******************************"
 
-if layupfile == 'biplane_spar_layup_20120306.txt' or layupfile == 'biplane_spar_layup_20120312.txt' or layupfile == 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt':
-    biplane_switch = True
-else:
-    biplane_switch = False
+# if layupfile == 'biplane_spar_layup_20120306.txt' or layupfile == 'biplane_spar_layup_20120312.txt' or layupfile == 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt':
+#     biplane_switch = True
+# else:
+#     biplane_switch = False
 
 for n in range(len(spar_stn_list)):
     spar_station = spar_stn_list[n]
