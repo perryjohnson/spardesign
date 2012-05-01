@@ -1,73 +1,243 @@
-% clc
-
-% spanwise locations of spar stations
-% x1 = [0.0 0.2 2.3 4.4 6.5 9.0 12.2 13.9 15.5 17.1 19.8 22.5 25.2 33.4 41.5 49.6 57.8 64.3 65.9 70.8 74.0 82.2 87.0 91.9];
-
-% total cross-section heights of each spar station of the monoplane spar
-% (the first 6 stations include the top and bottom root buildup heights, in addition to the shear web heights)
-% cs_heights = [5.392 5.375 5.089 4.791 4.455 4.101 3.680 3.480 3.285 3.089 2.882 2.696 2.498 2.077 1.672 1.360 1.138 0.954 0.910 0.832 0.796 0.707 0.651 0.508];
-
 fprintf('\n')
 
-% root (stations 1-2)
+% write external shape scaling factors to DYMORE-formatted file
+fid_shape = fopen('shapes.dat', 'wt');
+fprintf(fid_shape, '@SHAPE_DEFINITION {\n');
+
+
+% root region %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('*** ROOT REGION ***')
 start_station = 1;
 end_station = rt_beg_station;
-fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
-fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
-for i=start_station:end_station
-    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(root, x1(i)), cs_heights(i))
-end
-fprintf('\n')
 
-% root transition region (stations 2-4)
+% write external shape scaling factors for this region to DYMORE-formatted file
+fprintf(fid_shape, '  @SHAPE_NAME {shape_root} {\n');
+fprintf(fid_shape, '    @SHAPE_TYPE {CURVE}\n');
+fprintf(fid_shape, '    @COORDINATE_TYPE {ETA_COORDINATE}\n');
+
+fprintf(1, '%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
+fprintf(1, '%8s %8s %8s \n', '-------', '-------', '-------')
+for i=start_station:end_station
+    fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(root, x1(i)), cs_heights(i))
+    
+    fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(root, x1(i)));
+    fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
+    fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
+    fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
+    fprintf(fid_shape, '    }\n');
+end
+fprintf(1, '\n')
+
+fprintf(fid_shape, '  }\n\n');
+
+
+
+% root transition region %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('*** ROOT TRANSITION REGION ***')
 start_station = rt_beg_station;
 end_station = rt_end_station;
-fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
-fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
-for i=start_station:end_station
-    if i == start_station
-        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i))
-    else
-        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i)/2.0)
-    end
-end
-fprintf('\n')
 
-% straight biplane region (stations 4-9)
+% write external shape scaling factors for this region to DYMORE-formatted file
+fprintf(fid_shape, '  @SHAPE_NAME {shape_rootTrans} {\n');
+fprintf(fid_shape, '    @SHAPE_TYPE {CURVE}\n');
+fprintf(fid_shape, '    @COORDINATE_TYPE {ETA_COORDINATE}\n');
+
+% write curve mesh parameters to DYMORE-formatted file
+fid = fopen('BC_rootTrans_upper_mesh.dat', 'wt');
+fid2 = fopen('BG_rootTrans_lower_mesh.dat', 'wt');
+fprintf(fid, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid2, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid, '  @CURVE_MESH_PARAMETERS_NAME {meshBC} {\n');
+fprintf(fid2, '  @CURVE_MESH_PARAMETERS_NAME {meshBG} {\n');
+fprintf(fid, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid2, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid, '    @ORDER_OF_ELEMENTS {3}\n');
+fprintf(fid2, '    @ORDER_OF_ELEMENTS {3}\n');
+
+fprintf(1, '%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
+fprintf(1, '%8s %8s %8s \n', '-------', '-------', '-------')
+for i=start_station:end_station
+    fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(rootTrans_upper, x1(i)));
+    fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
+
+    if i == start_station
+        fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i))
+        
+        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
+
+        fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(rootTrans_upper, x1(i)));
+        fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(rootTrans_lower, x1(i)));
+    else
+        fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(rootTrans_upper, x1(i)), cs_heights(i)/2.0)
+
+        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i)/2.0);
+
+        fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(rootTrans_upper, x1(i)));
+        fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(rootTrans_lower, x1(i)));
+    end
+
+    fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
+    fprintf(fid_shape, '    }\n');
+
+end
+fprintf(1, '\n')
+
+fprintf(fid_shape, '  }\n\n');
+
+fprintf(fid, '    @COMMENTS {models the upper root transition region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid2, '    @COMMENTS {models the lower root transition region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid, '  }\n');
+fprintf(fid2, '  }\n');
+fprintf(fid, '}\n');
+fprintf(fid2, '}\n');
+fclose(fid);
+fclose(fid2);
+
+
+% straight biplane region %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('*** STRAIGHT BIPLANE REGION ***')
 start_station = rt_end_station;
 end_station = jt_beg_station;
-fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
-fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
-for i=start_station:end_station
-    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i)/2.0)
-end
-fprintf('\n')
 
-% joint transition region (stations 9-11)
+% write external shape scaling factors for this region to DYMORE-formatted file
+fprintf(fid_shape, '  @SHAPE_NAME {shape_straightBiplane} {\n');
+fprintf(fid_shape, '    @SHAPE_TYPE {CURVE}\n');
+fprintf(fid_shape, '    @COORDINATE_TYPE {ETA_COORDINATE}\n');
+
+% write curve mesh parameters to DYMORE-formatted file
+fid = fopen('CD_straightBiplane_upper_mesh.dat', 'wt');
+fid2 = fopen('GH_straightBiplane_lower_mesh.dat', 'wt');
+fprintf(fid, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid2, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid, '  @CURVE_MESH_PARAMETERS_NAME {meshCD} {\n');
+fprintf(fid2, '  @CURVE_MESH_PARAMETERS_NAME {meshGH} {\n');
+fprintf(fid, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid2, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid, '    @ORDER_OF_ELEMENTS {3}\n');
+fprintf(fid2, '    @ORDER_OF_ELEMENTS {3}\n');
+
+fprintf(1, '%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
+fprintf(1, '%8s %8s %8s \n', '-------', '-------', '-------')
+for i=start_station:end_station
+    fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(straightBiplane_upper, x1(i)));
+    fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
+    fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i)/2.0);
+    fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
+    fprintf(fid_shape, '    }\n');
+
+    fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i)/2.0)
+
+    fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(straightBiplane_upper, x1(i)));
+    fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(straightBiplane_lower, x1(i)));
+end
+fprintf(1, '\n')
+
+fprintf(fid_shape, '  }\n\n');
+
+fprintf(fid, '    @COMMENTS {models the upper straight biplane region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid2, '    @COMMENTS {models the lower straight biplane region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid, '  }\n');
+fprintf(fid2, '  }\n');
+fprintf(fid, '}\n');
+fprintf(fid2, '}\n');
+fclose(fid);
+fclose(fid2);
+
+
+% joint transition region %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('*** JOINT TRANSITION REGION ***')
 start_station = jt_beg_station;
 end_station = jt_end_station;
-fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
-fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
-for i=start_station:end_station
-    if i == end_station
-        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i))
-    else
-        fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i)/2.0)
-    end
-end
-fprintf('\n')
 
-% outboard monoplane region (stations 11-24)
+% write external shape scaling factors for this region to DYMORE-formatted file
+fprintf(fid_shape, '  @SHAPE_NAME {shape_jointTrans} {\n');
+fprintf(fid_shape, '    @SHAPE_TYPE {CURVE}\n');
+fprintf(fid_shape, '    @COORDINATE_TYPE {ETA_COORDINATE}\n');
+
+% write curve mesh parameters to DYMORE-formatted file
+fid = fopen('DE_jointTrans_upper_mesh.dat', 'wt');
+fid2 = fopen('HE_jointTrans_lower_mesh.dat', 'wt');
+fprintf(fid, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid2, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid, '  @CURVE_MESH_PARAMETERS_NAME {meshDE} {\n');
+fprintf(fid2, '  @CURVE_MESH_PARAMETERS_NAME {meshHE} {\n');
+fprintf(fid, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid2, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid, '    @ORDER_OF_ELEMENTS {3}\n');
+fprintf(fid2, '    @ORDER_OF_ELEMENTS {3}\n');
+
+fprintf(1, '%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
+fprintf(1, '%8s %8s %8s \n', '-------', '-------', '-------')
+for i=start_station:end_station
+    fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(jointTrans_upper, x1(i)));
+    fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
+
+    if i == end_station
+        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
+
+        fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i))
+
+        fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_upper, x1(i)));
+        fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_lower, x1(i)));
+    else
+        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i)/2.0);
+
+        fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i)/2.0)
+
+        fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_upper, x1(i)));
+        fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_lower, x1(i)));
+    end
+
+    fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
+    fprintf(fid_shape, '    }\n');
+end
+fprintf(1, '\n')
+
+fprintf(fid_shape, '  }\n\n');
+
+fprintf(fid, '    @COMMENTS {models the upper joint transition region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid2, '    @COMMENTS {models the lower joint transition region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid, '  }\n');
+fprintf(fid2, '  }\n');
+fprintf(fid, '}\n');
+fprintf(fid2, '}\n');
+fclose(fid);
+fclose(fid2);
+
+
+% outboard monoplane region %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('*** OUTBOARD MONOPLANE REGION ***')
 start_station = jt_end_station;
 end_station = 24;
-fprintf('%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
-fprintf('%8s %8s %8s \n', '-------', '-------', '-------')
+
+% write external shape scaling factors for this region to DYMORE-formatted file
+fprintf(fid_shape, '  @SHAPE_NAME {shape_monoOutboard} {\n');
+fprintf(fid_shape, '    @SHAPE_TYPE {CURVE}\n');
+fprintf(fid_shape, '    @COORDINATE_TYPE {ETA_COORDINATE}\n');
+
+% write curve mesh parameters to DYMORE-formatted file
+fid = fopen('EF_monoOutboard_mesh.dat', 'wt');
+fprintf(fid, '@CURVE_MESH_PARAMETERS_DEFINITION {\n');
+fprintf(fid, '  @CURVE_MESH_PARAMETERS_NAME {meshEF} {\n');
+fprintf(fid, '    @NUMBER_OF_ELEMENTS {%2d}\n', end_station-start_station);
+fprintf(fid, '    @ORDER_OF_ELEMENTS {3}\n');
+
+fprintf(1, '%8s %8s %8s \n', 'station', 'eta', 'cs_ht')
+fprintf(1, '%8s %8s %8s \n', '-------', '-------', '-------')
 for i=start_station:end_station
-    fprintf('%8d %8.4f %8.4f \n', i, x1_to_eta(monoOutboard, x1(i)), cs_heights(i))
+    fprintf(1, '%8d %8.4f %8.4f \n', i, x1_to_eta(monoOutboard, x1(i)), cs_heights(i))
+
+    fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(monoOutboard, x1(i)));
+
+    fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(monoOutboard, x1(i)));
+    fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
+    fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
+    fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
+    fprintf(fid_shape, '    }\n');
 end
-fprintf('\n')
+fprintf(1, '\n')
+
+fprintf(fid, '    @COMMENTS {models the monoplane outboard region with %2d cubic beam elements}\n', end_station-start_station);
+fprintf(fid, '  }\n');
+fprintf(fid, '}\n');
+fclose(fid);

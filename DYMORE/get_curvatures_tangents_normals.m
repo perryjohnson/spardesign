@@ -50,6 +50,7 @@ norm_y = p2_perp(2,:);
 % set(g,'Color','red');
 
 % curvature = mag( dp x d2p ) / (mag( dp ))^3
+%    ref: http://en.wikipedia.org/wiki/NURBS#Curvature
 numerator = vecmag( veccross(dp, d2p) );
 denominator = (vecmag(dp) ).^3;
 curvature = numerator ./ denominator;

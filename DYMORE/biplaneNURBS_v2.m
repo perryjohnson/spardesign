@@ -13,7 +13,7 @@ global_constants;  % initialize the global constants for the biplane spar
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 g__to__c = 1.00;                    % gap-to-chord ratio
-jt_end_station = 16;                % spar station for end of joint transition
+jt_end_station = 17;                % spar station for end of joint transition
 jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
 jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
 rt_beg_station = 2;                 % spar station for beginning of root transition
@@ -78,7 +78,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(rootTrans_upper);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('BC_rootTrans_upper.dat', 'wt');
+fid = fopen('BC_rootTrans_upper_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveBC} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -131,7 +131,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(rootTrans_lower);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('BG_rootTrans_lower.dat', 'wt');
+fid = fopen('BG_rootTrans_lower_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveBG} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -229,10 +229,10 @@ nrbplot(jointTrans_upper, 50);
 % create plot for the control points
 plot(cntrl(1,:),cntrl(2,:),'m.:');
 
-% [tt, x, y, curvature] = getCurvature(jointTrans_upper);
+% [tt, x, y, curvature] = getCurvature_tt(jointTrans_upper,[0.0, 0.3254, 0.3354, 0.3454, 1.0]);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('DE_jointTrans_upper.dat', 'wt');
+fid = fopen('DE_jointTrans_upper_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveDE} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -285,7 +285,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(jointTrans_lower);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('HE_jointTrans_lower.dat', 'wt');
+fid = fopen('HE_jointTrans_lower_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveHE} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');

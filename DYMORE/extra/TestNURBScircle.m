@@ -12,7 +12,10 @@ clear all;
 % close all;
 clc;
 
-addpath '.\nurbs-1.3.6\inst' -BEGIN;
+addpath '..\nurbs-1.3.6\inst' -BEGIN;
+
+% set the circle's radius
+circle_radius = 50.0;
 
 % weights
 w = [1.0 sqrt(2)/2 1.0 sqrt(2)/2 1.0 sqrt(2)/2 1.0 sqrt(2)/2 1.0];
@@ -23,6 +26,7 @@ cntrl = [w(1)*1.0  w(2)*1.0  w(3)*0.0  w(4)*-1.0  w(5)*-1.0  w(6)*-1.0  w(7)* 0.
          w(1)*0.0  w(2)*1.0  w(3)*1.0  w(4)* 1.0  w(5)* 0.0  w(6)*-1.0  w(7)*-1.0  w(8)*-1.0 w(9)*0.0;
          w(1)*0.0  w(2)*0.0  w(3)*0.0  w(4)* 0.0  w(5)* 0.0  w(6)* 0.0  w(7)* 0.0  w(8)* 0.0 w(9)*0.0;
          w(1)      w(2)      w(3)      w(4)       w(5)       w(6)       w(7)       w(8)      w(9)    ];
+cntrl(1:3,:) = cntrl(1:3,:)*circle_radius;
      
 % knot sequence
 knots = [0 0 0 pi/2 pi/2 pi pi 3*pi/2 3*pi/2 2*pi 2*pi 2*pi];
@@ -61,7 +65,7 @@ set(h,'Color','black');
 hold off;
 
 % curvature = mag( dp x d2p ) / (mag( dp ))^3
-%   ref: 
+%   ref: http://en.wikipedia.org/wiki/NURBS#Curvature
 numerator = vecmag( veccross(dp, d2p) );
 denominator = (vecmag(dp) ).^3;
 curvature = numerator ./ denominator
