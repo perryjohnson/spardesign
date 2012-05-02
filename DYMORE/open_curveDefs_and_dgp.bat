@@ -1,1 +1,0 @@
-gvim -p BC_rootTrans_upper_curve.dat BG_rootTrans_lower_curve.dat  DE_jointTrans_upper_curve.dat HE_jointTrans_lower_curve.dat biplane_spar_params.dgp

@@ -78,7 +78,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(rootTrans_upper);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('BC_rootTrans_upper_curve.dat', 'wt');
+fid = fopen('.\input_files\BC_rootTrans_upper_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveBC} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -131,7 +131,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(rootTrans_lower);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('BG_rootTrans_lower_curve.dat', 'wt');
+fid = fopen('.\input_files\BG_rootTrans_lower_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveBG} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -232,7 +232,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature_tt(jointTrans_upper,[0.0, 0.3254, 0.3354, 0.3454, 1.0]);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('DE_jointTrans_upper_curve.dat', 'wt');
+fid = fopen('.\input_files\DE_jointTrans_upper_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveDE} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');
@@ -285,7 +285,7 @@ plot(cntrl(1,:),cntrl(2,:),'m.:');
 % [tt, x, y, curvature] = getCurvature(jointTrans_lower);
 
 % write NURBS curve to DYMORE-formatted file
-fid = fopen('HE_jointTrans_lower_curve.dat', 'wt');
+fid = fopen('.\input_files\HE_jointTrans_lower_curve.dat', 'wt');
 fprintf(fid, '@CURVE_DEFINITION {\n');
 fprintf(fid, '  @CURVE_NAME {curveHE} {\n');
 fprintf(fid, '    @IS_DEFINED_IN_FRAME {INERTIAL}\n');

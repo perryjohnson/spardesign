@@ -1,4 +1,5 @@
 %%%% DERIVED PARAMETERS, DIMENSIONAL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% convert station numbers into x1-coordinates stored in global_constants.m
 rt_beg = x1(rt_beg_station);  % beginning of root transition
 rt_end = x1(rt_end_station);  % end of root transition
 jt_beg = x1(jt_beg_station);  % beginning of joint transition
@@ -45,7 +46,7 @@ fprintf('gap-to-maximum chord ratio:                    g/c      = %5.3f *\n', g
 
 
 %%%% WRITE ENDPOINTS OF EACH REGION TO DYMORE-FORMATTED FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-fid = fopen('biplane_spar_params.dgp', 'wt');
+fid = fopen('.\input_files\biplane_spar_params.dgp', 'wt');
 fprintf(fid, '@DESIGN_PARAMETERS_DEFINITION {\n');
 fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointA_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', A(1:3));
 fprintf(fid, '  @DESIGN_PARAMETER_NAME {#pointB_xyz}  @VECTOR_VALUE {%6.3f, %6.3f, %6.3f}\n', B(1:3));
