@@ -3,8 +3,8 @@ import truegrid.read_layup as rl
 
 # parameters #####################################################################
 spar_station = 16
-dymoreMKfile = du.makeFile('spar_station_16__k2_0016_MK.dat')
-vabsMK = '../VABS/cs_database/biplane_curved/spar_station_16__k2_0016.dat.K'
+dymoreMKfile = du.makeFile('spar_station_16__k2_0012_MK.dat')
+vabsMK = '../VABS/cs_database/biplane_curved/spar_station_16__k2_0012.dat.K'
 ##################################################################################
 
 
