@@ -42,59 +42,54 @@
       @SCALING_FACTOR {0.0, 1.672, 2.396}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.0566} {
+    @ETA_COORDINATE {0.0724} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 2.228}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.1240} {
+    @ETA_COORDINATE {0.1586} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 2.051}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.2102} {
+    @ETA_COORDINATE {0.2690} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.840}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.2561} {
+    @ETA_COORDINATE {0.3276} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.740}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.2992} {
+    @ETA_COORDINATE {0.3828} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.643}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.3423} {
+    @ETA_COORDINATE {0.4379} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.545}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.4151} {
+    @ETA_COORDINATE {0.5310} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.441}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.4879} {
+    @ETA_COORDINATE {0.6241} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.348}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.5606} {
+    @ETA_COORDINATE {0.7172} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.249}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.7817} {
-      @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 1.672, 1.039}
-      @ORIGIN {0.0, 0.0, 0.0}
-    }
     @ETA_COORDINATE {1.0000} {
       @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 1.672, 0.836}
+      @SCALING_FACTOR {0.0, 1.672, 1.039}
       @ORIGIN {0.0, 0.0, 0.0}
     }
   }
@@ -104,17 +99,17 @@
     @COORDINATE_TYPE {ETA_COORDINATE}
     @ETA_COORDINATE {0.0000} {
       @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 1.672, 0.836}
+      @SCALING_FACTOR {0.0, 1.672, 1.039}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.4959} {
+    @ETA_COORDINATE {0.5000} {
       @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 1.672, 0.680}
+      @SCALING_FACTOR {0.0, 1.672, 0.836}
       @ORIGIN {0.0, 0.0, 0.0}
     }
     @ETA_COORDINATE {1.0000} {
       @CURVE_NAME {CurveSquare}
-      @SCALING_FACTOR {0.0, 1.672, 1.138}
+      @SCALING_FACTOR {0.0, 1.672, 1.360}
       @ORIGIN {0.0, 0.0, 0.0}
     }
   }
@@ -124,35 +119,40 @@
     @COORDINATE_TYPE {ETA_COORDINATE}
     @ETA_COORDINATE {0.0000} {
       @CURVE_NAME {CurveSquare}
+      @SCALING_FACTOR {0.0, 1.672, 1.360}
+      @ORIGIN {0.0, 0.0, 0.0}
+    }
+    @ETA_COORDINATE {0.1939} {
+      @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 1.138}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.1906} {
+    @ETA_COORDINATE {0.3475} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.954}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.2375} {
+    @ETA_COORDINATE {0.3853} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.910}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.3812} {
+    @ETA_COORDINATE {0.5012} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.832}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.4751} {
+    @ETA_COORDINATE {0.5768} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.796}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.7155} {
+    @ETA_COORDINATE {0.7707} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.707}
       @ORIGIN {0.0, 0.0, 0.0}
     }
-    @ETA_COORDINATE {0.8563} {
+    @ETA_COORDINATE {0.8842} {
       @CURVE_NAME {CurveSquare}
       @SCALING_FACTOR {0.0, 1.672, 0.651}
       @ORIGIN {0.0, 0.0, 0.0}

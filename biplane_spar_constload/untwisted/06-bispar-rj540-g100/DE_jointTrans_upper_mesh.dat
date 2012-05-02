@@ -3,7 +3,7 @@
     @NUMBER_OF_ELEMENTS { 2}
     @ORDER_OF_ELEMENTS {3}
     @ETA_COORDINATE {0.0000}
-    @ETA_COORDINATE {0.4959}
+    @ETA_COORDINATE {0.5000}
     @ETA_COORDINATE {1.0000}
     @COMMENTS {models the upper joint transition region with  2 cubic beam elements}
   }

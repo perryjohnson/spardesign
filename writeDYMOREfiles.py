@@ -285,8 +285,8 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True]
+    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]            # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propCD'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/CD_straightBiplane_upper_props.dat'  # save DYMORE code block to this filename
@@ -300,8 +300,8 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True]
+    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]            # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propGH'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/GH_straightBiplane_lower_props.dat'  # save DYMORE code block to this filename
@@ -315,7 +315,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
+    spar_stn_list           = [14, 15, 16]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propDE'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
@@ -330,7 +330,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
+    spar_stn_list           = [14, 15, 16]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propHE'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
@@ -345,8 +345,8 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
-    spar_stn_list           = [17, 18, 19, 20, 21, 22, 23, 24]   # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [False, False, False, False, False, False, False, False]
+    spar_stn_list           = [16, 17, 18, 19, 20, 21, 22, 23, 24]   # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [False, False, False, False, False, False, False, False, False]
     beam_property_name      = 'propEF'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/EF_monoOutboard_props.dat'  # save DYMORE code block to this filename
