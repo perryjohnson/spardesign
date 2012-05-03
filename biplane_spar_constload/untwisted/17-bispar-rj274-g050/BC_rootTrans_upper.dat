@@ -1,0 +1,32 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeBC} {
+    @CONNECTED_TO_VERTICES {vertexB, vertexC}
+    @CURVE_NAME {curveBC}
+  }
+}
+
+@BEAM_DEFINITION {
+  @BEAM_NAME {BC_rootTrans_upper} {
+    @EDGE_NAME {edgeBC}
+    @BEAM_PROPERTY_NAME {propBC}
+    @SHAPE_NAME {shape_rootTrans}
+    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneUpper}
+    @COMMENTS {the upper root transition region of the spar}
+  }
+}
+
+@INCLUDE_COMMAND {
+  @INCLUDE_COMMAND_NAME {includePropsBC} {
+    @ACTIVE_COMMAND {YES}
+    @LIST_OF_FILE_NAMES {BC_rootTrans_upper_curve.dat, BC_rootTrans_upper_mesh.dat, BC_rootTrans_upper_props.dat}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME {surveyBC} {
+    @OBJECT_NAME {BC_rootTrans_upper}
+    @SURVEY_TYPE {DISPLACEMENTS}
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
