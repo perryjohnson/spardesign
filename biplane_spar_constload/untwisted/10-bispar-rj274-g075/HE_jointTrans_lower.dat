@@ -1,0 +1,39 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeHE} {
+    @CONNECTED_TO_VERTICES {vertexH, vertexE}
+    @CURVE_NAME {curveHE}
+  }
+}
+
+@BEAM_DEFINITION {
+  @BEAM_NAME {HE_jointTrans_lower} {
+    @EDGE_NAME {edgeHE}
+    @BEAM_PROPERTY_NAME {propHE}
+    @SHAPE_NAME {shape_jointTrans}
+    @GRAPHICAL_PARAMETERS_NAME {gp_biplaneLower}
+    @COMMENTS {the lower joint transition region of the spar}
+  }
+}
+
+@INCLUDE_COMMAND {
+  @INCLUDE_COMMAND_NAME {includePropsHE} {
+    @ACTIVE_COMMAND {YES}
+    @LIST_OF_FILE_NAMES {HE_jointTrans_lower_curve.dat, HE_jointTrans_lower_mesh.dat, HE_jointTrans_lower_props.dat}
+  }
+}
+
+@GRAPHICAL_PARAMETERS_DEFINITION {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamHE} {
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME {surveyHE} {
+    @OBJECT_NAME {HE_jointTrans_lower}
+    @SURVEY_TYPE {DISPLACEMENTS}
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+

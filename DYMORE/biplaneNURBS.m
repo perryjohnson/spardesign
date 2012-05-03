@@ -12,7 +12,7 @@ global_constants;  % initialize the global constants for the biplane spar
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-g__to__c = 1.00;                    % gap-to-chord ratio
+g__to__c = 0.75;                    % gap-to-chord ratio
 jt_end_station = 13;                % spar station for end of joint transition
 jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
 jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
