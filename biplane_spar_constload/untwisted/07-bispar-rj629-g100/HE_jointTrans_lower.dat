@@ -27,13 +27,38 @@
   }
 }
 
+! @SURVEY_DEFINITION {
+!   @SURVEY_NAME {surveyHE} {
+!     @OBJECT_NAME {HE_jointTrans_lower}
+!     @SURVEY_TYPE {DISPLACEMENTS}
+!     @FRAME_NAME {INERTIAL}
+!     @TIME {5.00000e+000}
+!   }
+! }
+
 @SURVEY_DEFINITION {
-  @SURVEY_NAME {surveyHE} {
+  @SURVEY_NAME { svy_disp_HE } {
     @OBJECT_NAME {HE_jointTrans_lower}
-    @SURVEY_TYPE {DISPLACEMENTS}
+    @SURVEY_TYPE { DISPLACEMENTS }
     @FRAME_NAME {INERTIAL}
     @TIME {5.00000e+000}
   }
 }
 
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_force_HE } {
+    @OBJECT_NAME {HE_jointTrans_lower}
+    @SURVEY_TYPE { FORCES }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
 
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_strain_HE } {
+    @OBJECT_NAME {HE_jointTrans_lower}
+    @SURVEY_TYPE { STRAINS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}

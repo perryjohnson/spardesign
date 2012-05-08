@@ -46,12 +46,38 @@
   }
 }
 
+! @SURVEY_DEFINITION {
+!   @SURVEY_NAME {surveyEF} {
+!     @OBJECT_NAME {EF_monoOutboard}
+!     @SURVEY_TYPE {DISPLACEMENTS}
+!     @FRAME_NAME {INERTIAL}
+!     @TIME {5.00000e+000}
+!   }
+! }
+
 @SURVEY_DEFINITION {
-  @SURVEY_NAME {surveyEF} {
+  @SURVEY_NAME { svy_disp_EF } {
     @OBJECT_NAME {EF_monoOutboard}
-    @SURVEY_TYPE {DISPLACEMENTS}
+    @SURVEY_TYPE { DISPLACEMENTS }
     @FRAME_NAME {INERTIAL}
     @TIME {5.00000e+000}
   }
 }
 
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_force_EF } {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE { FORCES }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_strain_EF } {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE { STRAINS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}

@@ -22,12 +22,38 @@
   }
 }
 
+! @SURVEY_DEFINITION {
+!   @SURVEY_NAME {surveyBG} {
+!     @OBJECT_NAME {BG_rootTrans_lower}
+!     @SURVEY_TYPE {DISPLACEMENTS}
+!     @FRAME_NAME {INERTIAL}
+!     @TIME {5.00000e+000}
+!   }
+! }
+
 @SURVEY_DEFINITION {
-  @SURVEY_NAME {surveyBG} {
+  @SURVEY_NAME { svy_disp_BG } {
     @OBJECT_NAME {BG_rootTrans_lower}
-    @SURVEY_TYPE {DISPLACEMENTS}
+    @SURVEY_TYPE { DISPLACEMENTS }
     @FRAME_NAME {INERTIAL}
     @TIME {5.00000e+000}
   }
 }
 
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_force_BG } {
+    @OBJECT_NAME {BG_rootTrans_lower}
+    @SURVEY_TYPE { FORCES }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_strain_BG } {
+    @OBJECT_NAME {BG_rootTrans_lower}
+    @SURVEY_TYPE { STRAINS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
