@@ -1,3 +1,5 @@
+The biplane spars in this branch do not have a root region or a root transition region.
+
 (0) identify a layup file to use in truegrid\writeTGscripts.py and main.py
 
 (1) write TrueGrid scripts
