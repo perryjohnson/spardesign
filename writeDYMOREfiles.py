@@ -236,63 +236,63 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     coordinate_type = 'ETA_COORDINATE'
 
 
-    ### ROOT REGION (AB) ###########################################################################################
+    # ### ROOT REGION (AB) ###########################################################################################
 
-    # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
-    spar_stn_list           = [1, 2]               # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [False, False]
-    beam_property_name      = 'propAB'
-    BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
-    dymore_MKblock_filename = './DYMORE/input_files/AB_root_props.dat'  # save DYMORE code block to this filename
-    # -----------------------------------------------------------------------------------------------
+    # # parameters ------------------------------------------------------------------------------------
+    # layup_file_data         = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
+    # spar_stn_list           = [1, 2]               # generate a DYMORE code block for these spar stations
+    # biplane_flag_list       = [False, False]
+    # beam_property_name      = 'propAB'
+    # BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
+    # dymore_MKblock_filename = './DYMORE/input_files/AB_root_props.dat'  # save DYMORE code block to this filename
+    # # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
-    writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
-
-
-    ### ROOT TRANSITION REGION, UPPER (BC) #########################################################################
-
-    # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [2, 3, 4]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [False, True, True]
-    beam_property_name      = 'propBC'
-    BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
-    dymore_MKblock_filename = './DYMORE/input_files/BC_rootTrans_upper_props.dat'  # save DYMORE code block to this filename
-    # -----------------------------------------------------------------------------------------------
-
-    print '\n****************', dymore_MKblock_filename, '****************'
-    writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
+    # print '\n****************', dymore_MKblock_filename, '****************'
+    # writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
-    ### ROOT TRANSITION REGION, LOWER (BG) #########################################################################
+    # ### ROOT TRANSITION REGION, UPPER (BC) #########################################################################
 
-    # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [2, 3, 4]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [False, True, True]
-    beam_property_name      = 'propBG'
-    BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
-    dymore_MKblock_filename = './DYMORE/input_files/BG_rootTrans_lower_props.dat'  # save DYMORE code block to this filename
-    # -----------------------------------------------------------------------------------------------
+    # # parameters ------------------------------------------------------------------------------------
+    # layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    # spar_stn_list           = [2, 3, 4]            # generate a DYMORE code block for these spar stations
+    # biplane_flag_list       = [False, True, True]
+    # beam_property_name      = 'propBC'
+    # BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
+    # dymore_MKblock_filename = './DYMORE/input_files/BC_rootTrans_upper_props.dat'  # save DYMORE code block to this filename
+    # # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
-    writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
+    # print '\n****************', dymore_MKblock_filename, '****************'
+    # writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
+
+
+    # ### ROOT TRANSITION REGION, LOWER (BG) #########################################################################
+
+    # # parameters ------------------------------------------------------------------------------------
+    # layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    # spar_stn_list           = [2, 3, 4]            # generate a DYMORE code block for these spar stations
+    # biplane_flag_list       = [False, True, True]
+    # beam_property_name      = 'propBG'
+    # BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
+    # dymore_MKblock_filename = './DYMORE/input_files/BG_rootTrans_lower_props.dat'  # save DYMORE code block to this filename
+    # # -----------------------------------------------------------------------------------------------
+
+    # print '\n****************', dymore_MKblock_filename, '****************'
+    # writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
     ### STRAIGHT BIPLANE REGION, UPPER (CD) #########################################################################
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [True, True, True, True, True, True, True]
+    spar_stn_list           = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]       # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propCD'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/CD_straightBiplane_upper_props.dat'  # save DYMORE code block to this filename
     # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
+    print '\n***********', dymore_MKblock_filename, '***********'
     writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
@@ -300,14 +300,14 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [4, 5, 6, 7, 8, 9, 10]            # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [True, True, True, True, True, True, True]
+    spar_stn_list           = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]       # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propGH'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/GH_straightBiplane_lower_props.dat'  # save DYMORE code block to this filename
     # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
+    print '\n***********', dymore_MKblock_filename, '***********'
     writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
@@ -315,14 +315,14 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [10, 11, 12]            # generate a DYMORE code block for these spar stations
+    spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propDE'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/DE_jointTrans_upper_props.dat'  # save DYMORE code block to this filename
     # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
+    print '\n***********', dymore_MKblock_filename, '***********'
     writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
@@ -330,14 +330,14 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
-    spar_stn_list           = [10, 11, 12]            # generate a DYMORE code block for these spar stations
+    spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propHE'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/HE_jointTrans_lower_props.dat'  # save DYMORE code block to this filename
     # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
+    print '\n***********', dymore_MKblock_filename, '***********'
     writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)
 
 
@@ -345,12 +345,12 @@ if __name__ == '__main__':  #run this code if called directly from the command l
 
     # parameters ------------------------------------------------------------------------------------
     layup_file_data         = rl.readLayupFile('truegrid/monoplane_spar_layup.txt')
-    spar_stn_list           = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]   # generate a DYMORE code block for these spar stations
-    biplane_flag_list       = [False, False, False, False, False, False, False, False, False, False, False, False, False]
+    spar_stn_list           = [17, 18, 19, 20, 21, 22, 23, 24]   # generate a DYMORE code block for these spar stations
+    biplane_flag_list       = [False, False, False, False, False, False, False, False]
     beam_property_name      = 'propEF'
     BPD_comments            = 'beam properties for spar stations ' + str(spar_stn_list[0]) + '-' + str(spar_stn_list[-1])
     dymore_MKblock_filename = './DYMORE/input_files/EF_monoOutboard_props.dat'  # save DYMORE code block to this filename
     # -----------------------------------------------------------------------------------------------
 
-    print '\n****************', dymore_MKblock_filename, '****************'
+    print '\n***********', dymore_MKblock_filename, '***********'
     writeBeamPropertyDefinition(dymore_MKblock_filename, spar_stn_list, biplane_flag_list, layup_file_data, beam_property_name, property_definition_type, coordinate_type, BPD_comments, read_layup_eta=False, print_flag=True)

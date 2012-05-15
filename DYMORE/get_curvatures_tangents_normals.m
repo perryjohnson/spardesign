@@ -1,4 +1,4 @@
-function [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(crv, tt, arrow_flag)
+function [x, y, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(crv, tt, arrow_flag, print_flag)
 
 % create the NURBS representation of the 1st and 2nd derivatives
 [dcrv, dcrv2] = nrbderiv(crv);
@@ -56,10 +56,11 @@ denominator = (vecmag(dp) ).^3;
 curvature = numerator ./ denominator;
 radius_of_curvature = 1.0./curvature;
 
-% print results to the screen
-fprintf('%8s %8s %8s %8s %8s %8s %8s %8s \n', 'eta', 'x', 'y', 'k2', 'tang_x', 'tang_y', 'norm_x', 'norm_y');
-fprintf('%8s %8s %8s %8s %8s %8s %8s %8s \n', '-------', '-------', '-------', '-------', '-------', '-------', '-------', '-------');
-for i=1:1:length(x)
-    fprintf('%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f \n', tt(i), x(i), y(i), curvature(i), tang_x(i), tang_y(i), norm_x(i), norm_y(i))
+if print_flag  % if the user requests the results to be printed to the screen
+    fprintf('%8s %8s %8s %8s %8s %8s %8s %8s \n', 'eta', 'x', 'y', 'k2', 'tang_x', 'tang_y', 'norm_x', 'norm_y');
+    fprintf('%8s %8s %8s %8s %8s %8s %8s %8s \n', '-------', '-------', '-------', '-------', '-------', '-------', '-------', '-------');
+    for i=1:1:length(x)
+        fprintf('%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f \n', tt(i), x(i), y(i), curvature(i), tang_x(i), tang_y(i), norm_x(i), norm_y(i))
+    end
+    fprintf('\n')
 end
-fprintf('\n')
