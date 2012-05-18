@@ -7,20 +7,21 @@ import read_layup as rl
 import TRUEGRIDutilities as tgu
 
 main_debug_flag = True
-run_TG_silent = False
+run_TG_silent = True
 no_ABQ_output = False
 
 # set constants
-sw_foam_base = 0.080 # units: meters
+# sw_foam_base = 0.080 # units: meters
+sw_foam_base = 0.040 # units: meters
 sc_base = 1.5 # units: meters
 
 # set parameters
 sw_foam_ielem_init = 10 #8 #4 #12
 sc_ielem_init = 100 #80 #40 #120
-maxAR = 1.34
+maxAR = 2.0
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
-# spar_stn_list = [4]  # generate grids for these spar stations (subset)
+# spar_stn_list = [1, 2, 3, 4, 5, 6, 7]  # generate grids for these spar stations (subset)
 
 # read the layup file
 
@@ -95,6 +96,7 @@ for n in range(len(spar_stn_list)):
     # ----------------------------------------------------------------------------------
 
     tgTemplate = tgu.readFile('spar_station_nn.tg')
+    # tgTemplate = tgu.readFile('spar_station_nn_20120517_full-hSW.tg')
     tgFile = tgu.makeTGFile(basefilestr)
     tgTemplate = tgu.replaceDefaults(tgTemplate, spar_station, stationData, elemData, nowrite_flag=no_ABQ_output, silent_flag=run_TG_silent)
     if not RB_flag:

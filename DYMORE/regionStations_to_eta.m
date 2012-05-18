@@ -39,12 +39,12 @@ if toggle_straightBiplane
     for i=start_station:end_station
         fprintf(fid_shape, '    @ETA_COORDINATE {%6.4f} {\n', x1_to_eta(straightBiplane_upper, x1(i)));
         fprintf(fid_shape, '      @CURVE_NAME {CurveSquare}\n');
-        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i)/2.0);
+        fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
         fprintf(fid_shape, '      @ORIGIN {0.0, 0.0, 0.0}\n');
         fprintf(fid_shape, '    }\n');
 
         [x_stn, y_stn, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(straightBiplane_upper, [x1_to_eta(straightBiplane_upper,x1(i))], 0, 0);
-        fprintf(1, '%8d %8.4f %8.4f %8.4f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i)/2.0, curvature)
+        fprintf(1, '%8d %8.4f %8.4f %8.4f \n', i, x1_to_eta(straightBiplane_upper, x1(i)), cs_heights(i), curvature)
 
         fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(straightBiplane_upper, x1(i)));
         fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(straightBiplane_lower, x1(i)));
@@ -102,10 +102,10 @@ if toggle_jointTrans
             fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_upper, x1(i)));
             fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_lower, x1(i)));
         else
-            fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i)/2.0);
+            fprintf(fid_shape, '      @SCALING_FACTOR {0.0, 1.672, %5.3f}\n', cs_heights(i));
 
             [x_stn, y_stn, curvature, tang_x, tang_y, norm_x, norm_y] = get_curvatures_tangents_normals(jointTrans_upper, [x1_to_eta(jointTrans_upper,x1(i))], 0, 0);
-            fprintf(1, '%8d %8.4f %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i)/2.0, curvature)
+            fprintf(1, '%8d %8.4f %8.4f %8.4f \n', i, x1_to_eta(jointTrans_upper, x1(i)), cs_heights(i), curvature)
 
             fprintf(fid, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_upper, x1(i)));
             fprintf(fid2, '    @ETA_COORDINATE {%6.4f}\n', x1_to_eta(jointTrans_lower, x1(i)));

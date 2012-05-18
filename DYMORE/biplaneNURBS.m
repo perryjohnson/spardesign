@@ -207,7 +207,8 @@ nrbplot(monoOutboard, 50);
 fprintf('\n')
 
 for j=1:length(x1)
-    s = cs_heights(j)/4;  % half-height scaling factor for biplane cross-sections
+    % s = cs_heights(j)/4;  % half-height scaling factor for biplane cross-sections
+    s = cs_heights(j)/2;  % half-height scaling factor for biplane cross-sections (Hawaii style)
     if j <= jt_beg_station
         % fprintf('station #%d, straight biplane region\n', j)
         plot([x1(j) x1(j)], [s+g/2 -s+g/2], 'k-');
@@ -224,7 +225,8 @@ for j=1:length(x1)
         plot([x(1) x(1)-s*norm_x(1)], [y(1) y(1)-s*norm_y(1)], 'k-')
     else
         % fprintf('station #%d, outboard monoplane region\n', j)
-        plot([x1(j) x1(j)], [cs_heights(j)/2 -cs_heights(j)/2], 'k-');
+        % plot([x1(j) x1(j)], [cs_heights(j)/2 -cs_heights(j)/2], 'k-');
+        plot([x1(j) x1(j)], [s -s], 'k-');
     end
 end
 

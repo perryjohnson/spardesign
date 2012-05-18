@@ -29,14 +29,18 @@ def defineRegularExpressions():
     swfmjPat = re.compile(r'para swfm_jelem.+')
     sciPat = re.compile(r'para sc_ielem.+')
     scjPat = re.compile(r'para sc_jelem.+')
+    x4Pat = re.compile(r'para x4.+')
+    x3Pat = re.compile(r'para x3.+')
+    x2Pat = re.compile(r'para x2.+')
+    x1Pat = re.compile(r'para x1.+')
     writePat = re.compile(r'write.+')
     exitPat = re.compile(r'c exit')
 
-    return (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, writePat, exitPat)
+    return (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, x1Pat, x2Pat, x3Pat, x4Pat, writePat, exitPat)
 
 
 def replaceDefaults(tgTemplate, stn, stnData, elemData, nowrite_flag=False, silent_flag=False):
-    (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, writePat, exitPat) = defineRegularExpressions()
+    (nnPat, scPat, rbPat, swPat, swfmiPat, swfmjPat, sciPat, scjPat, x1Pat, x2Pat, x3Pat, x4Pat, writePat, exitPat) = defineRegularExpressions()
     for i in range(len(tgTemplate)):
         nnMatch = nnPat.match(tgTemplate[i])
         scMatch = scPat.match(tgTemplate[i])
@@ -46,6 +50,10 @@ def replaceDefaults(tgTemplate, stn, stnData, elemData, nowrite_flag=False, sile
         swfmjMatch = swfmjPat.match(tgTemplate[i])
         sciMatch = sciPat.match(tgTemplate[i])
         scjMatch = scjPat.match(tgTemplate[i])
+        x4Match = x4Pat.match(tgTemplate[i])
+        x3Match = x3Pat.match(tgTemplate[i])
+        x2Match = x2Pat.match(tgTemplate[i])
+        x1Match = x1Pat.match(tgTemplate[i])
         exitMatch = exitPat.match(tgTemplate[i])
         if nnMatch:
             if stn < 10:
@@ -66,6 +74,14 @@ def replaceDefaults(tgTemplate, stn, stnData, elemData, nowrite_flag=False, sile
             tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, i-elements']))
         elif scjMatch:
             tgTemplate[i] = tgTemplate[i].replace('000', str(elemData['spar cap, j-elements']))
+        elif x4Match:
+            tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['spar cap base'] * (-0.5)))
+        elif x3Match:
+            tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['spar cap base'] * (-0.5) - stnData['shear web biaxial GFRP base']))
+        elif x2Match:
+            tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['spar cap base'] * (-0.5) - stnData['shear web biaxial GFRP base'] - stnData['shear web foam base']))
+        elif x1Match:
+            tgTemplate[i] = tgTemplate[i].replace('0.000', str(stnData['spar cap base'] * (-0.5) - stnData['shear web biaxial GFRP base'] * (2.0) - stnData['shear web foam base']))
         elif writePat and nowrite_flag:
             tgTemplate[i] = tgTemplate[i].replace('write   c write the output file to disk', 'c write   c do not write the output file to disk')
         elif exitMatch and silent_flag:

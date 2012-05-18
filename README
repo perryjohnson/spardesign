@@ -26,7 +26,7 @@ The biplane spars in this branch do not have a root region or a root transition 
 (5) copy each of the *.dat.K files (mass and stiffness matrices)
     back inside the VABS folder
 (from Cygwin):
-  $ cp "/cygdrive/d/data/YYYY-MM-DD (description)/*.dat.K VABS/M_and_K_matrices"
+  $ cp "/cygdrive/d/data/YYYY-MM-DD (description)/*.dat.K VABS/M_and_K_matrices"exit
 
 (6) move the TrueGrid output files to the Desktop
 (from Cygwin):

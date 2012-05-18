@@ -78,7 +78,7 @@ def writeBeamPropertyDefinition(fName, spar_stn_list, biplane_flag_list, layup_d
             sparstnstr = str(stationData['spar station'])
         # vabsMK = 'VABS/M_and_K_matrices/spar_station_' + sparstnstr + '.dat.K'
         if biplane_flag_list[n]:
-            vabsMK = 'VABS/cs_database/biplane/spar_station_' + sparstnstr + '.dat.K'
+            vabsMK = 'VABS/cs_database/biplane_full-hSW/spar_station_' + sparstnstr + '.dat.K'
         else:
             vabsMK = 'VABS/cs_database/monoplane/spar_station_' + sparstnstr + '.dat.K'
         if not read_layup_eta:
@@ -284,7 +284,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     ### STRAIGHT BIPLANE REGION, UPPER (CD) #########################################################################
 
     # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup_20120517_full-hSW.txt')
     spar_stn_list           = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]       # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propCD'
@@ -299,7 +299,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     ### STRAIGHT BIPLANE REGION, LOWER (GH) #########################################################################
 
     # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup_20120517_full-hSW.txt')
     spar_stn_list           = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]       # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]
     beam_property_name      = 'propGH'
@@ -314,7 +314,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     ### JOINT TRANSITION REGION, UPPER (DE) #########################################################################
 
     # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup_20120517_full-hSW.txt')
     spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propDE'
@@ -329,7 +329,7 @@ if __name__ == '__main__':  #run this code if called directly from the command l
     ### JOINT TRANSITION REGION, LOWER (HE) #########################################################################
 
     # parameters ------------------------------------------------------------------------------------
-    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup.txt')
+    layup_file_data         = rl.readLayupFile('truegrid/biplane_cross-sections_layup_20120517_full-hSW.txt')
     spar_stn_list           = [15, 16, 17]            # generate a DYMORE code block for these spar stations
     biplane_flag_list       = [True, True, False]
     beam_property_name      = 'propHE'

@@ -37,10 +37,10 @@ para swbi_jmx [%swbi_jelem+1];
 para swfm_jmx [((%swbi_jmx-1)/2) + 1];
 para swfm_imx [%swfm_ielem+1];
 
-para x1 -0.836;
-para x2 -0.833;
-para x3 -0.753;
-para x4 -0.750;
+para x1 0.000;
+para x2 0.000;
+para x3 0.000;
+para x4 0.000;
 para x5 [-1.0*%x4];
 para x6 [-1.0*%x3];
 para x7 [-1.0*%x2];
@@ -94,8 +94,8 @@ c --------------------------------------------------------
 merge  c  enter the Merge Phase, so we can do the operations below
 
 c delete redundant nodes at part boundaries
-stp 0.0001  c the minimum space between nodes at biax plies is (0.836-0.833)/8 = 0.000375
-            c choose a tolerance smaller than this (0.0001)
+stp 0.00005  c the minimum space between QUADRATIC nodes at biax plies is (0.0015/8)/2 = 0.00009375
+            c choose a tolerance smaller than this (0.00005)
             c the command stp deletes nodes who are near each other (within the tolerance)
 
 c --------------------------------------------------------
