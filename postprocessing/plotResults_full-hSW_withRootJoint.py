@@ -5,23 +5,17 @@ import os
 monoplane_dir = 'D:\\data\\2012-03-05 (truegrid-VABS-DYMORE mesh refinement)\\grid_density_1\\dymore\\FIGURES'
 
 ### SET THESE PARAMETERS FOR THE BIPLANE SPAR ###########################################
-# # 07-bispar-rj629-g100 (no root joint)
-# biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\07-bispar-rj629-g100\\FIGURES'
-# C = 0.0
-# D = 41.5
-# E = 57.8
-# F = 91.9
-# G = C
-# H = D
-
-# 09-bispar-rj245-g075 (no root joint)
-biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\09-bispar-rj245-g075\\FIGURES'
-C = 0.0
-D = 17.1
-E = 22.5
+# 07-bispar-rj629-g100 (with root joint)
+biplane_dir = 'D:\\data\\2012-05-18 (biplane spars, with root joint, full shear web height)\\07-bispar-rj629-g100\\FIGURES'
+A = 0.0
+B = 0.2
+C = 4.4
+D = 41.5
+E = 57.8
 F = 91.9
 G = C
 H = D
+
 
 #########################################################################################
 
@@ -159,65 +153,77 @@ def plot_monospar_stress(x1, h, I):
 
 
 def load_bispar_displacement():
+    AB = np.loadtxt('svy_disp_AB.mdt')
+    BC = np.loadtxt('svy_disp_BC.mdt')
+    BG = np.loadtxt('svy_disp_BG.mdt')
     CD = np.loadtxt('svy_disp_CD.mdt')
     DE = np.loadtxt('svy_disp_DE.mdt')
     EF = np.loadtxt('svy_disp_EF.mdt')
     GH = np.loadtxt('svy_disp_GH.mdt')
     HE = np.loadtxt('svy_disp_HE.mdt')
 
-    return (CD,DE,EF,GH,HE)
+    return (AB,BC,CD,DE,EF,BG,GH,HE)
 
 
 def load_bispar_force():
+    AB = np.loadtxt('svy_force_AB.mdt')
+    BC = np.loadtxt('svy_force_BC.mdt')
+    BG = np.loadtxt('svy_force_BG.mdt')
     CD = np.loadtxt('svy_force_CD.mdt')
     DE = np.loadtxt('svy_force_DE.mdt')
     EF = np.loadtxt('svy_force_EF.mdt')
     GH = np.loadtxt('svy_force_GH.mdt')
     HE = np.loadtxt('svy_force_HE.mdt')
 
-    return (CD,DE,EF,GH,HE)
+    return (AB,BC,CD,DE,EF,BG,GH,HE)
 
 
 def load_bispar_strain():
+    AB = np.loadtxt('svy_strain_AB.mdt')
+    BC = np.loadtxt('svy_strain_BC.mdt')
+    BG = np.loadtxt('svy_strain_BG.mdt')
     CD = np.loadtxt('svy_strain_CD.mdt')
     DE = np.loadtxt('svy_strain_DE.mdt')
     EF = np.loadtxt('svy_strain_EF.mdt')
     GH = np.loadtxt('svy_strain_GH.mdt')
     HE = np.loadtxt('svy_strain_HE.mdt')
 
-    return (CD,DE,EF,GH,HE)
+    return (AB,BC,CD,DE,EF,BG,GH,HE)
 
 
-def process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H):
+def process_bispar_results(AB,BC,CD,DE,EF,BG,GH,HE,A,B,C,D,E,F,G,H):
     # post-process the biplane spar results
+    AB[:,0] = AB[:,0]*(B-A) + A
+    BC[:,0] = BC[:,0]*(C-B) + B
     CD[:,0] = CD[:,0]*(D-C) + C
     DE[:,0] = DE[:,0]*(E-D) + D
     EF[:,0] = EF[:,0]*(F-E) + E
+    BG[:,0] = BG[:,0]*(G-B) + B
     GH[:,0] = GH[:,0]*(H-G) + G
     HE[:,0] = HE[:,0]*(E-H) + H
 
-    bispar_upper = np.vstack( (CD[0:-1],DE[0:-1],EF) )
-    bispar_lower = np.vstack( (GH[0:-1],HE[0:-1],EF) )
+    bispar_upper = np.vstack( (AB[0:-1],BC[0:-1],CD[0:-1],DE[0:-1],EF) )
+    bispar_lower = np.vstack( (AB[0:-1],BG[0:-1],GH[0:-1],HE[0:-1],EF) )
 
     return (bispar_upper, bispar_lower)
 
 
-def load_bispar_nn_displacement(C,D,E,F,G,H):
+def load_bispar_nn_displacement(A,B,C,D,E,F,G,H):
     os.chdir(biplane_dir)
 
-    (CD,DE,EF,GH,HE) = load_bispar_displacement()
+    (AB,BC,CD,DE,EF,BG,GH,HE) = load_bispar_displacement()
 
-    (bispar_upper, bispar_lower) = process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H)
+    (bispar_upper, bispar_lower) = process_bispar_results(AB,BC,CD,DE,EF,BG,GH,HE,A,B,C,D,E,F,G,H)
 
     return (bispar_upper, bispar_lower)
 
 
-def load_bispar_nn_force(C,D,E,F,G,H):
+def load_bispar_nn_force(A,B,C,D,E,F,G,H):
     os.chdir(biplane_dir)
 
-    (CD,DE,EF,GH,HE) = load_bispar_force()
+    (AB,BC,CD,DE,EF,BG,GH,HE) = load_bispar_force()
 
-    (bispar_upper, bispar_lower) = process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H)
+    (bispar_upper, bispar_lower) = process_bispar_results(AB,BC,CD,DE,EF,BG,GH,HE,A,B,C,D,E,F,G,H)
 
     return (bispar_upper, bispar_lower)
 
@@ -272,7 +278,7 @@ plt.figure()
 plt.title('deflections')
 plt.axes().set_aspect('auto')
 mono_data = plot_monospar_deflection(skip_every)
-(bispar_upper, bispar_lower) = load_bispar_nn_displacement(C,D,E,F,G,H)
+(bispar_upper, bispar_lower) = load_bispar_nn_displacement(A,B,C,D,E,F,G,H)
 (bi_upper_data, bi_lower_data) = plot_bispar_deflection(bispar_upper, bispar_lower, skip_every)
 plt.xlabel('span [m]')
 plt.ylabel('deflection in x3-direction [m]')
@@ -319,7 +325,7 @@ plt.figure()
 plt.title('shear forces')
 plt.axes().set_aspect('auto')
 plot_monospar_shearforce(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
+(bispar_upper, bispar_lower) = load_bispar_nn_force(A,B,C,D,E,F,G,H)
 plot_bispar_shearforce(bispar_upper, bispar_lower, x1_stn)
 plt.xlabel('span [m]')
 plt.ylabel('shear force in x3-direction [N]')
@@ -330,7 +336,7 @@ plt.figure()
 plt.title('bending moments')
 plt.axes().set_aspect('auto')
 plot_monospar_bendmoment(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
+(bispar_upper, bispar_lower) = load_bispar_nn_force(A,B,C,D,E,F,G,H)
 plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_every)
 plt.xlabel('span [m]')
 plt.ylabel('bending moment about x2-axis [N*m]')

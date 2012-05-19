@@ -1,0 +1,97 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeAB} {
+    @CONNECTED_TO_VERTICES {vertexA, vertexB}
+    @CURVE_NAME {curveAB}
+  }
+}
+
+@BEAM_DEFINITION {
+  @BEAM_NAME {AB_root} {
+    @EDGE_NAME {edgeAB}
+    @BEAM_PROPERTY_NAME {propAB}
+    @SHAPE_NAME {shape_root}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
+    @COMMENTS {the root region of the spar}
+  }
+}
+
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveAB} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {2}
+      @DEGREE_OF_CURVE {1}
+      @RATIONAL_CURVE_FLAG {NO}
+      @END_POINT_0 {pointA}
+      @END_POINT_1 {pointB}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
+      @INITIAL_COORDINATE {0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshAB}
+    @COMMENTS {straight line from the root (pointA) to the inboard joint (pointB)}
+  }
+}
+
+@CURVE_MESH_PARAMETERS_DEFINITION {
+  @CURVE_MESH_PARAMETERS_NAME {meshAB} {
+    @NUMBER_OF_ELEMENTS {1}
+    @ORDER_OF_ELEMENTS {3}
+    @ETA_COORDINATE {0.00000e+00}
+    @ETA_COORDINATE {1.00000e+00}
+    @COMMENTS {models the root region with 1 cubic beam element}
+  }
+}
+
+@BOUNDARY_CONDITION_DEFINITION {
+  @BOUNDARY_CONDITION_NAME {clampA} {
+    @ENTITY_NAME {vertexA}
+    @DISPLACEMENT_BOUNDARY_CONDITIONS {1,1,1}
+    @ROTATION_BOUNDARY_CONDITIONS {1,1,1}
+    @COMMENTS {fixed end of root region, constrains all displacements and rotations at pointA}
+  }
+}
+
+@INCLUDE_COMMAND {
+  @INCLUDE_COMMAND_NAME {includePropsAB} {
+    @ACTIVE_COMMAND {YES}
+    @LIST_OF_FILE_NAMES {AB_root_props.dat}
+  }
+}
+
+! @SURVEY_DEFINITION {
+!   @SURVEY_NAME {surveyAB} {
+!     @OBJECT_NAME {AB_root}
+!     @SURVEY_TYPE {DISPLACEMENTS}
+!     @FRAME_NAME {INERTIAL}
+!     @TIME {5.00000e+000}
+!   }
+! }
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_disp_AB } {
+    @OBJECT_NAME {AB_root}
+    @SURVEY_TYPE { DISPLACEMENTS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_force_AB } {
+    @OBJECT_NAME {AB_root}
+    @SURVEY_TYPE { FORCES }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_strain_AB } {
+    @OBJECT_NAME {AB_root}
+    @SURVEY_TYPE { STRAINS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
