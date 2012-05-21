@@ -127,6 +127,27 @@ def plot_monospar_bendmoment(x1):
     return
 
 
+def plot_monospar_strain(x1):
+    ### monoplane spar ###
+    os.chdir(monoplane_dir)
+    AB = np.loadtxt('svy_strain_spar.mdt')
+    B = 91.9
+    AB[:,0] = AB[:,0]*B
+
+    x = AB[:,0]
+    y = AB[:,5]
+    # f_i = interp1d(x,y)
+    # f_x = extrap1d(f_i)
+
+    # y1 = f_x(x1)  # use extrapolations function returned by 'extrap1d'
+
+    # plt.plot(x1, y1, 'bo--', label='monoplane spar')
+    plt.plot(x, y, 'bo--', label='monoplane spar')
+    plt.show()
+
+    return
+
+
 def plot_monospar_stress(x1, h, I):
     ### monoplane spar ###
     os.chdir(monoplane_dir)
@@ -204,9 +225,7 @@ def process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H):
 
 def load_bispar_nn_displacement(C,D,E,F,G,H):
     os.chdir(biplane_dir)
-
     (CD,DE,EF,GH,HE) = load_bispar_displacement()
-
     (bispar_upper, bispar_lower) = process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H)
 
     return (bispar_upper, bispar_lower)
@@ -214,9 +233,15 @@ def load_bispar_nn_displacement(C,D,E,F,G,H):
 
 def load_bispar_nn_force(C,D,E,F,G,H):
     os.chdir(biplane_dir)
-
     (CD,DE,EF,GH,HE) = load_bispar_force()
+    (bispar_upper, bispar_lower) = process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H)
 
+    return (bispar_upper, bispar_lower)
+
+
+def load_bispar_nn_strain(C,D,E,F,G,H):
+    os.chdir(biplane_dir)
+    (CD,DE,EF,GH,HE) = load_bispar_strain()
     (bispar_upper, bispar_lower) = process_bispar_results(CD,DE,EF,GH,HE,C,D,E,F,G,H)
 
     return (bispar_upper, bispar_lower)
@@ -262,6 +287,14 @@ def plot_bispar_shearforce(bispar_upper, bispar_lower, x1):
 def plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_num):
     plt.plot(bispar_upper[:,0], bispar_upper[:,5], 'rs-', label='biplane spar, upper')
     plt.plot(bispar_lower[:,0], bispar_lower[:,5], 'g^-', label='biplane spar, lower')
+    plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
+    plt.show()
+    return
+
+
+def plot_bispar_strain(bispar_upper, bispar_lower, skip_num):
+    plt.plot(bispar_upper[:,0], bispar_upper[:,3], 'rs-', label='biplane spar, upper')
+    plt.plot(bispar_lower[:,0], bispar_lower[:,3], 'g^-', label='biplane spar, lower')
     plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
     plt.show()
     return
@@ -343,6 +376,17 @@ plt.ylabel('bending moment about x2-axis [N*m]')
 # plot_monospar_stress(x1_stn, cs_heights_mono/2.0, I_mono)
 # plt.xlabel('span [m]')
 # plt.ylabel('stresses in x1-direction [N*m]')
+
+
+# compare strains
+plt.figure()
+plt.title('strains')
+plt.axes().set_aspect('auto')
+plot_monospar_strain(x1_stn)
+(bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
+plot_bispar_strain(bispar_upper, bispar_lower, skip_every)
+plt.xlabel('span [m]')
+plt.ylabel('strain in x3-direction [-]')
 
 
 # return to the original directory
