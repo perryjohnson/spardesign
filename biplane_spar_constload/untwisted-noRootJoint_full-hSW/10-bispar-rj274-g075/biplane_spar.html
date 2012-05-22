@@ -1,0 +1,4420 @@
+
+ <html>
+ <head>
+   <meta name='GENERATOR' content='Dymore HTML'>
+   <title>index file</title>
+ </head>
+ <body bgcolor='#E9E9E9'>
+
+ <p><center><a name='TOP_OF_FILE'>
+ <font color='#004000' size=+3>
+ Model Definition for analysis:
+ </font>
+ <font size=+3> { </font>
+ <font color='#ff0000' size=+3>
+ D:\Dropbox\ucla\research\perry\github\spardesign\biplane_spar_constload\untwisted-noRootJoint_full-hSW\10-bispar-rj274-g075\biplane_spar
+ </font>
+ <font size=+3>}</font>
+ </center></p>
+
+ <ul>
+ <li><a href='#Actuator_Elements'>Actuator_Elements</a>.
+ <li><a href='#Aerodynamic_Elements'>Aerodynamic_Elements</a>.
+ <li><a href='#Aerodynamic_Properties'>Aerodynamic_Properties</a>.
+ <li><a href='#Analysis_Control'>Analysis_Control</a>.
+ <li><a href='#Constraint_Elements'>Constraint_Elements</a>.
+ <li><a href='#Controller_Elements'>Controller_Elements</a>.
+ <li><a href='#External_Loading'>External_Loading</a>.
+ <li><a href='#Geometric_Objects'>Geometric_Objects</a>.
+ <li><a href='#Graphical_Objects'>Graphical_Objects</a>.
+ <li><a href='#Utility_Objects'>Utility_Objects</a>.
+ <li><a href='#Structural_Elements'>Structural_Elements</a>.
+ <li><a href='#Structural_Properties'>Structural_Properties</a>.
+ </ul>
+
+ <p><center><hr>
+ <a name='Actuator_Elements'></a>
+ <font color="#ff0000">Actuator_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Aerodynamic_Elements'></a>
+ <font color="#ff0000">Aerodynamic_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Aerodynamic_Properties'></a>
+ <font color="#ff0000">Aerodynamic_Properties</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Analysis_Control'></a>
+ <font color="#ff0000">Analysis_Control</font>
+ <hr></center></p>
+
+ <p> @FEM_CONTROL_PARAMETERS {
+ <a href='#AnalysisControlParameters'>AnalysisControlParameters</a>}
+ <br></p>
+
+ <p> @GRAPHICS_CONTROL_PARAMETERS {
+ <a href='#GraphicsControlParameters'>GraphicsControlParameters</a>}
+ <br></p>
+
+ <p> @PLOTTING_CONTROL_PARAMETERS {
+ <a href='#PlottingControlParameters'>PlottingControlParameters</a>}
+ <br></p>
+
+ <p> @POST_PROCESSING_CONTROL_PARAMETERS {
+ <a href='#PostProcessControlParameters'>PostProcessControlParameters</a>}
+ <br></p>
+
+ <p> @STEP_CONTROL_PARAMETERS {
+ <a href='#Step1'>Step1</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Constraint_Elements'></a>
+ <font color="#ff0000">Constraint_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Controller_Elements'></a>
+ <font color="#ff0000">Controller_Elements</font>
+ <hr></center></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='External_Loading'></a>
+ <font color="#ff0000">External_Loading</font>
+ <hr></center></p>
+
+ <p> @EDGE_LOAD_DEFINITION {
+ <a href='#CD_load_straightBiplane_upper'>CD_load_straightBiplane_upper</a>, 
+ <a href='#DE_load_jointTrans_upper'>DE_load_jointTrans_upper</a>, 
+ <a href='#GH_load_straightBiplane_lower'>GH_load_straightBiplane_lower</a>, 
+ <a href='#HE_load_jointTrans_lower'>HE_load_jointTrans_lower</a>, 
+ <a href='#EF_load_monoOutboard'>EF_load_monoOutboard</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Geometric_Objects'></a>
+ <font color="#ff0000">Geometric_Objects</font>
+ <hr></center></p>
+
+ <p> @BOUNDARY_CONDITION_DEFINITION {
+ <a href='#clampC'>clampC</a>, 
+ <a href='#clampG'>clampG</a>}
+ <br></p>
+
+ <p> @CURVE_DEFINITION {
+ <a href='#curveCD'>curveCD</a>, 
+ <a href='#curveGH'>curveGH</a>, 
+ <a href='#curveEF'>curveEF</a>, 
+ <a href='#CurveSquare'>CurveSquare</a>, 
+ <a href='#curveDE'>curveDE</a>, 
+ <a href='#curveHE'>curveHE</a>}
+ <br></p>
+
+ <p> @EDGE_DEFINITION {
+ <a href='#edgeCD'>edgeCD</a>, 
+ <a href='#edgeGH'>edgeGH</a>, 
+ <a href='#edgeDE'>edgeDE</a>, 
+ <a href='#edgeHE'>edgeHE</a>, 
+ <a href='#edgeEF'>edgeEF</a>}
+ <br></p>
+
+ <p> @FIXED_FRAME_DEFINITION {
+ <a href='#FXDFRAME_INERTIAL'>FXDFRAME_INERTIAL</a>}
+ <br></p>
+
+ <p> @CURVE_MESH_PARAMETERS_DEFINITION {
+ <a href='#meshCD'>meshCD</a>, 
+ <a href='#meshGH'>meshGH</a>, 
+ <a href='#meshDE'>meshDE</a>, 
+ <a href='#meshHE'>meshHE</a>, 
+ <a href='#meshEF'>meshEF</a>}
+ <br></p>
+
+ <p> @ORIENTATION_DISTRIBUTION_DEFINITION {
+ <a href='#OriDist'>OriDist</a>}
+ <br></p>
+
+ <p> @POINT_DEFINITION {
+ <a href='#POINT_ORIGIN'>POINT_ORIGIN</a>, 
+ <a href='#pointC'>pointC</a>, 
+ <a href='#pointD'>pointD</a>, 
+ <a href='#pointE'>pointE</a>, 
+ <a href='#pointF'>pointF</a>, 
+ <a href='#pointG'>pointG</a>, 
+ <a href='#pointH'>pointH</a>}
+ <br></p>
+
+ <p> @REFERENCE_FRAME_DEFINITION {
+ <a href='#REFFRAME_INERTIAL'>REFFRAME_INERTIAL</a>}
+ <br></p>
+
+ <p> @TRIAD_DEFINITION {
+ <a href='#TRIAD_INERTIAL'>TRIAD_INERTIAL</a>}
+ <br></p>
+
+ <p> @VERTEX_DEFINITION {
+ <a href='#vertexC'>vertexC</a>, 
+ <a href='#vertexD'>vertexD</a>, 
+ <a href='#vertexE'>vertexE</a>, 
+ <a href='#vertexF'>vertexF</a>, 
+ <a href='#vertexG'>vertexG</a>, 
+ <a href='#vertexH'>vertexH</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Graphical_Objects'></a>
+ <font color="#ff0000">Graphical_Objects</font>
+ <hr></center></p>
+
+ <p> @GRAPHICAL_PARAMETERS_DEFINITION {
+ <a href='#grfparamCD'>grfparamCD</a>, 
+ <a href='#grfparamGH'>grfparamGH</a>, 
+ <a href='#grfparamDE'>grfparamDE</a>, 
+ <a href='#grfparamHE'>grfparamHE</a>, 
+ <a href='#grfparamEF'>grfparamEF</a>, 
+ <a href='#gp_sparExterior'>gp_sparExterior</a>, 
+ <a href='#gp_biplaneUpper'>gp_biplaneUpper</a>, 
+ <a href='#gp_biplaneLower'>gp_biplaneLower</a>}
+ <br></p>
+
+ <p> @SHAPE_DEFINITION {
+ <a href='#shape_straightBiplane'>shape_straightBiplane</a>, 
+ <a href='#shape_jointTrans'>shape_jointTrans</a>, 
+ <a href='#shape_monoOutboard'>shape_monoOutboard</a>}
+ <br></p>
+
+ <p> @VIEW_PARAMETERS_DEFINITION {
+ <a href='#ViewParamName'>ViewParamName</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Utility_Objects'></a>
+ <font color="#ff0000">Utility_Objects</font>
+ <hr></center></p>
+
+ <p> @INCLUDE_COMMAND {
+ <a href='#includeLoads'>includeLoads</a>, 
+ <a href='#includeCommonDefs'>includeCommonDefs</a>, 
+ <a href='#includeParts'>includeParts</a>, 
+ <a href='#includeCurvesShapes'>includeCurvesShapes</a>, 
+ <a href='#includeGraphicParameters'>includeGraphicParameters</a>, 
+ <a href='#includePropsCD'>includePropsCD</a>, 
+ <a href='#includePropsGH'>includePropsGH</a>, 
+ <a href='#includePropsDE'>includePropsDE</a>, 
+ <a href='#includePropsHE'>includePropsHE</a>, 
+ <a href='#includePropsEF'>includePropsEF</a>}
+ <br></p>
+
+ <p> @SURVEY_DEFINITION {
+ <a href='#svy_disp_CD'>svy_disp_CD</a>, 
+ <a href='#svy_force_CD'>svy_force_CD</a>, 
+ <a href='#svy_strain_CD'>svy_strain_CD</a>, 
+ <a href='#svy_disp_GH'>svy_disp_GH</a>, 
+ <a href='#svy_force_GH'>svy_force_GH</a>, 
+ <a href='#svy_strain_GH'>svy_strain_GH</a>, 
+ <a href='#svy_disp_DE'>svy_disp_DE</a>, 
+ <a href='#svy_force_DE'>svy_force_DE</a>, 
+ <a href='#svy_strain_DE'>svy_strain_DE</a>, 
+ <a href='#svy_disp_HE'>svy_disp_HE</a>, 
+ <a href='#svy_force_HE'>svy_force_HE</a>, 
+ <a href='#svy_strain_HE'>svy_strain_HE</a>, 
+ <a href='#svy_disp_EF'>svy_disp_EF</a>, 
+ <a href='#svy_force_EF'>svy_force_EF</a>, 
+ <a href='#svy_strain_EF'>svy_strain_EF</a>}
+ <br></p>
+
+ <p> @TIME_FUNCTION_DEFINITION {
+ <a href='#scheduleload'>scheduleload</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Structural_Elements'></a>
+ <font color="#ff0000">Structural_Elements</font>
+ <hr></center></p>
+
+ <p> @BEAM_DEFINITION {
+ <a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>, 
+ <a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>, 
+ <a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>, 
+ <a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>, 
+ <a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='Structural_Properties'></a>
+ <font color="#ff0000">Structural_Properties</font>
+ <hr></center></p>
+
+ <p> @BEAM_PROPERTY_DEFINITION {
+ <a href='#propCD'>propCD</a>, 
+ <a href='#propGH'>propGH</a>, 
+ <a href='#propDE'>propDE</a>, 
+ <a href='#propHE'>propHE</a>, 
+ <a href='#propEF'>propEF</a>}
+ <br></p>
+
+ <p> @DATA_TABLE_DEFINITION {
+ <a href='#constloaddistTable'>constloaddistTable</a>}
+ <br></p>
+ <p><center>
+ <a href='#TOP_OF_FILE'>Top of File</a>
+ </center></p>
+
+ <p><center><hr>
+ <a name='POINT_ORIGIN'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">POINT_ORIGIN</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='TRIAD_INERTIAL'></a>
+ <font color='#004000' SIZE=+1>
+ @TRIAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @TRIAD_NAME {
+ <font color="#ff0000">TRIAD_INERTIAL</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>VECTORS_E2_E3</font>}
+
+ <dd>
+ @ORIENTATION_E2 {  0.00000e+000,  1.00000e+000,  0.00000e+000}
+
+ <dd>
+ @ORIENTATION_E3 {  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='FXDFRAME_INERTIAL'></a>
+ <font color='#004000' SIZE=+1>
+ @FIXED_FRAME_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @FIXED_FRAME_NAME {
+ <font color="#ff0000">FXDFRAME_INERTIAL</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>VECTORS_E2_E3</font>}
+
+ <dd>
+ @ORIENTATION_E2 {  0.00000e+000,  1.00000e+000,  0.00000e+000}
+
+ <dd>
+ @ORIENTATION_E3 {  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='scheduleload'></a>
+ <font color='#004000' SIZE=+1>
+ @TIME_FUNCTION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @TIME_FUNCTION_NAME {
+ <font color="#ff0000">scheduleload</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @TIME_FUNCTION_TYPE {<font color='#808000'>USER_DEFINED</font>}
+
+ <dd>
+ @TIME {  0.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  2.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  3.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  4.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  6.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  7.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  8.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  9.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.00000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.10000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.20000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.30000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.40000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+
+ <dd>
+ @TIME {  1.50000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @FUNCTION_VALUE {  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>gives a 15-second constant time function</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\scheduleload.png' border='5'></center>
+ <center>TIME FUNCTION</center>
+ <p>
+
+ <p><center><hr>
+ <a name='pointC'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointC</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  0.00000e+000,  2.86100e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>upper spar root</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='pointD'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointD</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  1.98000e+001,  0.00000e+000,  2.86100e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>end of joint transition to upper airfoil</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='pointE'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointE</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  2.52000e+001,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>the outboard joint</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='pointF'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointF</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  9.19000e+001,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>the tip of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='pointG'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointG</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  0.00000e+000, -2.86100e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>lower spar root</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='pointH'></a>
+ <font color='#004000' SIZE=+1>
+ @POINT_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @POINT_NAME {
+ <font color="#ff0000">pointH</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @COORDINATES {  1.98000e+001,  0.00000e+000, -2.86100e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+ <dd> @COMMENTS {<font color='#808000'>end of joint transition to lower airfoil</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexC'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexC</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointC'>pointC</a>}
+ <dd> @BODY_LIST {<a href='#clampC'>clampC</a>,<a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexD'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointD'>pointD</a>}
+ <dd> @BODY_LIST {<a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>,<a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexE'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointE'>pointE</a>}
+ <dd> @BODY_LIST {<a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>,<a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>,<a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexF'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointF'>pointF</a>}
+ <dd> @BODY_LIST {<a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexG'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexG</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointG'>pointG</a>}
+ <dd> @BODY_LIST {<a href='#clampG'>clampG</a>,<a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='vertexH'></a>
+ <font color='#004000' SIZE=+1>
+ @VERTEX_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VERTEX_NAME {
+ <font color="#ff0000">vertexH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @AT_POINT {<a href='#pointH'>pointH</a>}
+ <dd> @BODY_LIST {<a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>,<a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includeLoads'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includeLoads</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>loadDist.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includeCommonDefs'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includeCommonDefs</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>common.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includeParts'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includeParts</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>CD_straightBiplane_upper.dat</font>,<font color='#808000'>GH_straightBiplane_lower.dat</font>,<font color='#808000'>DE_jointTrans_upper.dat</font>,<font color='#808000'>HE_jointTrans_lower.dat</font>,<font color='#808000'>EF_monoOutboard.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includeCurvesShapes'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includeCurvesShapes</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>curves.dat</font>,<font color='#808000'>shapes.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includeGraphicParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includeGraphicParameters</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>grfparams.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='AnalysisControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @FEM_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @FEM_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">AnalysisControlParameters</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_TIME_STEPS {    10}
+
+ <dd>
+ @SIMULATION_TIME_RANGE {  0.00000e+000,  1.50000e+001}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @TIME_STEP_SIZE_RANGE {  1.00000e-006,  5.00000e-002}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @REFERENCE_ENERGY_LEVEL {  6.00000e+005}
+ <font color='#975820'>[J]</font>
+ <dd> @TIME_INTEGRATION_SCHEME_TYPE {<font color='#808000'></font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='Step1'></a>
+ <font color='#004000' SIZE=+1>
+ @STEP_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @STEP_CONTROL_PARAMETER_NAME {
+ <font color="#ff0000">Step1</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @ARCHIVAL_FREQUENCY {     1}
+
+ <dd>
+ @REUSE_NUMBER {   100}
+
+ <dd>
+ @NUMBER_OF_EIGENVALUES {    10}
+
+ <dd>
+ @EIGENPROBLEM_PRINT_FLAG {     0}
+ <dd> @GYROSCOPIC_TERMS {<font color='#808000'>NO</font>}
+
+ <dd>
+ @EIGEN_SPECTRUM_SHIFT {  0.00000e+000}
+
+ <dd>
+ @TIME_STEP_SIZE {  1.00000e+000}
+ <font color='#975820'>[sec]</font>
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_ITERATIONS {    10}
+
+ <dd>
+ @FACTORIZATION_STRATEGY {     1}
+ <dd> @CONVERGENCE_NORM_TYPE {<font color='#808000'>DISPLACEMENT</font>}
+
+ <dd>
+ @REFERENCE_LENGTH {  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @CONVERGENCE_TOLERANCE {  1.00000e-003}
+
+ <dd>
+ @MAXIMUM_NUMBER_OF_REJECT {     5}
+
+ <dd>
+ @AVERAGE_STIFFNESS_TERM {  1.00000e+006}
+
+ <dd>
+ @AVERAGE_MASS_TERM {  0.00000e+000}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='GraphicsControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICS_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICS_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">GraphicsControlParameters</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @TIME_STEP_SIZE {  0.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+
+ <dd>
+ @EIGENVECTORS_SCALING_FACTOR {  1.00000e-001}
+
+ <dd>
+ @MODAL_ANIMATION_CYCLES {     5}
+
+ <dd>
+ @MODAL_ANIMATION_FRAMES_PER_CYCLE {   100}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ <dd> @VECTOR_FIELD_TYPE {<font color='#808000'>VELOCITIES</font>}
+
+ <dd>
+ @VECTOR_FIELD_SCALING_FACTOR {  1.00000e-001}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='PlottingControlParameters'></a>
+ <font color='#004000' SIZE=+1>
+ @PLOTTING_CONTROL_PARAMETERS
+ </font>
+ <hr></center></p>
+
+ <p>
+ @PLOTTING_CONTROL_PARAMETERS_NAME {
+ <font color="#ff0000">PlottingControlParameters</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @GRAPH_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @GRAPH_PLOT_SIZE {<font color='#808000'>MEDIUM</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @MAP_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @MAP_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>LARGE</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>LARGE</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @OBJECT_PLOT_FORMAT {<font color='#808000'>LARGE</font>}
+ <dd> @SENSOR_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @SENSOR_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SENSOR_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @SENSOR_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SENSOR_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @SENSOR_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>PNG</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>EPS</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+ <dd> @SURVEY_PLOT_FORMAT {<font color='#808000'>TRM</font>}
+ <dd> @SURVEY_PLOT_SIZE {<font color='#808000'>LARGE</font>}
+
+ <dd>
+ @MAP_MEMORY_SIZE {    10}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='ViewParamName'></a>
+ <font color='#004000' SIZE=+1>
+ @VIEW_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @VIEW_PARAMETERS_NAME {
+ <font color="#ff0000">ViewParamName</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @VIEW_REFERENCE_POINT {  5.00000e-001,  5.00000e-001,  5.00000e-001}
+
+ <dd>
+ @VIEW_SIZE {  1.20000e+000,  1.20000e+000,  1.20000e+000}
+
+ <dd>
+ @PROJECTION_REFERENCE_POINT { -7.58693e-001, -5.03030e-004, -8.33261e-001}
+
+ <dd>
+ @PROJECTION_EYE_VECTOR {  0.00000e+000, -1.00000e+000,  0.00000e+000}
+
+ <dd>
+ @PROJECTION_UP_VECTOR {  0.00000e+000,  0.00000e+000,  1.00000e+000}
+
+ <dd>
+ @PROJECTION_VIEWPORT { -2.00000e-001,  1.72102e+000, -5.00000e-002,  5.00000e-002}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='CD_load_straightBiplane_upper'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">CD_load_straightBiplane_upper</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeCD'>edgeCD</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  5.00000e+002}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='DE_load_jointTrans_upper'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">DE_load_jointTrans_upper</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeDE'>edgeDE</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  5.00000e+002}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='GH_load_straightBiplane_lower'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">GH_load_straightBiplane_lower</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeGH'>edgeGH</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  5.00000e+002}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='HE_load_jointTrans_lower'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">HE_load_jointTrans_lower</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeHE'>edgeHE</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  5.00000e+002}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='EF_load_monoOutboard'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_LOAD_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_LOAD_NAME {
+ <font color="#ff0000">EF_load_monoOutboard</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeEF'>edgeEF</a>}
+
+ <p>@LOADING_COMPONENT {</p>
+ <dl>
+ <dd> @APPLIED_FORCE_ALONG_i3 {<a href='#constloaddistTable'>constloaddistTable</a>}
+
+ <dd>
+ @SCALING_FACTOR {  1.00000e+003}
+ <dd> @TIME_FUNCTION_NAME {<a href='#scheduleload'>scheduleload</a>}
+ </dl><p>
+ }
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='constloaddistTable'></a>
+ <font color='#004000' SIZE=+1>
+ @DATA_TABLE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @DATA_TABLE_NAME {
+ <font color="#ff0000">constloaddistTable</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+ <dd> @DATA_TYPE {<font color='#808000'>FORCE_ALONG_I3</font>}
+
+ <dd>
+ @X_ENTRY {  0.00000e+000}
+
+ <dd>
+ @Y_ENTRY { -1.00000e+000}
+ <font color='#975820'>[N/m]</font>
+
+ <dd>
+ @X_ENTRY {  1.00000e+000}
+
+ <dd>
+ @Y_ENTRY { -1.00000e+000}
+ <font color='#975820'>[N/m]</font>
+ <dd> @COMMENTS {<font color='#808000'>this defines the load on any edge (beam) to have a constant load distribution</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\constloaddistTable.png' border='5'></center>
+ <center>FORCE_ALONG_I3</center>
+ <p>
+
+ <p><center><hr>
+ <a name='OriDist'></a>
+ <font color='#004000' SIZE=+1>
+ @ORIENTATION_DISTRIBUTION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @ORIENTATION_DISTRIBUTION_NAME {
+ <font color="#ff0000">OriDist</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ORIENTATION_DEFINITION_TYPE {<font color='#808000'>TWIST_ANGLE</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @TWIST_ANGLE {  0.00000e+000}
+ <font color='#975820'>[deg]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @TWIST_ANGLE {  0.00000e+000}
+ <font color='#975820'>[deg]</font>
+ <dd> @COMMENTS {<font color='#808000'>untwisted orientation distribution for spars</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\OriDist.png' border='5'></center>
+ <center>ORIENTATION</center>
+ <p>
+
+ <p><center><hr>
+ <a name='edgeCD'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeCD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexC'>vertexC</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexD'>vertexD</a>}
+ <dd> @CURVE_NAME {<a href='#curveCD'>curveCD</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='CD_straightBiplane_upper'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">CD_straightBiplane_upper</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeCD'>edgeCD</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexC'>vertexC</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexD'>vertexD</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propCD'>propCD</a>}
+ <dd> @SHAPE_NAME {<a href='#shape_straightBiplane'>shape_straightBiplane</a>}
+ <dd> @GRAPHICAL_PARAMETERS_NAME {<a href='#gp_biplaneUpper'>gp_biplaneUpper</a>}
+ <dd> @COMMENTS {<font color='#808000'>the upper straight biplane region of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='curveCD'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveCD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     2}
+
+ <dd>
+ @DEGREE_OF_CURVE {     1}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>NO</font>}
+ <dd> @END_POINT_0 {<a href='#pointC'>pointC</a>}
+ <dd> @END_POINT_1 {<a href='#pointD'>pointD</a>}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriDist'>OriDist</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshCD'>meshCD</a>}
+ <dd> @COMMENTS {<font color='#808000'>straight line from the end of the upper root transition (pointC) to the end of the upper joint transition (pointD)</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\curveCDQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveCDQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveCDQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='includePropsCD'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includePropsCD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>CD_straightBiplane_upper_mesh.dat</font>,<font color='#808000'>CD_straightBiplane_upper_props.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='clampC'></a>
+ <font color='#004000' SIZE=+1>
+ @BOUNDARY_CONDITION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BOUNDARY_CONDITION_NAME {
+ <font color="#ff0000">clampC</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ENTITY_NAME {<a href='#vertexC'>vertexC</a>}
+
+ <dd>
+ @DISPLACEMENT_BOUNDARY_CONDITIONS {     1,     1,     1}
+
+ <dd>
+ @ROTATION_BOUNDARY_CONDITIONS {     1,     1,     1}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='grfparamCD'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">grfparamCD</font>
+ } { 
+ </p>
+ <dl>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='svy_disp_CD'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_CD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_disp_CDQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_disp_CDQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_CD'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_CD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_force_CDQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_force_CDQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_CD'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_CD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#CD_straightBiplane_upper'>CD_straightBiplane_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_strain_CDQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_strain_CDQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='edgeGH'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeGH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexG'>vertexG</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexH'>vertexH</a>}
+ <dd> @CURVE_NAME {<a href='#curveGH'>curveGH</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='GH_straightBiplane_lower'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">GH_straightBiplane_lower</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeGH'>edgeGH</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexG'>vertexG</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexH'>vertexH</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propGH'>propGH</a>}
+ <dd> @SHAPE_NAME {<a href='#shape_straightBiplane'>shape_straightBiplane</a>}
+ <dd> @GRAPHICAL_PARAMETERS_NAME {<a href='#gp_biplaneLower'>gp_biplaneLower</a>}
+ <dd> @COMMENTS {<font color='#808000'>the lower straight biplane region of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='curveGH'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveGH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     2}
+
+ <dd>
+ @DEGREE_OF_CURVE {     1}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>NO</font>}
+ <dd> @END_POINT_0 {<a href='#pointG'>pointG</a>}
+ <dd> @END_POINT_1 {<a href='#pointH'>pointH</a>}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriDist'>OriDist</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshGH'>meshGH</a>}
+ <dd> @COMMENTS {<font color='#808000'>straight line from the end of the lower root transition (pointG) to the end of the lower joint transition (pointH)</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\curveGHQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveGHQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveGHQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='includePropsGH'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includePropsGH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>GH_straightBiplane_lower_mesh.dat</font>,<font color='#808000'>GH_straightBiplane_lower_props.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='clampG'></a>
+ <font color='#004000' SIZE=+1>
+ @BOUNDARY_CONDITION_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BOUNDARY_CONDITION_NAME {
+ <font color="#ff0000">clampG</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ENTITY_NAME {<a href='#vertexG'>vertexG</a>}
+
+ <dd>
+ @DISPLACEMENT_BOUNDARY_CONDITIONS {     1,     1,     1}
+
+ <dd>
+ @ROTATION_BOUNDARY_CONDITIONS {     1,     1,     1}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='grfparamGH'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">grfparamGH</font>
+ } { 
+ </p>
+ <dl>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='svy_disp_GH'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_GH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_disp_GHQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_disp_GHQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_GH'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_GH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_force_GHQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_force_GHQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_GH'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_GH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#GH_straightBiplane_lower'>GH_straightBiplane_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_strain_GHQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_strain_GHQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='edgeDE'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeDE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexD'>vertexD</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @CURVE_NAME {<a href='#curveDE'>curveDE</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='DE_jointTrans_upper'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">DE_jointTrans_upper</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeDE'>edgeDE</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexD'>vertexD</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propDE'>propDE</a>}
+ <dd> @SHAPE_NAME {<a href='#shape_jointTrans'>shape_jointTrans</a>}
+ <dd> @GRAPHICAL_PARAMETERS_NAME {<a href='#gp_biplaneUpper'>gp_biplaneUpper</a>}
+ <dd> @COMMENTS {<font color='#808000'>the upper joint transition region of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includePropsDE'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includePropsDE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>DE_jointTrans_upper_curve.dat</font>,<font color='#808000'>DE_jointTrans_upper_mesh.dat</font>,<font color='#808000'>DE_jointTrans_upper_props.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='grfparamDE'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">grfparamDE</font>
+ } { 
+ </p>
+ <dl>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='svy_disp_DE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_DE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_disp_DEQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_disp_DEQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_DE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_DE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_force_DEQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_force_DEQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_DE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_DE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#DE_jointTrans_upper'>DE_jointTrans_upper</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_strain_DEQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_strain_DEQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='edgeHE'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeHE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexH'>vertexH</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @CURVE_NAME {<a href='#curveHE'>curveHE</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='HE_jointTrans_lower'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">HE_jointTrans_lower</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeHE'>edgeHE</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexH'>vertexH</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propHE'>propHE</a>}
+ <dd> @SHAPE_NAME {<a href='#shape_jointTrans'>shape_jointTrans</a>}
+ <dd> @GRAPHICAL_PARAMETERS_NAME {<a href='#gp_biplaneLower'>gp_biplaneLower</a>}
+ <dd> @COMMENTS {<font color='#808000'>the lower joint transition region of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='includePropsHE'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includePropsHE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>HE_jointTrans_lower_curve.dat</font>,<font color='#808000'>HE_jointTrans_lower_mesh.dat</font>,<font color='#808000'>HE_jointTrans_lower_props.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='grfparamHE'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">grfparamHE</font>
+ } { 
+ </p>
+ <dl>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='svy_disp_HE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_HE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_disp_HEQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_disp_HEQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_HE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_HE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_force_HEQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_force_HEQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_HE'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_HE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#HE_jointTrans_lower'>HE_jointTrans_lower</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_strain_HEQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_strain_HEQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='edgeEF'></a>
+ <font color='#004000' SIZE=+1>
+ @EDGE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @EDGE_NAME {
+ <font color="#ff0000">edgeEF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexF'>vertexF</a>}
+ <dd> @CURVE_NAME {<a href='#curveEF'>curveEF</a>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='EF_monoOutboard'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_NAME {
+ <font color="#ff0000">EF_monoOutboard</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @EDGE_NAME {<a href='#edgeEF'>edgeEF</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexE'>vertexE</a>}
+ <dd> @CONNECTED_TO_VERTICES {<a href='#vertexF'>vertexF</a>}
+ <dd> @BEAM_PROPERTY_NAME {<a href='#propEF'>propEF</a>}
+ <dd> @SHAPE_NAME {<a href='#shape_monoOutboard'>shape_monoOutboard</a>}
+ <dd> @GRAPHICAL_PARAMETERS_NAME {<a href='#gp_sparExterior'>gp_sparExterior</a>}
+ <dd> @COMMENTS {<font color='#808000'>the monoplane outboard region of the spar</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='curveEF'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveEF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     2}
+
+ <dd>
+ @DEGREE_OF_CURVE {     1}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>NO</font>}
+ <dd> @END_POINT_0 {<a href='#pointE'>pointE</a>}
+ <dd> @END_POINT_1 {<a href='#pointF'>pointF</a>}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriDist'>OriDist</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshEF'>meshEF</a>}
+ <dd> @COMMENTS {<font color='#808000'>straight line from the outboard joint (pointE) to the tip (pointF)</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\curveEFQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveEFQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveEFQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='includePropsEF'></a>
+ <font color='#004000' SIZE=+1>
+ @INCLUDE_COMMAND
+ </font>
+ <hr></center></p>
+
+ <p>
+ @INCLUDE_COMMAND_NAME {
+ <font color="#ff0000">includePropsEF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @ACTIVE_COMMAND {<font color='#808000'>YES</font>}
+ <dd> @LIST_OF_FILE_NAMES {<font color='#808000'>EF_monoOutboard_mesh.dat</font>,<font color='#808000'>EF_monoOutboard_props.dat</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='grfparamEF'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">grfparamEF</font>
+ } { 
+ </p>
+ <dl>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='svy_disp_EF'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_disp_EF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>DISPLACEMENTS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_disp_EFQdisQ.png' border='5'></center>
+ <center>DISPLACEMENTS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_disp_EFQrotQ.png' border='5'></center>
+ <center>ROTATIONS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_force_EF'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_force_EF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>FORCES</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_force_EFQforQ.png' border='5'></center>
+ <center>FORCES</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_force_EFQmomQ.png' border='5'></center>
+ <center>MOMENTS</center>
+ <p>
+
+ <p><center><hr>
+ <a name='svy_strain_EF'></a>
+ <font color='#004000' SIZE=+1>
+ @SURVEY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SURVEY_NAME {
+ <font color="#ff0000">svy_strain_EF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @OBJECT_NAME {<a href='#EF_monoOutboard'>EF_monoOutboard</a>}
+ <dd> @SURVEY_TYPE {<font color='#808000'>STRAINS</font>}
+
+ <dd>
+ @TIME {  5.00000e+000}
+ <font color='#975820'>[sec]</font>
+ <dd> @FRAME_NAME {<font color='#808000'>INERTIAL</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\svy_strain_EFQstrQ.png' border='5'></center>
+ <center>STRAINS</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\svy_strain_EFQkapQ.png' border='5'></center>
+ <center>CURVATURES</center>
+ <p>
+
+ <p><center><hr>
+ <a name='CurveSquare'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">CurveSquare</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     5}
+
+ <dd>
+ @DEGREE_OF_CURVE {     1}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>YES</font>}
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  5.00000e-001,  5.00000e-001,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  0.00000e+000, -5.00000e-001,  5.00000e-001,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  0.00000e+000, -5.00000e-001, -5.00000e-001,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  5.00000e-001, -5.00000e-001,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  0.00000e+000,  5.00000e-001,  5.00000e-001,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p>@KNOT_SEQUENCE_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @KNOT_SEQUENCE { <dd> 0.00000e+000,  0.00000e+000,  2.50000e-001,  5.00000e-001,  7.50000e-001,  1.00000e+000,
+ 1.00000e+000}
+ </dl><p>
+ }
+ <dd> @COMMENTS {<font color='#808000'>unit square, modified from: www.ocnus.com, Square.wrl</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\CurveSquareQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\CurveSquareQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\CurveSquareQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='shape_straightBiplane'></a>
+ <font color='#004000' SIZE=+1>
+ @SHAPE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SHAPE_NAME {
+ <font color="#ff0000">shape_straightBiplane</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @SHAPE_TYPE {<font color='#808000'>CURVE</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  5.39200e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.01000e-002}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  5.37500e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.16200e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  5.08900e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.22200e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  4.79100e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.28300e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  4.45500e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.54500e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  4.10100e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.16200e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  3.68000e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.02000e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  3.48000e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.82800e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  3.28500e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.63600e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  3.08900e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  2.88200e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='shape_jointTrans'></a>
+ <font color='#004000' SIZE=+1>
+ @SHAPE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SHAPE_NAME {
+ <font color="#ff0000">shape_jointTrans</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @SHAPE_TYPE {<font color='#808000'>CURVE</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  2.88200e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.00000e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.58600e+000,  2.69600e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  2.49800e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='shape_monoOutboard'></a>
+ <font color='#004000' SIZE=+1>
+ @SHAPE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @SHAPE_NAME {
+ <font color="#ff0000">shape_monoOutboard</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @SHAPE_TYPE {<font color='#808000'>CURVE</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  2.49800e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.22900e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  2.07700e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.44400e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  1.67200e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.65800e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  1.36000e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.88800e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  1.13800e+000}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.86200e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  9.54000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.10200e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  9.10000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.83700e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  8.32000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.31600e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  7.96000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.54600e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  7.07000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.26500e-001}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  6.51000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+ <dd> @CURVE_NAME {<a href='#CurveSquare'>CurveSquare</a>}
+
+ <dd>
+ @SCALING_FACTOR {  0.00000e+000,  1.67200e+000,  5.08000e-001}
+
+ <dd>
+ @ORIGIN {  0.00000e+000,  0.00000e+000,  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='gp_sparExterior'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">gp_sparExterior</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @REPRESENTATION_TYPE {<font color='#808000'>MESH</font>}
+ <dd> @COLOR_FOR_CONFIGURATION {<font color='#808000'>WHITE</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='gp_biplaneUpper'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">gp_biplaneUpper</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @REPRESENTATION_TYPE {<font color='#808000'>MESH</font>}
+ <dd> @COLOR_FOR_CONFIGURATION {<font color='#808000'>YELLOW</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='gp_biplaneLower'></a>
+ <font color='#004000' SIZE=+1>
+ @GRAPHICAL_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @GRAPHICAL_PARAMETERS_NAME {
+ <font color="#ff0000">gp_biplaneLower</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @REPRESENTATION_TYPE {<font color='#808000'>MESH</font>}
+ <dd> @COLOR_FOR_CONFIGURATION {<font color='#808000'>BLUE</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='meshCD'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshCD</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {    10}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+
+ <dd>
+ @ETA_COORDINATE { <dd> 0.00000e+000,  1.01000e-002,  1.16200e-001,  2.22200e-001,  3.28300e-001,  4.54500e-001,
+ 6.16200e-001,  7.02000e-001,  7.82800e-001,  8.63600e-001,  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>models the upper straight biplane region with 10 cubic beam elements</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propCD'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propCD</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.03706e+009, -3.49537e+001,  1.87481e+004,  8.14487e+005,  4.47374e+002,  2.39060e+002,  1.75541e+008,  3.50852e+000, -1.61183e+001,  2.60168e+005,  1.23384e+001,  1.83237e+008, -1.84959e+001, -5.02828e+000,  4.19762e+004,  4.32989e+008,  4.09039e+001, -2.11120e+004,  2.39864e+010, -1.46557e+002,  1.17974e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.72761e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.08287e+003,  1.95135e+003,  1.31519e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.59348e-014,  6.33324e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.01010e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.74474e+009,  1.14932e+002,  1.86882e+004,  6.13208e+005, -1.40846e+003, -2.92761e+002,  1.57337e+008, -4.87625e-001,  2.46165e+001,  1.25499e+005, -1.72020e+001,  1.82759e+008, -4.63879e+001, -8.96865e+000,  3.50817e+004,  4.31122e+008, -1.64622e+002, -2.10369e+004,  2.19002e+010,  1.96620e+002,  1.11840e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.48088e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.90203e+003,  1.77569e+003,  1.26337e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.75516e-014, -5.80213e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.16162e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.58808e+009, -6.87877e+001,  1.76361e+004,  3.52377e+005,  1.29719e+003,  1.44104e+002,  1.53119e+008,  8.21047e-001, -1.02692e+001, -1.34311e+005,  1.28992e+001,  1.72913e+008, -4.11257e+001,  1.91825e+001,  2.01217e+004,  4.06282e+008,  1.17373e+002, -1.97906e+004,  1.89387e+010, -2.08234e+002,  1.05878e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.15059e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.53883e+003,  1.42250e+003,  1.16332e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.98203e-014,  1.19384e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.22222e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.62024e+009,  3.83962e+001,  1.66115e+004,  7.85389e+004, -1.03024e+003, -1.66464e+002,  1.51415e+008,  3.15621e+000,  1.08796e+001,  1.65293e+005,  4.31148e+000,  1.62534e+008, -3.87756e+001,  1.04257e+001,  1.90661e+004,  3.79107e+008, -6.98932e+001, -1.84844e+004,  1.72372e+010, -8.95871e+001,  1.03378e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  2.90350e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.26482e+003,  1.15706e+003,  1.07757e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -3.82591e-015, -2.26401e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.28283e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.51274e+009, -3.16233e+000,  1.55358e+004, -1.37879e+005,  1.92111e+002,  3.73915e+001,  1.86672e+008,  4.84147e-001, -6.45687e-002,  8.86359e+005,  4.14550e-001,  1.50808e+008, -1.17051e+001,  2.39355e+000,  3.24116e+004,  3.50199e+008,  5.56444e+000, -1.71415e+004,  1.94239e+010, -2.42935e+001,  1.17068e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.11298e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.23869e+003,  1.13113e+003,  1.07558e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  5.18236e-015, -1.84770e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.54545e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  5.15088e+009,  1.09842e+000,  1.43885e+004,  4.45854e+005, -4.24105e+001, -1.28275e+001,  1.98419e+008, -1.72998e-001,  3.64197e+000, -1.99956e+006, -2.37280e+000,  1.38351e+008, -2.07245e+001, -1.16926e+000, -7.02626e+004,  3.17912e+008,  7.36260e+000, -1.56455e+004,  1.92839e+010,  2.81733e+001,  1.25859e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.20245e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.12692e+003,  1.02201e+003,  1.04912e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.34224e-014,  2.65235e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.16162e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  6.53054e+009, -3.54071e-002,  1.13611e+004, -2.83495e+003, -4.29903e+000, -1.37363e+004,  2.56722e+008, -4.45238e-001, -1.44068e+000,  4.42618e+001,  4.18058e-002,  1.23559e+008,  2.06137e+002,  4.61600e-001,  1.43298e+003,  2.83193e+008,  1.16322e+000, -1.22161e+004,  2.01675e+010,  1.13088e+001,  1.48433e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.68902e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.11336e+003,  1.00414e+003,  1.09224e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  8.85720e-015,  1.13158e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.02020e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  7.56185e+009,  6.07258e-001,  1.22284e+004,  3.44948e+002,  9.10862e+001,  5.44472e+000,  3.16727e+008,  9.97264e-001, -7.48726e+000,  8.12933e+000, -2.29615e-001,  1.16987e+008,  8.28215e-001, -2.59401e-001, -1.65218e+002,  2.69322e+008, -9.97628e-001, -1.33020e+004,  2.10142e+010, -2.89495e+001,  1.66358e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.12526e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.14625e+003,  1.03102e+003,  1.15227e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.37898e-014,  2.65898e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.82828e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.02974e+009,  4.12588e-001,  1.15210e+004,  3.06250e+002, -2.20979e+000,  1.40474e+001,  3.50136e+008,  4.05375e-002,  2.27876e-001,  8.97021e+001,  3.60851e-003,  1.10362e+008, -5.93040e+000, -1.18473e-002, -1.45796e+002,  2.54248e+008, -8.01592e-001, -1.25379e+004,  1.99202e+010, -6.01092e-001,  1.73755e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.30364e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.08677e+003,  9.70318e+002,  1.16449e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -3.42588e-016,  4.90149e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.63636e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.06176e+009,  1.26062e+000,  1.08036e+004,  2.94142e+002, -1.00851e+002,  7.99544e+000,  4.12887e+008,  3.97222e+000,  1.19699e+001,  3.39819e+001, -1.37856e+000,  1.03793e+008,  5.32411e+000,  9.95238e-001, -1.39824e+002,  2.39861e+008,  9.59919e-001, -1.17851e+004,  1.98844e+010,  9.85757e+001,  1.91723e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.74095e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.08186e+003,  9.59345e+002,  1.22515e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.03699e-015,  6.19634e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.02595e+009,  1.59377e-001,  1.00534e+004,  2.60959e+002, -1.53958e+002,  5.82046e+000,  4.21284e+008, -5.32271e+000,  1.09946e+001,  1.30344e+001, -7.98357e-002,  9.66123e+007,  4.69636e+001,  2.99147e-002, -1.23033e+002,  2.22781e+008,  9.24393e-002, -1.09412e+004,  1.72296e+010,  8.12186e+001,  1.89590e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.68572e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.47988e+002,  8.28761e+002,  1.19226e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.73746e-015, -5.48748e-016}
+ <font color='#975820'>[m]</font>
+ <dd> @COMMENTS {<font color='#808000'>beam properties for spar stations 1-11</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\propCDQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propCDQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>
+
+ <p><center><hr>
+ <a name='meshGH'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshGH</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {    10}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+
+ <dd>
+ @ETA_COORDINATE { <dd> 0.00000e+000,  1.01000e-002,  1.16200e-001,  2.22200e-001,  3.28300e-001,  4.54500e-001,
+ 6.16200e-001,  7.02000e-001,  7.82800e-001,  8.63600e-001,  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>models the lower straight biplane region with 10 cubic beam elements</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propGH'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propGH</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.03706e+009, -3.49537e+001,  1.87481e+004,  8.14487e+005,  4.47374e+002,  2.39060e+002,  1.75541e+008,  3.50852e+000, -1.61183e+001,  2.60168e+005,  1.23384e+001,  1.83237e+008, -1.84959e+001, -5.02828e+000,  4.19762e+004,  4.32989e+008,  4.09039e+001, -2.11120e+004,  2.39864e+010, -1.46557e+002,  1.17974e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.72761e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.08287e+003,  1.95135e+003,  1.31519e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.59348e-014,  6.33324e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.01010e-002}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.74474e+009,  1.14932e+002,  1.86882e+004,  6.13208e+005, -1.40846e+003, -2.92761e+002,  1.57337e+008, -4.87625e-001,  2.46165e+001,  1.25499e+005, -1.72020e+001,  1.82759e+008, -4.63879e+001, -8.96865e+000,  3.50817e+004,  4.31122e+008, -1.64622e+002, -2.10369e+004,  2.19002e+010,  1.96620e+002,  1.11840e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.48088e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.90203e+003,  1.77569e+003,  1.26337e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.75516e-014, -5.80213e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.16162e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.58808e+009, -6.87877e+001,  1.76361e+004,  3.52377e+005,  1.29719e+003,  1.44104e+002,  1.53119e+008,  8.21047e-001, -1.02692e+001, -1.34311e+005,  1.28992e+001,  1.72913e+008, -4.11257e+001,  1.91825e+001,  2.01217e+004,  4.06282e+008,  1.17373e+002, -1.97906e+004,  1.89387e+010, -2.08234e+002,  1.05878e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.15059e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.53883e+003,  1.42250e+003,  1.16332e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.98203e-014,  1.19384e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.22222e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  3.62024e+009,  3.83962e+001,  1.66115e+004,  7.85389e+004, -1.03024e+003, -1.66464e+002,  1.51415e+008,  3.15621e+000,  1.08796e+001,  1.65293e+005,  4.31148e+000,  1.62534e+008, -3.87756e+001,  1.04257e+001,  1.90661e+004,  3.79107e+008, -6.98932e+001, -1.84844e+004,  1.72372e+010, -8.95871e+001,  1.03378e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  2.90350e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.26482e+003,  1.15706e+003,  1.07757e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -3.82591e-015, -2.26401e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.28283e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.51274e+009, -3.16233e+000,  1.55358e+004, -1.37879e+005,  1.92111e+002,  3.73915e+001,  1.86672e+008,  4.84147e-001, -6.45687e-002,  8.86359e+005,  4.14550e-001,  1.50808e+008, -1.17051e+001,  2.39355e+000,  3.24116e+004,  3.50199e+008,  5.56444e+000, -1.71415e+004,  1.94239e+010, -2.42935e+001,  1.17068e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.11298e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.23869e+003,  1.13113e+003,  1.07558e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  5.18236e-015, -1.84770e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.54545e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  5.15088e+009,  1.09842e+000,  1.43885e+004,  4.45854e+005, -4.24105e+001, -1.28275e+001,  1.98419e+008, -1.72998e-001,  3.64197e+000, -1.99956e+006, -2.37280e+000,  1.38351e+008, -2.07245e+001, -1.16926e+000, -7.02626e+004,  3.17912e+008,  7.36260e+000, -1.56455e+004,  1.92839e+010,  2.81733e+001,  1.25859e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.20245e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.12692e+003,  1.02201e+003,  1.04912e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.34224e-014,  2.65235e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.16162e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  6.53054e+009, -3.54071e-002,  1.13611e+004, -2.83495e+003, -4.29903e+000, -1.37363e+004,  2.56722e+008, -4.45238e-001, -1.44068e+000,  4.42618e+001,  4.18058e-002,  1.23559e+008,  2.06137e+002,  4.61600e-001,  1.43298e+003,  2.83193e+008,  1.16322e+000, -1.22161e+004,  2.01675e+010,  1.13088e+001,  1.48433e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.68902e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.11336e+003,  1.00414e+003,  1.09224e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  8.85720e-015,  1.13158e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.02020e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  7.56185e+009,  6.07258e-001,  1.22284e+004,  3.44948e+002,  9.10862e+001,  5.44472e+000,  3.16727e+008,  9.97264e-001, -7.48726e+000,  8.12933e+000, -2.29615e-001,  1.16987e+008,  8.28215e-001, -2.59401e-001, -1.65218e+002,  2.69322e+008, -9.97628e-001, -1.33020e+004,  2.10142e+010, -2.89495e+001,  1.66358e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.12526e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.14625e+003,  1.03102e+003,  1.15227e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.37898e-014,  2.65898e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.82828e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.02974e+009,  4.12588e-001,  1.15210e+004,  3.06250e+002, -2.20979e+000,  1.40474e+001,  3.50136e+008,  4.05375e-002,  2.27876e-001,  8.97021e+001,  3.60851e-003,  1.10362e+008, -5.93040e+000, -1.18473e-002, -1.45796e+002,  2.54248e+008, -8.01592e-001, -1.25379e+004,  1.99202e+010, -6.01092e-001,  1.73755e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.30364e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.08677e+003,  9.70318e+002,  1.16449e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -3.42588e-016,  4.90149e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.63636e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.06176e+009,  1.26062e+000,  1.08036e+004,  2.94142e+002, -1.00851e+002,  7.99544e+000,  4.12887e+008,  3.97222e+000,  1.19699e+001,  3.39819e+001, -1.37856e+000,  1.03793e+008,  5.32411e+000,  9.95238e-001, -1.39824e+002,  2.39861e+008,  9.59919e-001, -1.17851e+004,  1.98844e+010,  9.85757e+001,  1.91723e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.74095e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.08186e+003,  9.59345e+002,  1.22515e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.03699e-015,  6.19634e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.02595e+009,  1.59377e-001,  1.00534e+004,  2.60959e+002, -1.53958e+002,  5.82046e+000,  4.21284e+008, -5.32271e+000,  1.09946e+001,  1.30344e+001, -7.98357e-002,  9.66123e+007,  4.69636e+001,  2.99147e-002, -1.23033e+002,  2.22781e+008,  9.24393e-002, -1.09412e+004,  1.72296e+010,  8.12186e+001,  1.89590e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.68572e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.47988e+002,  8.28761e+002,  1.19226e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.73746e-015, -5.48748e-016}
+ <font color='#975820'>[m]</font>
+ <dd> @COMMENTS {<font color='#808000'>beam properties for spar stations 1-11</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\propGHQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propGHQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>
+
+ <p><center><hr>
+ <a name='curveDE'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveDE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     4}
+
+ <dd>
+ @DEGREE_OF_CURVE {     3}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>YES</font>}
+ <dd> @END_POINT_0 {<a href='#pointD'>pointD</a>}
+
+ <dd>
+ @WEIGHT_DEFINITION {  1.00000e+000}
+
+ <dd>
+ @COORDINATES {  2.25000e+001,  0.00000e+000,  2.86100e+000,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  2.25000e+001,  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @END_POINT_1 {<a href='#pointE'>pointE</a>}
+
+ <dd>
+ @WEIGHT_DEFINITION {  1.00000e+000}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriDist'>OriDist</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshDE'>meshDE</a>}
+ <dd> @COMMENTS {<font color='#808000'>a cubic spline from the upper joint transition (pointD) to the outboard joint (pointE)</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\curveDEQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveDEQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveDEQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='meshDE'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshDE</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {     2}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+
+ <dd>
+ @ETA_COORDINATE { <dd> 0.00000e+000,  5.00000e-001,  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>models the upper joint transition region with  2 cubic beam elements</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propDE'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propDE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.02595e+009,  1.59377e-001,  1.00534e+004,  2.60959e+002, -1.53958e+002,  5.82046e+000,  4.21284e+008, -5.32271e+000,  1.09946e+001,  1.30344e+001, -7.98357e-002,  9.66123e+007,  4.69636e+001,  2.99147e-002, -1.23033e+002,  2.22781e+008,  9.24393e-002, -1.09412e+004,  1.72296e+010,  8.12186e+001,  1.89590e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.68572e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.47988e+002,  8.28761e+002,  1.19226e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.73746e-015, -5.48748e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.00000e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.99378e+009,  3.02506e-002,  9.37910e+003,  2.33390e+002,  1.92872e+001, -3.08380e+001,  4.28125e+008, -3.55096e-001,  5.63326e-001,  3.04199e+001, -1.99081e-002,  9.01600e+007, -5.66037e+000, -3.69123e-002, -1.09123e+002,  2.07438e+008, -1.10791e-002, -1.01829e+004,  1.50092e+010,  2.00793e+000,  1.87674e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.63609e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  8.36263e+002,  7.19992e+002,  1.16271e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.17031e-015,  1.04171e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.69162e+010,  3.44749e-003,  1.28394e-003,  1.40362e+004,  3.77156e-001,  4.52631e-001,  8.27134e+008, -1.53329e-002, -9.82756e-002, -3.09933e+003,  3.17129e-003,  1.62870e+008,  7.22213e-003, -4.37433e-003, -7.25101e+003,  3.94808e+008, -1.37677e-003,  7.32885e-004,  2.30118e+010,  4.31668e-002,  3.55483e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.70573e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.32782e+003,  1.10563e+003,  2.22196e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.22052e-015, -4.43542e-016}
+ <font color='#975820'>[m]</font>
+ <dd> @COMMENTS {<font color='#808000'>beam properties for spar stations 11-13</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\propDEQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propDEQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>
+
+ <p><center><hr>
+ <a name='curveHE'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_NAME {
+ <font color="#ff0000">curveHE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @IS_DEFINED_IN_FRAME {<font color='#808000'>INERTIAL</font>}
+
+ <p>@POINT_DEFINITION {</p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_CONTROL_POINTS {     4}
+
+ <dd>
+ @DEGREE_OF_CURVE {     3}
+ <dd> @RATIONAL_CURVE_FLAG {<font color='#808000'>YES</font>}
+ <dd> @END_POINT_0 {<a href='#pointH'>pointH</a>}
+
+ <dd>
+ @WEIGHT_DEFINITION {  1.00000e+000}
+
+ <dd>
+ @COORDINATES {  2.25000e+001,  0.00000e+000, -2.86100e+000,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @COORDINATES {  2.25000e+001,  0.00000e+000,  0.00000e+000,  1.00000e+000}
+ <font color='#975820'>[m]</font>
+ <dd> @END_POINT_1 {<a href='#pointE'>pointE</a>}
+
+ <dd>
+ @WEIGHT_DEFINITION {  1.00000e+000}
+ </dl><p>
+ }
+
+ <p>@TRIAD_DEFINITION {</p>
+ <dl>
+ <dd> @ORIENTATION_DISTRIBUTION_NAME {<a href='#OriDist'>OriDist</a>}
+
+ <dd>
+ @INITIAL_COORDINATE {  0.00000e+000}
+ <font color='#975820'>[m]</font>
+ </dl><p>
+ }
+ <dd> @CURVE_MESH_PARAMETERS_NAME {<a href='#meshHE'>meshHE</a>}
+ <dd> @COMMENTS {<font color='#808000'>a cubic spline from the lower joint transition (pointH) to the outboard joint (pointE)</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\curveHEQcv1Q.png' border='5'></center>
+ <center>CURVE (X1 X2 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveHEQcv2Q.png' border='5'></center>
+ <center>CURVE (X1 X3 VIEW)</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\curveHEQcv3Q.png' border='5'></center>
+ <center>CURVE (X2 X3 VIEW)</center>
+ <p>
+
+ <p><center><hr>
+ <a name='meshHE'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshHE</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {     2}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+
+ <dd>
+ @ETA_COORDINATE { <dd> 0.00000e+000,  5.00000e-001,  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>models the lower joint transition region with  2 cubic beam elements</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propHE'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propHE</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  9.02595e+009,  1.59377e-001,  1.00534e+004,  2.60959e+002, -1.53958e+002,  5.82046e+000,  4.21284e+008, -5.32271e+000,  1.09946e+001,  1.30344e+001, -7.98357e-002,  9.66123e+007,  4.69636e+001,  2.99147e-002, -1.23033e+002,  2.22781e+008,  9.24393e-002, -1.09412e+004,  1.72296e+010,  8.12186e+001,  1.89590e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.68572e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.47988e+002,  8.28761e+002,  1.19226e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.73746e-015, -5.48748e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.00000e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.99378e+009,  3.02506e-002,  9.37910e+003,  2.33390e+002,  1.92872e+001, -3.08380e+001,  4.28125e+008, -3.55096e-001,  5.63326e-001,  3.04199e+001, -1.99081e-002,  9.01600e+007, -5.66037e+000, -3.69123e-002, -1.09123e+002,  2.07438e+008, -1.10791e-002, -1.01829e+004,  1.50092e+010,  2.00793e+000,  1.87674e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.63609e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  8.36263e+002,  7.19992e+002,  1.16271e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.17031e-015,  1.04171e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.69162e+010,  3.44749e-003,  1.28394e-003,  1.40362e+004,  3.77156e-001,  4.52631e-001,  8.27134e+008, -1.53329e-002, -9.82756e-002, -3.09933e+003,  3.17129e-003,  1.62870e+008,  7.22213e-003, -4.37433e-003, -7.25101e+003,  3.94808e+008, -1.37677e-003,  7.32885e-004,  2.30118e+010,  4.31668e-002,  3.55483e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.70573e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.32782e+003,  1.10563e+003,  2.22196e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.22052e-015, -4.43542e-016}
+ <font color='#975820'>[m]</font>
+ <dd> @COMMENTS {<font color='#808000'>beam properties for spar stations 11-13</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\propHEQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propHEQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>
+
+ <p><center><hr>
+ <a name='meshEF'></a>
+ <font color='#004000' SIZE=+1>
+ @CURVE_MESH_PARAMETERS_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @CURVE_MESH_PARAMETERS_NAME {
+ <font color="#ff0000">meshEF</font>
+ } { 
+ </p>
+ <dl>
+
+ <dd>
+ @NUMBER_OF_ELEMENTS {    11}
+
+ <dd>
+ @ORDER_OF_ELEMENTS {     3}
+
+ <dd>
+ @ETA_COORDINATE { <dd> 0.00000e+000,  1.22900e-001,  2.44400e-001,  3.65800e-001,  4.88800e-001,  5.86200e-001,
+ 6.10200e-001,  6.83700e-001,  7.31600e-001,  8.54600e-001,  9.26500e-001,  1.00000e+000}
+ <dd> @COMMENTS {<font color='#808000'>models the monoplane outboard region with 11 cubic beam elements</font>}
+ </dl><p>
+ }
+
+ <p><center><hr>
+ <a name='propEF'></a>
+ <font color='#004000' SIZE=+1>
+ @BEAM_PROPERTY_DEFINITION
+ </font>
+ <hr></center></p>
+
+ <p>
+ @BEAM_PROPERTY_NAME {
+ <font color="#ff0000">propEF</font>
+ } { 
+ </p>
+ <dl>
+ <dd> @PROPERTY_DEFINITION_TYPE {<font color='#808000'>6X6_MATRICES</font>}
+ <dd> @COORDINATE_TYPE {<font color='#808000'>ETA_COORDINATE</font>}
+
+ <dd>
+ @ETA_COORDINATE {  0.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.69162e+010,  3.44749e-003,  1.28394e-003,  1.40362e+004,  3.77156e-001,  4.52631e-001,  8.27134e+008, -1.53329e-002, -9.82756e-002, -3.09933e+003,  3.17129e-003,  1.62870e+008,  7.22213e-003, -4.37433e-003, -7.25101e+003,  3.94808e+008, -1.37677e-003,  7.32885e-004,  2.30118e+010,  4.31668e-002,  3.55483e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.70573e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.32782e+003,  1.10563e+003,  2.22196e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  3.22052e-015, -4.43542e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.22939e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.56418e+010,  1.22868e+000, -1.87306e-003,  1.06596e+004,  6.41020e+000, -1.95652e+000,  7.87131e+008, -3.14159e-001, -5.42238e-001, -1.78615e+003,  1.54367e-003,  1.33369e+008,  4.55552e-002,  2.10459e-003, -5.56025e+003,  3.18857e+008, -2.24918e+000,  2.88257e-003,  1.45790e+010,  4.15303e+000,  3.25135e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.96269e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  8.95931e+002,  6.97605e+002,  1.98326e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.94328e-015,  6.16133e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  2.44378e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.44984e+010, -1.84454e-001,  9.24870e-004,  8.16099e+003, -9.50401e+000,  7.79414e-001,  7.45326e+008,  1.15497e-001,  1.01830e+000, -9.32276e+002, -3.41724e-004,  1.04988e+008,  4.98241e-003, -7.85461e-004, -4.30956e+003,  2.46216e+008,  3.58393e-001, -1.77953e-003,  8.62882e+009, -1.66888e+000,  2.97488e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  7.28578e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  5.87001e+002,  4.10927e+002,  1.76075e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -2.21975e-015, -9.56198e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  3.65817e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.32618e+010,  1.83005e-004,  2.60058e-004,  6.41620e+003,  8.12725e-001,  4.33379e-001,  6.89490e+008,  2.42643e-003, -3.04907e-002, -4.75390e+002, -1.60641e-005,  8.29872e+007,  9.11699e-003,  3.37440e-004, -3.44220e+003,  1.89803e+008, -8.62903e-004, -5.07553e-004,  5.14437e+009,  4.27841e-001,  2.69517e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  6.60090e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  4.00010e+002,  2.44142e+002,  1.55869e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.09081e-015,  3.71706e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  4.88756e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.10531e+010,  1.35567e-001, -7.27419e-004,  4.97420e+003,  9.38086e+000, -4.98566e-001,  5.77233e+008, -1.08023e-001, -6.68767e-001, -2.51238e+002, -1.97789e-003,  6.67130e+007,  2.49261e-003,  2.24638e-003, -2.73296e+003,  1.46833e+008, -2.13306e-001,  2.81490e-003,  3.00370e+009,  1.31643e+000,  2.24696e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  5.50324e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.72614e+002,  1.42566e+002,  1.30047e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.53184e-016,  2.23831e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  5.86207e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.85749e+009,  8.58607e-004, -3.09845e-004,  3.27494e+003, -1.73126e-001, -3.40463e-001,  4.63882e+008,  1.09844e-002,  2.81939e-003, -1.60203e+002, -9.19607e-004,  5.29084e+007,  8.85785e-004,  1.60463e-004, -1.84603e+003,  1.10547e+008, -6.87423e-005,  5.77899e-005,  1.70182e+009, -1.12403e-001,  1.80704e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.42585e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.86382e+002,  8.08786e+001,  1.05503e+002}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -3.61223e-017,  1.58161e-016}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.10195e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.34063e+009,  4.00017e-005,  2.46376e-003,  3.26231e+003, -1.71029e-001, -6.92981e-001,  4.37093e+008, -1.33306e-002,  8.05160e-003, -1.44519e+002, -9.94067e-004,  4.95858e+007, -1.98017e-003, -1.29464e-003, -1.86329e+003,  1.01964e+008, -3.35595e-004, -2.88248e-004,  1.46051e+009, -2.76207e-002,  1.70338e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  4.17198e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.69142e+002,  6.94371e+001,  9.97044e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION { -8.63541e-017, -2.39503e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  6.83658e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  6.18171e+009,  1.19142e-004, -2.21551e-004,  2.88532e+003, -2.35788e-001,  3.55409e-001,  3.23719e+008, -1.16072e-003,  4.08148e-004, -1.04990e+002,  6.03806e-004,  4.25767e+007,  5.22766e-002, -1.76461e-005, -1.72247e+003,  8.21041e+007, -1.06589e-004,  4.89871e-004,  9.25676e+008,  2.49291e-002,  1.28658e+009}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  3.15116e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  1.23040e+002,  4.43169e+001,  7.87229e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.40251e-015,  5.98948e-018}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  7.31634e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  4.53898e+009,  1.16183e-003,  4.66887e-004,  2.25028e+003,  1.77280e-001,  1.97827e-001,  2.36967e+008, -1.02228e-002,  1.59102e-003, -1.09844e+002, -1.95825e-004,  3.82085e+007, -2.88558e-004,  3.89450e-004, -1.39605e+003,  6.86112e+007,  4.56000e-004,  2.89852e-004,  6.33858e+008,  6.09449e-002,  9.73019e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  2.38315e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  9.41629e+001,  3.06899e+001,  6.34730e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.70576e-015, -1.05984e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  8.54573e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  2.37629e+009, -1.97381e-002, -1.01619e-004,  1.42896e+003,  1.58705e+000, -3.95493e-003,  1.22479e+008,  8.59203e-003,  4.19207e-002, -6.48485e+001,  1.50122e-005,  2.77998e+007,  1.21311e-003,  1.63741e-004, -9.74309e+002,  4.07952e+007,  1.83848e-002,  6.21128e-005,  2.63965e+008,  1.21455e-002,  5.53841e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  1.35646e+002}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  5.53504e+001,  1.32287e+001,  4.21217e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  9.97310e-016, -2.64981e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  9.26537e-001}
+
+ <dd>
+ @STIFFNESS_MATRIX {  1.35368e+009, -9.91039e-005,  9.70614e-001,  9.58983e+002, -3.55869e-002,  5.35109e+001,  6.75107e+007,  2.92301e-003, -4.17393e-003, -2.81259e+001,  1.47751e-004,  1.99254e+007,  2.50568e+000,  1.31501e-005, -6.83070e+002,  2.35163e+007, -7.68779e-006, -5.42774e-001,  1.24240e+008, -2.19935e-004,  3.53505e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  8.65774e+001}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  3.81684e+001,  6.56881e+000,  3.15996e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  1.92024e-015,  3.83502e-017}
+ <font color='#975820'>[m]</font>
+
+ <dd>
+ @ETA_COORDINATE {  1.00000e+000}
+
+ <dd>
+ @STIFFNESS_MATRIX {  8.02590e+008, -4.42827e-003, -2.08405e-003,  4.93873e+002, -1.77308e-001, -2.64703e+000,  3.87678e+007,  3.14339e-003,  2.60393e-003, -1.02718e+001,  2.44206e-004,  9.99681e+006,  7.03040e-001, -2.24096e-005, -2.94454e+002,  9.36133e+006,  4.43616e-005,  2.15269e-003,  4.34314e+007, -1.52258e-003,  2.28258e+008}
+
+ <dd>
+ @MASS_PER_UNIT_SPAN {  5.59069e+001}
+ <font color='#975820'>[kg/m]</font>
+
+ <dd>
+ @MOMENTS_OF_INERTIA {  2.48782e+001,  2.40467e+000,  2.24735e+001}
+ <font color='#975820'>[kg.m^2/m]</font>
+
+ <dd>
+ @CENTRE_OF_MASS_LOCATION {  2.56143e-016,  9.47930e-018}
+ <font color='#975820'>[m]</font>
+ <dd> @COMMENTS {<font color='#808000'>beam properties for spar stations 13-24</font>}
+ </dl><p>
+ }
+
+ <center><IMG src='.\FIGURES\propEFQm00Q.png' border='5'></center>
+ <center>MASS_PER_LENGTH_M00</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQm02Q.png' border='5'></center>
+ <center>MASS_X_XM2</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQm03Q.png' border='5'></center>
+ <center>MASS_X_XM3</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQm33Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQm23Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQm22Q.png' border='5'></center>
+ <center>MOMENT_OF_INERTIA_M22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk11Q.png' border='5'></center>
+ <center>STIFFNESS_K11</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk12Q.png' border='5'></center>
+ <center>STIFFNESS_K12</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk22Q.png' border='5'></center>
+ <center>STIFFNESS_K22</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk13Q.png' border='5'></center>
+ <center>STIFFNESS_K13</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk23Q.png' border='5'></center>
+ <center>STIFFNESS_K23</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk33Q.png' border='5'></center>
+ <center>STIFFNESS_K33</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk14Q.png' border='5'></center>
+ <center>STIFFNESS_K14</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk24Q.png' border='5'></center>
+ <center>STIFFNESS_K24</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk34Q.png' border='5'></center>
+ <center>STIFFNESS_K34</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk44Q.png' border='5'></center>
+ <center>STIFFNESS_K44</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk15Q.png' border='5'></center>
+ <center>STIFFNESS_K15</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk25Q.png' border='5'></center>
+ <center>STIFFNESS_K25</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk35Q.png' border='5'></center>
+ <center>STIFFNESS_K35</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk45Q.png' border='5'></center>
+ <center>STIFFNESS_K45</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk55Q.png' border='5'></center>
+ <center>STIFFNESS_K55</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk16Q.png' border='5'></center>
+ <center>STIFFNESS_K16</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk26Q.png' border='5'></center>
+ <center>STIFFNESS_K26</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk36Q.png' border='5'></center>
+ <center>STIFFNESS_K36</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk46Q.png' border='5'></center>
+ <center>STIFFNESS_K46</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk56Q.png' border='5'></center>
+ <center>STIFFNESS_K56</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQk66Q.png' border='5'></center>
+ <center>STIFFNESS_K66</center>
+ <p>
+
+ <center><IMG src='.\FIGURES\propEFQmucQ.png' border='5'></center>
+ <center>DAMPING_COEFFICIENT</center>
+ <p>

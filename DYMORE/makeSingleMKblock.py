@@ -1,10 +1,13 @@
 import DYMOREutilities as du
+import os
+os.chdir('..')
 import truegrid.read_layup as rl
+os.chdir('DYMORE')
 
 # parameters #####################################################################
 spar_station = 16
-dymoreMKfile = du.makeFile('spar_station_16__k2_0019_MK.dat')
-vabsMK = '../VABS/cs_database/biplane_full-hSW_curved/spar_station_16__k2_0019.dat.K'
+dymoreMKfile = du.makeFile('spar_station_16__k2_0020_MK.dat')
+vabsMK = '../VABS/cs_database/biplane_full-hSW_curved/spar_station_16__k2_0020.dat.K'
 ##################################################################################
 
 

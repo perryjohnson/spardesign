@@ -1,0 +1,83 @@
+@EDGE_DEFINITION {
+  @EDGE_NAME {edgeEF} {
+    @CONNECTED_TO_VERTICES {vertexE, vertexF}
+    @CURVE_NAME {curveEF}
+  }
+}
+
+@BEAM_DEFINITION {
+  @BEAM_NAME {EF_monoOutboard} {
+    @EDGE_NAME {edgeEF}
+    @BEAM_PROPERTY_NAME {propEF}
+    @SHAPE_NAME {shape_monoOutboard}
+    @GRAPHICAL_PARAMETERS_NAME {gp_sparExterior}
+    @COMMENTS {the monoplane outboard region of the spar}
+  }
+}
+
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveEF} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {2}
+      @DEGREE_OF_CURVE {1}
+      @RATIONAL_CURVE_FLAG {NO}
+      @END_POINT_0 {pointE}
+      @END_POINT_1 {pointF}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
+      @INITIAL_COORDINATE {0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshEF}
+    @COMMENTS {straight line from the outboard joint (pointE) to the tip (pointF)}
+  }
+}
+
+@INCLUDE_COMMAND {
+  @INCLUDE_COMMAND_NAME {includePropsEF} {
+    @ACTIVE_COMMAND {YES}
+    @LIST_OF_FILE_NAMES {EF_monoOutboard_mesh.dat, EF_monoOutboard_props.dat}
+  }
+}
+
+@GRAPHICAL_PARAMETERS_DEFINITION {
+  @GRAPHICAL_PARAMETERS_NAME {grfparamEF} {
+  }
+}
+
+! @SURVEY_DEFINITION {
+!   @SURVEY_NAME {surveyEF} {
+!     @OBJECT_NAME {EF_monoOutboard}
+!     @SURVEY_TYPE {DISPLACEMENTS}
+!     @FRAME_NAME {INERTIAL}
+!     @TIME {5.00000e+000}
+!   }
+! }
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_disp_EF } {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE { DISPLACEMENTS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_force_EF } {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE { FORCES }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}
+
+@SURVEY_DEFINITION {
+  @SURVEY_NAME { svy_strain_EF } {
+    @OBJECT_NAME {EF_monoOutboard}
+    @SURVEY_TYPE { STRAINS }
+    @FRAME_NAME {INERTIAL}
+    @TIME {5.00000e+000}
+  }
+}

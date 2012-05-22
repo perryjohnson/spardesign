@@ -1,0 +1,23 @@
+@CURVE_DEFINITION {
+  @CURVE_NAME {curveDE} {
+    @IS_DEFINED_IN_FRAME {INERTIAL}
+    @POINT_DEFINITION {
+      @NUMBER_OF_CONTROL_POINTS {4}
+      @DEGREE_OF_CURVE {3}
+      @RATIONAL_CURVE_FLAG {YES}
+      @END_POINT_0 {pointD}
+      @WEIGHT_DEFINITION {1.0}
+      @COORDINATES {49.650,  0.000,  2.861,  1.000}
+      @COORDINATES {49.650,  0.000,  0.000,  1.000}
+      @END_POINT_1 {pointE}
+      @WEIGHT_DEFINITION {1.0}
+      @SPLINE {NO}
+    }
+    @TRIAD_DEFINITION {
+      @ORIENTATION_DISTRIBUTION_NAME {OriDist}
+      @INITIAL_COORDINATE {0}
+    }
+    @CURVE_MESH_PARAMETERS_NAME {meshDE}
+    @COMMENTS {a cubic spline from the upper joint transition (pointD) to the outboard joint (pointE)}
+  }
+}

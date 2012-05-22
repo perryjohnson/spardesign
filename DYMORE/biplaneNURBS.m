@@ -14,12 +14,12 @@ global_constants;  % initialize the global constants for the biplane spar
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-g__to__c = 1.00;                    % gap-to-chord ratio
+g__to__c = 1.25;                    % gap-to-chord ratio
 jt_end_station = 17;                % spar station for end of joint transition
 jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
 jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
 inboard_view = 0;                   % if 1, zoom view on inboard region; if 0, show entire spar
-root_joint_flag = 1;                % if 1, model the root with a monoplane; if 0, model the root with a biplane
+root_joint_flag = 0;                % if 1, model the root with a monoplane; if 0, model the root with a biplane
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
