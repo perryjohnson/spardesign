@@ -10,6 +10,8 @@ G = C
 F = 91.9
 
 ### parameters ###
+scalefactor = 1.9  # figure size scale factor
+
 # spar = '02-bispar-rj245-g100'
 # spar = '03-bispar-rj274-g100'
 # spar = '05-bispar-rj452-g100'
@@ -22,9 +24,9 @@ F = 91.9
 # spar = '14-bispar-rj629-g075'
 # spar = '22-bispar-rj245-g125'  # divide by zero error?!
 # spar = '23-bispar-rj274-g125'
-# spar = '24-bispar-rj452-g125'
+spar = '24-bispar-rj452-g125'
 # spar = '25-bispar-rj540-g125'
-spar = '26-bispar-rj629-g125'
+# spar = '26-bispar-rj629-g125'
 
 if spar == '02-bispar-rj245-g100':
     D = 17.1
@@ -387,14 +389,15 @@ def plot_bispar_strain(bispar_upper, bispar_lower, skip_num):
 
 
 # compare deflections
-plt.figure()
-plt.title('deflections')
+plt.figure(figsize=(5*scalefactor,6*scalefactor))
+# plt.title('deflections')
 plt.axes().set_aspect('auto')
 mono_data = plot_monospar_deflection(skip_every)
 (bispar_upper, bispar_lower) = load_bispar_nn_displacement(C,D,E,F,G,H)
 (bi_upper_data, bi_lower_data) = plot_bispar_deflection(bispar_upper, bispar_lower, skip_every)
 plt.xlabel('span [m]')
 plt.ylabel('deflection in x3-direction [m]')
+plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\deflections_bispar24.png')
 
 
 # # plot deflection reductions
@@ -423,36 +426,38 @@ plt.ylabel('deflection in x3-direction [m]')
 # plt.show()
 
 
-# compare rotations
-plt.figure()
-plt.title('rotations')
-plt.axes().set_aspect('auto')
-plot_monospar_rotation(skip_every)
-plot_bispar_rotation(bispar_upper, bispar_lower, skip_every)
-plt.xlabel('span [m]')
-plt.ylabel('rotation about x2-axis [rad]')
+# # compare rotations
+# plt.figure()
+# plt.title('rotations')
+# plt.axes().set_aspect('auto')
+# plot_monospar_rotation(skip_every)
+# plot_bispar_rotation(bispar_upper, bispar_lower, skip_every)
+# plt.xlabel('span [m]')
+# plt.ylabel('rotation about x2-axis [rad]')
 
 
-# compare shear forces
-plt.figure()
-plt.title('shear forces')
-plt.axes().set_aspect('auto')
-plot_monospar_shearforce(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
-plot_bispar_shearforce(bispar_upper, bispar_lower, x1_stn)
-plt.xlabel('span [m]')
-plt.ylabel('shear force in x3-direction [N]')
+# # compare shear forces
+# plt.figure()
+# plt.title('shear forces')
+# plt.axes().set_aspect('auto')
+# plot_monospar_shearforce(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
+# plot_bispar_shearforce(bispar_upper, bispar_lower, x1_stn)
+# plt.xlabel('span [m]')
+# plt.ylabel('shear force in x3-direction [N]')
 
 
 # compare bending moments
-plt.figure()
-plt.title('bending moments')
+plt.figure(figsize=(5*scalefactor,6*scalefactor))
+# plt.title('bending moments')
 plt.axes().set_aspect('auto')
 plot_monospar_bendmoment(x1_stn)
 (bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
 plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_every)
+# plt.ylim(ymin=0)
 plt.xlabel('span [m]')
 plt.ylabel('bending moment about x2-axis [N*m]')
+plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\bendmoment_bispar24.png')
 
 
 # # compare stresses
