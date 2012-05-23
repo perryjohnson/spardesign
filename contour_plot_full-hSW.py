@@ -84,5 +84,5 @@ plt.ylim(0.2455,0.629)
 plt.show()
 
 # save the figure to disk
-plt.savefig('constlddist_May2012.png')
-plt.savefig('constlddist_May2012.pdf')
+plt.savefig('constlddist_May2012_full-hSW.png')
+plt.savefig('constlddist_May2012_full-hSW.pdf')
