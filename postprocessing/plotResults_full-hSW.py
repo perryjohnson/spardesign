@@ -4,26 +4,112 @@ import os
 
 monoplane_dir = 'D:\\data\\2012-03-05 (truegrid-VABS-DYMORE mesh refinement)\\grid_density_1\\dymore\\FIGURES'
 
-### SET THESE PARAMETERS FOR THE BIPLANE SPAR ###########################################
-# # 07-bispar-rj629-g100 (no root joint)
-# biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\07-bispar-rj629-g100\\FIGURES'
+### constants ###
+C = 0.0
+G = C
+F = 91.9
+
+### parameters ###
+# spar = '02-bispar-rj245-g100'
+# spar = '03-bispar-rj274-g100'
+# spar = '05-bispar-rj452-g100'
+# spar = '06-bispar-rj540-g100'
+# spar = '07-bispar-rj629-g100'
+# spar = '09-bispar-rj245-g075'
+# spar = '10-bispar-rj274-g075'
+# spar = '12-bispar-rj452-g075'
+# spar = '13-bispar-rj540-g075'
+# spar = '14-bispar-rj629-g075'
+# spar = '22-bispar-rj245-g125'  # divide by zero error?!
+# spar = '23-bispar-rj274-g125'
+# spar = '24-bispar-rj452-g125'
+# spar = '25-bispar-rj540-g125'
+spar = '26-bispar-rj629-g125'
+
+if spar == '02-bispar-rj245-g100':
+    D = 17.1
+    E = 22.5
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\02-bispar-rj245-g100\\FIGURES'
+elif spar == '03-bispar-rj274-g100':
+    D = 19.8
+    E = 25.2
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\03-bispar-rj274-g100\\FIGURES'
+elif spar == '05-bispar-rj452-g100':
+    D = 25.2
+    E = 41.5
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\05-bispar-rj452-g100\\FIGURES'
+elif spar == '06-bispar-rj540-g100':
+    D = 33.4
+    E = 49.6
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\06-bispar-rj540-g100\\FIGURES'
+elif spar == '07-bispar-rj629-g100':
+    D = 41.5
+    E = 57.8
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\07-bispar-rj629-g100\FIGURES'
+elif spar == '09-bispar-rj245-g075':
+    D = 17.1
+    E = 22.5
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\09-bispar-rj245-g075\\FIGURES'
+elif spar == '10-bispar-rj274-g075':
+    D = 19.8
+    E = 25.2
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\10-bispar-rj274-g075\\FIGURES'
+elif spar == '12-bispar-rj452-g075':
+    D = 25.2
+    E = 41.5
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\12-bispar-rj452-g075\\FIGURES'
+elif spar == '13-bispar-rj540-g075':
+    D = 33.4
+    E = 49.6
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\13-bispar-rj540-g075\\FIGURES'
+elif spar == '14-bispar-rj629-g075':
+    D = 41.5
+    E = 57.8
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\14-bispar-rj629-g075\\FIGURES'
+elif spar == '22-bispar-rj245-g125':
+    D = 0.0
+    E = 0.0
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\22-bispar-rj245-g125\\FIGURES'
+elif spar == '23-bispar-rj274-g125':
+    D = 19.8
+    E = 25.2
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\23-bispar-rj274-g125\\FIGURES'
+elif spar == '24-bispar-rj452-g125':
+    D = 25.2
+    E = 41.5
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\24-bispar-rj452-g125\\FIGURES'
+elif spar == '25-bispar-rj540-g125':
+    D = 33.4
+    E = 49.6
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\25-bispar-rj540-g125\\FIGURES'
+elif spar == '26-bispar-rj629-g125':
+    D = 41.5
+    E = 57.8
+    biplane_dir = 'D:\\data\\2012-05-21 (biplane spars, no root joint, full shear web height)\\26-bispar-rj629-g125\\FIGURES'
+
+### derived quantities ###
+H = D
+
+# ### SET THESE PARAMETERS FOR THE BIPLANE SPAR ###########################################
+# # # 07-bispar-rj629-g100 (no root joint)
+# # biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\07-bispar-rj629-g100\\FIGURES'
+# # C = 0.0
+# # D = 41.5
+# # E = 57.8
+# # F = 91.9
+# # G = C
+# # H = D
+
+# # 09-bispar-rj245-g075 (no root joint)
+# biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\09-bispar-rj245-g075\\FIGURES'
 # C = 0.0
-# D = 41.5
-# E = 57.8
+# D = 17.1
+# E = 22.5
 # F = 91.9
 # G = C
 # H = D
 
-# 09-bispar-rj245-g075 (no root joint)
-biplane_dir = 'D:\\data\\2012-05-17 (biplane spars, no root joint, full shear web height)\\09-bispar-rj245-g075\\FIGURES'
-C = 0.0
-D = 17.1
-E = 22.5
-F = 91.9
-G = C
-H = D
-
-#########################################################################################
+# #########################################################################################
 
 
 os.chdir('D:\\data')
@@ -378,15 +464,15 @@ plt.ylabel('bending moment about x2-axis [N*m]')
 # plt.ylabel('stresses in x1-direction [N*m]')
 
 
-# compare strains
-plt.figure()
-plt.title('strains')
-plt.axes().set_aspect('auto')
-plot_monospar_strain(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
-plot_bispar_strain(bispar_upper, bispar_lower, skip_every)
-plt.xlabel('span [m]')
-plt.ylabel('strain in x3-direction [-]')
+# # compare strains
+# plt.figure()
+# plt.title('strains')
+# plt.axes().set_aspect('auto')
+# plot_monospar_strain(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
+# plot_bispar_strain(bispar_upper, bispar_lower, skip_every)
+# plt.xlabel('span [m]')
+# plt.ylabel('strain in x3-direction [-]')
 
 
 # return to the original directory
