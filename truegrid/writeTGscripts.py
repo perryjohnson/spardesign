@@ -1,0 +1,125 @@
+import time
+
+# record the time when the code starts
+start_time = time.time()
+
+import read_layup as rl
+import TRUEGRIDutilities as tgu
+
+main_debug_flag = True
+run_TG_silent = True
+no_ABQ_output = False
+
+# set constants
+# sw_foam_base = 0.080 # units: meters
+sw_foam_base = 0.040 # units: meters
+sc_base = 1.5 # units: meters
+
+# set parameters
+sw_foam_ielem_init = 10 #8 #4 #12
+sc_ielem_init = 100 #80 #40 #120
+maxAR = 2.0
+
+spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate grids for these spar stations
+# spar_stn_list = [1, 2, 3, 4, 5, 6, 7]  # generate grids for these spar stations (subset)
+
+# read the layup file
+
+print 'Please type the layup file path.'
+print '  For example: monoplane_spar_layup.txt'
+print '  *** the layup file must also be used later by main.py! ***'
+layupfile = raw_input('  layup file path = ')
+print 'Using layup file:', layupfile
+# layupfile = 'monoplane_spar_layup.txt'
+# layupfile = 'biplane_spar_layup_20120306.txt'
+# layupfile = 'biplane_spar_layup_20120312.txt'
+# layupfile = 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt'
+data = rl.readLayupFile(layupfile)
+print "******************************"
+print "******************************"
+print "reading from " + layupfile
+print "******************************"
+print "******************************"
+
+# if layupfile == 'biplane_spar_layup_20120306.txt' or layupfile == 'biplane_spar_layup_20120312.txt' or layupfile == 'biplane_spar_layup_20120418_15-bispar-rj215-g050.txt':
+#     biplane_switch = True
+# else:
+#     biplane_switch = False
+
+for n in range(len(spar_stn_list)):
+    spar_station = spar_stn_list[n]
+    if spar_station < 10:
+        basefilestr = 'spar_station_0' + str(spar_station)
+    else:
+        basefilestr = 'spar_station_' + str(spar_station)
+
+    print ''
+    print '***************'
+    print basefilestr
+    print '***************'
+
+    # ----------------------------------------------------------------------------------
+
+    stationData = rl.extractStationData(data,spar_station)
+    if stationData['root buildup height'] > 0.0:
+        RB_flag = True
+    else:
+        RB_flag = False
+    (sw_foam_ielem,sw_foam_jelem) = tgu.calcCellNums(sw_foam_base,sw_foam_ielem_init,maxAR,stationData['shear web height'])
+    (sc_ielem,sc_jelem) = tgu.calcCellNums(sc_base,sc_ielem_init,maxAR,stationData['spar cap height'])
+    if sw_foam_jelem % 2 != 0:  # if this number isn't even...
+        sw_foam_jelem += 1      # add 1 to it to make it even
+    if sc_jelem % 2 != 0:  # if this number isn't even...
+        sc_jelem += 1      # add 1 to it to make it even
+    elemData = { 'shear web foam, i-elements': sw_foam_ielem,
+                 'shear web foam, j-elements': sw_foam_jelem,
+                 'spar cap, i-elements': sc_ielem,
+                 'spar cap, j-elements': sc_jelem }
+    if main_debug_flag:
+        if RB_flag:
+            print 'root buildup height: ' + ('%5.3f' % stationData['root buildup height']) + ' m'
+        print 'shear web height:    ' + ('%5.3f' % stationData['shear web height'])    + ' m'
+        print '  sw foam i-elems:   ' + str(sw_foam_ielem)
+        print '  sw foam j-elems:   ' + str(sw_foam_jelem)
+        print 'spar cap height:     ' + ('%5.3f' % stationData['spar cap height'])     + ' m'
+        print '  sc i-elems:        ' + str(sc_ielem)
+        print '  sc j-elems:        ' + str(sc_jelem)
+        if run_TG_silent:
+            print 'silent flag is ON (TrueGrid will exit at end of script)'
+        else:
+            print 'silent flag is OFF'
+        if no_ABQ_output:
+            print 'no-write flag is ON (TrueGrid will not generate an ABAQUS output file)'
+        else:
+            print 'no-write flag is OFF'
+
+    # ----------------------------------------------------------------------------------
+
+    tgTemplate = tgu.readFile('spar_station_nn.tg')
+    # tgTemplate = tgu.readFile('spar_station_nn_20120517_full-hSW.tg')
+    tgFile = tgu.makeTGFile(basefilestr)
+    tgTemplate = tgu.replaceDefaults(tgTemplate, spar_station, stationData, elemData, nowrite_flag=no_ABQ_output, silent_flag=run_TG_silent)
+    if not RB_flag:
+        tgTemplate = tgu.removeRBentries(tgTemplate)
+    tgu.writeNewTGscript(tgFile, tgTemplate)
+    tgFile.close()
+
+# ----------------------------------------------------------------------------------
+print ""
+# print constants
+print "CONSTANTS:"
+print '  shear web foam base: ' + ('%5.3f' % sw_foam_base) + ' m'
+print '  spar cap base:       ' + ('%5.3f' % sc_base)      + ' m'
+
+# print parameters
+print "PARAMETERS:"
+print '  shear web foam, i-elements (initial guess): ' + ('%3d' % sw_foam_ielem_init)
+print '  spar cap, i-elements (initial guess):       ' + ('%3d' % sc_ielem_init)
+print '  maximum aspect ratio for a cell:            ' + ('%6.2f' % maxAR)
+
+# calculate the time it took to run the code
+elapsed_time_tot = time.time() - start_time
+elapsed_min_tot = int(elapsed_time_tot/60)  # extract minutes elapsed
+elapsed_sec_tot = elapsed_time_tot % 60     # extract seconds elapsed
+print ""
+print "program completed in " + str(elapsed_min_tot) + ":" + ("%.2f" % round(elapsed_sec_tot,2)) + "  (min:sec)"

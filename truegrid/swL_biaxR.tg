@@ -1,0 +1,106 @@
+c make a part for the RIGHT BIAX LAMINATE for the LEFT SHEAR WEB
+block
+c determine the node distribution
+c   i-list (8 plies across width of biax laminate)
+    1 2 3 4 5 6 7 8 9;
+c   j-list
+    c 1 7 995 1001;
+    1 [1 + 2*%sc_jelem] [%swbi_jmx - 2*%sc_jelem] %swbi_jmx;
+c   k-list (use -1 to use 2D shell elements in this mesh)
+    -1;
+c specify the coordinates
+c   x-coordinates (width of biax laminate)
+    c -0.753
+    c -0.752625
+    c -0.75225
+    c -0.751875
+    c -0.7515
+    c -0.751125
+    c -0.75075
+    c -0.750375
+    c -0.75;
+    %x3
+    [%x3 + 1.0*%swbi_plythk]
+    [%x3 + 2.0*%swbi_plythk]
+    [%x3 + 3.0*%swbi_plythk]
+    [%x3 + 4.0*%swbi_plythk]
+    [%x3 + 5.0*%swbi_plythk]
+    [%x3 + 6.0*%swbi_plythk]
+    [%x3 + 7.0*%swbi_plythk]
+    %x4;
+c   y-coordinates (height of biax laminate)
+    c -2.3705 -2.3405 2.3405 2.3705;
+    %y2 %y3 %y4 %y5;
+c   z-coordinates
+    c 0;
+    %z_coord;
+
+c make block boundary (master #2) on left edge of mesh
+bb
+c   region
+    1 0 1  c  i-min j-min k-min   (j-min=0 denotes pick extreme min, or j-min=1)
+    1 0 1  c  i-max j-max k-max   (j-max=0 denotes pick extreme max, or j-max=4)
+c   interface
+    2;     c  assign this interface to be #2
+
+c make block boundary (master #5) on right edge of mesh, near top
+bb
+c   region
+    9 3 1  c  i-min j-min k-min
+    9 4 1  c  i-max j-max k-max
+c   interface
+    5;     c  assign this interface to be #5
+
+c make block boundary (master #7) on right edge of mesh, near bottom
+bb
+c   region
+    9 1 1  c  i-min j-min k-min
+    9 2 1  c  i-max j-max k-max
+c   interface
+    7;     c  assign this interface to be #7
+
+c make block boundary (master #11) on top edge of mesh
+bb
+c   region
+    0 4 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 4 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    11;     c  assign this interface to be #11
+
+c make block boundary (master #18) on bottom edge of mesh
+bb
+c   region
+    0 1 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 1 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    18;     c  assign this interface to be #18
+
+c assign the default material to be #2
+mate 2  c biaxial GFRP, theta3 = +45 degrees
+
+c biaxial laminate in shear web has 8 plies: [+/-45]_4
+c assign -45 degree plies of biaxial GFRP (material #3)
+mt
+c   region
+    1 0 1  c  i-min j-min k-min
+    2 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    3 0 1  c  i-min j-min k-min
+    4 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    5 0 1  c  i-min j-min k-min
+    6 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    7 0 1  c  i-min j-min k-min
+    8 0 1  c  i-min j-min k-min
+c   material
+    3

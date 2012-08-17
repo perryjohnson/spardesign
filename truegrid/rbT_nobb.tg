@@ -1,0 +1,141 @@
+c  define some node spacing parameters
+para foam_sp %swfm_ielem;    c spacing across foam core
+para biax_sp 8;              c spacing across biax laminate
+para sc_sp %sc_ielem;        c spacing across spar cap
+para i2 [1+%biax_sp];
+para i3 [%i2+%foam_sp];
+para i4 [%i3+%biax_sp];
+para i5 [%i4+%sc_sp];
+para i6 [%i5+%biax_sp];
+para i7 [%i6+%foam_sp];
+para i8 [%i7+%biax_sp];
+
+c  make a part for the TOP ROOT BUILDUP
+block
+c determine the node distribution
+c   i-list
+    c 1 5 15 19 219 223 233 237;
+    1 %i2 %i3 %i4 %i5 %i6 %i7 %i8;
+c   j-list (6 plies across height of root buildup)
+    1 2 3 4 5 6 7;
+c   k-list (use -1 to use 2D shell elements in this mesh)
+    -1;
+c specify the coordinates
+c   x-coordinates (width of root buildup)
+    c -0.836 -0.833 -0.753 -0.750 0.750 0.753 0.833 0.836;
+    %x1 %x2 %x3 %x4 %x5 %x6 %x7 %x8;
+c   y-coordinates (height of root buildup)
+    c 2.3705
+    c 2.374666667
+    c 2.378833333
+    c 2.383
+    c 2.387166667
+    c 2.391333333
+    c 2.3955;
+    %y5
+    [%y5 + 1.0*%rb_plythk]
+    [%y5 + 2.0*%rb_plythk]
+    [%y5 + 3.0*%rb_plythk]
+    [%y5 + 4.0*%rb_plythk]
+    [%y5 + 5.0*%rb_plythk]
+    %y6;
+c   z-coordinates
+    c 0;
+    %z_coord;
+
+c inttr 0.5  c the relative size of the transition elements
+           c (must be between 0 and 1)
+
+c c make block boundary (slave #9) on bottom edge of mesh
+c c                                   (section: left shear web, left biax)
+c bb
+c c   region
+c     1 1 1  c  i-min j-min k-min
+c     2 1 1  c  i-max j-max k-max
+c c   interface
+c     9;     c  assign this interface to be #9
+c 
+c c make block boundary (slave #10) on bottom edge of mesh
+c c                                   (section: left shear web, foam)
+c bb
+c c   region
+c     2 1 1  c  i-min j-min k-min
+c     3 1 1  c  i-max j-max k-max
+c c   interface
+c     10;     c  assign this interface to be #10
+c 
+c c make block boundary (slave #11) on bottom edge of mesh
+c c                                   (section: left shear web, right biax)
+c bb
+c c   region
+c     3 1 1  c  i-min j-min k-min
+c     4 1 1  c  i-max j-max k-max
+c c   interface
+c     11;     c  assign this interface to be #11
+c 
+c c make block boundary (slave #12) on bottom edge of mesh
+c c                                   (section: spar cap)
+c bb
+c c   region
+c     4 1 1  c  i-min j-min k-min
+c     5 1 1  c  i-max j-max k-max
+c c   interface
+c     12;     c  assign this interface to be #12
+c 
+c c make block boundary (slave #13) on bottom edge of mesh
+c c                                   (section: right shear web, left biax)
+c bb
+c c   region
+c     5 1 1  c  i-min j-min k-min
+c     6 1 1  c  i-max j-max k-max
+c c   interface
+c     13;     c  assign this interface to be #13
+c 
+c c make block boundary (slave #14) on bottom edge of mesh
+c c                                   (section: right shear web, foam)
+c bb
+c c   region
+c     6 1 1  c  i-min j-min k-min
+c     7 1 1  c  i-max j-max k-max
+c c   interface
+c     14;     c  assign this interface to be #14
+c 
+c c make block boundary (slave #15) on bottom edge of mesh
+c c                                   (section: right shear web, right biax)
+c bb
+c c   region
+c     7 1 1  c  i-min j-min k-min
+c     8 1 1  c  i-max j-max k-max
+c c   interface
+c     15;     c  assign this interface to be #15
+
+c assign the default material to be #6
+mate 6  c triaxial GFRP, theta3 = 0 degrees
+
+c root buildup has 6 plies:                  [+/-45]_2 [0]_2
+c assign +45 degree plies of triaxial GFRP (material #4)
+mt
+c   region
+    0 1 1  c  i-min j-min k-min
+    0 2 1  c  i-min j-min k-min
+c   material
+    4
+mt
+c   region
+    0 3 1  c  i-min j-min k-min
+    0 4 1  c  i-min j-min k-min
+c   material
+    4
+c assign -45 degree plies of triaxial GFRP (material #5)
+mt
+c   region
+    0 2 1  c  i-min j-min k-min
+    0 3 1  c  i-min j-min k-min
+c   material
+    5
+mt
+c   region
+    0 4 1  c  i-min j-min k-min
+    0 5 1  c  i-min j-min k-min
+c   material
+    5

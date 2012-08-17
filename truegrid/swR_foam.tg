@@ -1,0 +1,60 @@
+c make a part for the FOAM CORE for the RIGHT SHEAR WEB
+block
+c determine the node distribution
+c   i-list (arbitrary # of plies across width of foam core)
+    c 1 21;
+    1 %swfm_imx;
+c   j-list
+    c 1 501;  c use half as many elements across height as in biax laminate
+    1 %swfm_jmx;
+c   k-list (use -1 to use 2D shell elements in this mesh)
+    -1;
+c specify the coordinates
+c   x-coordinates (width of biax laminate)
+    c 0.753  0.833;
+    %x6 %x7;
+c   y-coordinates (height of biax laminate)
+    c -2.3705 2.3705;
+    %y2 %y5;
+c   z-coordinates
+    c 0;
+    %z_coord;
+
+inttr 0.5  c the relative size of the transition elements
+           c (must be between 0 and 1)
+
+c make transition block boundary (slave #3) on left edge of mesh
+trbb
+c   region
+    1 1 1  c  i-min j-min k-min
+    1 2 1  c  i-max j-max k-max
+c   interface
+    3;     c  assign this interface to be #3
+
+c make transition block boundary (slave #4) on right edge of mesh
+trbb
+c   region
+    2 1 1  c  i-min j-min k-min
+    2 2 1  c  i-max j-max k-max
+c   interface
+    4;     c  assign this interface to be #4
+
+c make block boundary (master #14) on top edge of mesh
+bb
+c   region
+    0 2 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 2 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=2)
+c   interface
+    14;     c  assign this interface to be #14
+
+c make block boundary (master #21) on bottom edge of mesh
+bb
+c   region
+    0 1 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 1 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=2)
+c   interface
+    21;     c  assign this interface to be #21
+
+c assign the default material to be #7
+mate 7  c foam, theta3 = 0 degrees
+

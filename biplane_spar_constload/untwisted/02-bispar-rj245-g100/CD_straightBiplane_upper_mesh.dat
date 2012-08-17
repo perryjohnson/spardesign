@@ -1,0 +1,14 @@
+@CURVE_MESH_PARAMETERS_DEFINITION {
+  @CURVE_MESH_PARAMETERS_NAME {meshCD} {
+    @NUMBER_OF_ELEMENTS { 6}
+    @ORDER_OF_ELEMENTS {3}
+    @ETA_COORDINATE {0.0000}
+    @ETA_COORDINATE {0.1654}
+    @ETA_COORDINATE {0.3622}
+    @ETA_COORDINATE {0.6142}
+    @ETA_COORDINATE {0.7480}
+    @ETA_COORDINATE {0.8740}
+    @ETA_COORDINATE {1.0000}
+    @COMMENTS {models the upper straight biplane region with  6 cubic beam elements}
+  }
+}

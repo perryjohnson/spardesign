@@ -1,0 +1,92 @@
+c make a part for the RIGHT BIAX LAMINATE for the RIGHT SHEAR WEB
+block
+c determine the node distribution
+c   i-list (8 plies across width of biax laminate)
+    1 2 3 4 5 6 7 8 9;
+c   j-list
+    c 1 1001;
+    c 1 %swbi_jmx;
+    1 [1 + 2*%sc_jelem] [%swbi_jmx - 2*%sc_jelem] %swbi_jmx;
+c   k-list (use -1 to use 2D shell elements in this mesh)
+    -1;
+c specify the coordinates
+c   x-coordinates (width of biax laminate)
+    c 0.833
+    c 0.833375
+    c 0.83375
+    c 0.834125
+    c 0.8345
+    c 0.834875
+    c 0.83525
+    c 0.835625
+    c 0.836;
+    %x7
+    [%x7 + 1.0*%swbi_plythk]
+    [%x7 + 2.0*%swbi_plythk]
+    [%x7 + 3.0*%swbi_plythk]
+    [%x7 + 4.0*%swbi_plythk]
+    [%x7 + 5.0*%swbi_plythk]
+    [%x7 + 6.0*%swbi_plythk]
+    [%x7 + 7.0*%swbi_plythk]
+    %x8;   
+c   y-coordinates (height of biax laminate)
+    c -2.3705 2.3705;
+    c %y2 %y5;
+    %y2 %y3 %y4 %y5;
+c   z-coordinates
+    c 0;
+    %z_coord;
+
+c make block boundary (master #4) on left edge of mesh
+bb
+c   region
+    1 0 1  c  i-min j-min k-min
+    1 0 1  c  i-max j-max k-max
+c   interface
+    4;     c  assign this interface to be #4
+
+c make block boundary (master #15) on top edge of mesh
+bb
+c   region
+    0 4 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 4 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    15;     c  assign this interface to be #15
+
+c make block boundary (master #22) on bottom edge of mesh
+bb
+c   region
+    0 1 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+    0 1 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=9)
+c   interface
+    22;     c  assign this interface to be #22
+
+c assign the default material to be #2
+mate 2  c biaxial GFRP, theta3 = +45 degrees
+
+c biaxial laminate in shear web has 8 plies: [+/-45]_4
+c assign -45 degree plies of biaxial GFRP (material #3)
+mt
+c   region
+    2 0 1  c  i-min j-min k-min
+    3 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    4 0 1  c  i-min j-min k-min
+    5 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    6 0 1  c  i-min j-min k-min
+    7 0 1  c  i-min j-min k-min
+c   material
+    3
+mt
+c   region
+    8 0 1  c  i-min j-min k-min
+    9 0 1  c  i-min j-min k-min
+c   material
+    3

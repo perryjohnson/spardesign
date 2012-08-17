@@ -1,0 +1,51 @@
+c make a part for the TOP SPAR CAP
+block
+c determine the node distribution
+c   i-list
+    c 1 201;
+    1 [1+%sc_ielem];
+c   j-list (2 plies across height of spar cap)
+    c 1 3;
+    1 [1+%sc_jelem];
+c   k-list (use -1 to use 2D shell elements in this mesh)
+    -1;
+c specify the coordinates
+c   x-coordinates (width of spar cap)
+    c -0.750  0.750;
+    %x4 %x5;
+c   y-coordinates (height of spar cap)
+    c 2.3405 2.3705;
+    %y4 %y5;
+c   z-coordinates
+    c 0;
+    %z_coord;
+
+inttr 0.5  c the relative size of the transition elements
+           c (must be between 0 and 1)
+
+c c make block boundary (slave #5) on left edge of mesh
+c trbb
+c c   region
+c     1 1 1  c  i-min j-min k-min
+c     1 2 1  c  i-max j-max k-max
+c c   interface
+c     5;     c  assign this interface to be #5
+c 
+c c make block boundary (slave #6) on right edge of mesh
+c trbb
+c c   region
+c     2 1 1  c  i-min j-min k-min
+c     2 2 1  c  i-max j-max k-max
+c c   interface
+c     6;     c  assign this interface to be #6
+c 
+c c make block boundary (master #12) on top edge of mesh
+c bb
+c c   region
+c     0 2 1  c  i-min j-min k-min   (i-min=0 denotes pick extreme min, or i-min=1)
+c     0 2 1  c  i-max j-max k-max   (i-max=0 denotes pick extreme max, or i-max=2)
+c c   interface
+c     12;     c  assign this interface to be #12
+
+c assign the default material to be #1
+mate 1  c uniaxial GFRP, theta3 = 0 degrees
