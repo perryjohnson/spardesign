@@ -1,31 +1,59 @@
 ## takes VABS input and output files, and writes a Tecplot input file
-#   spar_station_24.dat     = VABS input file
+#############   spar_station_24.dat     = VABS input file
 #   nodes.txt               = nodes/coordinates from VABS input file
 #   connectivity.txt        = element connectivity from VABS input file
 #   spar_station_24.dat.ELE = VABS output file with averaged 3D strain/stress data for each element
 #   spar_station_24_tp.dat  = Tecplot input file
 
 import numpy as np
+import os
 
-# load data from VABS input file
-node_no, x2, x3 = np.loadtxt('nodes.txt', unpack=True)
+print 'Please type the VABS input file path.'
+print '  For example: ../../VABS/input_files/spar_station_24.dat'
+# VABS_input_file = raw_input('  VABS input file path = ')
+VABS_input_file = '../../VABS/input_files/spar_station_24.dat'
+print 'Using VABS input file:', VABS_input_file
+
+
+# load data from VABS input file ############################################################################
+f = open(VABS_input_file, 'r')   # read the file
+VABS_input_data = f.readlines()  # parse all characters in file into one long string
+nnode = int(VABS_input_data[4].split(' ')[0])  # total number of nodes
+nelem = int(VABS_input_data[4].split(' ')[1])  # total number of elements
+
+nodeFile = open('nodes.txt', 'w+')  # create a temp file to store all the nodes
+node_block_start_line = 6
+node_block_end_line = node_block_start_line+nnode
+for i in range(node_block_start_line,node_block_end_line):
+    nodeFile.write(VABS_input_data[i])
+nodeFile.close()
+node_no, x2, x3 = np.loadtxt('nodes.txt', unpack=True)  # store all the nodes in an array
+os.remove('nodes.txt')  # delete the temp file
+
+connFile = open('connectivity.txt', 'w+')  # create a temp file to store the element connectivity
+conn_block_start_line = node_block_end_line+1
+conn_block_end_line = conn_block_start_line+nelem
+for i in range(conn_block_start_line,conn_block_end_line):
+    connFile.write(VABS_input_data[i])
+connFile.close()
 conn = np.loadtxt('connectivity.txt', dtype=int, usecols=(1,2,3,4))
-elem_no, e11_b, e12_b, e13_b, e22_b, e23_b, e33_b, s11_b, s12_b, s13_b, s22_b, s23_b, s33_b, e11_m, e12_m, e13_m, e22_m, e23_m, e33_m, s11_m, s12_m, s13_m, s22_m, s23_m, s33_m = np.loadtxt('spar_station_24.dat.ELE', unpack=True)
+os.remove('connectivity.txt')  # delete the temp file
 
-# store number of nodes (nnode) and number of elements (nelem)
-nnode = int(node_no[-1])
-nelem = int(elem_no[-1])
+
+# load data from VABS recovery file #########################################################################
+VABS_recovery_file = VABS_input_file + '.ELE'
+elem_no, e11_b, e12_b, e13_b, e22_b, e23_b, e33_b, s11_b, s12_b, s13_b, s22_b, s23_b, s33_b, e11_m, e12_m, e13_m, e22_m, e23_m, e33_m, s11_m, s12_m, s13_m, s22_m, s23_m, s33_m = np.loadtxt(VABS_recovery_file, unpack=True)
 
 # open a new file for the Tecplot input file
-tpFile = open('spar_station_24_tp.dat', 'w+')
+tpFile = open(VABS_input_file + '.tp', 'w+')
 
 # write the header for the Tecplot input file
 tpFile.write(
 """TITLE="Avg 3D strain/stress for each element"
 VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
-ZONE T="isorect", N=10192, E=2896, ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)
-"""
+ZONE T="isorect", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
 )
+tpFile.write(', N=' + str(nnode) + ', E=' + str(nelem) + '\n')
 
 ## write a column of data for one variable as a row for Tecplot
 ##      input:  varname <np.array>, array containing the variable's data

@@ -1,0 +1,473 @@
+#!MC 1000
+$!VarSet |LFDSFN1| = '"spar_station_24.dat.tp"'
+$!VarSet |LFDSVL1| = '"x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"'
+$!SETSTYLEBASE FACTORY
+$!PAPER 
+  BACKGROUNDCOLOR = WHITE
+  ISTRANSPARENT = YES
+  ORIENTPORTRAIT = NO
+  SHOWGRID = NO
+  SHOWRULER = YES
+  SHOWPAPER = YES
+  PAPERSIZE = LETTER
+  PAPERSIZEINFO
+    {
+    LETTER
+      {
+      WIDTH = 8.5
+      HEIGHT = 11
+      LEFTHARDCLIPOFFSET = 0.125
+      RIGHTHARDCLIPOFFSET = 0.125
+      TOPHARDCLIPOFFSET = 0.125
+      BOTTOMHARDCLIPOFFSET = 0.125
+      }
+    }
+  RULERSPACING = ONEINCH
+  PAPERGRIDSPACING = HALFINCH
+  REGIONINWORKAREA
+    {
+    X1 = -0.05
+    Y1 = -0.05
+    X2 = 11.05
+    Y2 = 8.55
+    }
+$!COLORMAP 
+  CONTOURCOLORMAP = USERDEF
+$!COLORMAPCONTROL RESETTOFACTORY
+$!COLORMAP 
+  USERDEFINED
+    {
+    NUMCONTROLPOINTS = 7
+    CONTROLPOINT 1
+      {
+      LEADRGB
+        {
+        B = 0
+        }
+      TRAILRGB
+        {
+        B = 0
+        }
+      }
+    CONTROLPOINT 2
+      {
+      COLORMAPFRACTION = 0.125
+      LEADRGB
+        {
+        R = 32
+        G = 32
+        B = 32
+        }
+      TRAILRGB
+        {
+        R = 32
+        G = 32
+        B = 32
+        }
+      }
+    CONTROLPOINT 3
+      {
+      COLORMAPFRACTION = 0.25
+      LEADRGB
+        {
+        R = 64
+        G = 64
+        B = 64
+        }
+      TRAILRGB
+        {
+        R = 64
+        G = 64
+        B = 64
+        }
+      }
+    CONTROLPOINT 4
+      {
+      COLORMAPFRACTION = 0.375
+      LEADRGB
+        {
+        R = 96
+        G = 96
+        B = 96
+        }
+      TRAILRGB
+        {
+        R = 96
+        G = 96
+        B = 96
+        }
+      }
+    CONTROLPOINT 5
+      {
+      COLORMAPFRACTION = 0.5
+      LEADRGB
+        {
+        R = 128
+        G = 128
+        B = 128
+        }
+      TRAILRGB
+        {
+        R = 128
+        G = 128
+        B = 128
+        }
+      }
+    CONTROLPOINT 6
+      {
+      COLORMAPFRACTION = 0.625
+      LEADRGB
+        {
+        R = 160
+        G = 160
+        B = 160
+        }
+      TRAILRGB
+        {
+        R = 160
+        G = 160
+        B = 160
+        }
+      }
+    CONTROLPOINT 7
+      {
+      COLORMAPFRACTION = 0.75
+      LEADRGB
+        {
+        R = 192
+        G = 192
+        B = 192
+        }
+      TRAILRGB
+        {
+        R = 192
+        G = 192
+        B = 192
+        }
+      }
+    }
+### Frame Number 1 ###
+$!READDATASET  '|LFDSFN1|' 
+  INITIALPLOTTYPE = CARTESIAN2D
+  INCLUDETEXT = NO
+  INCLUDEGEOM = NO
+  VARLOADMODE = BYNAME
+  VARNAMELIST = '|LFDSVL1|' 
+$!REMOVEVAR |LFDSVL1|
+$!REMOVEVAR |LFDSFN1|
+$!FRAMELAYOUT 
+  SHOWBORDER = NO
+  SHOWHEADER = NO
+  ISTRANSPARENT = YES
+  HEADERCOLOR = RED
+  XYPOS
+    {
+    X = 0.5
+    Y = 1.5
+    }
+  WIDTH = 10
+  HEIGHT = 5.5
+$!PLOTTYPE  = CARTESIAN2D
+$!FRAMENAME  = 'Frame 001' 
+$!ACTIVEFIELDZONES  =  [1]
+$!GLOBALRGB 
+  RANGEMIN = 0
+  RANGEMAX = 1
+$!GLOBALCONTOUR  1
+  VAR = 3
+  DEFNUMLEVELS = 14
+  LEGEND
+    {
+    SHOW = YES
+    SHOWHEADER = NO
+    XYPOS
+      {
+      X = 99.8
+      Y = 50
+      }
+    ANCHORALIGNMENT = MIDDLERIGHT
+    BOX
+      {
+      BOXTYPE = NONE
+      }
+    }
+  COLORCUTOFF
+    {
+    RANGEMIN = -1.67105107529E-009
+    RANGEMAX = 4.16300438566E-009
+    }
+  COLORMAPFILTER
+    {
+    COLORMAPDISTRIBUTION = CONTINUOUS
+    CONTINUOUSCOLOR
+      {
+      CMIN = -4.58807880577E-009
+      CMAX = 7.08003211614E-009
+      }
+    }
+$!CONTOURLEVELS NEW
+  CONTOURGROUP = 1
+  RAWDATA
+14
+-5E-009
+-4E-009
+-3E-009
+-2E-009
+-1E-009
+0
+1E-009
+2E-009
+3E-009
+4E-009
+5E-009
+6E-009
+7E-009
+8E-009
+$!GLOBALCONTOUR  2
+  VAR = 4
+  LEGEND
+    {
+    XYPOS
+      {
+      X = 95
+      }
+    }
+  COLORCUTOFF
+    {
+    RANGEMIN = -2.61563828322E-011
+    RANGEMAX = -5.27982583869E-012
+    }
+  COLORMAPFILTER
+    {
+    CONTINUOUSCOLOR
+      {
+      CMIN = -3.6594661329E-011
+      CMAX = 5.15845265808E-012
+      }
+    }
+$!CONTOURLEVELS NEW
+  CONTOURGROUP = 2
+  RAWDATA
+20
+-3.4E-011
+-3.2E-011
+-3E-011
+-2.8E-011
+-2.6E-011
+-2.4E-011
+-2.2E-011
+-2E-011
+-1.8E-011
+-1.6E-011
+-1.4E-011
+-1.2E-011
+-1E-011
+-8E-012
+-6E-012
+-4E-012
+-2E-012
+0
+2E-012
+4E-012
+$!GLOBALCONTOUR  3
+  VAR = 5
+  LEGEND
+    {
+    XYPOS
+      {
+      X = 95
+      }
+    }
+  COLORCUTOFF
+    {
+    RANGEMIN = -2.29898339948E-011
+    RANGEMAX = 2.30124825445E-011
+    }
+  COLORMAPFILTER
+    {
+    CONTINUOUSCOLOR
+      {
+      CMIN = -4.59909922645E-011
+      CMAX = 4.60136408142E-011
+      }
+    }
+$!CONTOURLEVELS NEW
+  CONTOURGROUP = 3
+  RAWDATA
+17
+-4E-011
+-3.5E-011
+-3E-011
+-2.5E-011
+-2E-011
+-1.5E-011
+-1E-011
+-5E-012
+0
+5E-012
+1E-011
+1.5E-011
+2E-011
+2.5E-011
+3E-011
+3.5E-011
+4E-011
+$!GLOBALCONTOUR  4
+  VAR = 6
+  LEGEND
+    {
+    XYPOS
+      {
+      X = 95
+      }
+    }
+  COLORCUTOFF
+    {
+    RANGEMIN = -4.70375449702E-009
+    RANGEMAX = 1.96044047662E-009
+    }
+  COLORMAPFILTER
+    {
+    CONTINUOUSCOLOR
+      {
+      CMIN = -8.03585198383E-009
+      CMAX = 5.29253796344E-009
+      }
+    }
+$!CONTOURLEVELS NEW
+  CONTOURGROUP = 4
+  RAWDATA
+13
+-7E-009
+-6E-009
+-5E-009
+-4E-009
+-3E-009
+-2E-009
+-1E-009
+0
+1E-009
+2E-009
+3E-009
+4E-009
+5E-009
+$!GLOBALSCATTER 
+  LEGEND
+    {
+    XYPOS
+      {
+      X = 95
+      }
+    }
+  REFSCATSYMBOL
+    {
+    COLOR = RED
+    FILLCOLOR = RED
+    }
+$!FIELD  [1]
+  MESH
+    {
+    COLOR = RED
+    }
+  CONTOUR
+    {
+    CONTOURTYPE = FLOOD
+    COLOR = RED
+    USELIGHTINGEFFECT = YES
+    }
+  VECTOR
+    {
+    COLOR = RED
+    }
+  SCATTER
+    {
+    COLOR = RED
+    }
+  SHADE
+    {
+    COLOR = WHITE
+    }
+  BOUNDARY
+    {
+    SHOW = YES
+    COLOR = RED
+    }
+  POINTS
+    {
+    POINTSTOPLOT = SURFACENODES
+    }
+  SURFACES
+    {
+    SURFACESTOPLOT = KPLANES
+    }
+  VOLUMEMODE
+    {
+    VOLUMEOBJECTSTOPLOT
+      {
+      SHOWISOSURFACES = NO
+      SHOWSLICES = NO
+      SHOWSTREAMTRACES = NO
+      }
+    }
+$!TWODAXIS 
+  XDETAIL
+    {
+    VARNUM = 1
+    }
+  YDETAIL
+    {
+    VARNUM = 2
+    }
+$!VIEW FIT
+$!TWODAXIS 
+  AUTOADJUSTRANGESTONICEVALUES = YES
+  DEPXTOYRATIO = 1
+  VIEWPORTPOSITION
+    {
+    X1 = 9
+    Y1 = 20
+    X2 = 90
+    Y2 = 78.909
+    }
+  VIEWPORTTOPSNAPTARGET = 77.9090909091
+$!TWODAXIS 
+  XDETAIL
+    {
+    RANGEMIN = -1
+    RANGEMAX = 1
+    GRSPACING = 0.5
+    TITLE
+      {
+      TITLEMODE = USETEXT
+      TEXT = 'x2 [m]' 
+      OFFSET = 6
+      }
+    }
+$!TWODAXIS 
+  YDETAIL
+    {
+    RANGEMIN = -0.4000000000000003
+    RANGEMAX = 0.39999999999999897
+    GRSPACING = 0.2
+    TITLE
+      {
+      TITLEMODE = USETEXT
+      TEXT = 'x3 [m]' 
+      OFFSET = 5
+      }
+    }
+$!GLOBALISOSURFACE 
+  ISOVALUE1 = -1.67105107529E-009
+  ISOVALUE2 = 1.24597665518E-009
+  ISOVALUE3 = 4.16300438566E-009
+  MARCHINGCUBEALGORITHM = CLASSICPLUS
+$!GLOBALSLICE 
+  BOUNDARY
+    {
+    SHOW = NO
+    }
+$!FIELDLAYERS 
+  SHOWMESH = NO
+  SHOWCONTOUR = YES
+  SHOWBOUNDARY = NO
+$!SETSTYLEBASE CONFIG
