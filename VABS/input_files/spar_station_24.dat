@@ -1,5 +1,5 @@
 1 7
-1 1 0    # Timoshenko_flag  recover_flag  thermal_flag
+1 0 0    # Timoshenko_flag  recover_flag  thermal_flag
 0 0 0 0  # curve_flag  oblique_flag  trapeze_flag  Vlasov_flag
 
 20168 6032 4   # nnode  nelem  nmate   (where: nnode = total number of nodes, nelem = total number of elements, nmate = total number of material types)
@@ -32268,13 +32268,3 @@
 4   0   # Foam
 2.56000e+08   3.00000e-01
 2.00000e+02
-
-0.0  0.0  0.0                 # u1  u2  u3              (1D beam displacements along x1 x2 x3)
-1.0  0.0  0.0
-0.0  1.0  0.0
-0.0  0.0  1.0
--1.234658784099e-007  1.576483653780e-006  1.524716557656e+002  2.659353366804e-012            # F1  M1  M2  M3          (sectional axial force, torque, bending moment around x2, bending moment around x3)
--1.237560647019e-013 -5.522399749029e+002                      # F2  F3                  (sectional transverse shear forces along x2 and x3)
-0.0  0.0 -1.0  0.0  0.0  0.0  # f1  f2  f3  m1  m2  m3  (applied loads: fi, dist forces per unit span along x1 x2 x3; mi, dist moments per unit span along x1 x2 x3)
-0.0  0.0  0.0  0.0  0.0  0.0  # f1' f2' f3' m1' m2' m3' (first derivative of applied loads)
-0.0  0.0  0.0  0.0  0.0  0.0  # f1" f2" f3" m1" m2" m3" (second derivative of applied loads)
