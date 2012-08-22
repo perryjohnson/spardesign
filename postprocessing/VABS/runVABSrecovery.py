@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 print "\n**********"
 print "running VABS in normal mode..."
@@ -72,15 +73,17 @@ recovery_dict = {# ui: 1D beam displacements
 # applied loads from DYMORE (monoplane_spar_constload/untwisted/grid_density_1/loadDist.dat)
 recovery_dict['f3'] = -1000.0  # [N/m] constant load distribution, flapwise direction
 
-# spar_station_24 results from DYMORE (monoplane_spar_constload/untwisted/grid_density_1/FIGURES/svy_force_spar.mdt)
-#  (eta = 9.939908599036e-001)
-recovery_dict['F1'] = -1.234658784099e-007
-recovery_dict['F2'] = -1.237560647019e-013
-recovery_dict['F3'] = -5.522399749029e+002
-recovery_dict['M1'] =  1.576483653780e-006
-recovery_dict['M2'] =  1.524716557656e+002
-recovery_dict['M3'] =  2.659353366804e-012
+# read extrapolated results from DYMORE (monoplane_spar_constload/untwisted/grid_density_1/FIGURES/svy_force_spar_new.mdt)
+os.chdir('../monoplane_spar_constload/untwisted/grid_density_1/FIGURES')
+F1, F2, F3, M1, M2, M3 = np.loadtxt('svy_force_spar_new.mdt', usecols=(2,3,4,5,6,7), unpack=True)
+recovery_dict['F1'] = F1[-1]  # take the last row for spar station #24
+recovery_dict['F2'] = F2[-1]
+recovery_dict['F3'] = F3[-1]
+recovery_dict['M1'] = M1[-1]
+recovery_dict['M2'] = M2[-1]
+recovery_dict['M3'] = M3[-1]
 
+os.chdir('../../../../VABS')
 f = open('./input_files/spar_station_24.dat', 'a')   # append the file
 # write the recovery mode inputs at the end of the VABS input file
 f.write('\n' +
