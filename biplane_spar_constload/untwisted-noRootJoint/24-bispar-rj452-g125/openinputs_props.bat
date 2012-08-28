@@ -1,0 +1,1 @@
+gvim -p CD_straightBiplane_upper_props.dat GH_straightBiplane_lower_props.dat DE_jointTrans_upper_props.dat HE_jointTrans_lower_props.dat EF_monoOutboard_props.dat

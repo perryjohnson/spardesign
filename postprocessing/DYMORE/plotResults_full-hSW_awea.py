@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from matplotlib import rc
+
+# adjust font sizes
+rc('font', size=18.0)  # make fonts bigger, for readable presentation slides
 
 monoplane_dir = 'D:\\data\\2012-03-05 (truegrid-VABS-DYMORE mesh refinement)\\grid_density_1\\dymore\\FIGURES'
 
@@ -131,7 +135,7 @@ def plot_monospar_deflection(skip_num):
     AB = np.loadtxt('svy_disp_spar.mdt')
     B = 91.9
     AB[:,0] = AB[:,0]*B
-    plt.plot(AB[::skip_num,0], AB[::skip_num,3], 'bo--', label='monoplane spar')
+    plt.plot(AB[::skip_num,0], AB[::skip_num,3], 'bo--', markersize=10, linewidth=3.0, label='monoplane spar', zorder=2)
     mono_defl_data = np.vstack( (AB[::skip_num,0],AB[::skip_num,3]) ).T
     plt.show()
 
@@ -189,7 +193,7 @@ def plot_monospar_bendmoment(x1):
     y1 = f_x(x1)  # use extrapolations function returned by 'extrap1d'
 
     # plt.plot(x, y, 'o', x1, y1, 'rs-')
-    plt.plot(x1, y1/1000.0, 'bo--', label='monoplane spar')
+    plt.plot(x1, y1/1000.0, 'bo--', markersize=10, linewidth=3.0, label='monoplane spar', zorder=2)
     plt.show()
 
     return
@@ -379,9 +383,9 @@ def load_bispar_nn_strain(C,D,E,F,G,H):
 
 
 def plot_bispar_deflection(bispar_upper, bispar_lower, skip_num):
-    plt.plot(bispar_upper[::skip_num,0], bispar_upper[::skip_num,3], 'rs-', label='biplane spar, upper')
-    plt.plot(bispar_lower[::skip_num,0], bispar_lower[::skip_num,3], 'g^-', label='biplane spar, lower')
-    plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
+    plt.plot(bispar_upper[::skip_num,0], bispar_upper[::skip_num,3], 'rs-', markersize=10, linewidth=3.0, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[::skip_num,0], bispar_lower[::skip_num,3], 'g^-', markersize=10, linewidth=3.0, label='biplane spar, lower', zorder=4)
+    # plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower'), loc='lower left' )
     plt.show()
 
     bi_upper_defl_data = np.vstack( (bispar_upper[::skip_num,0], bispar_upper[::skip_num,3]) ).T
@@ -416,8 +420,8 @@ def plot_bispar_shearforce(bispar_upper, bispar_lower, x1):
 
 
 def plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_num):
-    plt.plot(bispar_upper[:,0], bispar_upper[:,5]/1000.0, 'rs-', label='biplane spar, upper')
-    plt.plot(bispar_lower[:,0], bispar_lower[:,5]/1000.0, 'g^-', label='biplane spar, lower')
+    plt.plot(bispar_upper[:,0], bispar_upper[:,5]/1000.0, 'rs-', markersize=10, linewidth=3.0, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[:,0], bispar_lower[:,5]/1000.0, 'g^-', markersize=10, linewidth=3.0, label='biplane spar, lower', zorder=4)
     plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
     plt.show()
     return
@@ -457,14 +461,19 @@ def plot_bispar_strain3(bispar_upper, bispar_lower, skip_num):
 
 # compare deflections
 plt.figure(figsize=(5*scalefactor,6*scalefactor))
+# plt.figure(figsize=(5*scalefactor,1.5*scalefactor))
 # plt.title('deflections')
 plt.axes().set_aspect('auto')
 mono_data = plot_monospar_deflection(skip_every)
 (bispar_upper, bispar_lower) = load_bispar_nn_displacement(C,D,E,F,G,H)
 (bi_upper_data, bi_lower_data) = plot_bispar_deflection(bispar_upper, bispar_lower, skip_every)
+plt.plot([0,100],[0,0],'k--',linewidth=2.2, label='zeroline', zorder=1)  # plot zero-line of y-axis
+plt.ylim([-0.6,0.1])
 plt.xlabel('span [m]')
 plt.ylabel('deflection in x3-direction [m]')
-plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\deflections_bispar24.png')
+plt.ylabel('flapwise (out-of-plane) deflection [m]')
+plt.ylabel('deflection [m]')
+# plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\deflections_bispar24.png')
 
 
 # # plot deflection reductions
@@ -514,17 +523,19 @@ plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlant
 # plt.ylabel('shear force in x3-direction [N]')
 
 
-# compare bending moments
-plt.figure(figsize=(5*scalefactor,6*scalefactor))
-# plt.title('bending moments')
-plt.axes().set_aspect('auto')
-plot_monospar_bendmoment(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
-plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_every)
-# plt.ylim(ymin=0)
-plt.xlabel('span [m]')
-plt.ylabel('bending moment about x2-axis [kN*m]')
-plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\bendmoment_bispar24.png')
+# # compare bending moments
+# plt.figure(figsize=(5*scalefactor,6*scalefactor))
+# # plt.title('bending moments')
+# plt.axes().set_aspect('auto')
+# plot_monospar_bendmoment(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
+# plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_every)
+# plt.plot([0,100],[0,0],'k--',linewidth=2.2, label='zeroline', zorder=1)  # plot zero-line of y-axis
+# # plt.ylim(ymin=0)
+# plt.xlabel('span [m]')
+# # plt.ylabel('bending moment about x2-axis [kN*m]')
+# plt.ylabel('flapwise (out-of-plane) bending moment [kN*m]')
+# plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\bendmoment_bispar24.png')
 
 
 # # compare stresses
@@ -547,36 +558,36 @@ plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlant
 # plt.ylabel('strain in x1-direction [-]')
 
 
-# compare x1 strains
-plt.figure()
-plt.title('strains')
-plt.axes().set_aspect('auto')
-plot_monospar_strain1(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
-plot_bispar_strain1(bispar_upper, bispar_lower, skip_every)
-plt.xlabel('span [m]')
-plt.ylabel('strain in x1-direction [-]')
+# # compare x1 strains
+# plt.figure()
+# plt.title('strains')
+# plt.axes().set_aspect('auto')
+# plot_monospar_strain1(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
+# plot_bispar_strain1(bispar_upper, bispar_lower, skip_every)
+# plt.xlabel('span [m]')
+# plt.ylabel('strain in x1-direction [-]')
 
-# compare x2 strains
-plt.figure()
-plt.title('strains')
-plt.axes().set_aspect('auto')
-plot_monospar_strain2(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
-plot_bispar_strain2(bispar_upper, bispar_lower, skip_every)
-plt.xlabel('span [m]')
-plt.ylabel('strain in x2-direction [-]')
+# # compare x2 strains
+# plt.figure()
+# plt.title('strains')
+# plt.axes().set_aspect('auto')
+# plot_monospar_strain2(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
+# plot_bispar_strain2(bispar_upper, bispar_lower, skip_every)
+# plt.xlabel('span [m]')
+# plt.ylabel('strain in x2-direction [-]')
 
-# compare x3 strains
-plt.figure()
-plt.title('strains')
-plt.axes().set_aspect('auto')
-plot_monospar_strain3(x1_stn)
-(bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
-plot_bispar_strain3(bispar_upper, bispar_lower, skip_every)
-plt.xlabel('span [m]')
-plt.ylabel('strain in x3-direction [-]')
+# # compare x3 strains
+# plt.figure()
+# plt.title('strains')
+# plt.axes().set_aspect('auto')
+# plot_monospar_strain3(x1_stn)
+# (bispar_upper, bispar_lower) = load_bispar_nn_strain(C,D,E,F,G,H)
+# plot_bispar_strain3(bispar_upper, bispar_lower, skip_every)
+# plt.xlabel('span [m]')
+# plt.ylabel('strain in x3-direction [-]')
 
 
 # return to the original directory
-os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\postprocessing\\DYMORE')
+os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\postprocessing')
