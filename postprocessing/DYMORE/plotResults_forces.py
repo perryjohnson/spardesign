@@ -184,7 +184,7 @@ def plot_monospar_shearforce(x1):
     y1 = f_x(x1)  # use extrapolations function returned by 'extrap1d'
 
     # plt.plot(x, y, 'o', x1, y1, 'rs-')  # test that interpolation and extrapolation are working properly
-    plt.plot(x1, y1, 'bo--', label='monoplane spar')
+    plt.plot(x1, y1, 'rs--', markerfacecolor=gmfc, markersize=gms, linewidth=glw, markeredgewidth=gmew, markeredgecolor=mec_ms,  label='monoplane spar', zorder=2)
     plt.show()
 
     return
@@ -453,9 +453,26 @@ def plot_bispar_shearforce(bispar_upper, bispar_lower, x1):
 
     # plt.plot(x_upper, y_upper, 'g^', x1, y1_upper, 'rs-')  # test plot to make sure extrapolation is working
 
-    plt.plot(bispar_upper[:,0], bispar_upper[:,3], 'rs-', label='biplane spar, upper')
-    plt.plot(bispar_lower[:,0], bispar_lower[:,3], 'g^-', label='biplane spar, lower')
-    plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower'), loc='lower right')
+    plt.plot(bispar_upper[:,0], bispar_upper[:,3], 'go-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[:,0], bispar_lower[:,3], 'gx-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, lower', zorder=4)
+    # plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower'), loc='lower right')
+    plt.show()
+    return
+
+
+def plot_bispar_shearforce2(bispar_upper, bispar_lower, x1):
+    x_upper = bispar_upper[:,0]
+    y_upper = bispar_upper[:,3]
+    f_i_upper = interp1d(x_upper, y_upper)
+    f_x_upper = extrap1d(f_i_upper)
+
+    y1_upper = f_x_upper(x1)  # use extrapolations function returned by 'extrap1d'
+
+    # plt.plot(x_upper, y_upper, 'g^', x1, y1_upper, 'rs-')  # test plot to make sure extrapolation is working
+
+    plt.plot(bispar_upper[:,0], bispar_upper[:,3], 'bo-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[:,0], bispar_lower[:,3], 'bx-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, lower', zorder=4)
+    # plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower'), loc='lower right')
     plt.show()
     return
 
@@ -508,20 +525,20 @@ def plot_bispar_strain3(bispar_upper, bispar_lower, skip_num):
     return
 
 
-# compare deflections
-plt.figure(figsize=(fw*scalefactor,fh*scalefactor))
-# plt.title('deflections')
-plt.axes().set_aspect('auto')
-mono_data = plot_monospar_deflection(skip_every)
-(bispar_upper, bispar_lower) = load_bispar_nn_displacement(C,D,E,F,G,H)
-(bispar_upper2, bispar_lower2) = load_bispar_nn_displacement2(C,D,E,F,G,H)
-(bi_upper_data, bi_lower_data) = plot_bispar_deflection(bispar_upper, bispar_lower, skip_every)
-(bi_upper_data2, bi_lower_data2) = plot_bispar_deflection2(bispar_upper2, bispar_lower2, skip_every)
-plt.plot([0,100],[0,0],'k:',linewidth=2.0, label='zeroline', zorder=1)  # plot zero-line of y-axis
-plt.ylim([-0.6,0.1])
-plt.xlabel('span [m]')
-plt.ylabel('flapwise (out-of-plane) deflection [m]')
-plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\paper\\FIGURES\\deflections.eps')
+# # compare deflections
+# plt.figure(figsize=(fw*scalefactor,fh*scalefactor))
+# # plt.title('deflections')
+# plt.axes().set_aspect('auto')
+# mono_data = plot_monospar_deflection(skip_every)
+# (bispar_upper, bispar_lower) = load_bispar_nn_displacement(C,D,E,F,G,H)
+# (bispar_upper2, bispar_lower2) = load_bispar_nn_displacement2(C,D,E,F,G,H)
+# (bi_upper_data, bi_lower_data) = plot_bispar_deflection(bispar_upper, bispar_lower, skip_every)
+# (bi_upper_data2, bi_lower_data2) = plot_bispar_deflection2(bispar_upper2, bispar_lower2, skip_every)
+# plt.plot([0,100],[0,0],'k:',linewidth=2.0, label='zeroline', zorder=1)  # plot zero-line of y-axis
+# plt.ylim([-0.6,0.1])
+# plt.xlabel('span [m]')
+# plt.ylabel('flapwise (out-of-plane) deflection [m]')
+# # plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\paper\\FIGURES\\deflections.eps')
 
 
 
@@ -561,15 +578,18 @@ plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlant
 # plt.ylabel('rotation about x2-axis [rad]')
 
 
-# # compare shear forces
-# plt.figure()
+# compare shear forces
+plt.figure(figsize=(fw*scalefactor,fh*scalefactor))
 # plt.title('shear forces')
-# plt.axes().set_aspect('auto')
-# plot_monospar_shearforce(x1_stn)
-# (bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
-# plot_bispar_shearforce(bispar_upper, bispar_lower, x1_stn)
-# plt.xlabel('span [m]')
-# plt.ylabel('shear force in x3-direction [N]')
+plt.axes().set_aspect('auto')
+plot_monospar_shearforce(x1_stn)
+(bispar_upper, bispar_lower) = load_bispar_nn_force(C,D,E,F,G,H)
+(bispar_upper2, bispar_lower2) = load_bispar_nn_force2(C,D,E,F,G,H)
+plot_bispar_shearforce(bispar_upper, bispar_lower, x1_stn)
+plot_bispar_shearforce2(bispar_upper2, bispar_lower2, x1_stn)
+plt.xlabel('span [m]')
+plt.ylabel('shear force in x3-direction [N]')
+plt.subplots_adjust(left=0.20, right=0.94)
 
 
 # compare bending moments
@@ -588,7 +608,7 @@ plt.xlabel('span [m]')
 # plt.ylabel('bending moment about x2-axis [kN*m]')
 plt.ylabel('flapwise (out-of-plane) bending moment [kN*m]')
 plt.subplots_adjust(left=0.16, right=0.94)
-plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\paper\\FIGURES\\bendmoment.eps')
+# plt.savefig('D:\\Dropbox\\ucla\\research\\perry\\papers\\conference\\AWEA_atlanta_2012\\paper\\FIGURES\\bendmoment.eps')
 
 
 # # compare stresses
