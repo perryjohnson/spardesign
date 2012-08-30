@@ -250,62 +250,149 @@ for i in range(24):
         f.write(
             '%5i'     % current_station +  # station
             '%7.1f'   % x1_CD_new[-1]   +  # x1
-            '%21.12e' % ((F1_CD_new[-1] + x1_DE_new[0])/2.0)    +  # F1_upper
-            '%21.12e' % ((F2_CD_new[-1] + x1_DE_new[0])/2.0)    +  # F2_upper
-            '%21.12e' % ((F3_CD_new[-1] + x1_DE_new[0])/2.0)    +  # F3_upper
-            '%21.12e' % ((M1_CD_new[-1] + x1_DE_new[0])/2.0)    +  # M1_upper
-            '%21.12e' % ((M2_CD_new[-1] + x1_DE_new[0])/2.0)    +  # M2_upper
-            '%21.12e' % ((M3_CD_new[-1] + x1_DE_new[0])/2.0)    +  # M3_upper
-            '%21.12e' % ((F1_GH_new[-1] + x1_HE_new[0])/2.0)    +  # F1_lower
-            '%21.12e' % ((F2_GH_new[-1] + x1_HE_new[0])/2.0)    +  # F2_lower
-            '%21.12e' % ((F3_GH_new[-1] + x1_HE_new[0])/2.0)    +  # F3_lower
-            '%21.12e' % ((M1_GH_new[-1] + x1_HE_new[0])/2.0)    +  # M1_lower
-            '%21.12e' % ((M2_GH_new[-1] + x1_HE_new[0])/2.0)    +  # M2_lower
-            '%21.12e' % ((M3_GH_new[-1] + x1_HE_new[0])/2.0)    +  # M3_lower
+            '%21.12e' % ((F1_CD_new[-1] + F1_DE_new[0])/2.0)    +  # F1_upper
+            '%21.12e' % ((F2_CD_new[-1] + F2_DE_new[0])/2.0)    +  # F2_upper
+            '%21.12e' % ((F3_CD_new[-1] + F3_DE_new[0])/2.0)    +  # F3_upper
+            '%21.12e' % ((M1_CD_new[-1] + M1_DE_new[0])/2.0)    +  # M1_upper
+            '%21.12e' % ((M2_CD_new[-1] + M2_DE_new[0])/2.0)    +  # M2_upper
+            '%21.12e' % ((M3_CD_new[-1] + M3_DE_new[0])/2.0)    +  # M3_upper
+            '%21.12e' % ((F1_GH_new[-1] + F1_HE_new[0])/2.0)    +  # F1_lower
+            '%21.12e' % ((F2_GH_new[-1] + F2_HE_new[0])/2.0)    +  # F2_lower
+            '%21.12e' % ((F3_GH_new[-1] + F3_HE_new[0])/2.0)    +  # F3_lower
+            '%21.12e' % ((M1_GH_new[-1] + M1_HE_new[0])/2.0)    +  # M1_lower
+            '%21.12e' % ((M2_GH_new[-1] + M2_HE_new[0])/2.0)    +  # M2_lower
+            '%21.12e' % ((M3_GH_new[-1] + M3_HE_new[0])/2.0)    +  # M3_lower
             '\n')
     elif current_station > D_stn and current_station < E_stn:  # inboard joint transition (DE and HE)
         f.write(
             '%5i'     % current_station +  # station
-            '%7.1f'   % x1_DE_new[i-(D_stn-1)]    +  # x1
-            '%21.12e' % F1_DE_new[i-(D_stn-1)]    +  # F1_upper
-            '%21.12e' % F2_DE_new[i-(D_stn-1)]    +  # F2_upper
-            '%21.12e' % F3_DE_new[i-(D_stn-1)]    +  # F3_upper
-            '%21.12e' % M1_DE_new[i-(D_stn-1)]    +  # M1_upper
-            '%21.12e' % M2_DE_new[i-(D_stn-1)]    +  # M2_upper
-            '%21.12e' % M3_DE_new[i-(D_stn-1)]    +  # M3_upper
-            '%21.12e' % F1_HE_new[i-(D_stn-1)]    +  # F1_lower
-            '%21.12e' % F2_HE_new[i-(D_stn-1)]    +  # F2_lower
-            '%21.12e' % F3_HE_new[i-(D_stn-1)]    +  # F3_lower
-            '%21.12e' % M1_HE_new[i-(D_stn-1)]    +  # M1_lower
-            '%21.12e' % M2_HE_new[i-(D_stn-1)]    +  # M2_lower
-            '%21.12e' % M3_HE_new[i-(D_stn-1)]    +  # M3_lower
+            '%7.1f'   % x1_DE_new[i-(D_stn-1)] +  # x1
+            '%21.12e' % F1_DE_new[i-(D_stn-1)] +  # F1_upper
+            '%21.12e' % F2_DE_new[i-(D_stn-1)] +  # F2_upper
+            '%21.12e' % F3_DE_new[i-(D_stn-1)] +  # F3_upper
+            '%21.12e' % M1_DE_new[i-(D_stn-1)] +  # M1_upper
+            '%21.12e' % M2_DE_new[i-(D_stn-1)] +  # M2_upper
+            '%21.12e' % M3_DE_new[i-(D_stn-1)] +  # M3_upper
+            '%21.12e' % F1_HE_new[i-(D_stn-1)] +  # F1_lower
+            '%21.12e' % F2_HE_new[i-(D_stn-1)] +  # F2_lower
+            '%21.12e' % F3_HE_new[i-(D_stn-1)] +  # F3_lower
+            '%21.12e' % M1_HE_new[i-(D_stn-1)] +  # M1_lower
+            '%21.12e' % M2_HE_new[i-(D_stn-1)] +  # M2_lower
+            '%21.12e' % M3_HE_new[i-(D_stn-1)] +  # M3_lower
             '\n')
     elif current_station == E_stn:  # between inboard joint transition and outboard monoplane (point E)
         # average data between DE, HE and EF
         f.write(
             '%5i'     % current_station +  # station
-            '%7.1f'   % x1_DE_new[-1]    +  # x1
-            '%21.12e' % ((F1_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # F1_EF ("upper")  # although this is data for the outbord monoplane, store it in the "upper" column
-            '%21.12e' % ((F2_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # F2_EF ("upper")
-            '%21.12e' % ((F3_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # F3_EF ("upper")
-            '%21.12e' % ((M1_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # M1_EF ("upper")
-            '%21.12e' % ((M2_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # M2_EF ("upper")
-            '%21.12e' % ((M3_DE_new[-1] + x1_HE_new[-1] + x1_EF_new[0])/3.0)    +  # M3_EF ("upper")
+            '%7.1f'   % x1_DE_new[-1]   +  # x1
+            '%21.12e' % ((F1_DE_new[-1] + F1_HE_new[-1] + F1_EF_new[0])/3.0) +  # F1_EF ("upper")  # although this is data for the outboard monoplane, store it in the "upper" column
+            '%21.12e' % ((F2_DE_new[-1] + F2_HE_new[-1] + F2_EF_new[0])/3.0) +  # F2_EF ("upper")
+            '%21.12e' % ((F3_DE_new[-1] + F3_HE_new[-1] + F3_EF_new[0])/3.0) +  # F3_EF ("upper")
+            '%21.12e' % ((M1_DE_new[-1] + M1_HE_new[-1] + M1_EF_new[0])/3.0) +  # M1_EF ("upper")
+            '%21.12e' % ((M2_DE_new[-1] + M2_HE_new[-1] + M2_EF_new[0])/3.0) +  # M2_EF ("upper")
+            '%21.12e' % ((M3_DE_new[-1] + M3_HE_new[-1] + M3_EF_new[0])/3.0) +  # M3_EF ("upper")
+            '%21.12e' % 0.0 +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
+            '%21.12e' % 0.0 +  # F2 ("lower")
+            '%21.12e' % 0.0 +  # F3 ("lower")
+            '%21.12e' % 0.0 +  # M1 ("lower")
+            '%21.12e' % 0.0 +  # M2 ("lower")
+            '%21.12e' % 0.0 +  # M3 ("lower")
             '\n')
     elif current_station > E_stn:  # outboard monoplane (EF)
         f.write(
             '%5i'     % current_station +  # station
-            '%7.1f'   % x1_EF_new[i-(E_stn-1)]    +  # x1
-            '%21.12e' % F1_EF_new[i-(E_stn-1)]    +  # F1_EF ("upper")  # although this is data for the outbord monoplane, store it in the "upper" column
-            '%21.12e' % F2_EF_new[i-(E_stn-1)]    +  # F2_EF ("upper")
-            '%21.12e' % F3_EF_new[i-(E_stn-1)]    +  # F3_EF ("upper")
-            '%21.12e' % M1_EF_new[i-(E_stn-1)]    +  # M1_EF ("upper")
-            '%21.12e' % M2_EF_new[i-(E_stn-1)]    +  # M2_EF ("upper")
-            '%21.12e' % M3_EF_new[i-(E_stn-1)]    +  # M3_EF ("upper")
+            '%7.1f'   % x1_EF_new[i-(E_stn-1)] +  # x1
+            '%21.12e' % F1_EF_new[i-(E_stn-1)] +  # F1_EF ("upper")  # although this is data for the outboard monoplane, store it in the "upper" column
+            '%21.12e' % F2_EF_new[i-(E_stn-1)] +  # F2_EF ("upper")
+            '%21.12e' % F3_EF_new[i-(E_stn-1)] +  # F3_EF ("upper")
+            '%21.12e' % M1_EF_new[i-(E_stn-1)] +  # M1_EF ("upper")
+            '%21.12e' % M2_EF_new[i-(E_stn-1)] +  # M2_EF ("upper")
+            '%21.12e' % M3_EF_new[i-(E_stn-1)] +  # M3_EF ("upper")
+            '%21.12e' % 0.0 +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
+            '%21.12e' % 0.0 +  # F2 ("lower")
+            '%21.12e' % 0.0 +  # F3 ("lower")
+            '%21.12e' % 0.0 +  # M1 ("lower")
+            '%21.12e' % 0.0 +  # M2 ("lower")
+            '%21.12e' % 0.0 +  # M3 ("lower")
             '\n')
 
 f.close()
 
 print "*** finished ***"
 # change back to the original directory
+os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\postprocessing\\VABS')
+
+# ---------------------------
+# check the DYMORE output for the biplane spar
+# import os
+os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\biplane_spar_constload\\untwisted-noRootJoint\\24-bispar-rj452-g125\\FIGURES')
+
+# from numpy import loadtxt
+stn, x1, F1_upper, F2_upper, F3_upper, M1_upper, M2_upper, M3_upper, F1_lower, F2_lower, F3_lower, M1_lower, M2_lower, M3_lower = np.loadtxt('svy_force_spar_new.mdt', unpack=True)
+
+import matplotlib.pyplot as plt
+plt.close('all')
+
+### F1
+plt.figure()
+plt.title('F1')
+plt.plot(x1,F1_upper,'bo--',x1[0:14],F1_lower[0:14],'rx--')
+plt.plot(x1_CD,F1_CD,'k:')
+plt.plot(x1_DE,F1_DE,'k:')
+plt.plot(x1_EF,F1_EF,'k:')
+plt.plot(x1_GH,F1_GH,'k:')
+plt.plot(x1_HE,F1_HE,'k:')
+
+### F2
+plt.figure()
+plt.title('F2')
+plt.plot(x1,F2_upper,'bo--',x1[0:14],F2_lower[0:14],'rx--')
+plt.plot(x1_CD,F2_CD,'k:')
+plt.plot(x1_DE,F2_DE,'k:')
+plt.plot(x1_EF,F2_EF,'k:')
+plt.plot(x1_GH,F2_GH,'k:')
+plt.plot(x1_HE,F2_HE,'k:')
+
+### F3
+plt.figure()
+plt.title('F3')
+plt.plot(x1,F3_upper,'bo--',x1[0:14],F3_lower[0:14],'rx--')
+plt.plot(x1_CD,F3_CD,'k:')
+plt.plot(x1_DE,F3_DE,'k:')
+plt.plot(x1_EF,F3_EF,'k:')
+plt.plot(x1_GH,F3_GH,'k:')
+plt.plot(x1_HE,F3_HE,'k:')
+
+### M1
+plt.figure()
+plt.title('M1')
+plt.plot(x1,M1_upper,'bo--',x1[0:14],M1_lower[0:14],'rx--')
+plt.plot(x1_CD,M1_CD,'k:')
+plt.plot(x1_DE,M1_DE,'k:')
+plt.plot(x1_EF,M1_EF,'k:')
+plt.plot(x1_GH,M1_GH,'k:')
+plt.plot(x1_HE,M1_HE,'k:')
+
+### M2
+plt.figure()
+plt.title('M2')
+plt.plot(x1,M2_upper,'bo--',x1[0:14],M2_lower[0:14],'rx--')
+plt.plot(x1_CD,M2_CD,'k:')
+plt.plot(x1_DE,M2_DE,'k:')
+plt.plot(x1_EF,M2_EF,'k:')
+plt.plot(x1_GH,M2_GH,'k:')
+plt.plot(x1_HE,M2_HE,'k:')
+
+### M3
+plt.figure()
+plt.title('M3')
+plt.plot(x1,M3_upper,'bo--',x1[0:14],M3_lower[0:14],'rx--')
+plt.plot(x1_CD,M3_CD,'k:')
+plt.plot(x1_DE,M3_DE,'k:')
+plt.plot(x1_EF,M3_EF,'k:')
+plt.plot(x1_GH,M3_GH,'k:')
+plt.plot(x1_HE,M3_HE,'k:')
+
+plt.show()
+
 os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\postprocessing\\VABS')

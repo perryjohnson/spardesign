@@ -9,6 +9,7 @@ import numpy as np
 import os
 
 spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
+# spar_stn_list = [13]  # generate [M] and [K] matrices for these spar stations
 
 os.chdir('../../VABS/input_files')
 for n in range(len(spar_stn_list)):
@@ -29,6 +30,7 @@ for n in range(len(spar_stn_list)):
     # load data from VABS input file ############################################################################
     f = open(VABS_input_file, 'r')   # read the file
     VABS_input_data = f.readlines()  # parse all characters in file into one long string
+    f.close()
     nnode = int(VABS_input_data[4].split(' ')[0])  # total number of nodes
     nelem = int(VABS_input_data[4].split(' ')[1])  # total number of elements
 

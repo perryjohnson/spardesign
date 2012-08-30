@@ -4,7 +4,7 @@ import numpy as np
 print "\n**********"
 print "running VABS in normal mode..."
 os.chdir('../../VABS')
-os.system(r'.\VABSIII .\input_files\spar_station_24.dat')
+os.system(r'.\VABSIII .\input_files\spar_station_13_lower.dat')
 
 print "\n**********"
 print "setting recover_flag = 1"
