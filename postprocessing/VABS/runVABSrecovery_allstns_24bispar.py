@@ -4,7 +4,7 @@ import numpy as np
 VABS_normal_flag = True
 VABS_recovery_flag = True
 
-spar_stn_list = [13]  # generate [M] and [K] matrices for these spar stations
+spar_stn_list = [10, 14]  # generate [M] and [K] matrices for these spar stations
 # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
 
 # store extrapolated results from DYMORE (biplane_spar_constload/untwisted-noRootJoint/24-bispar-rj452-g125/FIGURES/svy_force_spar_new.mdt)

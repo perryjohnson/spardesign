@@ -9,7 +9,7 @@ import numpy as np
 import os
 
 # spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
-spar_stn_list = [13]  # generate [M] and [K] matrices for these spar stations
+spar_stn_list = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
 
 os.chdir('../../VABS/input_files')
 for n in range(len(spar_stn_list)):
@@ -18,6 +18,11 @@ for n in range(len(spar_stn_list)):
         biplane_cx_flag = True
     else:
         biplane_cx_flag = False
+
+    if spar_station == 14:
+        curved_cx_flag = True
+    else:
+        curved_cx_flag = False
 
     if spar_station < 10:
         basefilestr = 'spar_station_0' + str(spar_station)
@@ -44,11 +49,18 @@ for n in range(len(spar_stn_list)):
     f = open(VABS_input_file, 'r')   # read the file
     VABS_input_data = f.readlines()  # parse all characters in file into one long string
     f.close()
-    nnode = int(VABS_input_data[4].split(' ')[0])  # total number of nodes
-    nelem = int(VABS_input_data[4].split(' ')[1])  # total number of elements
+    if curved_cx_flag:
+        nnode = int(VABS_input_data[5].split(' ')[0])  # total number of nodes     # use this line for a curved cross-section
+        nelem = int(VABS_input_data[5].split(' ')[1])  # total number of elements  # use this line for a curved cross-section
+    else:
+        nnode = int(VABS_input_data[4].split(' ')[0])  # total number of nodes
+        nelem = int(VABS_input_data[4].split(' ')[1])  # total number of elements
 
     nodeFile = open('nodes.txt', 'w+')  # create a temp file to store all the nodes
-    node_block_start_line = 6
+    if curved_cx_flag:
+        node_block_start_line = 7  # use this line for a curved cross-section
+    else:
+        node_block_start_line = 6
     node_block_end_line = node_block_start_line+nnode
     for i in range(node_block_start_line,node_block_end_line):
         nodeFile.write(VABS_input_data[i])
@@ -82,13 +94,13 @@ for n in range(len(spar_stn_list)):
     tpFile.write(
     """TITLE="Avg 3D strain/stress for each element"
     VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
-    ZONE T="isorect", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
+    ZONE T="upper element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
     )
     if biplane_cx_flag:
         tpFile2.write(
         """TITLE="Avg 3D strain/stress for each element"
         VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
-        ZONE T="isorect", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
+        ZONE T="lower element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
         )
     tpFile.write(', N=' + str(nnode) + ', E=' + str(nelem) + '\n')
     if biplane_cx_flag:
@@ -114,10 +126,12 @@ for n in range(len(spar_stn_list)):
         writeVarRow(tpFile2, x2, nnode)
 
     tpFile.write('# x3\n')
-    writeVarRow(tpFile, x3, nnode)
     if biplane_cx_flag:
+        writeVarRow(tpFile, (x3+4.768), nnode)  # upper element of biplane cross-section
         tpFile2.write('# x3\n')
-        writeVarRow(tpFile2, x3, nnode)
+        writeVarRow(tpFile2, (x3-4.768), nnode)  # lower element of biplane cross-section
+    else:
+        writeVarRow(tpFile, x3, nnode) # monoplane cross-section
 
     tpFile.write('# e11_b\n')
     writeVarRow(tpFile, e11_b, nelem)
