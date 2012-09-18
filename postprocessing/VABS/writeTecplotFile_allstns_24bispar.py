@@ -3,13 +3,15 @@
 #   nodes.txt               = nodes/coordinates from VABS input file
 #   connectivity.txt        = element connectivity from VABS input file
 #   spar_station_24.dat.ELE = VABS output file with averaged 3D strain/stress data for each element
-#   spar_station_24_tp.dat  = Tecplot input file
+#   spar_station_24.dat.tp  = Tecplot input file
 
 import numpy as np
 import os
 
-# spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
-spar_stn_list = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
+spar_stn_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]  # generate [M] and [K] matrices for these spar stations
+# spar_stn_list = [15]  # generate [M] and [K] matrices for these spar stations
+
+principal_stresses_flag = True
 
 os.chdir('../../VABS/input_files')
 for n in range(len(spar_stn_list)):
@@ -85,23 +87,58 @@ for n in range(len(spar_stn_list)):
         VABS_recovery_file2 = VABS_input_file2 + '.ELE'
         elem_no2, e11_b2, e12_b2, e13_b2, e22_b2, e23_b2, e33_b2, s11_b2, s12_b2, s13_b2, s22_b2, s23_b2, s33_b2, e11_m2, e12_m2, e13_m2, e22_m2, e23_m2, e33_m2, s11_m2, s12_m2, s13_m2, s22_m2, s23_m2, s33_m2 = np.loadtxt(VABS_recovery_file2, unpack=True)
 
+    # calculate the principal stresses from the stress tensor recovered by VABS
+    if principal_stresses_flag:
+        s1 = np.zeros(len(elem_no))
+        s2 = np.zeros(len(elem_no))
+        s3 = np.zeros(len(elem_no))
+        for elem in elem_no:
+            elem = elem-1  # first entry has index of zero
+            # invariant coefficients for the characteristic equation
+            I1 = s11_b[elem] + s22_b[elem] + s33_b[elem]
+            I2 = s11_b[elem]*s22_b[elem] + s22_b[elem]*s33_b[elem] + s11_b[elem]*s33_b[elem] - s12_b[elem]**2.0 - s23_b[elem]**2.0 - s13_b[elem]**2.0
+            I3 = s11_b[elem]*s22_b[elem]*s33_b[elem] + 2.0*s12_b[elem]*s23_b[elem]*s13_b[elem] - (s12_b[elem]**2.0)*s33_b[elem] - (s23_b[elem]**2.0)*s11_b[elem] - (s13_b[elem]**2.0)*s22_b[elem]
+            # characteristic equation of the stress tensor
+            chareqn = [-1.0, I1, -I2, I3]
+            # calculate the roots of the characteristic equation
+            lambda_ = np.roots(chareqn)
+            # sort the roots, largest to smallest
+            lambda_ = lambda_[lambda_.argsort()[::-1,]]
+            # save the principal stresses
+            s1[elem] = lambda_[0]
+            s2[elem] = lambda_[1]
+            s3[elem] = lambda_[2]
+
     # open a new file for the Tecplot input file
     tpFile = open(VABS_input_file + '.tp', 'w+')
     if biplane_cx_flag:
         tpFile2 = open(VABS_input_file2 + '.tp', 'w+')
 
     # write the header for the Tecplot input file
-    tpFile.write(
-    """TITLE="Avg 3D strain/stress for each element"
-    VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
-    ZONE T="upper element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
-    )
-    if biplane_cx_flag:
-        tpFile2.write(
+    if not principal_stresses_flag:
+        tpFile.write(
         """TITLE="Avg 3D strain/stress for each element"
         VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
-        ZONE T="lower element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
+        ZONE T="upper element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
         )
+        if biplane_cx_flag:
+            tpFile2.write(
+            """TITLE="Avg 3D strain/stress for each element"
+            VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m"
+            ZONE T="lower element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-26]=CELLCENTERED)"""
+            )
+    else:
+        tpFile.write(
+        """TITLE="Avg 3D strain/stress for each element"
+        VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m" "s1" "s2" "s3"
+        ZONE T="upper element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-29]=CELLCENTERED)"""
+        )
+        if biplane_cx_flag:
+            tpFile2.write(
+            """TITLE="Avg 3D strain/stress for each element"
+            VARIABLES="x2" "x3" "e11_b" "e12_b" "e13_b" "e22_b" "e23_b" "e33_b" "s11_b" "s12_b" "s13_b" "s22_b" "s23_b" "s33_b" "e11_m" "e12_m" "e13_m" "e22_m" "e23_m" "e33_m" "s11_m" "s12_m" "s13_m" "s22_m" "s23_m" "s33_m" "s1" "s2" "s3"
+            ZONE T="lower element", ZONETYPE=FEQUADRILATERAL, DATAPACKING=BLOCK, VARLOCATION=([3-29]=CELLCENTERED)"""
+            )
     tpFile.write(', N=' + str(nnode) + ', E=' + str(nelem) + '\n')
     if biplane_cx_flag:
         tpFile2.write(', N=' + str(nnode) + ', E=' + str(nelem) + '\n')
@@ -276,6 +313,25 @@ for n in range(len(spar_stn_list)):
     if biplane_cx_flag:
         tpFile2.write('# s33_m\n')
         writeVarRow(tpFile2, s33_m2, nelem)
+
+    if principal_stresses_flag:
+        tpFile.write('# s1\n')
+        writeVarRow(tpFile, s1, nelem)
+        if biplane_cx_flag:
+            tpFile2.write('# s1\n')
+            writeVarRow(tpFile2, s1, nelem)
+
+        tpFile.write('# s2\n')
+        writeVarRow(tpFile, s2, nelem)
+        if biplane_cx_flag:
+            tpFile2.write('# s2\n')
+            writeVarRow(tpFile2, s2, nelem)
+
+        tpFile.write('# s3\n')
+        writeVarRow(tpFile, s3, nelem)
+        if biplane_cx_flag:
+            tpFile2.write('# s3\n')
+            writeVarRow(tpFile2, s3, nelem)
 
     tpFile.write('\n# connectivity\n')
     for i in range(nelem):
