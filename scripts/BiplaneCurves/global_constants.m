@@ -1,4 +1,14 @@
-%%%% GLOBAL CONSTANTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This script contains global constants that define a group of spar
+% configurations, such as span (R), maximum chord (c_max), spanwise locations
+% of spar station (x1), and the cross-section heights of each spar station in
+% the monoplane spar (cs_heights). This script also plots the location of the
+% monoplane spar stations as dashed vertical lines, so the user can visually
+% verify the results.
+%
+% Author: Perry Roth-Johnson
+% Last Modified: September 17, 2012
+
+%%%% GLOBAL CONSTANTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 R = 91.9;       % span, [m]
 c_max = 7.628;  % maximum chord of Sandia (monoplane) blade, [m]
 

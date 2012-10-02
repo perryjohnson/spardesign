@@ -1,20 +1,23 @@
-% this script plots beam reference line(s) of the biplane blade as several NURBS curves,
-% then calculates the curvature and radius of curvature at several test points along the curve
-% note: root region and root transition have been removed from these biplane spar models
+% This script plots beam reference line(s) of the biplane blade as several
+% NURBS curves, then calculates the curvature and radius of curvature at
+% several test points along the curve. Note: root region and root transition
+% are now optional in these biplane spar models. Use the root_joint_flag to
+% toggle this option.
 %
-% Author: Perry Johnson
-% Date:   May 14, 2012
+% Author: Perry Roth-Johnson
+% Last Modified: September 17, 2012
 
 clear all;
 clc;
 global_constants;  % initialize the global constants for the biplane spar
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-output_path = ('.\input_files\');   % path where .dgp, .dat files will be written
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+output_path = ('.\input_files\');
+% *.dgp and *.dat files will be written to output_path
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % make output directory if it does not exist
 if ~exist(output_path,'dir')
@@ -22,35 +25,39 @@ if ~exist(output_path,'dir')
 end
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% USER-DEFINED PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 g__to__c = 1.25;                    % gap-to-chord ratio
-jt_end_station = 17;                % spar station for end of joint transition
-jt_beg_station = jt_end_station-2;  % spar station for beginning of joint transition
-jt_mid = 0.5;                       % midpoint for NURBS control points that define joint transition region
-inboard_view = 0;                   % if 1, zoom view on inboard region; if 0, show entire spar
-root_joint_flag = 0;                % if 1, model the root with a monoplane; if 0, model the root with a biplane
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+jt_end_station = 17;                % spar station at end of joint transition
+jt_beg_station = jt_end_station-2;  % spar station at beginning of joint
+                                    %   transition
+jt_mid = 0.5;                       % midpoint for NURBS control points that
+                                    %   define joint transition region
+inboard_view = 0;                   % if 1, zoom view on inboard region;
+                                    %   if 0, show entire spar
+root_joint_flag = 0;                % if 1, model the root with a monoplane;
+                                    %   if 0, model the root with a biplane
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-delete([output_path '*_curve.dat'], [output_path '*_mesh.dat'], [ output_path 'shapes.dat'], [output_path '*.dgp'])
+delete([output_path '*_curve.dat'], [output_path '*_mesh.dat'], [output_path 'shapes.dat'], [output_path '*.dgp'])
 addpath '.\nurbs-1.3.6\inst' -BEGIN;  % start the NURBS package for MATLAB
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if root_joint_flag
-    rt_beg_station = 2; % spar station for beginning of root transition
-    rt_end_station = rt_beg_station+2; % spar station for end of root transition
+    rt_beg_station = 2; % spar station at beginning of root transition
+    rt_end_station = rt_beg_station+2; % spar station at end of root transition
     rt_mid = 0.5; % midpoint for NURBS control points that define root transition region
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 derived_parameters;  % calculate the derived parameters for the biplane spar
 
 
 if root_joint_flag
-    %%%% ROOT REGION (AB) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% ROOT REGION (AB) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % weights
     w = [A(4) B(4)];
@@ -74,7 +81,7 @@ if root_joint_flag
     % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
-    %%%% ROOT TRANSITION, UPPER (BC) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% ROOT TRANSITION, UPPER (BC) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % weights
     w = [B(4) 1.0 1.0 C(4)];
@@ -128,7 +135,7 @@ if root_joint_flag
     fclose(fid);
 
 
-    %%%% ROOT TRANSITION, LOWER (BG) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% ROOT TRANSITION, LOWER (BG) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % weights
     w = [B(4) 1.0 1.0 G(4)];
@@ -182,7 +189,7 @@ if root_joint_flag
 end
 
 
-%%%% STRAIGHT BIPLANE, UPPER (CD) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% STRAIGHT BIPLANE, UPPER (CD) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % weights
 w = [C(4) D(4)];
@@ -206,7 +213,7 @@ nrbplot(straightBiplane_upper, 50);
 % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
-%%%% STRAIGHT BIPLANE, LOWER (GH) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% STRAIGHT BIPLANE, LOWER (GH) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % weights
 w = [G(4) H(4)];
@@ -230,7 +237,7 @@ nrbplot(straightBiplane_lower, 50);
 % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
-%%%% JOINT TRANSITION, UPPER (DE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% JOINT TRANSITION, UPPER (DE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % weights
 w = [D(4) 1.0 1.0 E(4)];
@@ -283,7 +290,7 @@ fprintf(fid, '}\n');
 fclose(fid);
 
 
-%%%% JOINT TRANSITION, LOWER (HE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% JOINT TRANSITION, LOWER (HE) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % weights
 w = [H(4) 1.0 1.0 E(4)];
@@ -336,7 +343,7 @@ fprintf(fid, '}\n');
 fclose(fid);
 
 
-%%%% OUTBOARD MONOPLANE REGION (EF) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% OUTBOARD MONOPLANE REGION (EF) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % weights
 w = [E(4) F(4)];
@@ -360,7 +367,7 @@ nrbplot(monoOutboard, 50);
 % plot(cntrl(1,:),cntrl(2,:),'m.:');
 
 
-%%%% plot cross-section heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% plot cross-section heights %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fprintf('\n')
 
 % for j=1:length(x1)
