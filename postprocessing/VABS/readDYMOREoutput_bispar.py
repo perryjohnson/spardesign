@@ -1,10 +1,12 @@
 import os
 import numpy as np
 
-# read in the raw DYMORE output file
-os.chdir("D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\biplane_spar_constload\\untwisted-noRootJoint\\24-bispar-rj452-g125\\FIGURES")
-
 ### parameters ###
+sw_height = 'full'
+if sw_height == 'half':
+    bispar_results_dir = "D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\biplane_spar_constload\\untwisted-noRootJoint\\24-bispar-rj452-g125\\FIGURES"
+else:
+    bispar_results_dir = "D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\biplane_spar_constload\\untwisted-noRootJoint_full-hSW\\24-bispar-rj452-g125\\FIGURES"
 scalefactor = 1.6  # figure size scale factor
 fw=5               # figure width
 fh=6               # figure height
@@ -18,7 +20,8 @@ mec_ms='red'       # marker edge color for monoplane spars
 mec_bs_hh='blue'   # marker edge color for biplane spars, half-height cross-sections
 mec_bs_fh='green'  # marker edge color for biplane spars, full-height cross-sections
 
-
+# read in the raw DYMORE output file
+os.chdir(bispar_results_dir)
 print "*** reading DYMORE output files ***"
 eta_CD, F1_CD, F2_CD, F3_CD, M1_CD, M2_CD, M3_CD = np.loadtxt('svy_force_CD.mdt', unpack=True)
 eta_DE, F1_DE, F2_DE, F3_DE, M1_DE, M2_DE, M3_DE = np.loadtxt('svy_force_DE.mdt', unpack=True)
@@ -200,7 +203,10 @@ print "*** writing results for each spar station ***"
 f = open('svy_force_spar_new.mdt', 'w')
 f.write('# biplane_spar_constload results, interpolated at each spar station\n')
 f.write('#\n')
-f.write('# biplane spar configuration: 24-bispar-rj452-g125 (untwisted, no root joint, half-height cross-sections)\n')
+if sw_height == 'half':
+    f.write('# biplane spar configuration: 24-bispar-rj452-g125 (untwisted, no root joint, half-height cross-sections)\n')
+else:
+    f.write('# biplane spar configuration: 24-bispar-rj452-g125 (untwisted, no root joint, full-height cross-sections)\n')
 f.write('#\n')
 f.write("""# C    D
 # x----x-
@@ -291,12 +297,12 @@ for i in range(24):
             '%21.12e' % ((M1_DE_new[-1] + M1_HE_new[-1] + M1_EF_new[0])/3.0) +  # M1_EF ("upper")
             '%21.12e' % ((M2_DE_new[-1] + M2_HE_new[-1] + M2_EF_new[0])/3.0) +  # M2_EF ("upper")
             '%21.12e' % ((M3_DE_new[-1] + M3_HE_new[-1] + M3_EF_new[0])/3.0) +  # M3_EF ("upper")
-            '%21.12e' % 0.0 +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
-            '%21.12e' % 0.0 +  # F2 ("lower")
-            '%21.12e' % 0.0 +  # F3 ("lower")
-            '%21.12e' % 0.0 +  # M1 ("lower")
-            '%21.12e' % 0.0 +  # M2 ("lower")
-            '%21.12e' % 0.0 +  # M3 ("lower")
+            '%21.12e' % np.nan +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
+            '%21.12e' % np.nan +  # F2 ("lower")
+            '%21.12e' % np.nan +  # F3 ("lower")
+            '%21.12e' % np.nan +  # M1 ("lower")
+            '%21.12e' % np.nan +  # M2 ("lower")
+            '%21.12e' % np.nan +  # M3 ("lower")
             '\n')
     elif current_station > E_stn:  # outboard monoplane (EF)
         f.write(
@@ -308,12 +314,12 @@ for i in range(24):
             '%21.12e' % M1_EF_new[i-(E_stn-1)] +  # M1_EF ("upper")
             '%21.12e' % M2_EF_new[i-(E_stn-1)] +  # M2_EF ("upper")
             '%21.12e' % M3_EF_new[i-(E_stn-1)] +  # M3_EF ("upper")
-            '%21.12e' % 0.0 +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
-            '%21.12e' % 0.0 +  # F2 ("lower")
-            '%21.12e' % 0.0 +  # F3 ("lower")
-            '%21.12e' % 0.0 +  # M1 ("lower")
-            '%21.12e' % 0.0 +  # M2 ("lower")
-            '%21.12e' % 0.0 +  # M3 ("lower")
+            '%21.12e' % np.nan +  # F1 ("lower")   # fill in columns for "lower" data with zeros, so that numpy.loadtxt can later read this output file
+            '%21.12e' % np.nan +  # F2 ("lower")
+            '%21.12e' % np.nan +  # F3 ("lower")
+            '%21.12e' % np.nan +  # M1 ("lower")
+            '%21.12e' % np.nan +  # M2 ("lower")
+            '%21.12e' % np.nan +  # M3 ("lower")
             '\n')
 
 f.close()
@@ -322,15 +328,18 @@ print "*** finished ***"
 # change back to the original directory
 os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\postprocessing\\VABS')
 
+
+
 # ---------------------------
 # check the DYMORE output for the biplane spar
 # import os
-os.chdir('D:\\Dropbox\\ucla\\research\\perry\\github\\spardesign\\biplane_spar_constload\\untwisted-noRootJoint\\24-bispar-rj452-g125\\FIGURES')
+os.chdir(bispar_results_dir)
 
 # from numpy import loadtxt
 stn, x1, F1_upper, F2_upper, F3_upper, M1_upper, M2_upper, M3_upper, F1_lower, F2_lower, F3_lower, M1_lower, M2_lower, M3_lower = np.loadtxt('svy_force_spar_new.mdt', unpack=True)
 
 import matplotlib.pyplot as plt
+
 plt.close('all')
 
 ### F1
