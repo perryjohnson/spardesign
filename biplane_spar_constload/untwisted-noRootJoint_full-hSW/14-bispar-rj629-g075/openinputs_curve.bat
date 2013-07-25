@@ -1,1 +1,0 @@
-gvim -p DE_jointTrans_upper_curve.dat HE_jointTrans_lower_curve.dat

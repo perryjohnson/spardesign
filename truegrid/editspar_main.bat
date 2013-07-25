@@ -1,1 +1,0 @@
-gvim -p spar_station_nn.tg layers.tg

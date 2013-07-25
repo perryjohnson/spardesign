@@ -1,4 +1,0 @@
-most dense grid: grid_density_0
-least dense grid: grid_density_3
-
-we use grid_density_1 for all our monoplane spar measurements

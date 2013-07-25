@@ -1,1 +1,0 @@
-gvim -p monoplane_spar.dym monoplane_spar.dat loadDist.dat

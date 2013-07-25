@@ -1,3 +1,0 @@
-VABS 3.6
-Released for 64-bit PC (Windows)
-01-09-2012

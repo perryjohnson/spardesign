@@ -1,1 +1,0 @@
-gvim -p swL_biaxL.tg swL_foam.tg swL_biaxR.tg swR_biaxL.tg swR_foam.tg swR_biaxR.tg scT.tg scB.tg rbT.tg rbB.tg

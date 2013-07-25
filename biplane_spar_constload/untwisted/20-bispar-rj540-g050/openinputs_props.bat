@@ -1,1 +1,0 @@
-gvim -p BC_rootTrans_upper_props.dat BG_rootTrans_lower_props.dat  DE_jointTrans_upper_props.dat HE_jointTrans_lower_props.dat

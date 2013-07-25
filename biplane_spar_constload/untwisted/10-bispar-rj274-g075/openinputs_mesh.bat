@@ -1,1 +1,0 @@
-gvim -p BC_rootTrans_upper_mesh.dat BG_rootTrans_lower_mesh.dat CD_straightBiplane_upper_mesh.dat GH_straightBiplane_lower_mesh.dat DE_jointTrans_upper_mesh.dat HE_jointTrans_lower_mesh.dat
