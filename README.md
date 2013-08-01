@@ -65,3 +65,10 @@ biplane spar:
 Instead of using an `@EDGE_LOAD_DEFINITION`, I think we will need to use a
 `@DEAD_LOAD_DEFINITION`. See the DYMORE user's manual, Chapter 15 (page 359) for
 details.
+
+
+Ed's notes
+----------
+
+add notes here  
+
