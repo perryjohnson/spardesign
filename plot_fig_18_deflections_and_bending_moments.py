@@ -281,16 +281,16 @@ def plot_bispar_deflection2(bispar_upper, bispar_lower, skip_num):
 
 
 def plot_bispar_bendmoment(bispar_upper, bispar_lower, skip_num):
-    plt.plot(bispar_upper[:,0], bispar_upper[:,5]/1000.0, 'go-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, upper', zorder=3)
-    plt.plot(bispar_lower[:,0], bispar_lower[:,5]/1000.0, 'gx-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, lower', zorder=4)
+    plt.plot(bispar_upper[:,0], bispar_upper[:,4]/1000.0, 'go-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[:,0], bispar_lower[:,4]/1000.0, 'gx-', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_fh, label='biplane spar, lower', zorder=4)
     # plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
     plt.show()
     return
 
 
 def plot_bispar_bendmoment2(bispar_upper, bispar_lower, skip_num):
-    plt.plot(bispar_upper[:,0], bispar_upper[:,5]/1000.0, 'bo-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, upper', zorder=3)
-    plt.plot(bispar_lower[:,0], bispar_lower[:,5]/1000.0, 'bx-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, lower', zorder=4)
+    plt.plot(bispar_upper[:,0], bispar_upper[:,6]/1000.0, 'bo-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, upper', zorder=3)
+    plt.plot(bispar_lower[:,0], bispar_lower[:,6]/1000.0, 'bx-.', markersize=gms, linewidth=glw, markerfacecolor=gmfc, markeredgewidth=gmew, markeredgecolor=mec_bs_hh, label='biplane spar, lower', zorder=4)
     # plt.legend( ('monoplane spar', 'biplane spar, upper', 'biplane spar, lower') )
     plt.show()
     return
@@ -324,7 +324,7 @@ if plot_half_height_SW_flag:
     (bi_upper_data2, bi_lower_data2) = plot_bispar_deflection2(bispar_upper2, bispar_lower2, skip_every)
 plt.plot([0,100],[0,0],'k:',linewidth=2.0, label='zeroline', zorder=1)  # plot zero-line of y-axis
 plt.xlabel('span [m]')
-plt.ylabel('flapwise deflection [m]')
+plt.ylabel('twist angle [rad]')
 plt.subplots_adjust(left=0.10, right=0.97, bottom=0.13, top=0.96)
 plt.savefig(fig_18_dir + '\\fig_18a_deflections.pdf')
 plt.savefig(fig_18_dir + '\\fig_18a_deflections.png')
@@ -342,7 +342,7 @@ if plot_half_height_SW_flag:
     plot_bispar_bendmoment2(bispar_upper2, bispar_lower2, skip_every)
 plt.plot([0,100],[0,0],'k:',linewidth=2.0, label='zeroline', zorder=1)  # plot zero-line of y-axis
 plt.xlabel('span [m]')
-plt.ylabel('flapwise bending moment [kN*m]')
+plt.ylabel('torsional moment [kN*m]')
 plt.subplots_adjust(left=0.12, right=0.97, bottom=0.13, top=0.96)
 plt.savefig(fig_18_dir + '\\fig_18b_bendmoment.pdf')
 plt.savefig(fig_18_dir + '\\fig_18b_bendmoment.png')

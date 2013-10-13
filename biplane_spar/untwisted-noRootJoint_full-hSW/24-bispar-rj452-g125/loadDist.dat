@@ -1,85 +1,13 @@
-@EDGE_LOAD_DEFINITION {
-! @EDGE_LOAD_NAME {AB_load_rootRegion} {
-!   @EDGE_NAME {edgeAB}
-!   @LOADING_COMPONENT {
-!     @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-!     @SCALING_FACTOR { 1.00000e+003}
-!     @TIME_FUNCTION_NAME {scheduleload}
-!     @FOLLOWER_FORCE_FLAG {NO}
-!   }
-! }
-! @EDGE_LOAD_NAME {BC_load_rootTrans_upper} {
-!   @EDGE_NAME {edgeBC}
-!   @LOADING_COMPONENT {
-!     @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-!     @SCALING_FACTOR { 0.50000e+003}
-!     @TIME_FUNCTION_NAME {scheduleload}
-!     @FOLLOWER_FORCE_FLAG {NO}
-!   }
-! }
-  @EDGE_LOAD_NAME {CD_load_straightBiplane_upper} {
-    @EDGE_NAME {edgeCD}
-    @LOADING_COMPONENT {
-      @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-      @SCALING_FACTOR { 0.50000e+003}
-      @TIME_FUNCTION_NAME {scheduleload}
-      @FOLLOWER_FORCE_FLAG {NO}
-    }
-  }
-  @EDGE_LOAD_NAME {DE_load_jointTrans_upper} {
-    @EDGE_NAME {edgeDE}
-    @LOADING_COMPONENT {
-      @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-      @SCALING_FACTOR { 0.50000e+003}
-      @TIME_FUNCTION_NAME {scheduleload}
-      @FOLLOWER_FORCE_FLAG {NO}
-    }
-  }
-! @EDGE_LOAD_NAME {BG_load_rootTrans_lower} {
-!   @EDGE_NAME {edgeBG}
-!   @LOADING_COMPONENT {
-!     @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-!     @SCALING_FACTOR { 0.50000e+003}
-!     @TIME_FUNCTION_NAME {scheduleload}
-!     @FOLLOWER_FORCE_FLAG {NO}
-!   }
-! }
-  @EDGE_LOAD_NAME {GH_load_straightBiplane_lower} {
-    @EDGE_NAME {edgeGH}
-    @LOADING_COMPONENT {
-      @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-      @SCALING_FACTOR { 0.50000e+003}
-      @TIME_FUNCTION_NAME {scheduleload}
-      @FOLLOWER_FORCE_FLAG {NO}
-    }
-  }
-  @EDGE_LOAD_NAME {HE_load_jointTrans_lower} {
-    @EDGE_NAME {edgeHE}
-    @LOADING_COMPONENT {
-      @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-      @SCALING_FACTOR { 0.50000e+003}
-      @TIME_FUNCTION_NAME {scheduleload}
-      @FOLLOWER_FORCE_FLAG {NO}
-    }
-  }
-  @EDGE_LOAD_NAME {EF_load_monoOutboard} {
-    @EDGE_NAME {edgeEF}
-    @LOADING_COMPONENT {
-      @APPLIED_FORCE_ALONG_i3 { constloaddistTable }
-      @SCALING_FACTOR { 1.00000e+003}
-      @TIME_FUNCTION_NAME {scheduleload}
-      @FOLLOWER_FORCE_FLAG {NO}
-    }
+@DEAD_LOAD_DEFINITION {
+  @DEAD_LOAD_NAME {tiploaddist} {
+    @CONNECTED_TO_VERTEX {vertexF}
+    @TIME_FUNCTION_NAME {scheduleload} 
+    @SCALING_FACTOR { 2.0000e+005}
+    @APPLIED_FORCES {0,0,0}
+    @APPLIED_MOMENTS {1,0,0}
+  
+    @FOLLOWER_FORCE_FLAG {NO}
+   
   }
 }
-@DATA_TABLE_DEFINITION {
- @DATA_TABLE_NAME {constloaddistTable} {
-   @COORDINATE_TYPE {ETA_COORDINATE}
-   @DATA_TYPE {FORCE_ALONG_I3}
-   @TABLE_ENTRIES {
-     @X_ENTRY {0.0}	  @Y_ENTRY {-1.0}
-     @X_ENTRY {1.0}	  @Y_ENTRY {-1.0}
-   }
-   @COMMENTS {this defines the load on any edge (beam) to have a constant load distribution}
- }
-}
+
