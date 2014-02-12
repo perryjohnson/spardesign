@@ -61,9 +61,9 @@ mec_bs_fh='green'  # marker edge color for biplane spars, full-height cross-sect
 # spar = '24-bispar-rj452-g125'
 D = 25.2
 E = 41.5
-biplane_dir = fig_18_dir + '\\biplane_spar\\untwisted-noRootJoint_full-hSW\\24-bispar-rj452-g125\\FIGURES'
+biplane_dir = fig_18_dir + '\\biplane_spar\\full-height\\24-bispar-rj452-g125\\FIGURES'
 if plot_half_height_SW_flag:
-    biplane_dir2 = fig_18_dir + '\\biplane_spar\\untwisted-noRootJoint\\24-bispar-rj452-g125\\FIGURES'
+    biplane_dir2 = fig_18_dir + '\\biplane_spar\\half-height\\24-bispar-rj452-g125\\FIGURES'
 
 
 ### derived quantities ###
