@@ -1,4 +1,4 @@
-"""Plot edgewise deflections under a torsional tip load.
+"""Plot edgewise deflections under a 100,000 N*m torsional tip load.
 
 Usage: Open a pylab IPython prompt and type:
 |> %run plot_edgewise_deflections_under_torsional_tipload
@@ -25,7 +25,7 @@ fig_xx_dir = os.getcwd()
 # adjust font sizes
 # rc('font', size=18.0)  # make fonts bigger, for readable presentation slides
 
-monoplane_dir = fig_xx_dir + '\\monoplane_spar\\torsional_tipload\\2e05\\FIGURES'
+monoplane_dir = fig_xx_dir + '\\monoplane_spar\\torsional_tipload\\1e05\\FIGURES'
 
 ### constants ###
 C = 0.0
@@ -50,9 +50,9 @@ mec_bs_fh='green'  # marker edge color for biplane spars, full-height cross-sect
 # spar = '24-bispar-rj452-g125'
 D = 25.2
 E = 41.5
-full_height_biplane_dir = fig_xx_dir + '\\full-height_biplane_spar\\torsional_tipload\\2e05\\FIGURES'
+full_height_biplane_dir = fig_xx_dir + '\\full-height_biplane_spar\\torsional_tipload\\1e05\\FIGURES'
 if half_height_flag:
-    half_height_biplane_dir = fig_xx_dir + '\\half-height_biplane_spar\\torsional_tipload\\2e05\\FIGURES'
+    half_height_biplane_dir = fig_xx_dir + '\\half-height_biplane_spar\\torsional_tipload\\1e05\\FIGURES'
 
 
 ### derived quantities ###
